@@ -1,0 +1,435 @@
+.page_collapsible {
+	cursor: pointer;
+}
+
+.page_collapsible .fa-currency {
+	font-weight: 500;
+}
+
+#wcfm-main-contentainer .inventory-status {
+	padding: 4px 4px;
+	color: #fff;
+	background-color: #ffc107;
+	border-radius: 2px;
+	font-size: 12px;
+	line-height: 10px;
+	margin-top: 8px;
+	margin-left: 10px;
+	float: left;
+}
+
+#wcfm-main-contentainer .inventory-status-archived {
+	background-color: #f86c6b;
+}
+
+#wcfm-main-contentainer .inventory-status-publish {
+	background-color: #20c997;
+}
+
+#wcfm-main-contentainer .inventory-status-pending {
+	background-color: #ffc107;
+}
+
+#wcfm-main-contentainer .inventory-status-draft {
+	background-color: #63c2de;
+}
+
+#wcfm-main-contentainer #wcfm_products_manage_form div.wcfm-content {
+	margin: 0 auto;
+	padding: 20px;
+	padding-right: 0px;
+}
+
+wcfm_rnb_inventory_manage_form_general_expander #wcfm_products_manage_form_general_expander {
+	display: flex;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	flex-wrap: wrap;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	overflow: hidden;
+	width: 100%;
+}
+
+.wcfm_rnb_inventory_manager_general_fields {
+	float: left;
+	flex: 1 auto;
+	width: 70%;
+}
+
+.wcfm_rnb_inventory_manager_gallery_fields {
+	overflow: hidden;
+	width: 30%;
+	flex: 5 auto;
+}
+
+.wcfm_rnb_inventory_manager_taxonomy_fields {
+	display: table-row;
+}
+
+.wcfm_rnb_inventory_manager_content_fields {
+	padding-bottom: 10px;
+}
+
+.remove_multi_input_block:hover {
+	background: #CC0000 none repeat scroll 0 0;
+}
+
+#wcfm-main-contentainer .wcfm_add_category_bt {
+	float: none;
+	margin-top: 0px !important;
+	padding: 8px 8px !important;
+	vertical-align: top;
+}
+
+#wcfm-main-contentainer .wcfm_add_category_bt {
+	float: right;
+}
+
+.required {
+	color: red;
+}
+
+.wcfm-tabWrap .wcfm-container {
+	display: none;
+}
+
+input[type='checkbox'].wcfm-checkbox,
+.wcfm-tabWrap input[type="checkbox"] {
+	margin-right: 40%;
+}
+
+.select2-container {
+	margin-bottom: 10px;
+}
+
+#wcfm-main-contentainer input.upload_button,
+#wcfm-main-contentainer input.remove_button {
+	font-size: 10px;
+	padding: 5px;
+	float: none;
+	margin-bottom: 5px;
+	border-bottom: 0;
+}
+
+#wcfm_rnb_inventory_manage_form label {
+	display: none;
+}
+
+.wcfm-wp-fields-uploader {
+	display: inline-block;
+	vertical-align: middle;
+	width: 50%;
+}
+
+.wcfm-wp-fields-uploader a {
+	border-bottom: 0px;
+}
+
+.wcfm-wp-fields-uploader img {
+	display: inline;
+}
+
+.wcfm-product-feature-upload {
+	width: 200px;
+	text-align: center;
+	border-radius: 3px;
+	display: block;
+	margin: 0 auto;
+}
+
+.wcfm-product-feature-upload .placeHolder,
+.wcfm-product-feature-upload img {
+	width: 200px;
+	min-height: 200px;
+}
+
+.wcfm-product-feature-upload img {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin-right: 0px;
+	cursor: pointer;
+}
+
+.wcfm_rnb_inventory_manager_cats_checklist_fields {
+	border: 1px solid #ccc;
+	border-radius: 3px;
+	margin: auto;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	max-width: 214px;
+}
+
+.sub_checklist_toggler {
+	color: #17a2b8;
+	margin-right: 5px;
+	cursor: pointer;
+	visibility: hidden;
+}
+
+#wcfm-main-contentainer .product_cats_checklist_item_hide,
+#wcfm-main-contentainer .product_cats_checklist_item_hide_by_cap {
+	display: none !important;
+}
+
+#wcfm-main-contentainer ul.product_taxonomy_sub_checklist {
+	display: none;
+	padding-left: 25px !important;
+}
+
+#wcfm-main-contentainer ul.product_taxonomy_sub_checklist_visible {
+	display: block;
+}
+
+.wcfm_full_ele {
+	width: 100% !important;
+}
+
+.wcfm_add_new_category,
+.wcfm_new_tax_ele,
+.wcfm_new_parent_taxt_ele,
+.wcfm_add_new_taxonomy_form {
+	max-width: 214px !important;
+	margin: auto !important;
+	display: block !important;
+	margin-bottom: 15px !important;
+}
+
+
+.wcfm_add_new_category {
+	text-decoration: underline;
+	cursor: pointer;
+	float: right;
+	text-align: right;
+}
+
+.wcfm_side_add_new_category {
+	float: none;
+}
+
+.wcfm_side_add_new_category,
+.wcfm_fetch_tag_cloud {
+	margin-top: -20px !important;
+}
+
+#wcfm-main-contentainer .wcfm_add_category_bt {
+	margin-right: 0px !important;
+}
+
+.wcfm_add_new_taxonomy_form_hide {
+	display: none !important;
+}
+
+.wcfm_ele_hide,
+.wcfm_custom_hide {
+	display: none !important;
+}
+
+.select2-container {
+	width: 60% !important;
+}
+
+.select2-container--default .select2-results__option[aria-disabled=true] {
+	display: none !important;
+}
+
+@media only screen and (max-width: 768px) {
+	.wcfm_rnb_inventory_type {
+		width: 100% !important;
+	}
+
+	.wcfm_half_ele {
+		width: 60% !important;
+		margin-right: 1% !important;
+	}
+
+	.wcfm_small_ele {
+		width: 30% !important;
+		margin-right: 1% !important;
+	}
+
+	.wcfm_half_ele_title,
+	.wcfm_half_ele_upload_title {
+		width: 38% !important;
+	}
+
+	.wcfm_rnb_inventory_manager_general_fields {
+		width: 65%;
+	}
+
+	.wcfm_rnb_inventory_manager_gallery_fields {
+		width: 35%;
+	}
+
+	div.wcfm-content {
+		padding: 0px;
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+
+	.page_collapsible {
+		font-size: 12px;
+	}
+}
+
+@media only screen and (max-width: 640px) {
+
+	#wcfm_products_manage_form_general_expander,
+	.wcfm_rnb_inventory_manager_general_fields,
+	.wcfm_rnb_inventory_manager_gallery_fields,
+	.wcfm_rnb_inventory_manager_taxonomy_fields {
+		display: block;
+		width: 98%;
+	}
+
+	.page_collapsible {
+		font-size: 13px;
+	}
+
+	.wcfm_rnb_inventory_manager_gallery_fields {
+		padding-right: 20px;
+	}
+
+	#gallery_img .multi_input_block .multi_input_block_manupulate,
+	#wcfm_360_images .multi_input_block .multi_input_block_manupulate,
+	.wcfm_additional_variation_images .multi_input_block .multi_input_block_manupulate {
+		font-size: 20px;
+	}
+
+	.wcfm_attribute_taxonomy {
+		width: 65% !important;
+	}
+
+	.select2-container {
+		width: 95% !important;
+	}
+
+	input.wcfm-checkbox,
+	.wcfm-tabWrap input[type="checkbox"] {
+		margin-right: 17%;
+	}
+}
+
+@media screen and (min-width:641px) {
+
+	.wcfm-tabWrap .page_collapsible {
+		width: 20%;
+		display: block;
+		overflow: hidden;
+		border-right: 1px solid #cccccc;
+		margin-top: 0px;
+		-moz-border-radius: 0px;
+		-webkit-border-radius: 0px;
+		border-radius: 0px;
+	}
+
+	.wcfm-tabWrap {
+		position: relative;
+		display: inline-block;
+		width: 100%;
+		background: #fff;
+		overflow: hidden;
+	}
+
+	.wcfm-tabWrap .page_collapsible+.wcfm-container {
+		width: 75%;
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+
+	html[dir="rtl"] .page_collapsible+.wcfm-container {
+		left: 0;
+		right: auto;
+	}
+
+	#wcfm_products_simple_submit {
+		overflow: hidden;
+	}
+
+	.wcfm-collapse .wcfm-tabWrap .wcfm-container {
+		border: none;
+		box-shadow: none;
+	}
+}
+
+.wcfm-collapse .wcfm-container {
+	max-width: 100%;
+}
+
+@media only screen and (max-width: 414px) {
+
+	#wcfm_products_manage_form_general_expander,
+	.wcfm_rnb_inventory_manager_general_fields,
+	.wcfm_rnb_inventory_manager_gallery_fields,
+	.wcfm_rnb_inventory_manager_taxonomy_fields {
+		display: block;
+		width: 98%;
+	}
+
+	#length,
+	#width,
+	#height,
+	.variation_dimension {
+		width: 31% !important;
+	}
+
+	#length,
+	#width,
+	.variation_dimension_lw {
+		margin-right: 3.5% !important;
+	}
+
+	.wcfm_half_ele_upload_title {
+		width: 50% !important;
+	}
+}
+
+.wcfm-description {
+	text-align: right;
+	margin: -20px 0 15px 0 !important;
+}
+
+.wcfm-input-block {
+	font-weight: 700;
+	font-size: 1.3rem;
+	margin: 2rem 0;
+}
+
+ul.rnb_inventory_taxonomy_checklist {
+	display: block;
+	list-style-type: none;
+
+	min-height: 42px;
+	max-height: 200px;
+	overflow: auto;
+	padding: 0.5em !important;
+	border-top: 1px solid #ddd;
+	background-color: #fdfdfd;
+}
+
+ul.rnb_inventory_taxonomy_checklist li {
+	margin: 0;
+	padding: 0;
+	line-height: 22px;
+	word-wrap: break-word;
+	list-style: none;
+}
+
+.rnb_inventory_taxonomy_checklist li label {
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+.rnb_inventory_taxonomy_checklist li input[type=checkbox] {
+	margin: -4px 4px 0 0;
+}
+
+@keyframes nodeInserted { 
+	from { opacity: 0.99; }
+	to { opacity: 1; } 
+}
+#product_date_availabilities_fields .multi_input_block {
+	animation-duration: 0.001s;
+	animation-name: nodeInserted;
+}

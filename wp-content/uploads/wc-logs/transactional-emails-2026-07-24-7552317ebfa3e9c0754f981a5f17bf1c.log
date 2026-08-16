@@ -1,0 +1,1 @@
+2026-07-24T05:49:39+00:00 WARNING Email "customer_new_account" for user #1508 failed to send: Could not instantiate mail function. CONTEXT: {"email_type":"customer_new_account","status":"failed","recipient":"Aswick","user":1508}

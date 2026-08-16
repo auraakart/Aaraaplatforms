@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaraakart Mobile Auth API — Reference</title>
+<style>
+/* ─── Tokens ─────────────────────────────────────────────────── */
+:root {
+  --bg:        #FAFAF9;
+  --bg-card:   #FFFFFF;
+  --bg-code:   #F1F5F9;
+  --bg-sidebar:#F8FAFC;
+  --border:    #E2E8F0;
+  --text:      #1E293B;
+  --text-muted:#64748B;
+  --text-dim:  #94A3B8;
+  --accent:    #0EA5E9;
+  --accent-dim:#E0F2FE;
+  --post:      #6366F1;
+  --post-bg:   #EEF2FF;
+  --get:       #10B981;
+  --get-bg:    #ECFDF5;
+  --del:       #EF4444;
+  --del-bg:    #FEF2F2;
+  --warn:      #F59E0B;
+  --warn-bg:   #FFFBEB;
+  --success:   #10B981;
+  --radius:    8px;
+  --font-body: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Cascadia Code', 'Fira Code', 'Consolas', 'SF Mono', monospace;
+  --sidebar-w: 260px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:        #0F172A;
+    --bg-card:   #1E293B;
+    --bg-code:   #0D1B2A;
+    --bg-sidebar:#131F31;
+    --border:    #1E3A5F;
+    --text:      #E2E8F0;
+    --text-muted:#94A3B8;
+    --text-dim:  #475569;
+    --accent:    #38BDF8;
+    --accent-dim:#0C2A3E;
+    --post:      #818CF8;
+    --post-bg:   #1E1B4B;
+    --get:       #34D399;
+    --get-bg:    #022C22;
+    --del:       #F87171;
+    --del-bg:    #2D1515;
+    --warn:      #FCD34D;
+    --warn-bg:   #2D1F04;
+  }
+}
+:root[data-theme="light"] {
+  --bg:#FAFAF9;--bg-card:#FFFFFF;--bg-code:#F1F5F9;--bg-sidebar:#F8FAFC;
+  --border:#E2E8F0;--text:#1E293B;--text-muted:#64748B;--text-dim:#94A3B8;
+  --accent:#0EA5E9;--accent-dim:#E0F2FE;--post:#6366F1;--post-bg:#EEF2FF;
+  --get:#10B981;--get-bg:#ECFDF5;--del:#EF4444;--del-bg:#FEF2F2;
+  --warn:#F59E0B;--warn-bg:#FFFBEB;
+}
+:root[data-theme="dark"] {
+  --bg:#0F172A;--bg-card:#1E293B;--bg-code:#0D1B2A;--bg-sidebar:#131F31;
+  --border:#1E3A5F;--text:#E2E8F0;--text-muted:#94A3B8;--text-dim:#475569;
+  --accent:#38BDF8;--accent-dim:#0C2A3E;--post:#818CF8;--post-bg:#1E1B4B;
+  --get:#34D399;--get-bg:#022C22;--del:#F87171;--del-bg:#2D1515;
+  --warn:#FCD34D;--warn-bg:#2D1F04;
+}
+
+/* ─── Reset ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 15px;
+  line-height: 1.6;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ─── Sidebar ─────────────────────────────────────────────────── */
+#sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+.sidebar-logo {
+  padding: 24px 20px 20px;
+  border-bottom: 1px solid var(--border);
+}
+.sidebar-logo h1 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.sidebar-logo p {
+  font-size: 11px;
+  color: var(--text-dim);
+  margin-top: 4px;
+}
+.sidebar-version {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 2px 8px;
+  background: var(--accent-dim);
+  color: var(--accent);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  font-family: var(--font-mono);
+}
+nav { padding: 16px 0 32px; flex: 1; }
+.nav-section {
+  padding: 8px 20px 4px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 12px;
+}
+nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 20px;
+  font-size: 13.5px;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all .15s;
+  border-left: 2px solid transparent;
+}
+nav a:hover { color: var(--text); background: var(--border); }
+nav a.active { color: var(--accent); border-left-color: var(--accent); background: var(--accent-dim); }
+nav a .badge {
+  margin-left: auto;
+  font-size: 10px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+nav a .badge.post { background: var(--post-bg); color: var(--post); }
+nav a .badge.get  { background: var(--get-bg);  color: var(--get);  }
+
+/* ─── Main ────────────────────────────────────────────────────── */
+main {
+  flex: 1;
+  max-width: 900px;
+  padding: 48px 56px 80px;
+  overflow-x: hidden;
+}
+
+/* ─── Theme toggle ────────────────────────────────────────────── */
+#theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: var(--text-muted);
+  cursor: pointer;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+}
+#theme-toggle:hover { color: var(--text); }
+
+/* ─── Typography ──────────────────────────────────────────────── */
+h1.page-title {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--text);
+  text-wrap: balance;
+  margin-bottom: 8px;
+}
+h1.page-title span { color: var(--accent); }
+.page-subtitle {
+  font-size: 16px;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  line-height: 1.5;
+  max-width: 600px;
+}
+h2.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--text);
+  margin: 48px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+h3.endpoint-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin: 8px 0 12px;
+}
+p { color: var(--text-muted); margin: 10px 0; line-height: 1.7; }
+strong { color: var(--text); }
+ul, ol { padding-left: 20px; color: var(--text-muted); }
+li { margin: 5px 0; line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─── Endpoint Card ───────────────────────────────────────────── */
+.endpoint-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 24px 0;
+  overflow: hidden;
+}
+.endpoint-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-sidebar);
+}
+.method-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 5px;
+  letter-spacing: .04em;
+  flex-shrink: 0;
+}
+.method-badge.post { background: var(--post-bg); color: var(--post); }
+.method-badge.get  { background: var(--get-bg);  color: var(--get);  }
+.endpoint-url {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--text);
+  word-break: break-all;
+}
+.auth-tag {
+  margin-left: auto;
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+.auth-tag.public   { background: var(--get-bg);  color: var(--get); }
+.auth-tag.requires { background: var(--warn-bg); color: var(--warn); }
+.endpoint-body { padding: 20px 24px; }
+.endpoint-desc { font-size: 14px; color: var(--text-muted); margin-bottom: 18px; line-height: 1.6; }
+
+/* ─── Code blocks ─────────────────────────────────────────────── */
+.code-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 18px 0 6px;
+}
+pre {
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.65;
+  overflow-x: auto;
+  color: var(--text);
+  white-space: pre;
+}
+code { font-family: var(--font-mono); font-size: .9em; }
+.inline-code {
+  background: var(--bg-code);
+  padding: 1px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: .88em;
+  color: var(--text);
+}
+.json-key    { color: #60A5FA; }
+.json-string { color: #34D399; }
+.json-num    { color: #FB923C; }
+.json-bool   { color: #A78BFA; }
+.json-null   { color: #94A3B8; }
+.json-comment{ color: #475569; font-style: italic; }
+
+/* ─── Params table ────────────────────────────────────────────── */
+.params-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.params-table th {
+  text-align: left;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--border);
+}
+.params-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  vertical-align: top;
+}
+.params-table tr:last-child td { border-bottom: none; }
+.params-table td:first-child { font-family: var(--font-mono); font-size: 12.5px; color: var(--text); }
+.req-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  background: var(--del-bg);
+  color: var(--del);
+}
+.opt-tag {
+  display: inline-block;
+  padding: 1px 6px;
+  font-size: 10px;
+  font-weight: 700;
+  border-radius: 4px;
+  background: var(--bg-code);
+  color: var(--text-dim);
+}
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--radius); }
+
+/* ─── Callouts ────────────────────────────────────────────────── */
+.callout {
+  display: flex;
+  gap: 12px;
+  padding: 14px 18px;
+  border-radius: var(--radius);
+  margin: 16px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.callout.info  { background: var(--accent-dim); border-left: 3px solid var(--accent); color: var(--text-muted); }
+.callout.warn  { background: var(--warn-bg);    border-left: 3px solid var(--warn);   color: var(--text-muted); }
+.callout.tip   { background: var(--get-bg);     border-left: 3px solid var(--get);    color: var(--text-muted); }
+.callout-icon  { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+/* ─── Error table ─────────────────────────────────────────────── */
+.error-table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.error-table th {
+  text-align: left;
+  padding: 8px 14px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--bg-sidebar);
+  border-bottom: 1px solid var(--border);
+}
+.error-table td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  vertical-align: top;
+}
+.error-table tr:last-child td { border-bottom: none; }
+.http-code {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 5px;
+}
+.http-200 { background: var(--get-bg); color: var(--get); }
+.http-400 { background: var(--warn-bg); color: var(--warn); }
+.http-401 { background: var(--del-bg); color: var(--del); }
+.http-429 { background: var(--post-bg); color: var(--post); }
+.http-500 { background: var(--del-bg); color: var(--del); }
+
+/* ─── Info grid ───────────────────────────────────────────────── */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 24px 0;
+}
+.info-tile {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+.info-tile-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--text-dim); margin-bottom: 6px; }
+.info-tile-value { font-family: var(--font-mono); font-size: 13px; color: var(--accent); word-break: break-all; }
+
+/* ─── Divider ─────────────────────────────────────────────────── */
+hr { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* ─── Print ───────────────────────────────────────────────────── */
+@media print {
+  #sidebar, #theme-toggle { display: none; }
+  body { display: block; font-size: 12px; }
+  main { max-width: 100%; padding: 24px; }
+  .endpoint-card { break-inside: avoid; }
+  pre { white-space: pre-wrap; }
+}
+
+/* ─── Responsive ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  #sidebar { display: none; }
+  main { padding: 24px 20px 60px; }
+  #theme-toggle { top: 10px; right: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Sidebar ─────────────────────────────────────────────────── -->
+<aside id="sidebar">
+  <div class="sidebar-logo">
+    <h1>Aaraakart API</h1>
+    <p>Mobile Auth Reference</p>
+    <span class="sidebar-version">v1.0 · aaraakart/v1</span>
+  </div>
+  <nav>
+    <div class="nav-section">Getting Started</div>
+    <a href="#overview">Overview</a>
+    <a href="#base-url">Base URL</a>
+    <a href="#authentication">Authentication</a>
+    <a href="#providers">OTP Providers</a>
+
+    <div class="nav-section">Endpoints</div>
+    <a href="#send-otp">Send OTP <span class="badge post">POST</span></a>
+    <a href="#login">Login <span class="badge post">POST</span></a>
+    <a href="#register">Register <span class="badge post">POST</span></a>
+    <a href="#me">Get Profile <span class="badge get">GET</span></a>
+
+    <div class="nav-section">Reference</div>
+    <a href="#errors">Error Codes</a>
+    <a href="#rate-limiting">Rate Limiting</a>
+    <a href="#vendor-settings">Per-vendor Settings</a>
+    <a href="#shortcodes">Shortcodes</a>
+  </nav>
+</aside>
+
+<!-- ── Theme toggle ────────────────────────────────────────────── -->
+<button id="theme-toggle" onclick="toggleTheme()">☀ Light / ◑ Dark</button>
+
+<!-- ── Main content ────────────────────────────────────────────── -->
+<main>
+
+  <!-- Header -->
+  <h1 class="page-title">Mobile Auth <span>REST API</span></h1>
+  <p class="page-subtitle">
+    Phone-number + OTP based authentication for Aaraakart customers and mobile apps.
+    Supports custom SMS gateway and Firebase Phone Auth.
+  </p>
+
+  <!-- ── Overview ───────────────────────────────────────────────── -->
+  <section id="overview">
+    <h2 class="section-title">Overview</h2>
+    <p>
+      The <strong>Aaraakart Mobile Auth</strong> module is delivered as a WCFMu plugin
+      (<span class="inline-code">class-wcfmu-mobile-auth.php</span>) and exposes four REST
+      endpoints under the <span class="inline-code">aaraakart/v1</span> namespace.
+    </p>
+    <p>
+      Customers authenticate using their <strong>mobile phone number</strong>.
+      A one-time password (OTP) is delivered either via a configurable SMS gateway
+      or via Firebase Phone Auth (client-side flow). On success the server returns
+      a signed <strong>HS256 JWT</strong> compatible with the
+      <em>JWT Authentication for WP REST API</em> plugin.
+    </p>
+
+    <div class="info-grid">
+      <div class="info-tile">
+        <div class="info-tile-label">Namespace</div>
+        <div class="info-tile-value">aaraakart/v1</div>
+      </div>
+      <div class="info-tile">
+        <div class="info-tile-label">Token Type</div>
+        <div class="info-tile-value">HS256 JWT</div>
+      </div>
+      <div class="info-tile">
+        <div class="info-tile-label">OTP Storage</div>
+        <div class="info-tile-value">WP Transients</div>
+      </div>
+      <div class="info-tile">
+        <div class="info-tile-label">Default Expiry</div>
+        <div class="info-tile-value">300 s (5 min)</div>
+      </div>
+      <div class="info-tile">
+        <div class="info-tile-label">Token TTL</div>
+        <div class="info-tile-value">24 hours</div>
+      </div>
+      <div class="info-tile">
+        <div class="info-tile-label">Rate Limit</div>
+        <div class="info-tile-value">3 / 10 min / phone</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Base URL ────────────────────────────────────────────────── -->
+  <section id="base-url">
+    <h2 class="section-title">Base URL</h2>
+    <pre>/wp-json/aaraakart/v1</pre>
+    <p>All endpoints below are relative to this base. Requests must use <strong>HTTPS</strong>. The
+    <span class="inline-code">Content-Type: application/json</span> header is required for
+    POST requests with a JSON body.</p>
+  </section>
+
+  <!-- ── Authentication ─────────────────────────────────────────── -->
+  <section id="authentication">
+    <h2 class="section-title">Authentication</h2>
+    <p>
+      After a successful <a href="#login">/auth/login</a> or <a href="#register">/auth/register</a>
+      call, the server returns a <strong>JWT Bearer token</strong>. Pass it in the
+      <span class="inline-code">Authorization</span> header for all authenticated requests:
+    </p>
+    <pre>Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...</pre>
+    <div class="callout info">
+      <span class="callout-icon">ℹ</span>
+      <div>The token is signed with <span class="inline-code">JWT_AUTH_SECRET_KEY</span> defined in
+      <span class="inline-code">wp-config.php</span>. Tokens expire after <strong>24 hours</strong>.
+      Store them securely — do not commit to source control.</div>
+    </div>
+
+    <h3 class="endpoint-title">JWT Payload</h3>
+    <pre><span class="json-key">"iss"</span>:  <span class="json-string">"https://aaraakart.com"</span>,   <span class="json-comment">// site URL</span>
+<span class="json-key">"iat"</span>:  <span class="json-num">1720700000</span>,              <span class="json-comment">// issued at (Unix timestamp)</span>
+<span class="json-key">"nbf"</span>:  <span class="json-num">1720700000</span>,              <span class="json-comment">// not before</span>
+<span class="json-key">"exp"</span>:  <span class="json-num">1720786400</span>,              <span class="json-comment">// expires at (iat + 86400s)</span>
+<span class="json-key">"data"</span>: {
+  <span class="json-key">"user"</span>: { <span class="json-key">"id"</span>: <span class="json-num">42</span> }
+}</pre>
+  </section>
+
+  <!-- ── Providers ──────────────────────────────────────────────── -->
+  <section id="providers">
+    <h2 class="section-title">OTP Providers</h2>
+    <p>The module supports two delivery modes, configurable globally or per-vendor:</p>
+
+    <div class="table-wrap" style="margin-top:16px">
+      <table class="params-table">
+        <thead><tr><th>Mode</th><th>How it works</th><th>Config</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>custom_sms</td>
+            <td>Server generates a random OTP, stores it in a transient, then calls
+            your SMS gateway via a configurable HTTP request (GET or POST). Supports
+            template variables <span class="inline-code">{phone}</span> and
+            <span class="inline-code">{otp}</span> in URL, headers, and body.</td>
+            <td><span class="inline-code">wcfmu_otp_sms_url</span><br>
+            <span class="inline-code">wcfmu_otp_sms_method</span><br>
+            <span class="inline-code">wcfmu_otp_sms_headers</span><br>
+            <span class="inline-code">wcfmu_otp_sms_body</span></td>
+          </tr>
+          <tr>
+            <td>firebase</td>
+            <td>Client handles Firebase Phone Auth flow (sends OTP via Firebase SDK).
+            Client receives an <span class="inline-code">idToken</span> on success and
+            sends it to <span class="inline-code">/auth/login</span> or
+            <span class="inline-code">/auth/register</span>. Server verifies the
+            <span class="inline-code">idToken</span> via Firebase Identity Toolkit API.</td>
+            <td><span class="inline-code">wcfmu_otp_firebase_api_key</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout tip" style="margin-top:20px">
+      <span class="callout-icon">✓</span>
+      <div><strong>Per-vendor override:</strong> Each vendor can have their own SMS API
+      credentials configured on their profile page at
+      <span class="inline-code">store-manager/vendors-manage/[id]/</span>.
+      Empty vendor fields fall back to the global defaults. See
+      <a href="#vendor-settings">Per-vendor Settings</a> for details.</div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ENDPOINT 1 — SEND OTP                                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="send-otp">
+    <h2 class="section-title">Send OTP</h2>
+
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge post">POST</span>
+        <span class="endpoint-url">/auth/otp/send</span>
+        <span class="auth-tag public">Public</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="endpoint-desc">
+          Request an OTP for a phone number. In <strong>custom_sms</strong> mode the OTP
+          is generated server-side and dispatched via your SMS gateway.
+          In <strong>firebase</strong> mode the Firebase API key is returned so the client
+          can initiate the Firebase SMS flow — no OTP is sent by the server.
+        </p>
+
+        <div class="code-label">Request Parameters</div>
+        <div class="table-wrap">
+          <table class="params-table">
+            <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>phone</td><td>string</td><td><span class="req-tag">required</span></td>
+                <td>Phone number in E.164 format, e.g. <span class="inline-code">+919876543210</span></td>
+              </tr>
+              <tr>
+                <td>action</td><td>string</td><td><span class="req-tag">required</span></td>
+                <td><span class="inline-code">login</span> or <span class="inline-code">register</span> — stored with the OTP to prevent cross-action reuse</td>
+              </tr>
+              <tr>
+                <td>vendor_id</td><td>integer</td><td><span class="opt-tag">optional</span></td>
+                <td>Vendor user ID — uses that vendor's SMS API settings. Defaults to <span class="inline-code">0</span> (global settings)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-label">Request — Custom SMS</div>
+        <pre>{
+  <span class="json-key">"phone"</span>:     <span class="json-string">"+919876543210"</span>,
+  <span class="json-key">"action"</span>:    <span class="json-string">"register"</span>,
+  <span class="json-key">"vendor_id"</span>: <span class="json-num">42</span>           <span class="json-comment">// optional</span>
+}</pre>
+
+        <div class="code-label">Response 200 — Custom SMS</div>
+        <pre>{
+  <span class="json-key">"success"</span>:    <span class="json-bool">true</span>,
+  <span class="json-key">"expires_in"</span>: <span class="json-num">300</span>,       <span class="json-comment">// seconds until OTP expires</span>
+  <span class="json-key">"mode"</span>:       <span class="json-string">"custom_sms"</span>
+}</pre>
+
+        <div class="code-label">Response 200 — Firebase</div>
+        <pre>{
+  <span class="json-key">"success"</span>:          <span class="json-bool">true</span>,
+  <span class="json-key">"mode"</span>:             <span class="json-string">"firebase"</span>,
+  <span class="json-key">"firebase_api_key"</span>: <span class="json-string">"AIzaSy..."</span>  <span class="json-comment">// use to init Firebase SDK</span>
+}</pre>
+
+        <div class="callout warn">
+          <span class="callout-icon">⚠</span>
+          <div>Returns <strong>429 Too Many Requests</strong> after 3 OTP requests for the same phone
+          number within a 10-minute window. The client should display a countdown before allowing
+          a retry.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ENDPOINT 2 — LOGIN                                          -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="login">
+    <h2 class="section-title">Login</h2>
+
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge post">POST</span>
+        <span class="endpoint-url">/auth/login</span>
+        <span class="auth-tag public">Public</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="endpoint-desc">
+          Authenticate an existing customer. Verify the OTP (or Firebase
+          <span class="inline-code">idToken</span>) and return a JWT if the phone
+          number is linked to a registered account.
+        </p>
+
+        <div class="code-label">Request Parameters</div>
+        <div class="table-wrap">
+          <table class="params-table">
+            <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>phone</td><td>string</td><td><span class="req-tag">required</span></td>
+                <td>E.164 phone number</td>
+              </tr>
+              <tr>
+                <td>otp</td><td>string</td><td><span class="req-tag">custom_sms</span></td>
+                <td>The OTP received by SMS (4–8 digits). Required when provider is <span class="inline-code">custom_sms</span></td>
+              </tr>
+              <tr>
+                <td>firebase_id_token</td><td>string</td><td><span class="req-tag">firebase</span></td>
+                <td>Firebase <span class="inline-code">idToken</span> from client-side phone auth. Required when provider is <span class="inline-code">firebase</span></td>
+              </tr>
+              <tr>
+                <td>vendor_id</td><td>integer</td><td><span class="opt-tag">optional</span></td>
+                <td>Vendor user ID for per-vendor Firebase API key verification</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-label">Request — Custom SMS</div>
+        <pre>{
+  <span class="json-key">"phone"</span>: <span class="json-string">"+919876543210"</span>,
+  <span class="json-key">"otp"</span>:   <span class="json-string">"482916"</span>
+}</pre>
+
+        <div class="code-label">Request — Firebase</div>
+        <pre>{
+  <span class="json-key">"phone"</span>:             <span class="json-string">"+919876543210"</span>,
+  <span class="json-key">"firebase_id_token"</span>: <span class="json-string">"eyJhbGciOiJSUzI1NiIs..."</span>
+}</pre>
+
+        <div class="code-label">Response 200 — Success</div>
+        <pre>{
+  <span class="json-key">"token"</span>:      <span class="json-string">"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."</span>,
+  <span class="json-key">"user_id"</span>:    <span class="json-num">42</span>,
+  <span class="json-key">"email"</span>:      <span class="json-string">"ravi@example.com"</span>,
+  <span class="json-key">"first_name"</span>: <span class="json-string">"Ravi"</span>,
+  <span class="json-key">"last_name"</span>:  <span class="json-string">"Kumar"</span>,
+  <span class="json-key">"phone"</span>:      <span class="json-string">"+919876543210"</span>
+}</pre>
+
+        <div class="code-label">Response 401 — Phone not registered</div>
+        <pre>{
+  <span class="json-key">"code"</span>:    <span class="json-string">"needs_registration"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"No account found for this phone number."</span>
+}</pre>
+
+        <div class="callout info">
+          <span class="callout-icon">ℹ</span>
+          <div>The OTP is <strong>single-use</strong> — the transient is deleted immediately on a
+          successful validation. An invalid OTP does not consume the transient, but failed
+          attempts count toward rate limits.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ENDPOINT 3 — REGISTER                                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="register">
+    <h2 class="section-title">Register</h2>
+
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge post">POST</span>
+        <span class="endpoint-url">/auth/register</span>
+        <span class="auth-tag public">Public</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="endpoint-desc">
+          Create a new WooCommerce customer account using a verified phone number.
+          The phone number and email must not already exist in the system.
+          Returns a JWT on success.
+        </p>
+
+        <div class="code-label">Request Parameters</div>
+        <div class="table-wrap">
+          <table class="params-table">
+            <thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>phone</td><td>string</td><td><span class="req-tag">required</span></td>
+                <td>E.164 phone number — must not already be registered</td>
+              </tr>
+              <tr>
+                <td>otp</td><td>string</td><td><span class="req-tag">custom_sms</span></td>
+                <td>SMS OTP received for this phone number</td>
+              </tr>
+              <tr>
+                <td>firebase_id_token</td><td>string</td><td><span class="req-tag">firebase</span></td>
+                <td>Firebase idToken for phone number verification</td>
+              </tr>
+              <tr>
+                <td>first_name</td><td>string</td><td><span class="req-tag">required</span></td>
+                <td>Customer first name</td>
+              </tr>
+              <tr>
+                <td>last_name</td><td>string</td><td><span class="opt-tag">optional</span></td>
+                <td>Customer last name</td>
+              </tr>
+              <tr>
+                <td>email</td><td>string</td><td><span class="req-tag">required</span></td>
+                <td>Valid email address — must not already be registered</td>
+              </tr>
+              <tr>
+                <td>vendor_id</td><td>integer</td><td><span class="opt-tag">optional</span></td>
+                <td>Vendor user ID for per-vendor Firebase verification</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="code-label">Request — Custom SMS</div>
+        <pre>{
+  <span class="json-key">"phone"</span>:      <span class="json-string">"+919876543210"</span>,
+  <span class="json-key">"otp"</span>:        <span class="json-string">"482916"</span>,
+  <span class="json-key">"first_name"</span>: <span class="json-string">"Ravi"</span>,
+  <span class="json-key">"last_name"</span>:  <span class="json-string">"Kumar"</span>,
+  <span class="json-key">"email"</span>:      <span class="json-string">"ravi@example.com"</span>
+}</pre>
+
+        <div class="code-label">Response 200 — Success</div>
+        <pre>{
+  <span class="json-key">"token"</span>:      <span class="json-string">"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9..."</span>,
+  <span class="json-key">"user_id"</span>:    <span class="json-num">99</span>,
+  <span class="json-key">"email"</span>:      <span class="json-string">"ravi@example.com"</span>,
+  <span class="json-key">"first_name"</span>: <span class="json-string">"Ravi"</span>,
+  <span class="json-key">"last_name"</span>:  <span class="json-string">"Kumar"</span>,
+  <span class="json-key">"phone"</span>:      <span class="json-string">"+919876543210"</span>
+}</pre>
+
+        <div class="code-label">User meta saved on registration</div>
+        <div class="table-wrap">
+          <table class="params-table">
+            <thead><tr><th>Meta Key</th><th>Value</th><th>Purpose</th></tr></thead>
+            <tbody>
+              <tr><td>billing_phone</td><td>phone number</td><td>WooCommerce billing; used for user lookup</td></tr>
+              <tr><td>billing_first_name</td><td>first_name</td><td>WooCommerce billing</td></tr>
+              <tr><td>billing_last_name</td><td>last_name</td><td>WooCommerce billing</td></tr>
+              <tr><td>xoo_ml_phone_no</td><td>phone number</td><td>Compatibility with xoo-ml / mobile-login-woocommerce plugin</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!-- ENDPOINT 4 — ME                                             -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="me">
+    <h2 class="section-title">Get Profile</h2>
+
+    <div class="endpoint-card">
+      <div class="endpoint-header">
+        <span class="method-badge get">GET</span>
+        <span class="endpoint-url">/auth/me</span>
+        <span class="auth-tag requires">JWT required</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="endpoint-desc">
+          Retrieve the authenticated customer's profile. The JWT
+          <span class="inline-code">exp</span> claim is validated server-side — expired tokens
+          are rejected with <strong>401</strong>.
+        </p>
+
+        <div class="code-label">Request Header</div>
+        <pre>Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...</pre>
+
+        <div class="code-label">Response 200 — Success</div>
+        <pre>{
+  <span class="json-key">"user_id"</span>:    <span class="json-num">42</span>,
+  <span class="json-key">"email"</span>:      <span class="json-string">"ravi@example.com"</span>,
+  <span class="json-key">"first_name"</span>: <span class="json-string">"Ravi"</span>,
+  <span class="json-key">"last_name"</span>:  <span class="json-string">"Kumar"</span>,
+  <span class="json-key">"phone"</span>:      <span class="json-string">"+919876543210"</span>,
+  <span class="json-key">"roles"</span>:      [<span class="json-string">"customer"</span>]
+}</pre>
+
+        <div class="code-label">Response 401 — Missing or expired token</div>
+        <pre>{
+  <span class="json-key">"code"</span>:    <span class="json-string">"unauthorized"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Invalid or expired token."</span>
+}</pre>
+      </div>
+    </div>
+  </section>
+
+  <hr>
+
+  <!-- ── Error Codes ─────────────────────────────────────────────── -->
+  <section id="errors">
+    <h2 class="section-title">Error Codes</h2>
+    <p>All error responses use standard HTTP status codes and return JSON with a
+    <span class="inline-code">code</span> and <span class="inline-code">message</span> field.</p>
+
+    <div class="table-wrap" style="margin-top:20px">
+      <table class="error-table">
+        <thead>
+          <tr>
+            <th>HTTP</th><th>code</th><th>Endpoint</th><th>Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="http-code http-400">400</span></td>
+            <td><span class="inline-code">invalid_phone</span></td>
+            <td>send, login, register</td>
+            <td>Phone number is not a valid E.164 format</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-400">400</span></td>
+            <td><span class="inline-code">invalid_otp</span></td>
+            <td>login, register</td>
+            <td>OTP is incorrect, already used, or expired</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-400">400</span></td>
+            <td><span class="inline-code">invalid_firebase_token</span></td>
+            <td>login, register</td>
+            <td>Firebase idToken could not be verified</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-400">400</span></td>
+            <td><span class="inline-code">phone_already_registered</span></td>
+            <td>register</td>
+            <td>Phone number is already linked to an account — use login</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-400">400</span></td>
+            <td><span class="inline-code">email_already_registered</span></td>
+            <td>register</td>
+            <td>Email address belongs to an existing account</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-401">401</span></td>
+            <td><span class="inline-code">needs_registration</span></td>
+            <td>login</td>
+            <td>Phone number is valid but has no account — direct user to register</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-401">401</span></td>
+            <td><span class="inline-code">unauthorized</span></td>
+            <td>me</td>
+            <td>Missing, malformed, or expired JWT</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-429">429</span></td>
+            <td><span class="inline-code">rate_limit_exceeded</span></td>
+            <td>send</td>
+            <td>More than 3 OTP requests in 10 minutes for this phone number</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-500">500</span></td>
+            <td><span class="inline-code">sms_send_failed</span></td>
+            <td>send</td>
+            <td>SMS gateway returned an error — check vendor API configuration</td>
+          </tr>
+          <tr>
+            <td><span class="http-code http-500">500</span></td>
+            <td><span class="inline-code">registration_failed</span></td>
+            <td>register</td>
+            <td>WordPress user creation failed (WP_Error)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ── Rate Limiting ───────────────────────────────────────────── -->
+  <section id="rate-limiting">
+    <h2 class="section-title">Rate Limiting</h2>
+    <p>To prevent OTP spam, the <span class="inline-code">/auth/otp/send</span> endpoint enforces
+    a per-phone rate limit using a WordPress transient counter.</p>
+
+    <div class="table-wrap" style="margin:16px 0">
+      <table class="params-table">
+        <thead><tr><th>Parameter</th><th>Default</th><th>Option key</th></tr></thead>
+        <tbody>
+          <tr><td>Max OTP sends</td><td>3</td><td><span class="inline-code">wcfmu_otp_rate_limit</span></td></tr>
+          <tr><td>Window</td><td>600 seconds (10 min)</td><td>(fixed)</td></tr>
+          <tr><td>Counter key</td><td colspan="2"><span class="inline-code">wcfmu_rate_{md5(phone)}</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="callout-icon">⚠</span>
+      <div>When the rate limit is exceeded, the server returns <strong>HTTP 429</strong>. The client
+      should disable the "Resend OTP" button and show a countdown. The window resets automatically
+      after 10 minutes — no manual reset is needed.</div>
+    </div>
+  </section>
+
+  <!-- ── Per-vendor Settings ────────────────────────────────────── -->
+  <section id="vendor-settings">
+    <h2 class="section-title">Per-vendor Settings</h2>
+    <p>Each vendor can override the global SMS API configuration from their profile page at
+    <span class="inline-code">store-manager/vendors-manage/{vendor_id}/</span>.
+    Vendor-specific values are stored as <strong>user_meta</strong> on the vendor's WordPress user.</p>
+
+    <div class="table-wrap" style="margin:16px 0">
+      <table class="params-table">
+        <thead><tr><th>User Meta Key</th><th>Fallback (wp_option)</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td>wcfmu_otp_provider</td><td>wcfmu_otp_provider</td><td><span class="inline-code">custom_sms</span> or <span class="inline-code">firebase</span></td></tr>
+          <tr><td>wcfmu_otp_sms_url</td><td>wcfmu_otp_sms_url</td><td>SMS gateway endpoint URL</td></tr>
+          <tr><td>wcfmu_otp_sms_method</td><td>wcfmu_otp_sms_method</td><td><span class="inline-code">GET</span> or <span class="inline-code">POST</span></td></tr>
+          <tr><td>wcfmu_otp_sms_headers</td><td>wcfmu_otp_sms_headers</td><td>JSON string of extra request headers</td></tr>
+          <tr><td>wcfmu_otp_sms_body</td><td>wcfmu_otp_sms_body</td><td>Body template with <span class="inline-code">{phone}</span> and <span class="inline-code">{otp}</span></td></tr>
+          <tr><td>wcfmu_otp_firebase_api_key</td><td>wcfmu_otp_firebase_api_key</td><td>Firebase Web API Key</td></tr>
+          <tr><td>wcfmu_otp_length</td><td>wcfmu_otp_length</td><td>OTP digit count (4–8, default 6)</td></tr>
+          <tr><td>wcfmu_otp_expiry</td><td>wcfmu_otp_expiry</td><td>OTP validity in seconds (default 300)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>To use a vendor's settings, pass <span class="inline-code">vendor_id</span> in the REST request:</p>
+    <pre>POST /wp-json/aaraakart/v1/auth/otp/send
+{
+  <span class="json-key">"phone"</span>:     <span class="json-string">"+919876543210"</span>,
+  <span class="json-key">"action"</span>:    <span class="json-string">"register"</span>,
+  <span class="json-key">"vendor_id"</span>: <span class="json-num">42</span>
+}</pre>
+
+    <div class="callout tip">
+      <span class="callout-icon">✓</span>
+      <div>Clearing a vendor field on the profile page calls <span class="inline-code">delete_user_meta()</span>,
+      so the vendor seamlessly inherits from the global default instead of storing an empty
+      override.</div>
+    </div>
+  </section>
+
+  <!-- ── Shortcodes ─────────────────────────────────────────────── -->
+  <section id="shortcodes">
+    <h2 class="section-title">Shortcodes</h2>
+    <p>Two shortcodes are available for WordPress page/post editors. They render a two-step
+    mobile auth form (phone input → OTP input → redirect).</p>
+
+    <div class="code-label">Login Form</div>
+    <pre>[wcfmu_mobile_login redirect="/my-account/" vendor_id="42"]</pre>
+
+    <div class="code-label">Register Form</div>
+    <pre>[wcfmu_mobile_register redirect="/my-account/" vendor_id="42"]</pre>
+
+    <div class="table-wrap" style="margin:16px 0">
+      <table class="params-table">
+        <thead><tr><th>Attribute</th><th>Default</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>redirect</td>
+            <td>WooCommerce My Account URL</td>
+            <td>URL to redirect to after successful login/registration</td>
+          </tr>
+          <tr>
+            <td>vendor_id</td>
+            <td>0 (global settings)</td>
+            <td>Vendor user ID — passes through to REST API calls so the vendor's SMS API is used</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">ℹ</span>
+      <div>The shortcode forms automatically call <span class="inline-code">/auth/otp/send</span>
+      on "Send OTP", then <span class="inline-code">/auth/login</span> or
+      <span class="inline-code">/auth/register</span> on OTP submission. On success the JWT
+      is stored in <span class="inline-code">localStorage</span> and the browser redirects
+      to the <span class="inline-code">redirect</span> URL.</div>
+    </div>
+
+    <div class="code-label">SMS Body Template Example</div>
+    <pre><span class="json-comment">// Use {phone} and {otp} placeholders in the sms_body setting</span>
+{
+  <span class="json-key">"to"</span>:      <span class="json-string">"{phone}"</span>,
+  <span class="json-key">"message"</span>: <span class="json-string">"Your Aaraakart OTP is {otp}. Valid for 5 minutes."</span>
+}</pre>
+  </section>
+
+  <!-- ── Footer ─────────────────────────────────────────────────── -->
+  <hr>
+  <p style="font-size:12px;color:var(--text-dim);text-align:center;padding-top:8px">
+    Aaraakart Mobile Auth API &mdash; WCFMu Module &mdash; v1.0 &mdash; 2026
+  </p>
+
+</main>
+
+<script>
+function toggleTheme() {
+  var root = document.documentElement;
+  var current = root.getAttribute('data-theme');
+  root.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+}
+
+// Sidebar active link on scroll
+var sections = document.querySelectorAll('section[id]');
+var navLinks  = document.querySelectorAll('nav a[href^="#"]');
+var observer  = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      navLinks.forEach(function(a) { a.classList.remove('active'); });
+      var active = document.querySelector('nav a[href="#' + e.target.id + '"]');
+      if (active) active.classList.add('active');
+    }
+  });
+}, { rootMargin: '-30% 0px -60% 0px' });
+sections.forEach(function(s) { observer.observe(s); });
+</script>
+</body>
+</html>

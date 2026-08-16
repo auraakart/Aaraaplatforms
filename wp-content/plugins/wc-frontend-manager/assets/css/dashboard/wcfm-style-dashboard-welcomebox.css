@@ -1,0 +1,239 @@
+/* =========================================
+   Base Resets & Main Container
+   ========================================= */
+.wcfm_welcomebox_header * {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.wcfm_welcomebox_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 24px 15px 40px;
+  background: #fff;
+  gap: 20px; /* Space between left and right sections */
+}
+
+/* =========================================
+   Left Section: User Profile & Details
+   ========================================= */
+.wcfm_welcomebox_user {
+  display: flex;
+  align-items: center;
+  gap: 35px; /* Replaces margin-right on profile */
+}
+
+.wcfm_welcomebox_user_profile {
+  border: 10px solid #f5f5f5;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 135px;
+  height: 135px;
+  flex-shrink: 0; /* Prevents the image from shrinking on small screens */
+}
+
+.wcfm_welcomebox_user_profile img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures image covers area without stretching */
+}
+
+/* Removed manual margin-top: 28px; flex align-items: center handles vertical alignment */
+.wcfm_welcomebox_user_details h3 {
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #17a2b8;
+  margin-bottom: 12px;
+}
+
+.wcfm_welcomebox_membership {
+  font-size: 18px;
+  line-height: 22px;
+  color: #323b44;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px; /* Replaces margins on spans and imgs */
+}
+
+.wcfm_welcomebox_membership .wcfm_welcomebox_member a {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.wcfm_welcomebox_membership .wcfm_welcomebox_member mark {
+  background: none;
+  color: #D15600;
+}
+
+.wcfm_welcomebox_membership .wcfm_welcomebox_member {
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.wcfm_welcomebox_membership img {
+  width: 25px;
+}
+
+.wcfm_welcomebox_last_time {
+  font-size: 14px;
+  line-height: 18px;
+  color: #556377;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Replaces margin on span */
+}
+
+.wcfm_welcomebox_last_time span {
+  color: #181b1e;
+}
+
+/* =========================================
+   Right Section: Stats Boxes
+   ========================================= */
+.wcfm_welcomebox_user_right {
+  display: flex;
+  flex-direction: column;
+  /* Removed manual margin-top: 20px; flex align-items: center handles it */
+}
+
+.wcfm_welcomebox_user_right_box {
+  font-size: 14px;
+  line-height: 18px;
+  color: #383c3f;
+  padding: 14px 20px 14px 10px;
+  border-bottom: 1px solid #eff1f4;
+  border-left: 1px solid #eff1f4;
+  display: flex;
+  align-items: center;
+  gap: 15px; /* Replaces margin-right on icon */
+}
+
+.wcfm_welcomebox_user_right_box:last-child {
+  border-bottom: 0;
+}
+
+.wcfm_welcomebox_user_right_box span.wcfmfa {
+  color: #17a2b8;
+}
+
+.wcfm_welcomebox_user_right_box mark {
+  background: none;
+  color: #0f1011;
+  font-size: 14px;
+  font-weight: normal;
+}
+
+.wcfm_welcomebox_user_right_box mark .wcfm_user_usage_stat_limit {
+  color: #1c2b36;
+}
+
+.wcfm_welcomebox_user_right_box mark .wcfm_user_usage_stat {
+  color: #D01F3C;
+}
+
+/* =========================================
+   Responsive Media Queries
+   ========================================= */
+
+/* Tablet / Small Desktop */
+@media screen and (max-width: 960px) {
+  .wcfm_welcomebox_header {
+    padding: 20px;
+    gap: 15px;
+  }
+  
+  .wcfm_welcomebox_user {
+    gap: 15px;
+  }
+
+  .wcfm_welcomebox_user_profile {
+    width: 100px;
+    height: 100px;
+  }
+
+  .wcfm_welcomebox_user_details h3 {
+    font-size: 16px;
+    line-height: 20px;
+  }
+
+  .wcfm_welcomebox_membership {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .wcfm_welcomebox_user_right_box {
+    padding: 14px 10px;
+  }
+}
+
+/* Mobile: Hide Right Stats */
+@media screen and (max-width: 736px) {
+  .wcfm_welcomebox_user_right {
+    display: none;
+  }
+}
+
+/* Small Mobile */
+@media screen and (max-width: 480px) {
+  .wcfm_welcomebox_header {
+    padding: 20px 10px;
+  }
+  
+  .wcfm_welcomebox_user_profile {
+    width: 80px;
+    height: 80px;
+  }
+
+  .wcfm_welcomebox_membership img {
+    width: 15px;
+  }
+  
+  .wcfm_welcomebox_membership {
+    gap: 4px;
+  }
+}
+
+/* Extra Small Mobile */
+@media screen and (max-width: 420px) {
+  .wcfm_welcomebox_user_details h3 {
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .wcfm_welcomebox_membership,
+  .wcfm_welcomebox_membership .wcfm_welcomebox_member,
+  .wcfm_welcomebox_last_time {
+    font-size: 12px;
+    line-height: 16px;
+  }
+}
+
+/* Very Small Mobile: Stack Layout */
+@media screen and (max-width: 375px) {
+  .wcfm_welcomebox_header {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .wcfm_welcomebox_user {
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+  }
+  
+  .wcfm_welcomebox_user_details {
+    width: 100%;
+  }
+  
+  .wcfm_welcomebox_membership,
+  .wcfm_welcomebox_last_time {
+    justify-content: center;
+  }
+}

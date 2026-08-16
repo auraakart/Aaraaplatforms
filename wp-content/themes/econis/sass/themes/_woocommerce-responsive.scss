@@ -1,0 +1,99 @@
+/*
+*  Woocommerce Responsive
+*/
+
+@mixin product-grid-respon() {
+    .product-block{
+        @include transition(none);
+        .btn-outline,.button,#submit{
+            min-width: inherit;
+        }
+        
+        .image{
+            img,.image-hover{
+                @include transition(none);
+                @include transform(none);
+            }
+            &:hover{
+                .image-hover{
+                    @include transition(none);
+                    @include transform(none);
+                }
+            }
+        }
+        .image-effect,.category,.overlay,.add-links{
+            display: none;
+        }
+        
+    }
+    .product-grid{
+        .add-button,.price{
+            visibility: visible;
+            @include opacity(1);
+        }
+        &:hover{
+            .price,.add-button{
+                @include transition(none);
+                @include transform(none);
+                visibility: visible;
+                @include opacity(1);
+            }
+        }
+    }
+}
+
+@mixin product-grid-mobile() {
+    .product-grid{
+        .btn-outline{
+            padding: 0 10px;
+            span{
+                display: inline-block;
+            }
+        }
+    }
+    .widget{
+        &.widget-products{
+            .tabs-list{
+                
+            }
+        }
+    }
+}
+
+@media (min-width: $screen-lg) {
+
+}
+
+@media (min-width: $screen-md) and (max-width: $screen-md-max){
+    @include product-grid-respon();
+    .product-info{
+        .product-title{
+            @include font-size(font-size,20px);
+        }
+    }
+}
+
+@media (min-width: $screen-sm) and (max-width: $screen-sm-max) {
+    @include product-grid-respon();
+    .product-grid{
+        .name{
+            min-height: 60px;
+            @include font-size(font-size,11px);
+        }
+    }
+}
+
+@media (max-width: $screen-sm-max) {
+    @include product-grid-respon();
+    @include product-grid-mobile();
+}
+
+@media (max-width: $screen-xs-max) {
+    @include product-grid-respon();
+    @include product-grid-mobile();
+}
+
+@media (max-width: $screen-phone) {
+    @include product-grid-respon();
+    @include product-grid-mobile();
+}

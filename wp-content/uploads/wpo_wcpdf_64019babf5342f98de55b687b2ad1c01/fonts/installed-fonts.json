@@ -1,0 +1,26 @@
+{
+    "open sans": {
+        "normal": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/OpenSans-Normal",
+        "bold": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/OpenSans-Bold",
+        "italic": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/OpenSans-Italic",
+        "bold_italic": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/OpenSans-BoldItalic"
+    },
+    "segoe": {
+        "normal": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/Segoe-Normal",
+        "bold": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/Segoe-Bold",
+        "italic": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/Segoe-Italic",
+        "bold_italic": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/Segoe-BoldItalic"
+    },
+    "roboto slab": {
+        "normal": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/RobotoSlab-Normal",
+        "bold": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/RobotoSlab-Bold",
+        "italic": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/RobotoSlab-Italic",
+        "bold_italic": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/RobotoSlab-BoldItalic"
+    },
+    "currencies": {
+        "normal": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/currencies",
+        "bold": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/currencies",
+        "italic": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/currencies",
+        "bold_italic": "\/home\/u293817202\/domains\/aaraakart.com\/public_html\/wp-content\/uploads\/wpo_wcpdf_64019babf5342f98de55b687b2ad1c01\/fonts\/currencies"
+    }
+}

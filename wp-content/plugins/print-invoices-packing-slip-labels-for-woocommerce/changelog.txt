@@ -1,0 +1,901 @@
+== Changelog ==
+
+= 4.9.8 2026-07-23 =
+* [Add] - Added a Tax line item column to the product table in the invoice document.
+* [Add] - Added support for Gujarati, Portuguese, Chinese, Lithuanian, Latvian, Ukrainian, Vietnamese, and Finnish.
+* [Fix] - Hide internal/technical order item meta keys added by product add-ons.
+* [Compatibility] - WooCommerce 10.9.4 
+
+= 4.9.7 2026-06-17 =
+* [Add] - Added settings to alter product image width/height in invoice document.
+* [Fix] - Fixed PHP warning: Call to a member function get_content_box() on null.
+* [Compatibility] - Tested OK with Plugin Check plugin v1.9.0
+
+= 4.9.6 2026-05-29 =
+* [Fix] - Fix PDF filename suffix issue in generated invoices.
+* [Compatibility] - WooCommerce 10.8.1
+
+= 4.9.5 2026-05-26 =
+* [Add] - Option to include the "Email" field in the From Address section.
+* [Fix] - Vulnerability fix for Broken Access Control reported by Patchstack.
+* [Tweak] - Enable Total Tax column by default in the invoice product table.
+* [Compatibility] - WooCommerce 10.7.0
+* [Remove] - Dropped support for WooCommerce versions below 3.0.0.
+
+= 4.9.4 2026-04-13 =
+* [Add] - Slovak and Georgian language support.
+* [Fix] - Prevent redirection to help filters documentation link from invoice customizer tab when site language is Arabic
+* [Compatibility] - WordPress 7.0
+* [Compatibility] - WooCommerce 10.6.2
+
+= 4.9.3 2026-03-04 =
+* [Add] - Bulgarian language support.
+* [Fix] - Prevent mPDF crash when processing large HTML content.
+* [Tweak] - Enhance the invoice number format setting.
+* [Compatibility] - WooCommerce 10.5.3
+
+= 4.9.2 2026-02-23 =
+* [Fix] - Fixed TypeError in shipping label print button on order list page.
+* [Fix] - Prevent footer overlap in DOMPDF by disabling “stick to bottom” when footer exceeds 40 words.
+* [Tweak] - Optimize PDF generation by embedding images as base64 to avoid remote fetch delays.
+* [Compatibility] - WooCommerce 10.5.2
+
+= 4.9.1 2026-02-10 =
+* [Fix] - Prevent fatal error array before calling in_array() in packing slip.
+* [Tweak] - Keep SKU enabled by default in invoice and packing slip documents.
+* [Add] - Added live preview for packing slip, dispatch label, and delivery note documents.
+* [Compatibility] - WooCommerce 10.5.0
+* [Compatibility] - WordPress 6.9.1
+
+= 4.9.0 2025-12-17 =
+* [Fix] - Fixed error 'call to a member function update_meta_data()'.
+* [Fix] - Fixed division by zero error in UBL invoice.
+* [Tweak] - Translation update.
+* [Tweak] - Add safe file locking with automatic fallback for VIP-hosted.
+* [Compatibility] - WooCommerce 10.4.2
+
+= 4.8.9 2025-12-02 =
+* [Add] – Added an option to restrict invoices attachments based on payment method.
+* [Fix] - Fixed PHP warning: Attempt to read property "post_type" on null.
+* [Tweak] - Default the invoice email attachment status to “Completed” in the setup wizard.
+* [Compatibility] - WordPress 6.9
+
+= 4.8.8 2025-11-20 =
+* [Fix] - Fixed UBL validation issues.
+* [Fix] - Fixed tax rounding discrepancy in invoice tax column.
+* [Fix] - Fixed the cropped bottom section of the dispatch label in the Customizer tab.
+* [Tweak] - Updated the Black Friday CTA banner link.
+
+= 4.8.7 2025-11-14 =
+* [Add] – Added customizer tab to preview packing slip, dispatch label and delivery note documents.
+* [Fix] - Fixed division by zero error in UBL invoice for free orders.
+* [Fix] - Cross-promotion banners conflicting with banners from other plugins.
+* [Fix] - Fixed Sabberworm CSS parser error.
+* [Tweak] Restrict script loading on the frontend when the print button is disabled.
+* [Compatibility] - Tested OK with WooCommerce 10.3.5
+* [Compatibility] – Tested OK with WordPress 6.8.3
+
+= 4.8.6 2025-10-27 =
+* [Compatibility] - Tested OK with WooCommerce 10.3.3
+
+= 4.8.5 2025-10-22 =
+* [Add] – Compatibility with Woo Product Add-Ons by WooCommerce.
+* [Add] – Option to include product metadata in invoice settings.
+* [Fix] – Extra product options not displaying correctly.
+* [Compatibility] – Tested OK with WooCommerce 10.2.2
+
+= 4.8.4 2025-09-24 =
+* [Add] - Compatibility with WPML Multilingual & Multicurrency for WooCommerce.
+* [Add]: Show popup to notify users when skipping the setup wizard.
+* [Fix] - Invoice PDF rendering issue when using Mpdf.
+* [Tweak]: Prevent loading assets on the frontend when the print invoice button is disabled.
+
+= 4.8.3 2025-09-04 =
+* [Fix] - Print invoice button not working in order listing and order email.
+
+= 4.8.2 2025-08-29 =
+* [Fix] - Fixed error message “Invalid access key and mail ID” when attempting to print or download documents.
+
+= 4.8.1 2025-08-28 =
+* [Add] - Automatically installs and activates the Mpdf plugin when the user clicks on the Mpdf plugin link.
+* [Compatibility] – PCP check
+* [Compatibility] – Tested OK with WooCommerce 10.1.2
+
+= 4.8.0 2025-07-24 =
+* [Compatibility] – Tested OK with WordPress 6.8.2
+* [Compatibility] – Tested OK with WooCommerce 10.0.4
+
+= 4.7.9 2025-07-16 =
+* [Fix] – Resolved conflict with Elementor add-ons that prevented adding product descriptions from the product edit page.
+* [Fix] - Resolved the "wcs_subscription_meta_query is deprecated" warning.
+* [Add] – Added CTA banners that appear when switching templates.
+* [Compatibility] – Tested OK with WooCommerce 10.0.2
+
+= 4.7.8 =
+* [Add] – Added email field to the uninstallation feedback form.
+* [Add] – Added CTA banners on order, product, and coupon edit pages.
+* [Add] – Added font size setting for addresses in documents.
+* [Add] – Added Dispatch Label document title.
+* [Add] – Added translation support for UBL format.
+* [Add] – Banner to auto-recommend mPDF for RTL and special character languages.
+* [Enhancement] – Improved language support and translation handling.
+* [Compatibility] – Tested OK with WordPress 6.8.1
+* [Compatibility] – Tested OK with WooCommerce 9.9.5
+
+= 4.7.7 2025-05-22 =
+* [Fix] – [Fix] – Fixed early translation loading issue triggered by the review request banner.
+* [Compatibility] - Tested OK with WordPress 6.8.1
+* [Compatibility] - Tested OK with WooCommerce 9.8.5
+
+= 4.7.6 2025-04-17 =
+* [Compatibility] - Tested OK with WordPress 6.8
+* [Compatibility] - Tested OK with WooCommerce 9.8.1
+* [Fix] - Translation loading was triggered too early.
+
+= 4.7.5 2025-03-13 =
+[Fix] - Ensured manual serialization of non-string meta data when storing it in the HPOS wc_orders_meta table, preventing warning messages.
+[Enhancement] - Improved RTL Support: Adjusted product table text alignment for better compatibility with right-to-left (RTL) languages.
+[Enhancement]  - Improved WPML Compatibility: Added dynamic translation support for packing list and proforma invoice footers.
+[Enhancement]  - Added new Marketing CTA
+[Compatibility] - Tested OK with WordPress 6.7.
+[Compatibility] - Tested OK with WooCommerce 9.7.1.
+
+= 4.7.4 2025-02-04 =
+[Fix] Resolved an issue with the review banner display.
+[Fix] Fixed RTL alignment for the banner.
+
+= 4.7.3 2025-01-23 =
+[Enhancement] - Added new review seeking banner.
+[Feature] - Added a new filter to retrieve the order ID from the email object, enabling document attachments for non-order-related emails.
+[Fix] - Enhanced language detection by replacing get_locale() with determine_locale(), ensuring more accurate RTL support in multilingual setups (e.g., when using WPML).
+[Improvement] - Corrected order search by invoice number with HPOS enabled, adding support for the woocommerce_order_table_search_query_meta_keys filter.
+[Compatibility] - Tested OK with WordPress 6.7.
+[Compatibility] - Tested OK with WooCommerce 9.6.0.
+
+= 4.7.2 2024-12-19 =
+[Fix] - Notice - Function _load_textdomain_just_in_time was called incorrectly.
+[Fix] - The order date was not retrieved from the order object.
+[Fix] - Added the security fixes on the customizer input fields.
+[Tweak] - Removed the weight column from the product table in the default packing slip template.
+[Tweak] - Added the filter called wt_pklist_generate_invoice_number` .
+[Tweak] - Added a new parameter $lang to the filter wf_pklist_alter_find_replace.
+[Tweak] -  Added a new text domain custom_wt_pdf_invoice to support the translation for the dynamic strings.
+[Enhancement] - Invoice number layout changed.
+[Enhancement] - Invoice number preview layout changed.
+[Enhancement] - Added rename functionality to documents and changed the document layout in the Customizer.
+[Compatibility] - Tested OK with WordPress 6.7.
+[Compatibility] - Tested OK with WooCommerce 9.4.3.
+
+= 4.7.1 2024-10-28 =
+* [Fix] - Resolved "Uncaught Error: Class 'WT_WC_Product' not found" when using premium add-ons.
+* [Fix] - Addressed migration issues from order statuses to WooCommerce order email classes that were introduced in version 4.7.0.
+
+= 4.7.0 2024-10-23 =
+* [New] - Introduced the Beta version of UBL (XML) invoice support.
+* [Enhancement] - Extended UBL invoice support for PEPPOL, Romania, Austria, the Netherlands, Italy, and Spain
+* [Enhancement] - Updated the invoice PDF attachment to be based on the order email rather than the order status in the form wizard and invoice settings.
+* [Enhancement] - Added a dedicated button for UBL invoice printing on the order listing and details pages.
+* [Enhancement] - Introduced an option to request new features.
+
+= 4.6.2 2024-09-26 =
+* [Fix] - Compatibility issues with the WOOCS Currency Switcher.
+* [Fix] - JavaScript conflicts with the WebToffee Import/Export plugin.
+* [Fix] - Print preview issue on mobile devices.
+* [Compatibility] - Tested OK with WooCommerce v9.3.3
+
+= 4.6.1 2024-08-28 =
+* [Fix] - Resolved the issue where the automatic cleanup interval time could be set below 1440 minutes
+* [Tweak] - Directly open the print window without showing a preview in the browser when the preview option is disabled
+* [Tweak] - Added a notification message for the payment received stamp when the mPDF add-on is active
+* [Tweak] - Defaulted the RTL support option to enabled
+* [Tweak] - Included additional system information on the system configuration page
+* [Tweak] - Removed unnecessary filters from the filter page
+* [Compatibility] - Tested OK with WooCommerce v9.2.3
+
+= 4.6.0 2024-07-18 =
+* [New] - Added an option to use currency code instead of currency symbol in all documents
+* [New] - Added an option to use an extended library to support the currency symbol
+* [Tweak] - Use shipping phone number in the Tel field instead of billing phone number on the shipping label, if the shipping phone number is available
+* [Tweak] - Hide unnecessary data when using the Smart Coupon Bogo feature by WebToffee
+* [Tweak] - Remove the shipping address phone number label by default
+* [Tweak] - Maintain consistency in line heights
+* [Tweak] - Changed the document title color in all templates
+* [Tweak] - Hide the "inclusive of tax" text when the order has no tax
+* [Tweak] - Document PDF names should use the sequence number instead of the post ID when the prefix is set to the order number
+* [Tweak] - Fetch the site name as the company name and department name during the first installation
+* [Tweak] - Added the address line 2 field in the form wizard for the first installation
+* [Tweak] - Added the processing and completed statuses in automatic invoice creation option by default
+* [Enhancement] - Decimal quantity support
+* [Enhancement] - Sort orders when doing bulk print or download of documents
+* [Compatibility] - Tested OK with WordPress v6.6
+* [Compatibility] - Tested OK with WooCommerce v9.1.2
+
+= 4.5.3 2024-06-14 =
+* [Tweak] - Upgraded the Dompdf library to version 3.0.0
+
+= 4.5.2 2024-06-10 =
+* [Fix] - Resolved the page override issue during bulk invoice printing
+* [Compatibility] - Tested OK with WordPress v6.5.4
+* [Compatibility] - Tested OK with WooCommerce v8.9.2
+
+= 4.5.1 2024-05-16 =
+* [Compatibility] - Tested OK with WordPress v6.5.3
+* [Compatibility] - Tested OK with WooCommerce v8.8.3
+
+= 4.5.0 2024-04-16 =
+* [New] - Japanese translation added
+* [Tweak] - Pot file refreshed for better translation support
+* [Compatibility] - with WooCommerce PDF Invoices, Packing slips, and Credit notes add-on by Webtoffee version 1.5.0
+
+= 4.4.3 2024-04-05 =
+* [Fix] - Addressed security issues
+* [Tweak] - Improved the verification and role capability check
+* [Compatibility] - Tested OK with WordPress v6.5
+* [Compatibility] - Tested OK with WooCommerce v8.7.0
+
+= 4.4.2 2024-03-14 =
+* [Fix] - Improved efficiency for faster generation of invoice numbers
+* [Fix] - Addressed security issues
+* [Tweak] - Adjusted pricing display for exclusive tax scenarios and WooCommerce tax settings
+* [Tweak] - Introduced a filter for customizing PDF output using the Dompdf library
+* [Compatibility] - Tested OK with WooCommerce v8.6.1
+
+= 4.4.1 2024-02-14 =
+* [Fix] - Improved the security in the debug module
+* [Tweak] - Hide the shipping address if it is empty
+* [Tweak] - Hide the shipping address if order has the only local pickup as the shipping option
+* [Tweak] - Improved the language translations
+* [Compatibility] - Tested OK with WooCommerce v8.5.2
+
+= 4.4.0 2024-01-17 =
+* [Enhancement] - Sync the Address format in the document with the WC formatted address
+* [Compatibility] - Tested OK with WooCommerce v8.5.1
+
+= 4.3.1 2023-12-28 =
+* [Fix] - Improved the user capability checking to prevent unauthorized access of PDFs.
+* [Fix] - Template margin issue in old templates of packing slip
+* [Fix] - Shipping label template not showing in full width
+* [Tweak] - Added a filter to alter the print button label of the invoice in my account order listing, order details page and order email
+* [Tweak] - Added a filter to alter the document print button style in the order email
+* [Compatibility] - Tested OK with WooCommerce v8.4.0
+
+= 4.3.0 2023-12-07 =
+* [Fix] - Remove str_contains() to avoid the PHP Lower version error
+* [Fix] - Fixed alternate blank pages issue when invoices are downloaded in bulk
+* [Fix] - Improved the security while importing the edited JSON file
+* [Tweak] - Weight - Hide if it is 0 or not available
+* [Enhancement] - Invoice - Removed email and phone number labels
+* [Tweak] - Templates improved for packing slips, delivery notes, dispatch labels, and shipping label
+* [Enhancement] - Invoice - Default settings changed by moving the email address beneath the billing address.
+* [Enhancement] - Show the gift card details on the invoice if the YITH gift card is applied to the order
+* [Enhancement] - Multi-language compatibility for the invoice, if invoice pro-add-on v1.1.0 is active
+* [Compatibility] - Tested OK with WooCommerce v8.3.1
+
+= 4.2.1 2023-11-20 =
+* [Fix] - str_contains() issue with lower php version
+* [Compatibility] - Tested OK with WooCommerce v8.3.0
+
+= 4.2.0 2023-11-13 =
+* [Add] - Form Wizard to set up the initial settings
+* [Add] - Option to show the common print button and individual print button for all document types on the order listing page
+* [Add] - Option to control the document access for logged-in and guest user
+* [Fix] - Duplicate invoice number issue
+* [Tweak] - Added the VAT description with the identified VAT meta keys on the customizer element section
+* [Enhancement] - Updated the UI of invoice number format settings
+* [Enhancement] - Removed the plugin tax settings and synced with the WooCommerce Tax setting
+* [Enhancement] - Showed the deleted/imported products on the documents
+* [Enhancement] - Showed the download invoice button on the My Account page and user order details page
+* [Compatibility] - Tested OK with WooCommerce v8.2.2
+* [Compatibility] - Tested OK with WordPress v6.4.1
+
+= 4.1.3 2023-10-04 =
+* [Fix] - WooCommerce style conflict in select2 option - background color issue
+* [Fix] - Displayed tax for all products even if the tax is not present for some products
+* [Add] - Added debug module
+* [Enhancement] - Added an option to export the plugin settings as a json file in the debug module
+* [Enhancement] - Added an option to import the plugin settings in the debug module
+* [Enhancement] - Added an option to reset the plugin settings in the debug module
+* [Enhancement] - Added an option on the uninstallation feedback form to delete all options, and table data of this plugin upon plugin deactivation
+* [Enhancement] - Added an action scheduler to save the default templates, if no templates were stored previously
+* [Enhancement] - Added an option to clean up old documents periodically or manually as it helps to save storage space in the server
+* [Enhancement] - Added an option to keep the invoices intact even if changes are made to order later because of accounting purposes
+* [Enhancement] - Added the latest dompdf library support v2.0.3
+* [Tweak] - Removed the form wizard to setup the basic company details
+* [Compatibility] - Tested OK with WooCommerce v8.1.1
+
+= 4.1.2 2023-08-21 =
+* [Fix] - Warning: DOMDocument::loadHTML(): htmlParseEntityRef: no name in Entity
+* [Fix] - CRITICAL Uncaught TypeError: fwrite(): Argument #1 ($stream) must be of type resource, bool given
+* [Tweak] - Translation improvement with premium add-ons
+* [Compatibility] - Tested OK with WordPress 6.3
+* [Compatibility] - Tested OK with WooCommerce 8.0.2
+
+= 4.1.1 2023-08-03 =
+* [Fix] - Loading issue / 503 error on order listing page when using the Query Monitor plugin
+
+= 4.1.0.1 2023-07-19 =
+* [Fix] - Template saving issue - user needs to deactivate and activate the plugin to fix the issue
+* [Fix] - The invoice date was not showing on the invoice when ACF plugin is active
+* [Fix] - Order actions opens in a new tab when the Invoice/Packingplugin is active
+* [Tweak] - Redirect non logged-in users to WooCommerce My Account login page, when trying to print the invoice from the order email
+* [Compatibility] - Tested OK with WooCommerce v7.9.0
+
+= 4.1.0 2023-07-05 =
+* [Fix] - Fatal error: Uncaught ArgumentCountError: 8 arguments are required, 7 given issue
+* [Tweak] - Added Save and Activate button in the Invoice and Shipping label customizer
+* [Tweak] - Added customer note, vat, and SSN as separate placeholders in the templates
+* [Enhancement] - Icons to identify whether an invoice or packing slip is already printed or downloaded
+* [Enhancement] - Optimized loading time when doing bulk printing the document
+* [Enhancement] - Added the compatibility with WooCommerce High-Performance Order Storage (HPOS) Table feature
+* [Enhancement] - Moved the default order meta fields such as email, phone number, customer note, VAT, and SSN from the settings page to the customizer
+* [Compatibility] - Tested OK with WooCommerce v7.8.2
+
+= 4.0.10 2023-05-29 =
+* [Fix] - Undefined variable issue in the thank you page
+
+= 4.0.9 2023-05-12 =
+* [Fix] - Undefined array key issue in the home screen
+* [Fix] - Constant WF_PKLIST_PLUGIN_NAME is already defined issue when using the mPDF add-on from v1.0.8
+* [Compatibility] - Tested OK with WooCommerce v7.7.0
+
+= 4.0.8 2023-04-19 =
+* [Fix] - Optimized the code to avoid memory-exhausted error
+* [Enhancement] - Changed and improved the home screen UI
+* [Compatibility] - WordPress v6.2
+* [Compatibility] - WooCommerce v7.6.0
+
+= 4.0.7 2023-03-06 =
+* [Fix] - The wrong text domain issue
+* [Tweak] - Show the cart discount on the invoice when adding the discount amount manually without using the coupon code
+* [Tweak] - Show the button to print the invoice on my account page depending on the invoice number status by default
+* [Compatibility] - with WooCommerce upto v7.4.1
+
+= 4.0.6 2023-02-07 =
+* [Tweak] - Show the order number field while previewing the invoice document in customizer properties
+* [Fix] - Missing product table in the dispatch label document
+* [Fix] - Showing the WC default currency symbol instead of User defined symbol when using FOX – Currency Switcher Professional for the WooCommerce plugin
+
+= 4.0.5 =
+* [Fix] - Showing variation data value slugs instead of variation data value labels
+* [Fix] - Fatal error: Uncaught TypeError: array_search() issue in packing slip settings page
+* [Fix] - Adjusted the styles to show the full barcode in invoice template
+* [Tweak] - Changed the product table background colour to white in delivery note to avoid the over consuming of ink when printing
+* [Enhancement] - Added an option to attach the invoice pdf with new order mail notification to admin
+* [Enhancement] - Added a separate option to attach the invoice pdf for the customer mail notifications
+* [Compatibility] - with WC 7.3.0
+
+= 4.0.4 =
+* [Fix] - Showing multiple shipping label on single page issue
+* [Tweak] - Updated the document template preview images
+* [Tweak] - Moved the footer option to the customizer from general settings page in shipping label document
+* [Compatibility] - with WooCommerce v7.2.3
+
+= 4.0.3 =
+* [Fix] - Issue of showing prefix/suffix multiple times in invoice number preview
+* [Fix] - Invoice number reset counter issue
+
+= 4.0.2 =
+* [Fix] - Solved the tracking number shows array issue
+* [Compatibility] - Compatibility with QR Code add-on for WooCommerce PDF Invoices v1.0.1 plugin by WebToffee
+* [Compatibility] - Tested up to PHP version 8.0.0
+
+= 4.0.1 =
+* [Tweak] - Renamed the addons
+* [Tweak] - Solved pro addons status checking issue
+
+= 4.0.0 =
+* [Fix] - array_key_first() undefined issue for the php version below 7.3
+* [Tweak] - Added separate settings page for packing slips, dispatch label and delivery notes
+* [Tweak] - Show the non discounted prices in all the pricing columns in product table
+* [Tweak] - Updated the UI and grouped the related elements to improve the usability in all the document settings page
+* [Enhancement] - Added the compatibility with WooCommerce PDF Invoices, Packing Slips and Credit Notes plugin (PRO) by WebToffee
+* [Enhancement] - Added the compatibility with WooCommerce Address Labels plugin (PRO) by WebToffee
+* [Enhancement] - Added the compatibility with WooCommerce Shipping Labels, Dispatch Labels and Delivery Notes plugin (PRO) by WebToffee
+* [Enhancement] - Added the compatibility with WooCommerce Picklists plugin (PRO) by WebToffee
+* [Enhancement] - Added the compatibility with WooCommerce Proforma Invoices plugin (PRO) by WebToffee
+* [Compatibility] - Tested up to WooCommerce 7.2.2
+
+= 3.0.7 =
+* [Fix] - Solved the padding issue of address fields in packing slip template
+* [Fix] - Solved the invoice number length issue in preview
+* [Tweak] - Changed the color, position and content of the tooltips
+* [Tweak] - Changed and improved the usability styles in invoice template customizer
+* [Tweak] - Added a filter to hide the shipping address if its empty
+* [Compatibility] - with WP v6.1
+* [Compatibility] - Tested up to WooCommerce 7.1.0 
+
+= 3.0.6 =
+* [Fix] - Added the text domain to translate the missing string in the filter listing page
+* [Fix] - Optimized the code and added the action schedules to solve the loading time issue on the WC order listing page and invoice settings page
+* [Tweak] - Removing all the action schedules created by the plugin when deactivating the plugin
+* [Compatibility] - with WC v6.9.3
+
+= 3.0.5 =
+* [Fix] - Solved the invoice settings saving issue
+* [Tweak] - Added serial number column in all the templates of the documents
+* [Enhancement] - Improved Invoice number generation using the action scheduler when a high number of orders need to get the invoice number
+* [Compatibility] - Added extra product option compatibility for the packaging documents
+* [Compatibility] - With WC up to v6.9.2
+
+= 3.0.4 =
+* [Fix] - Solved the Solved the E_PARSE error with PHP version 7.2 and below
+* [Fix] - Added the translation option for the content in the configuration info screen
+
+= 3.0.3 =
+* [New] - Added the tool to delete/reset the invoice number into the WooCommerce Tools list
+* [New] - Add the show print button option by pagewise
+* [New] - Added the QR Code addon plugin promotion tab when the QR code add-on is not installed/activated
+* [Tweak] - Added filter to handle the overlapping of the footer with the product table when long footer content is used
+* [Enhancement] - Changed the UI and grouped the fields of the invoice general settings page
+* [Enhancement] - Rearranged the fields and added an option to see the instant preview of the invoice number when changing the settings
+* [Compatibility] - with WC v6.7
+
+= 3.0.2 =
+* [Tweak] - Extended the payment method width to avoid the word wrapping
+* [Tweak] - Added print invoice button on my account page to open the link on the new tab
+* [Tweak] - Improved french translation
+* [Fix] - Invoice general settings lost issue
+* [Compatibility] - with WC v6.6
+
+= 3.0.1 =
+* [Fix] - Solved the admin page loading issue
+* [Fix] - Solved the wrong text domain issue
+* [Fix] - Removed the notification on the customer order page
+
+= 3.0.0 =
+* [Enhancement] - Added option to add the QR code on the invoice using QR Code Add-on for WooCommerce PDF Invoices by webtoffee
+* [Enhancement] - Introduced a new classic invoice template
+* [Enhancement] - Updated the UI of the filter listing screen
+* [Enhancement] - Added an option to add/edit the order/custom meta on the invoice
+* [Enhancement] - Added prompt if the user tries to add more than one order/custom meta
+* [Enhancement] - Combined all the default tax-related meta keys (vat,vat_number,eu_vat_number) into one meta named VAT.
+* [Enhancement] - Added feature to add the attachment for renewal orders
+* [Enhancement] - Added the document title in the packing slip and delivery note templates
+* [Enhancement] - Added an option to print the invoice from the order lists on my account page
+* [Tweak] - Enable the template element in customizer properties if the element is available in the template
+* [Fix] - Get formatted order number for invoice pdf file name
+* [Fix] - Hide payment method, if the payment method has an empty value
+* [Compatibility] - with WC v6.5
+* [Compatibility] - with WP v6.0
+
+= 2.9.1 =
+* [Enhancement] - Improved the invoice templates (classic and standard), Shipping label template to navigate the element easily to customize
+* [Fix] - Solved the bold letter issue of the product name in the product table when using the MPDF library
+* [Compatibility] - with WooCommerce EU VAT Assistant by Aelia
+* [Compatibility] - with WC v6.3
+
+= 2.9.0 =
+* [Fix] - Solved the empty value on the total tax column issue
+* [Enhancement] - Improved the classic invoice template
+* [Enhancement] - Fetch the Woocommerce store logo if it is available for the first installation
+* [Enhancement] - Improved the usability in the customizer properties section
+* [Compatibility] - with WP v5.9
+* [Compatibility] - with WC v6.2
+
+= 2.8.9 =
+* [Enhancement] - Load address from Woocommerce store details, when installing the plugin
+* [Enhancement] - Hide the logo div if the logo is not set in the document templates
+* [Enhancement] - Language translation
+* [Tweak] - Changed the date format to 'm-d-Y' in all the document templates
+* [Tweak] - Changed the plugin name in the settings page and branding section
+* [Tweak] - Added the prompt if from address is not filled when printing/downloading the documents
+* [Fix] - Added translation option for the default labels of order meta fields (e.g: VAT,SSN,Customer note)
+* [Fix] - Solved the font family issue when printing the invoice
+
+= 2.8.8 =
+* [Enhancement] - Added system configuration information screen under the help tab in the general settings page of the plugin
+* [Enhancement] - Added fixed footer in the invoice templates
+* [Enhancement] - Improved the styles in the invoice templates when MPDF library is used
+* [Enhancement] - Added option to search the filter name or keyword in the filter listing screen
+* [Enhancement] - Improved the invoice template customization
+* [Enhancement] - Added the questions regarding the tax id in uninstall feedback form
+* [Tweak] - Updated the help text of the order meta fields option on the invoice settings page
+* [Tweak] - Updated the print icons for each document in order details page
+* [Compatibility] - with WC v6.1
+
+= 2.8.7 =
+* [Fix] - Invoice number generation issue with respective the timezone 
+
+= 2.8.6 =
+* [Enhancement] - Added an option to not generate the invoice for the orders which are created before the installation of the plugin.
+* [Enhancement] - Made the company logo as the default option to show instead of the company name in invoice templates
+* [Enhancement] - Added the barcode option in invoice templates
+* [Enhancement] - Added the basic version setup video
+* [Tweak] - Updated the preview images of invoice templates
+* [Tweak] - Added the branding section in all the pages of the plugin
+* [Fix] - Insert the default values to the database of respective site in case of using multisite
+* [Compatibility] - with WC v5.9
+
+= 2.8.5 =
+* [Enhancement] - Updated the pro feature banner
+* [Enhancement] - Improved the usability and added document link in invoice customization.
+* [Enhancement] - Language translation improvements
+* [Compatibility] - with WC v5.8
+
+= 2.8.4 =
+* [Enhancement] - Language translation improvements
+* [Enhancement] - Improved the usability in invoice customization
+* [Enhancement] - Sort the invoice number column in order listing page
+* [Tweak] - Added shipping phone number to make it compatible with WC v5.6
+* [Fix] - Inserting the table to the respective site in case of using multisite
+* [Compatibility] - with WC v5.7
+
+= 2.8.3 = 
+* [Fix] - Show the deleted products in the invoice
+* [Fix] - Generating the invoice number when order status changes
+* [Tweak] - Added document title, placeholders for the order meta fields, and customer notes in the invoice templates
+* [Tweak] - Added the option to display the state code/state name in the from address and return address
+
+= 2.8.2 =
+* [Enhancement] - Improved the summary table in the invoice when doing refunds
+* [Enhancement] - Added the option to display the state name / state code in billing and shipping address
+* [Enhancement] - Added the document links with the help texts
+* [Enhancement] - Search the order by invoice numbers in order listing page
+* [Compatibility] - version compatibility with WooCommerce v5.5
+* [Compatibility] - version compatibility with WordPress v5.8
+* [Compatibility] with PHP 8
+
+= 2.8.1 =
+* [Fix] - Invoice - Solved the line total and total amount mismatch issue on refund.
+* [Fix] - Fixed the issue on saving admin modules
+* [Fix] - Fixed the text domain mismatch
+* [Compatibility] - version compatibility with WooCommerce v5.4
+* [Compatibility] - version compatibility with WordPress v5.7
+* [Compatibility] with PHP 8
+
+= 2.8.0 =
+* [Compatibility] with Extra product options (themecomplete)
+* [Enhancement] - Added option to disable the generating of invoice for free orders
+* [Enhancement] - Added option to display/hide the free line items in invoice
+* [Enhancement] - Added option to customize the pdf file name for invoice
+* [Enhancement] - Styles in invoice templates
+* [Fix] - Non numeric value error when printing the invoice, packingslip
+* [Fix] - Modules disable issue when updating the plugin
+* [Compatibility] - version compatibility with WooCommerce v5.4
+* [Compatibility] - version compatibility with WordPress v5.7
+* [Compatibility] with PHP 8
+
+= 2.7.9 =
+* [Fix] Getting currency symbols issue with WC version below 4.1.0.
+* [Compatibility] - version compatibility with WooCommerce v5.3
+* [Compatibility] - version compatibility with WordPress v5.7
+* [Compatibility] with PHP 8
+
+= 2.7.8 =
+* [Enhancement] - Added pro version option in uninstall feedback
+* [Compatibility] with WOOCS - WooCommerce Currency Switcher
+* [Compatibility] with Multi Currency for WooCommerce
+* [Enhancement] - Added Classic and standard invoice templates.
+* [Compatibility] - version compatibility with WooCommerce v5.3
+* [Compatibility] - version compatibility with WordPress v5.7
+* [Compatibility] with PHP 8
+
+= 2.7.7 =
+* [Compatibility] - version compatibility with WooCommerce v5.2
+* [Compatibility] - version compatibility with WordPress v5.7
+* [Compatibility] with PHP 8
+
+= 2.7.6 =
+* [Compatibility] - version compatibility with WooCommerce v5.1
+* [Tweak] - Translation compatibility improved
+* [Fix] Date format issue in invoice number (prefix/suffix).
+* [Enhancement] - Improved Compatibility with DHL plugin.
+
+= 2.7.5 =
+* [Compatibility] - version compatibility with WooCommerce v4.9
+
+= 2.7.4 =
+* [Fix] Subtotal calculation issue
+* [Tweak] - Image column in Invoice
+* [Fix] Subtotal translation issue
+
+= 2.7.3 =
+* [Compatibility] - version compatibility with WooCommerce v4.8
+* [Compatibility] - version compatibility with WordPress v5.6
+
+= 2.7.2 =
+* [Fix] to version 2.7.0. Missing some meta items.
+* Improved translation (Spanish)
+* [Compatibility] - version compatibility with WooCommerce v4.7
+
+= 2.7.1 =
+* [Fix] to version 2.7.0. Displaying additional order item meta in invoice.
+
+= 2.7.0 =
+* [Enhancement] - Tax include/exclude option added
+* [Tweak] - VAT number option added with 2 VAT presets.
+* [Enhancement] - Template translation improved
+* [Tweak] - Automatic address update from Woo added
+* [Compatibility] - version compatibility with WooCommerce v4.6.2
+
+= 2.6.9 =
+* [Enhancement] - Added PDF option to Packing slip.
+* [Enhancement] - Added customizer for shipping label.
+* [Compatibility] - version compatibility with WooCommerce v4.5.2
+
+= 2.6.8 =
+* [Fix] - Minor bug fix w.r.t to version 2.6.7
+
+= 2.6.7 =
+* [Tweak] - Translation updated
+* [Enhancement] - Enhanced RTL support enabled with mPDF add-on
+* [Compatibility] - version compatibility with WordPress v5.5.1
+* [Compatibility] - version compatibility with WooCommerce v4.5
+
+= 2.6.6 =
+* [Compatibility] - version compatibility with WooCommerce v4.4
+* [Compatibility] - version compatibility with WordPress v5.5
+
+= 2.6.5 =
+* [Fix] Print button missing in WooCommerce latest version
+* [Fix] Total price section
+* [Fix] Meta duplicate comparison fails when string contains some ascii values.
+* [Fix] Network error issue while downloading PDF
+* [Improvement] Italian language files added (From a customer)
+* [Improvement] New filters added to documentation. And add_filter section added to code example block
+* [Compatibility] - version compatibility with WooCommerce v4.2
+
+
+= 2.6.4 =
+* [Fix] Activation conflict with premium plugin
+* [Fix] Conflict with Kadence WooCommerce Email Designer plugin
+
+= 2.6.3 =
+* [Tweak] - Upload directory protected.
+* [Fix] Email, Phone number missing after validation rule implemented
+* [Compatibility] - version compatibility with WordPress v5.4
+* [Compatibility] - version compatibility with WooCommerce v4.0
+* [Compatibility] with PHP 7.4
+
+= 2.6.2 =
+* [Enhancement] - Optimizations:
+  Reduced temp storage
+  Limited user capability for saving HTML document to only admins and shop owners
+  Customizer ajax hooks merged to one
+* [Compatibility] - version compatibility with WooCommerce v3.9
+
+= 2.6.1 =
+* [Enhancement] - Blocked all third party script tags from the HTML template for better security.
+
+= 2.6.0 =
+* [Enhancement] - Text domain updated
+
+= 2.5.9 =
+* [Compatibility] - version compatibility with WooCommerce v3.8
+
+= 2.5.8 =
+* [Compatibility] - version compatibility with WordPress v5.3
+
+= 2.5.7 =
+* [Compatibility] with 'Sequential Order Numbers for WooCommerce' plugin
+* [Tweak] - Included option for watermarking with custom text
+* [Tweak] - Included new filter 'wf_pklist_alter_pdf_file_name' to customize PDF file name
+* [Tweak] - Included new filter 'wf_pklist_alter_footer_data' to customize footer data
+* [Tweak] - CSS class added to product table column for additional customization
+* [Tweak] - Font subsetting enabled to improve PDF generation process
+* [Fix] Error in Dispatch label form validation
+
+
+= 2.5.6 =
+* [Fix] for older PHP version w.r.t the plugin release version 2.5.5
+
+= 2.5.5 =
+* [Fix] Refund amount calculation issue
+* [Fix] Issue with identifying order ids for PDF preview
+* [Fix] Issue with image not found, while toggling right panel in customizer
+
+= 2.5.4 =
+* [Enhancement] - PDF preview option added in invoice.
+* [Enhancement] - Bug fix and security improvements.
+
+= 2.5.3 =
+* [Compatibility] - version compatibility with WooCommerce v3.7
+* [Enhancement] - Usability improvements
+
+= 2.5.2 =
+* [Fix] Fixed warnings in PHP 7.1 
+* [Fix] Compatibility for product variation data in product table
+
+= 2.5.1 =
+* [Fix] Plugin failed to load and settings migration is not working properly
+
+= 2.5.0 =
+* [Tweak] - Document templates structured and optimized to remove unwanted third party dependencies across the documents.
+* [Enhancement] - Improved RTL support across documents.
+* [Enhancement] - Improved WPML compatibility.
+* [Enhancement] - Improved UI/UX.
+* [Tweak] - Plugin size restricted to 5.1 MB.
+
+= 2.4.8 =
+
+* [Compatibility] - version compatibility with WooCommerce v3.6.4.
+* [Compatibility] - version compatibility with WordPress v5.2.
+* [Fix] Issue with escape character('\') fixed in all input sections.
+
+= 2.4.7 =
+
+* [Compatibility] - version compatibility with WooCommerce v3.5.7.
+* [Compatibility] - version compatibility with WordPress v5.1.1.
+
+= 2.4.6 =
+
+* [Tweak] - Use billing address as 'To' address in shipping label, incase shipping address is empty.
+
+= 2.4.5 =
+
+* [Enhancement] - UI enhancements.
+* [Tweak] - Option to set suffix, prefix and padding for invoice number.
+* [Enhancement] - Included option to add custom footer in all labels.
+* [Enhancement] - Russian translation.
+* [Tweak] - Readme updates.
+
+
+= 2.4.4 =
+
+* [Compatibility] - version compatibility with WooCommerce v3.5.2.
+* [Compatibility] - version compatibility with WordPress 5.0.1.
+
+= 2.4.3 =
+
+* [Compatibility] - version compatibility with WooCommerce 3.5.0.
+
+= 2.4.2 =
+
+* [Enhancement] - Added option to turn on and off the print invoice button in the front end 
+
+= 2.4.1 =
+
+* [Tweak] - Readme updates
+
+= 2.4.0 =
+
+* [Enhancement] - Added option to enable customer note in labels
+
+= 2.3.9 =
+
+* [Fix] - Javascript issue while trying to upload logo from media library fixed.
+
+= 2.3.8 =
+
+* [Tweak] - Shipping charges field optimised : if no charges, the row will be hidded. In case of Free delivery, 'Free Shipping' text will be shown.
+* [Tweak] - Dismissal notice text  when From address not filled up modified .
+* [Tweak] - Name of  Invoice file to be downloaded modified.
+
+= 2.3.7 =
+
+* [Fix] Error during checkout fixed.
+
+= 2.3.6 =
+
+* [Enhancement] - Support for UTF-8 currency symbols
+* [Enhancement] - Download PDF option for invoice
+
+= 2.3.5 =
+
+* [Enhancement] - Invoice template modification.
+* Bug fix.
+
+= 2.3.4 =
+
+* [Fix] - Email being sent twice fixed.
+* [Compatibility] - version compatibility with WooCommerce v3.4.0.
+
+= 2.3.3 =
+
+* [Tweak] - Minor changes made to invoice template.
+* [Fix] - Compatibility issues fixed with latest version of Wordpress and WooCommerce.
+
+= 2.3.2 =
+
+* [Enhancement] - Added email and phone number to the templates.
+
+= 2.3.1 =
+
+* [Enhancement] - RTL support.
+
+= 2.3.0 =
+* [Fix] SKU issue.
+* [Fix] issue with variation data.
+
+= 2.2.9 =
+* Bug fixes
+
+= 2.2.8 =
+* Minor updates
+
+= 2.2.7 =
+* UI improvements and bug fixes.
+
+= 2.2.6 =
+* Minor improvements.
+
+= 2.2.5 =
+* [Enhancement] - Custom logo url settings update.
+
+= 2.2.5 =
+* [Compatibility] - version compatibility with WooCommerce v3.3.3
+* [Enhancement] - Uninstall feedback.
+
+= 2.2.4 =
+* [Compatibility] - version compatibility with WooCommerce 3.3.1.
+
+= 2.2.3 =
+* [Tweak] - Minor content updates.
+
+= 2.2.2 =
+* [Enhancement] - Variation product image added in packing list
+* [Enhancement] - Support for sequential order plugin
+
+= 2.2.1 =
+ * Bug fix on download address label
+
+= 2.2.0 =
+ * [Tweak] - Added PDF invoice and work flow modifications 
+
+= 2.1.8 =
+ * PHP7 Compatibility Updates
+
+= 2.1.7 =
+ * Print Invoice Marketing Content Updated
+
+= 2.1.6 =
+ * WC 3.1.0 Deprecation support
+
+= 2.1.5 =
+ * Minor Content Change
+ 
+= 2.1.4 =
+ * Minor Content Change.
+
+= 2.1.3 =
+ * Premium Video Added.
+
+= 2.1.2 =
+ * Invoice: Payment Method Added.
+
+= 2.1.1 =
+ * Invoice Design Changes.
+
+= 2.1.0 =
+ * Invoice Templates Added.
+
+= 2.0.10 =
+ * Minor Content Chnaged
+
+= 2.0.9 =
+ * Bug Fix.
+ 
+= 2.0.8 =
+ * Made Compatible with PHP version 7.
+ 
+= 2.0.7 =
+ * Bug Fix.
+ 
+= 2.0.6 =
+ * Bug Fix.
+ 
+= 2.0.5 =
+ * Enhanced UI.
+ 
+= 2.0.4 =
+ * [Enhancement] - Added a new feature Delivery Note.
+ 
+= 2.0.3 =
+ * [Enhancement] - Option to enable Contact Number to Shipping Label.
+ * [Fix] - Fixed Image Skewing issue.
+ 
+= 2.0.2 =
+ * [Compatibility] - version compatibility with WooCommerce version less than 2.5.0.
+ 
+= 2.0.1 =
+ * [Tweak] - Removed blank line created by empty Address Line 2.
+ * [Compatibility] with PHP version less than 5.4.
+
+= 2.0 =
+ * [Enhancement] - Print PDF Shipping Label, PDF Invoice and PDF Packing List.
+ * [Enhancement] - Enhanced Label Format.
+ * [Enhancement] - Generate Invoice Number or use Order Number as Invoice Number.
+ * [Enhancement] - Add item price in packing slip. 
+ 
+= 1.0 =
+ * Print Shipping Label, Invoice and Packing List.

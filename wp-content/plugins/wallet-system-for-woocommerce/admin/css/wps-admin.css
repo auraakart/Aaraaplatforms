@@ -1,0 +1,4087 @@
+@charset "UTF-8";
+table.dataTable {
+  width: 100%;
+  margin: 0 auto;
+  clear: both;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table.dataTable thead th, table.dataTable tfoot th {
+  font-weight: bold;
+}
+
+table.dataTable thead th, table.dataTable thead td {
+  padding: 10px 18px;
+  border-bottom: 1px solid #111;
+}
+
+table.dataTable thead th:active, table.dataTable thead td:active {
+  outline: none;
+}
+
+table.dataTable tfoot th, table.dataTable tfoot td {
+  padding: 10px 18px 6px 18px;
+  border-top: 1px solid #111;
+}
+
+table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc, table.dataTable thead .sorting_asc_disabled, table.dataTable thead .sorting_desc_disabled {
+  cursor: pointer;
+  *cursor: hand;
+  background-repeat: no-repeat;
+  background-position: center right;
+}
+
+table.dataTable tbody tr {
+  background-color: #ffffff;
+}
+
+table.dataTable tbody tr.selected {
+  background-color: #B0BED9;
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+  padding: 8px 10px;
+}
+
+table.dataTable.row-border tbody th, table.dataTable.row-border tbody td, table.dataTable.display tbody th, table.dataTable.display tbody td {
+  border-top: 1px solid #ddd;
+}
+
+table.dataTable.row-border tbody tr:first-child th, table.dataTable.row-border tbody tr:first-child td, table.dataTable.display tbody tr:first-child th, table.dataTable.display tbody tr:first-child td {
+  border-top: none;
+}
+
+table.dataTable.cell-border tbody th, table.dataTable.cell-border tbody td {
+  border-top: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+table.dataTable.cell-border tbody tr th:first-child, table.dataTable.cell-border tbody tr td:first-child {
+  border-left: 1px solid #ddd;
+}
+
+table.dataTable.cell-border tbody tr:first-child th, table.dataTable.cell-border tbody tr:first-child td {
+  border-top: none;
+}
+
+table.dataTable.stripe tbody tr.odd, table.dataTable.display tbody tr.odd {
+  background-color: #f9f9f9;
+}
+
+table.dataTable.stripe tbody tr.odd.selected, table.dataTable.display tbody tr.odd.selected {
+  background-color: #acbad4;
+}
+
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+  background-color: #f6f6f6;
+}
+
+table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:hover.selected {
+  background-color: #aab7d1;
+}
+
+table.dataTable.order-column tbody tr > .sorting_1, table.dataTable.order-column tbody tr > .sorting_2, table.dataTable.order-column tbody tr > .sorting_3, table.dataTable.display tbody tr > .sorting_1, table.dataTable.display tbody tr > .sorting_2, table.dataTable.display tbody tr > .sorting_3 {
+  background-color: #fafafa;
+}
+
+table.dataTable.order-column tbody tr.selected > .sorting_1, table.dataTable.order-column tbody tr.selected > .sorting_2, table.dataTable.order-column tbody tr.selected > .sorting_3, table.dataTable.display tbody tr.selected > .sorting_1, table.dataTable.display tbody tr.selected > .sorting_2, table.dataTable.display tbody tr.selected > .sorting_3 {
+  background-color: #acbad5;
+}
+
+table.dataTable.display tbody tr.odd > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
+  background-color: #f1f1f1;
+}
+
+table.dataTable.display tbody tr.odd > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd > .sorting_2 {
+  background-color: #f3f3f3;
+}
+
+table.dataTable.display tbody tr.odd > .sorting_3, table.dataTable.order-column.stripe tbody tr.odd > .sorting_3 {
+  background-color: whitesmoke;
+}
+
+table.dataTable.display tbody tr.odd.selected > .sorting_1, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_1 {
+  background-color: #a6b4cd;
+}
+
+table.dataTable.display tbody tr.odd.selected > .sorting_2, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_2 {
+  background-color: #a8b5cf;
+}
+
+table.dataTable.display tbody tr.odd.selected > .sorting_3, table.dataTable.order-column.stripe tbody tr.odd.selected > .sorting_3 {
+  background-color: #a9b7d1;
+}
+
+table.dataTable.display tbody tr.even > .sorting_1, table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+  background-color: #fafafa;
+}
+
+table.dataTable.display tbody tr.even > .sorting_2, table.dataTable.order-column.stripe tbody tr.even > .sorting_2 {
+  background-color: #fcfcfc;
+}
+
+table.dataTable.display tbody tr.even > .sorting_3, table.dataTable.order-column.stripe tbody tr.even > .sorting_3 {
+  background-color: #fefefe;
+}
+
+table.dataTable.display tbody tr.even.selected > .sorting_1, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_1 {
+  background-color: #acbad5;
+}
+
+table.dataTable.display tbody tr.even.selected > .sorting_2, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_2 {
+  background-color: #aebcd6;
+}
+
+table.dataTable.display tbody tr.even.selected > .sorting_3, table.dataTable.order-column.stripe tbody tr.even.selected > .sorting_3 {
+  background-color: #afbdd8;
+}
+
+table.dataTable.display tbody tr:hover > .sorting_1, table.dataTable.order-column.hover tbody tr:hover > .sorting_1 {
+  background-color: #eaeaea;
+}
+
+table.dataTable.display tbody tr:hover > .sorting_2, table.dataTable.order-column.hover tbody tr:hover > .sorting_2 {
+  background-color: #ececec;
+}
+
+table.dataTable.display tbody tr:hover > .sorting_3, table.dataTable.order-column.hover tbody tr:hover > .sorting_3 {
+  background-color: #efefef;
+}
+
+table.dataTable.display tbody tr:hover.selected > .sorting_1, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_1 {
+  background-color: #a2aec7;
+}
+
+table.dataTable.display tbody tr:hover.selected > .sorting_2, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_2 {
+  background-color: #a3b0c9;
+}
+
+table.dataTable.display tbody tr:hover.selected > .sorting_3, table.dataTable.order-column.hover tbody tr:hover.selected > .sorting_3 {
+  background-color: #a5b2cb;
+}
+
+table.dataTable.no-footer {
+  border-bottom: 1px solid #111;
+}
+
+table.dataTable.nowrap th, table.dataTable.nowrap td {
+  white-space: nowrap;
+}
+
+table.dataTable.compact thead th, table.dataTable.compact thead td {
+  padding: 4px 17px 4px 4px;
+}
+
+table.dataTable.compact tfoot th, table.dataTable.compact tfoot td {
+  padding: 4px;
+}
+
+table.dataTable.compact tbody th, table.dataTable.compact tbody td {
+  padding: 4px;
+}
+
+table.dataTable th.dt-left, table.dataTable td.dt-left {
+  text-align: left;
+}
+
+table.dataTable th.dt-center, table.dataTable td.dt-center, table.dataTable td.dataTables_empty {
+  text-align: center;
+}
+
+table.dataTable th.dt-right, table.dataTable td.dt-right {
+  text-align: right;
+}
+
+table.dataTable th.dt-justify, table.dataTable td.dt-justify {
+  text-align: justify;
+}
+
+table.dataTable th.dt-nowrap, table.dataTable td.dt-nowrap {
+  white-space: nowrap;
+}
+
+table.dataTable thead th.dt-head-left, table.dataTable thead td.dt-head-left, table.dataTable tfoot th.dt-head-left, table.dataTable tfoot td.dt-head-left {
+  text-align: left;
+}
+
+table.dataTable thead th.dt-head-center, table.dataTable thead td.dt-head-center, table.dataTable tfoot th.dt-head-center, table.dataTable tfoot td.dt-head-center {
+  text-align: center;
+}
+
+table.dataTable thead th.dt-head-right, table.dataTable thead td.dt-head-right, table.dataTable tfoot th.dt-head-right, table.dataTable tfoot td.dt-head-right {
+  text-align: right;
+}
+
+table.dataTable thead th.dt-head-justify, table.dataTable thead td.dt-head-justify, table.dataTable tfoot th.dt-head-justify, table.dataTable tfoot td.dt-head-justify {
+  text-align: justify;
+}
+
+table.dataTable thead th.dt-head-nowrap, table.dataTable thead td.dt-head-nowrap, table.dataTable tfoot th.dt-head-nowrap, table.dataTable tfoot td.dt-head-nowrap {
+  white-space: nowrap;
+}
+
+table.dataTable tbody th.dt-body-left, table.dataTable tbody td.dt-body-left {
+  text-align: left;
+}
+
+table.dataTable tbody th.dt-body-center, table.dataTable tbody td.dt-body-center {
+  text-align: center;
+}
+
+table.dataTable tbody th.dt-body-right, table.dataTable tbody td.dt-body-right {
+  text-align: right;
+}
+
+table.dataTable tbody th.dt-body-justify, table.dataTable tbody td.dt-body-justify {
+  text-align: justify;
+}
+
+table.dataTable tbody th.dt-body-nowrap, table.dataTable tbody td.dt-body-nowrap {
+  white-space: nowrap;
+}
+
+table.dataTable, table.dataTable th, table.dataTable td {
+  box-sizing: content-box;
+}
+
+.dataTables_wrapper {
+  position: relative;
+  clear: both;
+  *zoom: 1;
+  zoom: 1;
+}
+
+.dataTables_wrapper .dataTables_length {
+  float: left;
+}
+
+.dataTables_wrapper .dataTables_filter {
+  float: right;
+  text-align: right;
+}
+
+.dataTables_wrapper .dataTables_filter input {
+  margin-left: 0.5em;
+}
+
+.dataTables_wrapper .dataTables_info {
+  clear: both;
+  float: left;
+  padding-top: 0.755em;
+}
+
+.dataTables_wrapper .dataTables_paginate {
+  float: right;
+  text-align: right;
+  padding-top: 0.25em;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 1.5em;
+  padding: 0.5em 1em;
+  margin-left: 2px;
+  text-align: center;
+  text-decoration: none !important;
+  cursor: pointer;
+  *cursor: hand;
+  color: #333 !important;
+  border: 1px solid transparent;
+  border-radius: 2px;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+  color: #333 !important;
+  border: 1px solid #979797;
+  background-color: white;
+  background: linear-gradient(to bottom, #fff 0%, #dcdcdc 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button.disabled, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.disabled:active {
+  cursor: default;
+  color: #666 !important;
+  border: 1px solid transparent;
+  background: transparent;
+  box-shadow: none;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+  color: white !important;
+  border: 1px solid #111;
+  background-color: #585858;
+  background: linear-gradient(to bottom, #585858 0%, #111 100%);
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button:active {
+  outline: none;
+  background-color: #2b2b2b;
+  background: linear-gradient(to bottom, #2b2b2b 0%, #0c0c0c 100%);
+  box-shadow: inset 0 0 3px #111;
+}
+
+.dataTables_wrapper .dataTables_paginate .ellipsis {
+  padding: 0 1em;
+}
+
+.dataTables_wrapper .dataTables_processing {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 40px;
+  margin-left: -50%;
+  margin-top: -25px;
+  padding-top: 20px;
+  text-align: center;
+  font-size: 1.2em;
+  background-color: white;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.9) 25%, rgba(255, 255, 255, 0.9) 75%, rgba(255, 255, 255, 0) 100%);
+}
+
+.dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter, .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_processing, .dataTables_wrapper .dataTables_paginate {
+  color: #333;
+}
+
+.dataTables_wrapper .dataTables_scroll {
+  clear: both;
+}
+
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody {
+  *margin-top: -1px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > th, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > td, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > th, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > th > div.dataTables_sizing, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > thead > tr > td > div.dataTables_sizing, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > th > div.dataTables_sizing, .dataTables_wrapper .dataTables_scroll div.dataTables_scrollBody > table > tbody > tr > td > div.dataTables_sizing {
+  height: 0;
+  overflow: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.dataTables_wrapper.no-footer .dataTables_scrollBody {
+  border-bottom: 1px solid #111;
+}
+
+.dataTables_wrapper.no-footer div.dataTables_scrollHead table.dataTable, .dataTables_wrapper.no-footer div.dataTables_scrollBody > table {
+  border-bottom: none;
+}
+
+.dataTables_wrapper:after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  clear: both;
+  height: 0;
+}
+
+/* Create Color variables here
+ * follow this link for Color name
+ * https://chir.ag/projects/name-that-color/
+ * and use $c prefix.
+ * use lowercase for color code and variable name 
+ * i.e $c-black: #000000; */
+/*===================================
+=            FONT-FAMILY            =
+===================================*/
+
+@font-face {
+    font-family: 'NunitoSans-Black';
+    src: url('../fonts/nunito-sans/NunitoSans-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NunitoSans-ExtraBold';
+    src: url('../fonts/nunito-sans/NunitoSans-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NunitoSans-Bold';
+    src: url('../fonts/nunito-sans/NunitoSans-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NunitoSans-SemiBold';
+    src: url('../fonts/nunito-sans/NunitoSans-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NunitoSans-Light';
+    src: url('../fonts/nunito-sans/NunitoSans-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NunitoSans-Regular';
+    src: url('../fonts/nunito-sans/NunitoSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/*=====  End of FONT-FAMILY  ======*/
+/*----------  Font Size Variable  ----------*/
+/*=====  End of Typography Variable and Declaration  ======*/
+/* Placeholders */
+/* Mixins */
+/* SCSS Functions */
+/* Enter Your Global CSS here */
+* {
+  box-sizing: border-box;
+}
+
+*:after, *:before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-family: 'NunitoSans-Regular';
+  font-size: 16px;
+  line-height: 22px;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover, a:active, a:focus {
+  text-decoration: none;
+  outline: none;
+  color: none;
+  box-shadow: none;
+}
+
+ul {
+  margin: 0;
+}
+
+.wps-info-img {
+  display: inline-block;
+  margin-right: 6px;
+  margin-top: -3px;
+  max-width: 15px;
+}
+
+/* Enter Button Global CSS Here */
+.wps-btn {
+  border-radius: 50px;
+  border: 1px solid #2196f3;
+  color: #ffffff;
+  cursor: pointer;
+  display: inline-block;
+  font-family: "NunitoSans-Regular";
+  font-size: 14px;
+  font-weight: 400;
+  min-width: 140px;
+  outline: 0;
+  padding: 16px 32px;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.wps-btn:hover, .wps-btn:active, .wps-btn:focus {
+  color: #ffffff;
+}
+
+.wps-btn__filled {
+  background-color: #2196f3;
+}
+
+/* Header CSS */
+/* Footer CSS */
+/* Navigation CSS */
+/* Sidebar CSS */
+/* About page css */
+/* Home Page CSS */
+/* Overview page css */
+.wps-overview__wrapper {
+  width: calc(100% - 20px);
+}
+
+.wps-overview__wrapper .wps-overview__banner {
+  background-color: #ffffff;
+  margin: 10px 0 25px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.wps-overview__wrapper .wps-overview__banner img {
+  width: 100%;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__content-description {
+  background-color: #ffffff;
+  margin-bottom: 30px;
+  padding: 25px 0;
+  text-align: left;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__content-description h2 {
+  color: #163062;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  line-height: 150%;
+  margin: 10px 0px;
+  text-align: left;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__content-description p {
+  color: #565857;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__content-description h3 {
+  color: #163062;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  margin-bottom: 15px;
+  margin-top: 25px;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__content-description .wps-overview__features {
+  list-style: none;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__content-description .wps-overview__features li {
+  color: #565857;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  line-height: 24px;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__content-description .wps-overview__features li:before {
+  color: #1a3365;
+  font-family:Dashicons;
+  content: "\f15e";
+  font-size: 20px;
+  font-weight: 400;
+  vertical-align: middle;
+}
+
+.wps-overview__wrapper .wps-overview__content h2 {
+  color: #163062;
+  font-size: 30px;
+  font-weight: 600;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  line-height: 150%;
+  margin: 10px 0px;
+  text-align: left;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__keywords {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__keywords .wps-overview__keywords-item {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 33.33%;
+  margin-bottom: 20px;
+  max-width: 33.33%;
+  padding: 0 15px;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__keywords .wps-overview__keywords-item .wps-overview__keywords-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  border: 1px solid #dddddd;
+  box-shadow: 0px 4px 10px #efefef;
+  color: #ffffff;
+  flex-grow: 1;
+  padding: 30px;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__keywords .wps-overview__keywords-item .wps-overview__keywords-card .wps-overview__keywords-image {
+  overflow: hidden;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__keywords .wps-overview__keywords-item .wps-overview__keywords-card .wps-overview__keywords-image img {
+  max-width: 80px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  width: auto;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__keywords .wps-overview__keywords-item .wps-overview__keywords-card .wps-overview__keywords-text .wps-overview__keywords-heading {
+  color: #163062;
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  line-height: 38px;
+  margin: 15px 0;
+}
+
+.wps-overview__wrapper .wps-overview__content .wps-overview__keywords .wps-overview__keywords-item .wps-overview__keywords-card .wps-overview__keywords-text .wps-overview__keywords-description {
+  color: #565857;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+/* overview page css ends */
+/*====================================
+=            Tabs Section            =
+====================================*/
+.wps-navbar {
+  background: #ffffff;
+  border-bottom: 0;
+  border-radius: 10px;
+  padding: 10px 30px 30px;
+  margin: 15px 15px 8px 0;
+}
+
+.wps-navbar .wps-navbar__items {
+  border-bottom: 1px solid #8e908f;
+}
+
+.wps-navbar .wps-navbar__items .wps-link {
+  color: #1d201f;
+}
+
+.wps-navbar .wps-navbar__items .wps-link.active {
+  color: #2196f3;
+}
+
+/*=====  End of Tabs Section  ======*/
+/*=======================================
+=            General section            =
+=======================================*/
+.wps-wsfw-gen-section-form {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 30px 30px;
+  margin: 15px 15px 8px 0;
+}
+
+.wps-wsfw-gen-section-form .wps-form-group {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px 35px;
+  padding-top: 30px;
+}
+
+.wps-wsfw-gen-section-form .wps-form-group .wps-form-group__label {
+  flex: 0 0 20%;
+  max-width: 20%;
+  padding: 0 15px;
+}
+
+.wps-wsfw-gen-section-form .wps-form-group .wps-form-group__label .wps-form-label {
+  font-family: "NunitoSans-SemiBold";
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.3px;
+}
+
+.wps-wsfw-gen-section-form .wps-form-group .wps-form-group__control {
+  flex: 0 0 80%;
+  max-width: 80%;
+  padding: 0 15px;
+}
+
+/*=====  End of General section  ======*/
+/*======================================
+=            Wallet Section            =
+======================================*/
+.wps-wpg-gen-section-form-container {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 30px 30px;
+  margin: 15px 15px 8px 0;
+}
+
+.wps-wpg-gen-section-form-container h3 {
+  border-bottom: 1px solid #c7c7c7;
+  color: #1d201f;
+  font-family: "NunitoSans-ExtraBold";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: 0.5px;
+  padding-bottom: 15px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group {
+  margin: 0 0 35px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__label {
+  align-self: center;
+  flex: 0 0 20%;
+  max-width: 20%;
+  padding: 0 15px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__label .wps-form-label {
+  color: #1d201f;
+  font-family: "NunitoSans-ExtraBold";
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 26px;
+  letter-spacing: 0.5px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control {
+  flex: 0 0 80%;
+  max-width: 80%;
+  padding: 0 15px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control label {
+  max-height: 40px;
+  padding-right: 10px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control label input {
+  padding: 0;
+  max-width: 150px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control .wps-form-select {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 360px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control .wps-form-select input {
+  border-width: 2px;
+  height: 18px;
+  padding: 0px !important;
+  vertical-align: sub;
+  width: 18px;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control .wps-form-select input:before {
+  background-color: #2196f3;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control .wps-form-select input:checked {
+  border-color: #2196f3;
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control .wps-form-select label {
+  font-family: "NunitoSans-Regular";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0.25px;
+}
+
+.wps-wpg-gen-section-form-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  justify-content: space-between;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form {
+  flex: 0 0 calc(50% - 20px);
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+  padding: 15px;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form h3 {
+  border-bottom: none;
+  padding: 0 0 0 15px;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-form-group .wps-form-group__label {
+  flex: 0 0 40%;
+  max-width: 40%;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-form-group__control {
+  flex: 0 0 60%;
+  max-width: 60%;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps_wallet-update--popupwrap {
+  bottom: 0;
+  display: block;
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 5555555;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps_wallet-update--popupwrap:after {
+  position: absolute;
+  content: '';
+  height: 100%;
+  width: 100%;
+  background: rgba(121, 121, 121, 0.8);
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps_wallet-update--popupwrap .wps_wallet-update-popup {
+  background: #ffffff;
+  border-radius: 5px;
+  left: 0;
+  margin: auto;
+  max-width: 550px;
+  padding: 30px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 455;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps_wallet-update--popupwrap .wps_wallet-update-popup h3 {
+  margin-bottom: 30px;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps_wallet-update--popupwrap .wps_wallet-update-popup .wps-btn {
+  color: #ffffff;
+}
+
+.wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps_wallet-update--popupwrap .wps_wallet-update-popup a {
+  color: #f32121;
+  margin: 0 10px;
+}
+/* new export button */
+.wps-wpg-gen-section-form-ex-btn {
+  padding: 25px 0 10px;
+  text-align: right;
+  flex: 1;
+  position: absolute;
+  bottom: 0;
+  right: 20px;
+}
+
+.wps-wpg-gen-section-form-ex-btn button {
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #2196f3;
+  border-radius: 4px;
+  background: transparent;
+  color: #2196f3;
+  margin: 0 0 5px;
+}
+
+.wps-wpg-gen-section-form-ex-btn button img {
+  height: 16px;
+  filter: invert(49%) sepia(56%) saturate(3480%) hue-rotate(185deg) brightness(100%) contrast(91%);
+}
+
+.wps-wpg-gen-section-form-ex-btn .wps_wsfw_reset_user_loader,.wps-wpg-gen-section-form-ex-btn .wps_wsfw_reset_user_notice {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 99999;
+  width: 80px;
+  height: auto;
+
+}
+
+.wps-div-loader-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.4);
+  z-index: 99999;
+  display: none;
+}
+
+.wps-wpg-gen-section-form-ex-btn .wps_wsfw_reset_user_notice {
+  top: calc(50% + 50px);
+  width: 100%;
+  text-align: center;
+  color:rgb(244, 242, 242);
+}
+/* new export button end */
+
+.wps_wallet-edit--popupwrap {
+  bottom: 0;
+  display: block;
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 5555555;
+}
+
+.wps_wallet-edit--popupwrap:after {
+  background: rgba(121, 121, 121, 0.8);
+  content: '';
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup {
+  background: #ffffff;
+  border-radius: 5px;
+  left: 0;
+  margin: auto;
+  max-width: 550px;
+  padding: 30px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 455;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-amount {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-amount .wps_wallet-edit-popup-control {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 250px;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-amount .wps_wallet-edit-popup-control label {
+  font-family: "NunitoSans-SemiBold";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  letter-spacing: 0.25px;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup #close_wallet_form {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-label {
+  min-width: 220px;
+  text-align: left;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-label label {
+  color: #1d201f;
+  font-family: "NunitoSans-Bold";
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.5px;
+}
+
+.wps-wpg-gen-section-table-wrap {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 10px 30px 30px;
+  margin: 15px 15px 8px 0;
+}
+
+.wps-wpg-gen-section-table-wrap h4 {
+  color: #1d201f;
+  font-family: "NunitoSans-Bold";
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 15px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container {
+  margin-bottom: 55px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table {
+  border-collapse: collapse;
+  border-bottom: 0 !important;
+  border: 1px solid #c7c7c7;
+  border-radius: 5px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table thead {
+  text-align: left;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table thead th {
+  border-bottom: 1px solid rgba(33, 33, 33, 0.08);
+  padding: 15px;
+  font-family: "NunitoSans-SemiBold";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.25px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table thead th:last-child {
+  text-align: right;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody .dtr-control img {
+  max-width: 20px;
+  display: inline-block;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td {
+  border-bottom: 1px solid rgba(33, 33, 33, 0.08);
+  padding: 15px;
+  font-family: "NunitoSans-SemiBold";
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.25px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td .dtr-details li {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td .dtr-details li .dtr-title {
+  margin-right: 20px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td span {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td span img {
+  margin: 0 6px;
+  width: 22px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .bottom {
+  bottom: -60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  position: absolute;
+  right: 0;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .bottom .dataTables_length {
+  font-family: "NunitoSans-SemiBold";
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .bottom .dataTables_length select {
+  margin: 0 25px;
+  min-width: 90px;
+  padding: 5px 30px 5px 15px !important;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .bottom .dataTables_info {
+  font-family: "NunitoSans-SemiBold";
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0.25px;
+  margin-right: 5px;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .bottom .dataTables_paginate {
+  padding: 0;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .bottom .dataTables_paginate span .paginate_button {
+  display: none !important;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .bottom .dataTables_paginate .paginate_button:hover {
+  background: #ffffff;
+  border: 0;
+}
+.wps_wallet-edit-check--popupwrap {
+  bottom: 0;
+  display: block;
+  display: none;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 5555555;
+}
+.wps_wallet-edit-check--popupwrap:after {
+  background: rgba(121, 121, 121, 0.8);
+  content: '';
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+.wps_wallet-edit-check--popupwrap .wps_wallet-edit-check-popup {
+  background: #ffffff;
+  border-radius: 5px;
+  left: 0;
+  margin: auto;
+  max-width: 550px;
+  padding: 30px;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 455;
+}
+.wps_wallet-edit-check--popupwrap .wps_wallet-edit-check-popup #close_wallet_form_check {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 15px;
+}
+
+/*=====  End of Wallet Section  ======*/
+/*==========================================
+=            Withdrawal Section            =
+==========================================*/
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table thead th:last-child {
+  text-align: left;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody .dtr-control {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody .dtr-control img {
+  flex: 0;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td select {
+  border: 0;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td select .approved {
+  color: #03dac5 !important;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td select .pending, .wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td select .pending1 {
+  color: #fdb51a !important;
+}
+
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td select .rejected {
+  color: #f32121 !important;
+}
+
+.wps-wpg-withdrawal-section-search {
+  background: #ffffff;
+  border-radius: 10px;
+  margin: 15px 15px 8px 0;
+  padding: 15px;
+}
+
+.wps-wpg-withdrawal-section-search table {
+  width: 100%;
+}
+
+.wps-wpg-withdrawal-section-search table tbody {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.wps-wpg-withdrawal-section-search table tbody tr th {
+  color: #1d201f;
+  font-family: "NunitoSans-Bold";
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.wps-wpg-withdrawal-section-search table tbody tr td input {
+  padding: 5px 10px;
+}
+
+.wps-wpg-withdrawal-section-search table tbody tr td select {
+  height: 40px;
+  padding: 5px 30px 5px 15px !important;
+}
+
+.wps-wpg-withdrawal-section-search table tbody tr:first-child input {
+  width: 340px;
+}
+
+/*=====  End of Withdrawal Section  ======*/
+/*==========================================
+=            Transaction Section            =
+==========================================*/
+.wps-section {
+  padding: 0;
+}
+
+.wps-section .wps-wpg-transcation-section-search {
+  background: #ffffff;
+  border-radius: 10px;
+  margin: 15px 0 0;
+  padding: 15px 0;
+}
+
+.wps-section .wps-wpg-transcation-section-search table {
+  width: 100%;
+}
+
+.wps-section .wps-wpg-transcation-section-search table tbody {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.wps-section .wps-wpg-transcation-section-search table tbody tr th {
+  color: #1d201f;
+  font-family: "NunitoSans-Bold";
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.wps-section .wps-wpg-transcation-section-search table tbody tr td input {
+  padding: 5px 10px;
+}
+
+.wps-section .wps-wpg-transcation-section-search table tbody tr:first-child {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  width: 58%;
+}
+
+.wps-section .wps-wpg-transcation-section-search table tbody tr td span {
+  padding: 5px 10px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.wps-section .wps-wpg-transcation-section-search table tbody tr:first-child input {
+  width: 340px;
+}
+
+.wps-section .wps-wpg-transcation-section-table {
+  background: #ffffff;
+  border-radius: 10px;
+  margin: 15px 15px 8px 0;
+  padding: 30px 30px 30px;
+}
+
+#ui-datepicker-div {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+#ui-datepicker-div .ui-datepicker-header {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 180px;
+  justify-content: center;
+}
+#ui-datepicker-div .ui-datepicker-calendar{
+  margin:auto;
+}
+#ui-datepicker-div .ui-datepicker-header .ui-corner-all {
+  padding: 5px;
+  flex: 0 0 40%;
+}
+
+#ui-datepicker-div .ui-datepicker-header .ui-datepicker-next {
+  text-align: right;
+}
+
+#ui-datepicker-div .ui-datepicker-header .ui-datepicker-title select {
+  padding: 5px 20px 5px 15px !important;
+  width: 80px;
+}
+
+/*=====  End of Transaction Section  ======*/
+
+@media screen and (max-width: 767px){
+  .dataTables_wrapper .dataTables_info, .dataTables_wrapper .dataTables_paginate {
+    float: none;
+    text-align: center;
+  }
+  .dataTables_wrapper .dataTables_paginate {
+    margin-top: 0.5em;
+  }
+}
+
+@media screen and (max-width: 640px){
+  .dataTables_wrapper .dataTables_length, .dataTables_wrapper .dataTables_filter {
+    float: none;
+    text-align: center;
+  }
+  .dataTables_wrapper .dataTables_filter {
+    margin-top: 0.5em;
+  }
+}
+
+@media (max-width: 992px){
+  .wps-overview__wrapper .wps-overview__content .wps-overview__keywords .wps-overview__keywords-item {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+  .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form {
+    flex: 0 0 100%;
+  }
+  .wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td span {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 1100px){
+  .wps-section .wps-wpg-transcation-section-search table tbody {
+    justify-content: flex-start;
+  }
+
+  .wps-section .wps-wpg-transcation-section-search table tbody tr:first-child {
+    width: auto;
+  }
+
+  .wps-section .wps-wpg-transcation-section-search table tbody tr:first-child input {
+    width: auto;
+  }
+}
+
+@media (max-width: 768px){
+  .wps-overview__wrapper .wps-overview__content .wps-overview__keywords .wps-overview__keywords-item {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+.wps-section .wps-wpg-withdrawal-section-table {
+  padding: 30px;
+}
+
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control .wps-form-select input:before {
+  line-height: 0;
+  position: absolute;
+  left: 50%;
+  margin: 0;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control .wps-form-select input[type=radio] {
+  position: relative;
+}
+
+.wallet-system-wallet-setting .wps-form-group .wps-form-group__label {
+  align-self: flex-start;
+}
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td span {
+  justify-content: flex-start;
+}
+.wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container .wps-wpg-gen-section-table tbody td .wps-form-group {
+  display: block;
+  margin: 0;
+}
+.wps-wpg-withdrawal-section-search table tbody tr:first-child input {
+  width: 100%;
+  max-width: 320px;
+}
+@media screen and (max-width: 768px) {
+.wps-wsfw-gen-section-form .wps-form-group {
+    display: block;
+}
+
+.wps-wsfw-gen-section-form .wps-form-group .wps-form-group__label {
+    max-width: 80%;
+    margin-bottom: 10px;
+}
+
+.wps-header-container .wps-header-title {
+    max-width: 80%;
+    margin-bottom: 10px;
+}
+
+.wps-header-container {
+    gap: 3px;
+}
+
+.wps-header-container span {
+    margin: 0 15px;
+}
+
+.wps-header-container .wps-header-title p {
+    margin: 0 0 -10px;
+}
+
+.wallet-system-wallet-setting .wps-form-group {
+    display: block;
+}
+
+.wallet-system-wallet-setting .wps-form-group .wps-form-group__label {
+    max-width: 80%!important;
+    margin-bottom: 10px;
+}
+
+.wallet-system-wallet-setting .wps-form-group .wps-form-group__control {
+    max-width: 80%;
+}
+
+.wps-overview__wrapper {
+    width: calc(100%);
+}
+
+}
+
+
+
+.wps_pro_settings_tag {
+  position: relative;
+}
+
+.wps_pro_settings_tag:before {
+  align-items: center;
+  background: #f5a400;
+  border: 1px solid rgba(245, 164, 0, 0.42);
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(245, 164, 0, 0.18);
+  color: #20143b;
+  content: 'PRO';
+  display: inline-flex;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0;
+  line-height: 1;
+  min-height: 20px;
+  padding: 0 8px;
+  position: absolute;
+  right: 14px;
+  text-transform: uppercase;
+  top: 14px;
+  z-index: 3;
+}
+
+.wps_pro_settings_tag:after {
+  display: none;
+}
+
+.wps_pro_settings_tag .wps-form-group__label,
+.wps_pro_settings_tag .wps-form-group__control {
+  padding-top: 8px;
+}
+
+.wps_pro_settings {
+  cursor: pointer;
+}
+
+input.wps_pro_settings,
+select.wps_pro_settings,
+textarea.wps_pro_settings,
+button.wps_pro_settings {
+  background-color: #fbf8ff !important;
+  border-color: #eadffd !important;
+  color: #76688f !important;
+}
+
+
+.wps_class_li_wallet-system-for-woocommerce-cashback,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-recharge-tab,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-promotions,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-withdrawal-settings,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-restriction,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-sms-notification-settings,
+.wps_class_li_wallet-system-for-woocommerce-buy-now-pay-later,
+.wps_class_li_wallet-system-for-woocommerce-wallet-kyc {
+  position: relative;
+}
+
+.wps_class_li_wallet-system-for-woocommerce-cashback > a:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-recharge-tab > a:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-promotions > a:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-withdrawal-settings > a:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-restriction > a:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-sms-notification-settings > a:after,
+.wps_class_li_wallet-system-for-woocommerce-buy-now-pay-later > a:after,
+.wps_class_li_wallet-system-for-woocommerce-wallet-kyc > a:after,
+.wps_class_li_wallet-system-for-woocommerce-cashback > button:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-recharge-tab > button:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-promotions > button:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-withdrawal-settings > button:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-restriction > button:after,
+.wps_class_li_wallet-system-for-woocommerce-org-wallet-sms-notification-settings > button:after,
+.wps_class_li_wallet-system-for-woocommerce-buy-now-pay-later > button:after,
+.wps_class_li_wallet-system-for-woocommerce-wallet-kyc > button:after {
+  align-items: center;
+  background: #a1e9b7;
+  border: 0;
+  border-radius: 4px;
+  color: #17602e;
+  content: 'PRO';
+  display: inline-flex;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 9px;
+  height: 17px;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-left: 6px;
+  min-width: 30px;
+  padding: 0 5px;
+  position: static;
+  transform: none;
+  vertical-align: middle;
+}
+.wps_wallet_lite_go_pro_popup_wrap {
+  align-items: center;
+  background-color: rgb(0 0 0 / 24%);
+  bottom: 0;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  opacity: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  transition: 0.3s linear all;
+  visibility: hidden;
+  width: 100%;
+  z-index: 99999;
+}
+.wps_wallet_lite_go_pro_popup_wrap.wps_wallet_lite_go_pro_popup_show {
+  opacity: 1;
+  visibility: visible;
+  transition: 0.3s linear all;
+}
+.wps_wallet_lite_go_pro_popup {
+  background-color: #ffffff;
+  max-width: 600px;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+  margin: auto;
+  width: 100%;
+}
+.wps_wallet_lite_go_pro_popup_head h2 {
+  background-color: #7979f6;
+  border-radius: 5px 5px 0 0;
+  color: #ffffff;
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.25;
+  margin: -20px -20px 30px -20px;
+  padding: 10px;
+}
+.wps_wallet_lite_go_pro_popup_close {
+  position: absolute;
+  right: 8px;
+  top: 6px;
+  opacity: 0.8;
+  width: 25px;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  font-size: 22px;
+  border: 1px solid rgba(255,255,255,0.6);
+  height: 25px;
+  line-height: 21px;
+  border-radius: 50%;
+}
+.wps_wallet_lite_go_pro_popup_button .wps_ubo_lite_overview_go_pro_button, .button.wps_ubo_lite_overview_go_pro_button {
+  background-color: #78c900;
+  color: #ffffff;
+
+  height: auto;
+  border: none;
+  font-size: 18px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-transform: capitalize;
+  box-shadow: none;
+}
+.wps_wallet_lite_go_pro_popup_button .wps_ubo_lite_overview_go_pro_button span, .button.wps_ubo_lite_overview_go_pro_button span {
+  vertical-align: middle;
+  margin-left: 5px;
+}
+.wps_wallet_lite_go_pro_popup_text {
+  font-size: 16px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.wps_wallet_lite_go_pro_popup_head{
+  margin-bottom: 30px;
+}
+
+
+.wps_wallet_delete_action{
+  color:red;
+  cursor: pointer;
+}
+
+
+.ui-state-active {
+  color: red;
+}
+#ui-datepicker-div{
+  border : 1px solid ;
+  border-top:none;
+}
+
+/* Wallet admin refreshed UI layer. */
+.wp-swings_page_wallet_system_for_woocommerce_menu #wpcontent,
+.wpswings_page_wallet_system_for_woocommerce_menu #wpcontent,
+.wp-swingstter_page_wallet_system_for_woocommerce_menu #wpcontent {
+  background: #f7f3ff;
+}
+
+.wps-wallet-admin-shell {
+  color: #20143b;
+  font-family: NunitoSans-Regular, Arial, sans-serif;
+  margin: 24px 20px 40px 0;
+  max-width: 1440px;
+}
+
+.wps-wallet-admin-shell *,
+.wps-wallet-admin-shell *:before,
+.wps-wallet-admin-shell *:after {
+  box-sizing: border-box;
+}
+
+.wps-wallet-announcement {
+  align-items: center;
+  background: #fffaf2;
+  border: 1px solid #f8dca7;
+  border-radius: 8px;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  margin-bottom: 16px;
+  padding: 28px;
+}
+
+.wps-wallet-announcement__badge {
+  background: #f2a000;
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  line-height: 1;
+  padding: 13px 18px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.wps-wallet-announcement__content h2 {
+  color: #170a37;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 24px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+
+.wps-wallet-announcement__content p {
+  color: #6f6388;
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.wps-wallet-announcement__dismiss {
+  background: #050505;
+  border: 1px solid #050505;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 14px;
+  min-height: 54px;
+  padding: 0 22px;
+}
+
+.wps-wallet-hero {
+  align-items: center;
+  background: #31175f;
+  border-radius: 8px;
+  box-shadow: 0 18px 46px rgba(49, 23, 95, 0.18);
+  color: #fff;
+  display: flex;
+  gap: 20px;
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  min-height: 70px;
+  padding: 16px 26px;
+}
+
+.wps-wallet-hero h1 {
+  color: #fff;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.wps-wallet-badge {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  color: #fff;
+  display: inline-flex;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  line-height: 1;
+  padding: 9px 14px;
+  text-transform: uppercase;
+}
+
+.wps-wallet-primary-link,
+.wps-wallet-side-button,
+.wps-wallet-admin-shell .mdc-button {
+  align-items: center;
+  background: #050505 !important;
+  border: 1px solid #050505 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  display: inline-flex;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  justify-content: center;
+  line-height: 1;
+  min-height: 44px;
+  padding: 0 18px !important;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wps-wallet-primary-link:hover,
+.wps-wallet-side-button:hover,
+.wps-wallet-admin-shell .mdc-button:hover {
+  background: #2d174f !important;
+  border-color: #2d174f !important;
+  color: #fff !important;
+}
+
+.wps-wallet-alert-stack {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.wps-wallet-alert {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-left: 4px solid #f2a51b;
+  border-radius: 8px;
+  box-shadow: 0 12px 28px rgba(49, 23, 95, 0.07);
+  color: #4b3a64;
+  font-size: 13px;
+  line-height: 1.6;
+  padding: 14px 18px;
+}
+
+.wps-wallet-panel {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 20px 54px rgba(49, 23, 95, 0.08);
+  overflow: visible;
+}
+
+.wps-wallet-admin-shell .wps-navbar {
+  background: #fff;
+  border-radius: 0;
+  margin: 0;
+  overflow: visible;
+  padding: 0 18px;
+}
+
+.wps-wallet-admin-shell .wps-navbar .wps-navbar__items {
+  align-items: center;
+  border-bottom: 1px solid #eee6fb;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 22px;
+  min-width: max-content;
+}
+
+.wps-wallet-admin-shell .wps-navbar .wps-navbar__items li {
+  margin: 0;
+}
+
+.wps-wallet-version {
+  color: #76688f;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1;
+  padding: 20px 0 17px;
+  white-space: nowrap;
+}
+
+.wps-wallet-admin-shell .wps-navbar .wps-navbar__items .wps-link {
+  color: #3a2b55;
+  display: block;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  padding: 20px 0 17px;
+  position: relative;
+  white-space: nowrap;
+}
+
+.wps-wallet-admin-shell .wps-navbar .wps-navbar__items .wps-wallet-more-toggle {
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  height: auto;
+}
+
+.wps-wallet-admin-shell .wps-navbar .wps-navbar__items .wps-link.active {
+  background: #fff6df;
+  border-radius: 999px;
+  color: #20143b !important;
+  margin: 12px 0 10px;
+  padding: 8px 18px;
+}
+
+.wps-wallet-admin-shell .wps-navbar .wps-navbar__items .wps-link:after {
+  border-bottom: 0;
+}
+
+.wps-wallet-admin-shell .wps-navbar .wps-navbar__items .wps-link.active:after {
+  display: none;
+}
+
+.wps-wallet-more-menu {
+  position: relative;
+}
+
+.wps-wallet-more-toggle span {
+  font-size: 10px;
+  margin-left: 4px;
+}
+
+.wps-wallet-more-list {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 18px 42px rgba(49, 23, 95, 0.16);
+  display: none;
+  left: auto;
+  margin: 0;
+  min-width: 230px;
+  padding: 8px;
+  position: absolute;
+  right: 0;
+  top: calc(100% - 8px);
+  z-index: 999;
+}
+
+.wps-wallet-more-menu:hover .wps-wallet-more-list,
+.wps-wallet-more-menu:focus-within .wps-wallet-more-list {
+  display: block;
+}
+
+.wps-wallet-more-list li {
+  margin: 0 !important;
+}
+
+.wps-wallet-more-link {
+  border-radius: 6px;
+  color: #3a2b55;
+  display: block;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.35;
+  padding: 11px 12px;
+  text-decoration: none;
+  white-space: normal;
+}
+
+.wps-wallet-more-link:hover,
+.wps-wallet-more-link.active {
+  background: #fff6df;
+  color: #20143b;
+}
+
+.wps-wallet-content-grid {
+  align-items: start;
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  padding: 22px 18px 18px;
+}
+
+.wps-wallet-admin-shell .wps-section {
+  min-width: 0;
+  padding: 0;
+}
+
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container,
+.wps-wallet-admin-shell .wps-wpg-transcation-section-search,
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table,
+.wps-wallet-admin-shell .wps-wpg-withdrawal-section-table,
+.wps-wallet-admin-shell .table-responsive,
+.wps-wallet-admin-shell .wps-overview__content-description,
+.wps-wallet-admin-shell .wps-overview__banner {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(49, 23, 95, 0.06);
+  margin: 0 0 18px;
+  padding: 22px;
+}
+
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form > .wsfw-secion-wrap > div:not(.wps-form-group),
+.wps-wallet-admin-shell .wallet-system-wallet-setting,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form {
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  margin: 0 0 18px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form > .wsfw-secion-wrap > div:not(.wps-form-group) > span,
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form > .wsfw-secion-wrap > span,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container h3 {
+  background: #fbf8ff;
+  border-bottom: 1px solid #f0e8fb;
+  color: #20143b;
+  display: block;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 18px 22px;
+}
+
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form hr {
+  display: none;
+}
+
+.wps-wallet-admin-shell .wps-form-group,
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form .wps-form-group,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container .wps-form-group {
+  align-items: flex-start;
+  border-bottom: 1px solid #f2edf8;
+  display: grid;
+  gap: 22px;
+  grid-template-columns: minmax(300px, 32%) minmax(0, 1fr);
+  margin: 0;
+  padding: 22px !important;
+}
+
+.wps-wallet-admin-shell .wps-form-group:last-child {
+  border-bottom: 0;
+}
+
+.wps-wallet-admin-shell .wps-form-group__label,
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form .wps-form-group .wps-form-group__label,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__label {
+  max-width: none;
+  padding: 0;
+  width: auto;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control,
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form .wps-form-group .wps-form-group__control,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control {
+  max-width: none;
+  padding: 0;
+  width: auto;
+}
+
+.wps-wallet-admin-shell .wps-form-label {
+  color: #20143b;
+  display: block;
+  font-family: NunitoSans-Bold, Arial, sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  max-width: 300px;
+  overflow-wrap: normal;
+  text-wrap: balance;
+}
+
+.wps-wallet-admin-shell .wps-helper-text,
+.wps-wallet-admin-shell .mdc-text-field-helper-text--persistent,
+.wps-wallet-admin-shell .mdl-textfield__label,
+.wps-wallet-admin-shell .wps_description_div,
+.wps-wallet-admin-shell .mdc-form-field label {
+  color: #76688f !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}
+
+.wps-wallet-admin-shell .mdc-text-field,
+.wps-wallet-admin-shell .mdc-text-field.mdc-text-field--outlined,
+.wps-wallet-admin-shell .wps-form-select select {
+  background: #fff !important;
+  border: 1px solid #e7def5 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #20143b !important;
+  min-height: 48px;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .mdc-notched-outline {
+  display: none;
+}
+
+.wps-wallet-admin-shell .mdc-text-field__input {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  min-height: 46px;
+  padding: 13px 14px !important;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell input[type="text"]:not(.mdc-text-field__input),
+.wps-wallet-admin-shell input[type="email"]:not(.mdc-text-field__input),
+.wps-wallet-admin-shell input[type="number"]:not(.mdc-text-field__input),
+.wps-wallet-admin-shell input[type="password"]:not(.mdc-text-field__input),
+.wps-wallet-admin-shell input[type="date"]:not(.mdc-text-field__input),
+.wps-wallet-admin-shell textarea:not(.mdc-text-field__input) {
+  background: #fff !important;
+  border: 1px solid #e7def5 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #20143b !important;
+  min-height: 48px;
+  padding: 13px 14px !important;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .mdc-text-field:focus-within,
+.wps-wallet-admin-shell select:focus,
+.wps-wallet-admin-shell input:not(.mdc-text-field__input):focus,
+.wps-wallet-admin-shell textarea:not(.mdc-text-field__input):focus {
+  border-color: #7c4bc2 !important;
+  box-shadow: 0 0 0 3px rgba(124, 75, 194, 0.12) !important;
+  outline: 0;
+}
+
+.wps-wallet-admin-shell .mdc-text-field__input:focus {
+  box-shadow: none !important;
+  outline: 0;
+}
+
+.wps-wallet-admin-shell .mdc-switch {
+  --mdc-theme-secondary: #f2a51b;
+  display: inline-block;
+  height: 32px;
+  margin-right: 10px;
+  overflow: visible;
+  position: relative;
+  vertical-align: middle;
+  width: 58px;
+}
+
+.wps-wallet-admin-shell .mdc-switch__track {
+  background: #dfe5f1 !important;
+  border: 1px solid #cfd8e8;
+  border-radius: 999px;
+  height: 32px;
+  opacity: 1 !important;
+  width: 58px;
+}
+
+.wps-wallet-admin-shell .mdc-switch__thumb-underlay {
+  height: 26px;
+  left: 3px;
+  margin: 0;
+  position: absolute;
+  top: 3px;
+  transform: none;
+  transition: left 0.18s ease;
+  width: 26px;
+}
+
+.wps-wallet-admin-shell .mdc-switch__thumb {
+  background: #fff !important;
+  border: 0;
+  box-shadow: 0 2px 7px rgba(32, 20, 59, 0.22);
+  height: 26px;
+  width: 26px;
+}
+
+.wps-wallet-admin-shell .mdc-switch__native-control {
+  cursor: pointer;
+  height: 32px;
+  left: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  width: 58px;
+  z-index: 2;
+}
+
+.wps-wallet-admin-shell .mdc-switch:has(.mdc-switch__native-control:checked) .mdc-switch__track,
+.wps-wallet-admin-shell .mdc-switch.mdc-switch--checked .mdc-switch__track {
+  background: #f2a51b !important;
+  border-color: #f2a51b;
+}
+
+.wps-wallet-admin-shell .mdc-switch:has(.mdc-switch__native-control:checked) .mdc-switch__thumb-underlay,
+.wps-wallet-admin-shell .mdc-switch.mdc-switch--checked .mdc-switch__thumb-underlay {
+  left: 29px;
+}
+
+.wps-wallet-admin-shell .mdc-checkbox__background,
+.wps-wallet-admin-shell .mdc-radio__outer-circle {
+  border-color: #bca8da !important;
+}
+
+.wps-wallet-admin-shell .mdc-checkbox__native-control:checked ~ .mdc-checkbox__background,
+.wps-wallet-admin-shell .mdc-radio__native-control:checked + .mdc-radio__background .mdc-radio__outer-circle,
+.wps-wallet-admin-shell .mdc-radio__native-control:checked + .mdc-radio__background .mdc-radio__inner-circle {
+  border-color: #f2a51b !important;
+  background-color: #f2a51b !important;
+}
+
+.wps-wallet-sidebar {
+  display: grid;
+  gap: 14px;
+  position: sticky;
+  top: 48px;
+}
+
+.wps-wallet-side-card {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 14px 32px rgba(49, 23, 95, 0.06);
+  padding: 18px;
+}
+
+.wps-wallet-side-card h2 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.25;
+  margin: 0 0 14px;
+}
+
+.wps-wallet-side-card p {
+  color: #76688f;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0 0 16px;
+}
+
+.wps-wallet-side-card > a:not(.wps-wallet-side-button) {
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  color: #3a2b55;
+  display: block;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  margin-top: 10px;
+  padding: 13px 14px;
+  text-decoration: none;
+}
+
+.wps-wallet-side-card > a:not(.wps-wallet-side-button):hover {
+  border-color: #d7c5f0;
+  color: #20143b;
+}
+
+.wps-wallet-side-card--accent {
+  background: linear-gradient(180deg, #fff 0%, #fffaf0 100%);
+  border-color: #f4d99f;
+}
+
+@media screen and (max-width: 1180px) {
+  .wps-wallet-content-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wps-wallet-sidebar {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    position: static;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .wps-wallet-admin-shell {
+    margin: 16px 10px 28px 0;
+  }
+
+  .wps-wallet-hero {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .wps-wallet-announcement {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .wps-wallet-announcement__dismiss {
+    justify-self: start;
+  }
+
+  .wps-wallet-content-grid {
+    padding: 14px;
+  }
+
+  .wps-wallet-admin-shell .wps-navbar {
+    overflow-x: auto;
+    overflow-y: visible;
+  }
+
+  .wps-wallet-admin-shell .wps-form-group,
+  .wps-wallet-admin-shell .wps-wsfw-gen-section-form .wps-form-group,
+  .wps-wallet-admin-shell .wps-wpg-gen-section-form-container .wps-form-group {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 18px !important;
+  }
+
+  .wps-wallet-sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Wallet overview refreshed layout. */
+.wps-wallet-admin-shell .wps-wallet-overview {
+  margin: 0;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wallet-overview-hero,
+.wps-wallet-admin-shell .wps-wallet-overview-features,
+.wps-wallet-admin-shell .wps-wallet-overview-support {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(49, 23, 95, 0.04);
+  margin: 0 0 18px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-overview-hero {
+  padding: 44px 36px;
+  text-align: center;
+}
+
+.wps-wallet-overview-brand {
+  background: linear-gradient(180deg, #ffe9b2 0%, #f8ce67 100%);
+  border-radius: 8px;
+  color: #170a37;
+  display: inline-flex;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 23px;
+  justify-content: center;
+  line-height: 1.2;
+  margin: 0 auto 26px;
+  max-width: 560px;
+  padding: 26px 34px;
+}
+
+.wps-wallet-overview-kicker {
+  color: #f2a000;
+  display: block;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.7px;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+}
+
+.wps-wallet-overview-hero h2 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 36px;
+  line-height: 1.12;
+  margin: 0 auto 22px;
+  max-width: 820px;
+}
+
+.wps-wallet-overview-hero p {
+  color: #76688f;
+  font-size: 15px;
+  line-height: 1.75;
+  margin: 0 auto;
+  max-width: 900px;
+}
+
+.wps-wallet-overview-features {
+  padding: 28px 24px 24px;
+}
+
+.wps-wallet-overview-features h3 {
+  align-items: center;
+  color: #20143b;
+  display: grid;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 16px;
+  gap: 16px;
+  grid-template-columns: 1fr auto 1fr;
+  line-height: 1.3;
+  margin: 0 0 28px;
+  text-align: center;
+}
+
+.wps-wallet-overview-features h3:before,
+.wps-wallet-overview-features h3:after {
+  background: #eadffd;
+  content: "";
+  height: 1px;
+}
+
+.wps-wallet-overview-feature-grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.wps-wallet-overview-feature-card {
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  min-height: 246px;
+  padding: 26px;
+}
+
+.wps-wallet-overview-feature-card .material-icons {
+  align-items: center;
+  background: #f5efff;
+  border-radius: 8px;
+  color: #7054b8;
+  display: inline-flex;
+  font-size: 30px;
+  height: 70px;
+  justify-content: center;
+  margin-bottom: 22px;
+  width: 70px;
+}
+
+.wps-wallet-overview-feature-card h4 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 19px;
+  line-height: 1.25;
+  margin: 0 0 14px;
+}
+
+.wps-wallet-overview-feature-card p {
+  color: #76688f;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0;
+}
+
+.wps-wallet-overview-support {
+  align-items: center;
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  padding: 24px 28px;
+}
+
+.wps-wallet-overview-support h3 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 1.3;
+  margin: 0 0 12px;
+}
+
+.wps-wallet-overview-support p {
+  color: #76688f;
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 0;
+}
+
+.wps-wallet-overview-support a {
+  border: 1px solid #eadffd;
+  border-radius: 999px;
+  color: #20143b;
+  flex: 0 0 auto;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  padding: 15px 28px;
+  text-decoration: none;
+}
+
+.wps-wallet-overview-support a:hover {
+  background: #fff6df;
+  border-color: #f4d99f;
+}
+
+@media screen and (max-width: 1180px) {
+  .wps-wallet-overview-feature-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .wps-wallet-admin-shell .wps-wallet-overview-hero {
+    padding: 30px 20px;
+  }
+
+  .wps-wallet-overview-brand {
+    font-size: 20px;
+    padding: 22px;
+  }
+
+  .wps-wallet-overview-hero h2 {
+    font-size: 28px;
+  }
+
+  .wps-wallet-overview-feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wps-wallet-overview-support {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+/* Wallet user management panel and tables. */
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container {
+  overflow: hidden;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container > .wpg-secion-wrap > h3 {
+  background: #fbf8ff;
+  border: 0;
+  border-bottom: 1px solid #eadffd;
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.4;
+  margin: -22px -22px 22px;
+  padding: 20px 24px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper {
+  align-items: stretch;
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wpg-secion-wrap {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form h3 {
+  background: #fbf8ff;
+  border: 0;
+  border-bottom: 1px solid #eadffd;
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.4;
+  margin: 0;
+  padding: 18px 22px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-form-group {
+  border-bottom: 1px solid #f2edf8;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(170px, 42%) minmax(0, 1fr);
+  margin: 0;
+  padding: 22px !important;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-form-group__label,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-form-group__control {
+  max-width: none !important;
+  padding: 0 !important;
+  width: auto !important;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-form-label {
+  max-width: 220px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .mdc-text-field,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-form-select {
+  max-width: 100%;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control label {
+  max-height: none;
+  padding-right: 0;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-container .wps-form-group .wps-form-group__control label input,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper input[type="file"] {
+  max-width: 100%;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper input[type="file"] {
+  border: 1px solid #e7def5;
+  border-radius: 8px;
+  color: #4b3a64;
+  min-height: 48px;
+  padding: 10px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper input[type="file"]::file-selector-button {
+  background: #fbf8ff;
+  border: 1px solid #d9caef;
+  border-radius: 6px;
+  color: #20143b;
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 7px 10px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-helper-text {
+  margin-top: 8px;
+  max-width: 220px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .mdc-button {
+  align-self: flex-end;
+  margin: 22px;
+  max-width: calc(100% - 44px);
+  min-width: 170px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-ex-btn {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  grid-column: 1 / -1;
+  justify-content: flex-end;
+  padding: 0;
+  text-align: right;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-ex-btn button {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #5fb2ff;
+  border-radius: 8px;
+  color: #2f98ee;
+  cursor: pointer;
+  display: inline-flex;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  gap: 6px;
+  min-height: 38px;
+  padding: 8px 12px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-ex-btn button:hover {
+  background: #eff7ff;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-ex-btn button img {
+  height: 16px;
+  margin: 0;
+  width: 16px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 16px 38px rgba(49, 23, 95, 0.05);
+  margin: 18px 0 0;
+  overflow: hidden;
+  padding: 0 26px 28px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap h4 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 1.3;
+  margin: 0 -26px 22px;
+  padding: 22px 26px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .tablenav.top {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  margin: 0 0 18px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .search-box {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  margin: 0;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .search-box input[type="search"] {
+  border: 1px solid #d9caef;
+  border-radius: 8px;
+  min-height: 38px;
+  min-width: 240px;
+  padding: 7px 12px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .search-box input[type="submit"] {
+  background: #fff;
+  border: 1px solid #5fb2ff;
+  border-radius: 8px;
+  color: #2f98ee;
+  min-height: 38px;
+  padding: 6px 14px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table-container {
+  margin-bottom: 0;
+  overflow-x: auto;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wp-list-table,
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table {
+  border: 1px solid #eadffd !important;
+  border-collapse: separate;
+  border-radius: 8px;
+  border-spacing: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wp-list-table thead th,
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wp-list-table tfoot th,
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table thead th {
+  background: #fbf8ff;
+  border-bottom: 1px solid #eadffd;
+  color: #4b3a64;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  padding: 14px 12px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wp-list-table tbody td,
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wps-wpg-gen-section-table tbody td {
+  border-bottom: 1px solid #f2edf8;
+  color: #4b3a64;
+  font-size: 13px;
+  padding: 14px 12px;
+  vertical-align: middle;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wp-list-table tbody tr:nth-child(odd) {
+  background: #fff;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .wp-list-table tbody tr:nth-child(even) {
+  background: #fcfbff;
+}
+
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .tablenav-pages,
+.wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .displaying-num {
+  color: #4b3a64;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+}
+
+@media screen and (max-width: 1180px) {
+  .wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .wps-wallet-admin-shell .wps-wpg-gen-section-form-wrapper .wps-wpg-gen-section-form .wps-form-group {
+    grid-template-columns: 1fr;
+  }
+
+  .wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .tablenav.top,
+  .wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .search-box {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .wps-wallet-admin-shell .wps-wpg-gen-section-table-wrap .search-box input[type="search"] {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Wallet action modal refresh. */
+.wps_wallet-edit--popupwrap {
+  align-items: center;
+  bottom: 0;
+  display: none;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 100%;
+  z-index: 5555555;
+}
+
+.wps_wallet-edit--popupwrap:after {
+  background: rgba(18, 18, 24, 0.58);
+  bottom: 0;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 26px 70px rgba(32, 20, 59, 0.22);
+  left: 50%;
+  margin: 0;
+  max-height: calc(100vh - 64px);
+  max-width: 720px;
+  overflow-y: auto;
+  padding: 34px 38px 36px;
+  position: absolute;
+  right: auto;
+  text-align: left;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(720px, calc(100vw - 48px));
+  z-index: 455;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup > p {
+  margin: 0;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup #close_wallet_form,
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup #close_wallet_form_check {
+  cursor: pointer;
+  display: inline-flex;
+  height: 26px;
+  justify-content: center;
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  width: 26px;
+  z-index: 2;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup #close_wallet_form img,
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup #close_wallet_form_check img {
+  height: 16px;
+  opacity: 0.55;
+  width: 16px;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup-content {
+  padding-top: 8px;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-amount {
+  align-items: center;
+  display: grid;
+  gap: 20px 34px;
+  grid-template-columns: 240px minmax(0, 1fr);
+  margin: 0 0 34px;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-label {
+  min-width: 0;
+  text-align: left;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-label label {
+  color: #130b2f;
+  display: block;
+  font-family: NunitoSans-ExtraBold, NunitoSans-Bold, Arial, sans-serif;
+  font-size: 16px;
+  letter-spacing: 0;
+  line-height: 1.35;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-control {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-fill,
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup input[type="number"],
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup input[type="text"] {
+  background: #fff;
+  border: 1px solid #e3d8f4;
+  border-radius: 8px;
+  box-shadow: none;
+  color: #20143b;
+  font-size: 16px;
+  line-height: 1.4;
+  min-height: 58px;
+  padding: 12px 16px;
+  width: 100%;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-fill:focus,
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup input[type="number"]:focus,
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup input[type="text"]:focus {
+  border-color: #8b6ccd;
+  box-shadow: 0 0 0 3px rgba(139, 108, 205, 0.14);
+  outline: none;
+}
+
+.wps_wallet-edit--popupwrap .wps-form-select-card {
+  align-items: center;
+  display: inline-flex;
+  gap: 9px;
+  margin: 0;
+}
+
+.wps_wallet-edit--popupwrap .wps-form-select-card input[type="radio"] {
+  border: 1px solid #b6afc8;
+  box-shadow: none;
+  height: 20px;
+  margin: 0;
+  width: 20px;
+}
+
+.wps_wallet-edit--popupwrap .wps-form-select-card input[type="radio"]:checked {
+  border-color: #2f98ee;
+}
+
+.wps_wallet-edit--popupwrap .wps-form-select-card input[type="radio"]:checked:before {
+  background: #2f98ee;
+  height: 10px;
+  margin: 4px;
+  width: 10px;
+}
+
+.wps_wallet-edit--popupwrap .wps-form-select-card label {
+  color: #20143b;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup-btn .wps-btn,
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup-btn input[type="button"],
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup-btn input[type="submit"] {
+  background: #2f98ee;
+  border: 1px solid #2f98ee;
+  border-radius: 999px;
+  box-shadow: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 16px;
+  min-height: 56px;
+  min-width: 210px;
+  padding: 14px 28px;
+  text-align: center;
+  text-transform: none;
+}
+
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup-btn .wps-btn:hover,
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup-btn input[type="button"]:hover,
+.wps_wallet-edit--popupwrap .wps_wallet-edit-popup-btn input[type="submit"]:hover {
+  background: #1789e6;
+  border-color: #1789e6;
+}
+
+@media screen and (max-width: 782px) {
+  .wps_wallet-edit--popupwrap .wps_wallet-edit-popup {
+    max-height: calc(100vh - 32px);
+    padding: 30px 22px 28px;
+    width: calc(100vw - 28px);
+  }
+
+  .wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-amount {
+    gap: 10px;
+    grid-template-columns: 1fr;
+    margin-bottom: 24px;
+  }
+
+  .wps_wallet-edit--popupwrap .wps_wallet-edit-popup .wps_wallet-edit-popup-control {
+    gap: 12px;
+  }
+}
+
+/* Wallet report panel. */
+.wps-wallet-admin-shell .wps-wallet-report {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 18px 44px rgba(49, 23, 95, 0.07);
+  overflow: hidden;
+  padding: 0;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report > .wpg-secion-wrap > h3 {
+  align-items: center;
+  background: #fbf8ff;
+  border: 0;
+  border-bottom: 1px solid #eadffd;
+  color: #20143b;
+  display: flex;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 18px;
+  gap: 12px;
+  line-height: 1.35;
+  margin: 0;
+  padding: 22px 26px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report > .wpg-secion-wrap > h3:before {
+  background: #fff6df;
+  border: 1px solid #f5d48c;
+  border-radius: 8px;
+  color: #f2a000;
+  content: "\f185";
+  display: inline-flex;
+  font-family: dashicons;
+  font-size: 18px;
+  height: 38px;
+  justify-content: center;
+  line-height: 38px;
+  width: 38px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app {
+  padding: 26px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app > div {
+  align-items: end;
+  display: grid;
+  gap: 10px 14px;
+  grid-template-columns: minmax(190px, 1fr) minmax(190px, 1fr) auto;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app label {
+  color: #20143b;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app label[for="fromDate"] {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app label[for="toDate"] {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app input[type="date"] {
+  background: #fff !important;
+  border: 1px solid #e3d8f4 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #20143b !important;
+  font-size: 14px;
+  min-height: 50px;
+  padding: 12px 14px !important;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app input[type="date"]:focus {
+  border-color: #8b6ccd !important;
+  box-shadow: 0 0 0 3px rgba(139, 108, 205, 0.14) !important;
+  outline: none;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #fromDate {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #toDate {
+  grid-column: 2;
+  grid-row: 2;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .MuiButton-root,
+.wps-wallet-admin-shell .wps-wallet-report #react-app button {
+  align-self: stretch;
+  background: #050505 !important;
+  border: 1px solid #050505 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  font-family: NunitoSans-Bold, Arial, sans-serif !important;
+  font-size: 13px !important;
+  grid-column: 3;
+  grid-row: 2;
+  letter-spacing: 0.2px !important;
+  min-height: 50px;
+  min-width: 138px;
+  padding: 0 24px !important;
+  text-transform: uppercase;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .MuiButton-root:hover,
+.wps-wallet-admin-shell .wps-wallet-report #react-app button:hover {
+  background: #2d174f !important;
+  border-color: #2d174f !important;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-responsive-container {
+  background:
+    linear-gradient(180deg, rgba(251, 248, 255, 0.92) 0%, rgba(255, 255, 255, 0.98) 48%),
+    #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  grid-column: 1 / -1;
+  height: 430px !important;
+  margin-top: 20px;
+  padding: 22px 18px 12px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-wrapper {
+  max-width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-cartesian-grid line {
+  stroke: #e7def5;
+  stroke-dasharray: 4 5;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-cartesian-axis-line,
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-cartesian-axis-tick-line {
+  stroke: #cfc0e4;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-cartesian-axis-tick-value {
+  fill: #5e5076;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-bar-rectangle path {
+  fill: #7f72d6;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-legend-item-text {
+  color: #6c5bd3 !important;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-default-tooltip {
+  background: #fff !important;
+  border: 1px solid #eadffd !important;
+  border-radius: 8px !important;
+  box-shadow: 0 16px 34px rgba(49, 23, 95, 0.16) !important;
+  color: #20143b !important;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+}
+
+@media screen and (max-width: 1180px) {
+  .wps-wallet-admin-shell .wps-wallet-report #react-app > div {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+
+  .wps-wallet-admin-shell .wps-wallet-report #react-app .MuiButton-root,
+  .wps-wallet-admin-shell .wps-wallet-report #react-app button {
+    grid-column: 1 / -1;
+    grid-row: 3;
+    justify-self: start;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .wps-wallet-admin-shell .wps-wallet-report #react-app {
+    padding: 20px;
+  }
+
+  .wps-wallet-admin-shell .wps-wallet-report #react-app > div {
+    grid-template-columns: 1fr;
+  }
+
+  .wps-wallet-admin-shell .wps-wallet-report #react-app label[for="fromDate"],
+  .wps-wallet-admin-shell .wps-wallet-report #fromDate,
+  .wps-wallet-admin-shell .wps-wallet-report #react-app label[for="toDate"],
+  .wps-wallet-admin-shell .wps-wallet-report #toDate,
+  .wps-wallet-admin-shell .wps-wallet-report #react-app .MuiButton-root,
+  .wps-wallet-admin-shell .wps-wallet-report #react-app button {
+    grid-column: 1;
+    grid-row: auto;
+    width: 100%;
+  }
+
+  .wps-wallet-admin-shell .wps-wallet-report #react-app .recharts-responsive-container {
+    height: 360px !important;
+    padding: 16px 8px 8px;
+  }
+}
+
+/* Unified wallet admin actions and transaction filters. */
+.wps-wallet-admin-shell {
+  --wps-wallet-action: #31175f;
+  --wps-wallet-action-hover: #20143b;
+  --wps-wallet-action-soft: #fbf8ff;
+  --wps-wallet-action-border: #d9caef;
+}
+
+.wps-wallet-admin-shell input[type="submit"]:not(.ed_button):not(.wp-picker-clear),
+.wps-wallet-admin-shell input[type="button"]:not(.ed_button):not(.wp-picker-clear),
+.wps-wallet-admin-shell button:not(.wps-wallet-more-toggle):not(.notice-dismiss),
+.wps-wallet-admin-shell .button,
+.wps-wallet-admin-shell .btn,
+.wps-wallet-admin-shell .wps-btn,
+.wps-wallet-admin-shell .mdc-button,
+.wps-wallet-admin-shell .MuiButton-root,
+.wps-wallet-admin-shell .dt-button {
+  background: var(--wps-wallet-action) !important;
+  border: 1px solid var(--wps-wallet-action) !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #fff !important;
+  cursor: pointer;
+  font-family: NunitoSans-Bold, Arial, sans-serif !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  min-height: 42px;
+  padding: 11px 18px !important;
+  text-decoration: none !important;
+  text-shadow: none !important;
+}
+
+.wps-wallet-admin-shell input[type="submit"]:not(.ed_button):not(.wp-picker-clear):hover,
+.wps-wallet-admin-shell input[type="button"]:not(.ed_button):not(.wp-picker-clear):hover,
+.wps-wallet-admin-shell button:not(.wps-wallet-more-toggle):not(.notice-dismiss):hover,
+.wps-wallet-admin-shell .button:hover,
+.wps-wallet-admin-shell .btn:hover,
+.wps-wallet-admin-shell .wps-btn:hover,
+.wps-wallet-admin-shell .mdc-button:hover,
+.wps-wallet-admin-shell .MuiButton-root:hover,
+.wps-wallet-admin-shell .dt-button:hover {
+  background: var(--wps-wallet-action-hover) !important;
+  border-color: var(--wps-wallet-action-hover) !important;
+  color: #fff !important;
+}
+
+.wps-wallet-admin-shell #clear_table,
+.wps-wallet-admin-shell .search-box input[type="submit"],
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-ex-btn button {
+  background: #fff !important;
+  border-color: var(--wps-wallet-action-border) !important;
+  color: var(--wps-wallet-action) !important;
+}
+
+.wps-wallet-admin-shell #clear_table:hover,
+.wps-wallet-admin-shell .search-box input[type="submit"]:hover,
+.wps-wallet-admin-shell .wps-wpg-gen-section-form-ex-btn button:hover {
+  background: var(--wps-wallet-action-soft) !important;
+  border-color: var(--wps-wallet-action) !important;
+  color: var(--wps-wallet-action) !important;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table {
+  position: relative;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 14px 32px rgba(49, 23, 95, 0.05);
+  display: grid;
+  gap: 18px;
+  grid-template-columns: minmax(210px, auto) minmax(0, 1fr);
+  justify-content: stretch;
+  margin: 18px 0 18px;
+  padding: 24px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table .dataTables_length_wallet_custom_table label {
+  align-items: center;
+  color: #20143b;
+  display: inline-flex;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 15px;
+  gap: 12px;
+  line-height: 1.35;
+  margin: 0;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table .dataTables_length_wallet_custom_table select,
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table .dataTables_length select {
+  background-color: #fff !important;
+  border: 1px solid #d9caef !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #20143b !important;
+  min-height: 48px;
+  min-width: 88px;
+  padding: 9px 34px 9px 14px !important;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search form {
+  justify-self: end;
+  margin: 0;
+  max-width: 560px;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table {
+  display: block;
+  margin: 0;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody {
+  align-items: center;
+  display: grid;
+  gap: 8px 10px;
+  grid-template-columns: minmax(220px, 260px) auto;
+  justify-content: end;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody tr {
+  display: contents;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody tr:first-child {
+  display: none;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody tr:nth-child(2) td {
+  grid-column: 1 / -1;
+  justify-self: end;
+  width: min(260px, 100%);
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody tr:nth-child(3) td {
+  grid-column: 1;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody tr:nth-child(4) td {
+  grid-column: 2;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search input[type="text"] {
+  background: #fff !important;
+  border: 1px solid #d9caef !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #20143b !important;
+  min-height: 50px;
+  padding: 12px 16px !important;
+  width: 100%;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search input[type="text"]:focus {
+  border-color: #8b6ccd !important;
+  box-shadow: 0 0 0 3px rgba(139, 108, 205, 0.14) !important;
+  outline: none;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table > .dataTables_length_wallet_custom_search_table {
+  position: static;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table .wps_form_get_export_pdf {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  left: auto;
+  margin: 0 0 18px;
+  position: static !important;
+  top: auto;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table .dataTables_length_wallet_custom_search_table > form:not(.wps_form_get_export_pdf) {
+  margin: 0;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table .search-box {
+  align-items: center;
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  margin: 0 0 14px;
+}
+
+.wps-wallet-admin-shell .wps-wpg-transcation-section-table .search-box input[type="search"] {
+  border: 1px solid #d9caef;
+  border-radius: 8px;
+  min-height: 42px;
+  min-width: 250px;
+  padding: 8px 12px;
+}
+
+@media screen and (max-width: 1180px) {
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search {
+    grid-template-columns: 1fr;
+  }
+
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search form {
+    justify-self: stretch;
+  }
+
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody {
+    justify-content: start;
+  }
+}
+
+@media screen and (max-width: 782px) {
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search {
+    padding: 18px;
+  }
+
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody {
+    grid-template-columns: 1fr;
+  }
+
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody tr:nth-child(2) td,
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody tr:nth-child(3) td,
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table > .wps-wpg-transcation-section-search table tbody tr:nth-child(4) td {
+    grid-column: 1;
+    width: 100%;
+  }
+
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table .search-box {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .wps-wallet-admin-shell .wps-wpg-transcation-section-table .search-box input[type="search"] {
+    min-width: 0;
+    width: 100%;
+  }
+}
+
+/* Align Material radio rows used by Wallet Action layout settings. */
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col {
+  display: grid;
+  gap: 8px;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field {
+  align-items: center;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 28px minmax(0, 1fr);
+  justify-content: start;
+  min-height: 28px;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio {
+  display: block;
+  height: 28px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  width: 28px;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__native-control {
+  cursor: pointer;
+  height: 28px;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  width: 28px;
+  z-index: 2;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__background {
+  height: 22px;
+  left: 3px;
+  position: absolute;
+  top: 3px;
+  width: 22px;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__outer-circle,
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__inner-circle {
+  border-radius: 50%;
+  height: 22px;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 22px;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__outer-circle {
+  background: #fff;
+  border: 2px solid #cbb8e4 !important;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__inner-circle {
+  background: #f2a51b !important;
+  border: 0 !important;
+  transform: scale(0);
+  transition: transform 0.16s ease;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__native-control:checked + .mdc-radio__background .mdc-radio__outer-circle {
+  border-color: #f2a51b !important;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__native-control:checked + .mdc-radio__background .mdc-radio__inner-circle {
+  transform: scale(0.62);
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field .mdc-radio__ripple {
+  display: none;
+}
+
+.wps-wallet-admin-shell .wps-form-group__control .wps-flex-col > .mdc-form-field > label {
+  color: #7a6b92;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0;
+  padding: 0;
+}
+
+/* Save action row should not render as a bordered settings card. */
+.wps-wallet-admin-shell .wps-wsfw-gen-section-form > .wsfw-secion-wrap > .wps-wallet-action-wrap {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  margin: 18px 0 0 !important;
+  outline: 0 !important;
+  overflow: visible !important;
+  padding: 0 !important;
+}
+
+.wps-wallet-admin-shell .wps-wallet-action-wrap table,
+.wps-wallet-admin-shell .wps-wallet-action-wrap tbody,
+.wps-wallet-admin-shell .wps-wallet-action-wrap tr,
+.wps-wallet-admin-shell .wps-wallet-action-wrap td {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: block !important;
+  margin: 0 !important;
+  outline: 0 !important;
+  padding: 0 !important;
+}
+
+/* Shared tab intro header. */
+.wps-wallet-admin-shell .wps-wallet-tab-intro {
+  align-items: center;
+  background: #fbf8ff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 1fr) auto;
+  margin: 0 0 22px;
+  padding: 24px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-tab-intro span,
+.wps-wallet-license-card__eyebrow {
+  color: #f2a000;
+  display: block;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.7px;
+  line-height: 1;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+}
+
+.wps-wallet-admin-shell .wps-wallet-tab-intro h2 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 22px;
+  line-height: 1.25;
+  margin: 0 0 8px;
+}
+
+.wps-wallet-admin-shell .wps-wallet-tab-intro p {
+  color: #6f6388;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.wps-wallet-admin-shell .wps-wallet-tab-intro a {
+  align-items: center;
+  background: #050505;
+  border: 1px solid #050505;
+  border-radius: 8px;
+  color: #fff;
+  display: inline-flex;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 22px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.wps-wallet-admin-shell .wps-wallet-tab-intro a:hover {
+  background: #20143b;
+  border-color: #20143b;
+  color: #fff;
+}
+
+/* License tab refreshed layout. */
+.wps-wallet-admin-shell .wps-wsfwp_activate_license {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  margin: 0;
+  padding: 0 !important;
+}
+
+.wps-wallet-admin-shell .wps-wsfwp_activate_license form {
+  margin: 0;
+}
+
+.wps-wallet-license-card {
+  background: #fff;
+  border: 1px solid #f5d48c;
+  border-radius: 8px;
+  margin: 22px auto 0;
+  max-width: 760px;
+  padding: 42px 48px 38px;
+  text-align: center;
+}
+
+.wps-wallet-license-card h3 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 34px;
+  line-height: 1.15;
+  margin: 0 0 18px;
+}
+
+.wps-wallet-license-card > p {
+  color: #76688f;
+  font-size: 14px;
+  line-height: 1.75;
+  margin: 0 auto 34px;
+  max-width: 640px;
+}
+
+.wps-wallet-license-card__field {
+  margin: 0 0 34px;
+  text-align: left;
+}
+
+.wps-wallet-license-card__field label {
+  color: #20143b;
+  display: block;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+  margin: 0 0 14px;
+}
+
+.wps-wallet-license-card__field input[type="text"] {
+  background: #fff !important;
+  border: 1px solid #eadffd !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #20143b !important;
+  font-size: 15px;
+  min-height: 62px;
+  padding: 16px 18px !important;
+  width: 100%;
+}
+
+.wps-wallet-license-card__field input[type="text"]::placeholder {
+  color: #b6a9ca;
+}
+
+.wps-wallet-license-card__field input[type="text"]:focus {
+  border-color: #8b6ccd !important;
+  box-shadow: 0 0 0 3px rgba(139, 108, 205, 0.14) !important;
+  outline: none;
+}
+
+.wps-wallet-license-card #wps_wsfwp_license_activation_status {
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  margin: 0 0 18px;
+  min-height: 20px;
+}
+
+.wps-wallet-license-card #activate_license {
+  background: #050505 !important;
+  border-color: #050505 !important;
+  border-radius: 8px !important;
+  color: #fff !important;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif !important;
+  font-size: 15px !important;
+  min-height: 62px;
+  width: 100%;
+}
+
+.wps-wallet-license-card #activate_license:hover {
+  background: #20143b !important;
+  border-color: #20143b !important;
+}
+
+@media screen and (max-width: 782px) {
+  .wps-wallet-admin-shell .wps-wallet-tab-intro {
+    align-items: start;
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+
+  .wps-wallet-admin-shell .wps-wallet-tab-intro a {
+    width: 100%;
+  }
+
+  .wps-wallet-license-card {
+    padding: 30px 22px;
+  }
+
+  .wps-wallet-license-card h3 {
+    font-size: 28px;
+  }
+}
+
+/* Talk to Expert sidebar card and modal. */
+.wps-wallet-side-card--expert {
+  background: linear-gradient(180deg, #fffaf1 0%, #ffffff 46%, #fbf8ff 100%);
+  border-color: #f5d48c;
+}
+
+.wps-wallet-expert-card__header {
+  align-items: flex-start;
+  display: flex;
+  gap: 16px;
+  justify-content: space-between;
+  margin: 0 0 14px;
+}
+
+.wps-wallet-expert-card__header h2 {
+  margin: 0;
+}
+
+.wps-wallet-expert-card__header > span {
+  align-items: center;
+  border: 1px solid #f5a400;
+  border-radius: 50%;
+  color: #f5a400;
+  display: inline-flex;
+  flex: 0 0 42px;
+  font-size: 18px;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.wps-wallet-expert-services {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0 18px;
+}
+
+.wps-wallet-expert-service {
+  align-items: center;
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding: 14px;
+}
+
+.wps-wallet-expert-service__icon {
+  align-items: center;
+  background: #fff0c7;
+  border-radius: 50%;
+  color: #f5a400;
+  display: inline-flex;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 11px;
+  height: 42px;
+  justify-content: center;
+  width: 42px;
+}
+
+.wps-wallet-expert-service h3 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.3;
+  margin: 0 0 4px;
+}
+
+.wps-wallet-expert-service p,
+.wps-wallet-expert-card__footer {
+  color: #76688f;
+  font-size: 13px;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.wps-wallet-expert-card__footer {
+  margin-top: 14px;
+  text-align: center;
+}
+
+.wps-wallet-expert-open {
+  border: 0;
+  cursor: pointer;
+  width: 100%;
+}
+
+body.wps-wallet-expert-modal-open {
+  overflow: hidden;
+}
+
+.wps-wallet-expert-modal[hidden] {
+  display: none;
+}
+
+.wps-wallet-expert-modal {
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 100000;
+}
+
+.wps-wallet-expert-modal__backdrop {
+  background: rgba(5, 5, 5, 0.58);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.wps-wallet-expert-modal__dialog {
+  background: #fff;
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  box-shadow: 0 28px 70px rgba(32, 20, 59, 0.24);
+  left: 50%;
+  max-height: calc(100vh - 64px);
+  max-width: 760px;
+  overflow-y: auto;
+  padding: 34px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 40px);
+}
+
+.wps-wallet-expert-modal__close {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: #76688f;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 30px;
+  height: 38px;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
+  position: absolute;
+  right: 18px;
+  top: 16px;
+  width: 38px;
+}
+
+.wps-wallet-expert-modal__eyebrow {
+  color: #f5a400;
+  display: block;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 12px;
+  line-height: 1.3;
+  margin: 0 0 8px;
+  text-transform: uppercase;
+}
+
+.wps-wallet-expert-form-wrap > h2,
+.wps-wallet-expert-success h2 {
+  color: #20143b;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 28px;
+  line-height: 1.2;
+  margin: 0 42px 10px 0;
+}
+
+.wps-wallet-expert-form-wrap > p,
+.wps-wallet-expert-success p {
+  color: #76688f;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+.wps-wallet-expert-form {
+  display: grid;
+  gap: 18px;
+}
+
+.wps-wallet-expert-form__grid {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wps-wallet-expert-form label,
+.wps-wallet-expert-form fieldset {
+  display: grid;
+  gap: 9px;
+  margin: 0;
+}
+
+.wps-wallet-expert-form label > span,
+.wps-wallet-expert-form legend {
+  color: #20143b;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.wps-wallet-expert-form input[type="text"],
+.wps-wallet-expert-form input[type="email"],
+.wps-wallet-expert-form input[type="tel"],
+.wps-wallet-expert-form select,
+.wps-wallet-expert-form textarea {
+  background: #fff !important;
+  border: 1px solid #eadffd !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  color: #20143b !important;
+  min-height: 48px;
+  padding: 12px 14px !important;
+  width: 100%;
+}
+
+.wps-wallet-expert-form textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.wps-wallet-expert-form input:focus,
+.wps-wallet-expert-form select:focus,
+.wps-wallet-expert-form textarea:focus {
+  border-color: #8b6ccd !important;
+  box-shadow: 0 0 0 3px rgba(139, 108, 205, 0.14) !important;
+  outline: none;
+}
+
+.wps-wallet-expert-form fieldset {
+  border: 1px solid #eadffd;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.wps-wallet-expert-form__checks {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.wps-wallet-expert-form__checks label {
+  align-items: center;
+  display: flex;
+  gap: 9px;
+}
+
+.wps-wallet-expert-form__checks input[type="checkbox"] {
+  border-color: #cdbde8;
+  box-shadow: none;
+  margin: 0;
+}
+
+.wps-wallet-expert-form__notice {
+  color: #e8422f;
+  font-family: NunitoSans-Bold, Arial, sans-serif;
+  font-size: 13px;
+  min-height: 18px;
+}
+
+.wps-wallet-expert-submit {
+  background: #050505;
+  border: 1px solid #050505;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 15px;
+  min-height: 54px;
+  padding: 0 22px;
+}
+
+.wps-wallet-expert-submit:hover,
+.wps-wallet-expert-submit:focus {
+  background: #20143b;
+  border-color: #20143b;
+  color: #fff;
+  outline: none;
+}
+
+.wps-wallet-expert-submit:disabled {
+  cursor: progress;
+  opacity: 0.72;
+}
+
+.wps-wallet-expert-success {
+  padding: 42px 20px;
+  text-align: center;
+}
+
+.wps-wallet-expert-success > span {
+  align-items: center;
+  background: #f5a400;
+  border-radius: 50%;
+  color: #fff;
+  display: inline-flex;
+  font-size: 28px;
+  height: 64px;
+  justify-content: center;
+  margin: 0 0 18px;
+  width: 64px;
+}
+
+@media screen and (max-width: 782px) {
+  .wps-wallet-expert-modal__dialog {
+    max-height: calc(100vh - 28px);
+    padding: 28px 20px;
+    width: calc(100% - 24px);
+  }
+
+  .wps-wallet-expert-form__grid,
+  .wps-wallet-expert-form__checks {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Final refreshed PRO badge overrides. */
+.wps-wallet-admin-shell .wps_pro_settings_tag:before {
+  align-items: center;
+  background: #f5a400;
+  border-radius: 999px;
+  box-shadow: 0 8px 18px rgba(245, 164, 0, 0.18);
+  color: #20143b;
+  content: 'PRO';
+  display: inline-flex;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 10px;
+  justify-content: center;
+  left: auto;
+  letter-spacing: 0;
+  line-height: 1;
+  min-height: 20px;
+  min-width: 34px;
+  padding: 0 8px;
+  position: absolute;
+  right: 14px;
+  text-transform: uppercase;
+  top: 14px;
+  transform: none;
+  width: auto;
+  z-index: 4;
+}
+
+.wps-wallet-admin-shell .wps_pro_settings_tag:after {
+  display: none;
+}
+
+.wps-wallet-admin-shell .wps_class_li_wallet-system-for-woocommerce-cashback > a:after,
+.wps-wallet-admin-shell .wps_class_li_wallet-system-for-woocommerce-org-wallet-recharge-tab > a:after,
+.wps-wallet-admin-shell .wps_class_li_wallet-system-for-woocommerce-org-wallet-promotions > a:after,
+.wps-wallet-admin-shell .wps_class_li_wallet-system-for-woocommerce-org-wallet-withdrawal-settings > a:after,
+.wps-wallet-admin-shell .wps_class_li_wallet-system-for-woocommerce-org-wallet-restriction > a:after,
+.wps-wallet-admin-shell .wps_class_li_wallet-system-for-woocommerce-org-wallet-sms-notification-settings > a:after,
+.wps-wallet-admin-shell .wps_class_li_wallet-system-for-woocommerce-buy-now-pay-later > a:after,
+.wps-wallet-admin-shell .wps_class_li_wallet-system-for-woocommerce-wallet-kyc > a:after {
+  align-items: center;
+  background: #a1e9b7;
+  border: 0;
+  border-radius: 4px;
+  color: #17602e;
+  content: 'PRO';
+  display: inline-flex !important;
+  font-family: NunitoSans-ExtraBold, Arial, sans-serif;
+  font-size: 9px;
+  height: 17px;
+  justify-content: center;
+  letter-spacing: 0;
+  line-height: 1;
+  margin-left: 6px;
+  min-width: 30px;
+  padding: 0 5px;
+  position: static;
+  transform: none;
+  vertical-align: middle;
+}

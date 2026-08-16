@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'name' => 'woocommerce/woocommerce-subscriptions',
+        'pretty_version' => 'dev-release/8.8.1',
+        'version' => 'dev-release/8.8.1',
+        'reference' => 'a090c25c3f280d119d6d114a8fd9834f2d538eea',
+        'type' => 'wordpress-plugin',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'dev' => false,
+    ),
+    'versions' => array(
+        'automattic/jetpack-constants' => array(
+            'pretty_version' => 'v3.0.11',
+            'version' => '3.0.11.0',
+            'reference' => '4f0ab12431a3b96e271aef021081f4f9f7fc5434',
+            'type' => 'jetpack-library',
+            'install_path' => __DIR__ . '/../automattic/jetpack-constants',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'composer/installers' => array(
+            'pretty_version' => 'v2.3.0',
+            'version' => '2.3.0.0',
+            'reference' => '12fb2dfe5e16183de69e784a7b84046c43d97e8e',
+            'type' => 'composer-plugin',
+            'install_path' => __DIR__ . '/./installers',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'woocommerce/woocommerce-subscriptions' => array(
+            'pretty_version' => 'dev-release/8.8.1',
+            'version' => 'dev-release/8.8.1',
+            'reference' => 'a090c25c3f280d119d6d114a8fd9834f2d538eea',
+            'type' => 'wordpress-plugin',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+    ),
+);

@@ -1,0 +1,109 @@
+/*
+    Inline block
+*-------------------------------------------
+*/
+.inline-block{
+    @include inline-block();
+}
+
+/*
+    Clear Box
+*-------------------------------------------
+*/
+%clear-box{
+    padding : 0px !important;
+    border  : 0px !important;
+}
+
+/*
+    Clear List Style
+*-------------------------------------------
+*/
+.clear-list{
+    @include clear-list;
+}
+
+.hidden {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/*
+    Clear heading style
+*-------------------------------------------
+*/
+.no-heading-style{
+    &:after{
+        display: none !important;
+    }
+}
+
+/*
+    Text Transform
+*-------------------------------------------
+*/
+.text-none{
+    text-transform: none !important;
+}
+
+.text-uppercase{
+    text-transform: uppercase !important;
+}
+
+/*
+    Align
+*-------------------------------------------
+*/
+.text-align-center {
+    text-align: center;
+}
+.separator_align_center{
+    text-align: center !important;
+}
+.separator_align_left{
+    text-align: left !important;
+}
+.separator_align_right{
+    text-align: right !important;
+}
+
+/*
+    Wrapper
+*-------------------------------------------
+*/
+.well{
+    &.no-margin{
+        margin-bottom: 0;
+    }
+    &.no-padding{
+        padding-bottom: 0;
+    }
+}
+
+/*
+   Font size heading title
+*-------------------------------------------
+*/
+.font-size-lg{
+    @include font-size(font-size,$font-size-lg);
+}
+.font-size-md{
+    @include font-size(font-size,$font-size-md);
+}
+.font-size-sm{
+    @include font-size(font-size,$font-size-sm);
+}
+.font-size-xs{
+    @include font-size(font-size,$font-size-xs);
+}
+
+/*
+    rounded
+*-------------------------------------------
+*/
+.rounded{
+    @include border-radius(50%);
+}
+.no-rounded{
+    @include border-radius(0px);
+}

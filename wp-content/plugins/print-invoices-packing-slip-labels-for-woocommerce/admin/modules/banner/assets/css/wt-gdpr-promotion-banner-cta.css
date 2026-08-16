@@ -1,0 +1,127 @@
+.wt-gdpr-promotion-banner-cta {
+    padding: 20px 30px 10px 15px !important;
+    font-family: Inter, sans-serif;
+}
+
+.wt-gdpr-promotion-banner-cta p {
+    margin: 0;
+    padding: 0;
+}
+.wt-gdpr-promotion-banner-cta .wt-gdpr-promotion-banner-cta-content-wrap .wt-header-section{
+    margin-bottom: 10px;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-header-title {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 34px;
+    letter-spacing: 0%;
+    color: #212121;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-body-section .wt-body-text {
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 28px;
+    letter-spacing: 0%;
+    color: #4B4B4B;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-body-section .wt-body-text span {
+    font-weight: 600;
+}
+
+.wt-banner-clarity-inactive .wt-body-section .wt-body-content {
+    max-width: 950px;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap .wt-button a {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 19px;
+    text-align: center;
+    background-color: #0066FE;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap .certificate-section-wrap {
+    display: flex;
+    align-items: center;
+}
+.wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap .certificate-section-wrap .certificate-text{
+   padding-right: 10px;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap .certificate-section-wrap .certificate-image img {
+    max-width: none;
+    width: auto;
+    height: 50px;
+    object-fit: contain;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap .certificate-section-wrap .certificate-text p {
+    font-weight: 600;
+    font-size: 16.67px;
+    line-height: 31.67px;
+    letter-spacing: 0%;
+    text-align: center;
+    color: #434343;
+}
+
+
+.wt-gdpr-promotion-banner-cta .wt-gdpr-promotion-banner-cta-content-wrap .certificate-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.wt-gdpr-promotion-banner-cta .wt-gdpr-promotion-banner-cta-content-wrap .certificate-image::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 50%, rgb(255 255 255 / 30%) 100%);
+    animation: glaze 4s infinite;
+    transform: rotate(45deg);
+}
+/* Hide gdpr promotion banner from other plugins */
+.wt-gdpr-promotion-banner {
+    display: none;
+}
+@keyframes glaze {
+    0% {
+        transform: translateX(-100%) rotate(45deg);
+    }
+    100% {
+        transform: translateX(100%) rotate(45deg);
+    }
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+    .wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap .certificate-section-wrap {
+        align-self: flex-end;
+    }
+    
+    .wt-gdpr-promotion-banner-cta .wt-body-section .wt-button-wrap .certificate-section-wrap .certificate-image img {
+        max-width: 80px;
+        max-height: 48px;
+    }
+}

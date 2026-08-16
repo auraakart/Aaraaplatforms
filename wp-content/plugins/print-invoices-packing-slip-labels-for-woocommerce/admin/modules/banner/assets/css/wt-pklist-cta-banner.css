@@ -1,0 +1,198 @@
+.wt-cta-banner { background: #fff; }
+
+.wt-cta-content { margin: -6px -12px -12px -12px; }
+
+.wt-cta-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding: 12px;
+    border-bottom: 1px solid #e2e4e7;
+    background: #F9FCFF;
+}
+
+.wt-cta-icon {
+    width: 47px;
+    height: 47px;
+    border-radius: 4px;
+}
+
+.wt-smart-coupon-cta-icon {
+    width: 62px;
+    height: 61px;
+    border-radius: 4px;
+}
+
+.wt-cta-header h3 {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1d2327;
+    line-height: 130%;
+    padding: 0;
+}
+
+.wt-cta-features {
+    margin: 0;
+    padding: 0 12px;
+    list-style: none;
+}
+
+.wt-cta-features li {
+    position: relative;
+    padding-left: 24px;
+    margin-bottom: 12px;
+    font-size: 12px;
+    color: #212121;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+
+.wt-cta-features li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 10%;
+    width: 13px;
+    height: 13px;
+    background: #4CAF50;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    line-height: 1;
+}
+
+.wt-cta-footer {
+    margin-top: 20px;
+    padding: 0 12px 12px;
+    text-align: center;
+}
+
+.wt-cta-button {
+    display: block;
+    background: #2270B1;
+    color: #fff !important;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 13px;
+    margin-bottom: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.wt-cta-button:hover,
+.wt-cta-button:focus,
+.wt-cta-button:active {
+    background: #135e96;
+    color: #fff !important;
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+.wt-cta-guarantees {
+    margin: 15px 0;
+}
+
+.guarantee-icon {
+    font-size: 14px;
+}
+
+.wt-cta-toggle {
+    display: inline-block;
+    color: #0500FF;
+    text-decoration: none;
+    font-size: 12px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.wt-cta-toggle:hover {
+    color: #135e96;
+    text-decoration: underline;
+}
+
+.wt-cta-features .hidden-feature {
+    display: none;
+}
+
+.wt-cta-features.show-all .hidden-feature {
+    display: flex;
+}
+
+/* Remove postbox-header arrows since we're using meta box */
+#wt_product_import_export_pro .handle-actions,
+#wt_coupon_import_export_pro .handle-actions,
+#wt_pklist_cta_banner .handle-actions {
+    display: none;
+}
+
+#wt_product_import_export_pro h2.hndle,
+#wt_coupon_import_export_pro h2.hndle,
+#wt_pdf_invoice_pro h2.hndle {
+    display: none !important;
+}
+
+#wt_product_import_export_pro .handlediv,
+#wt_coupon_import_export_pro .handlediv,
+#wt_pdf_invoice_pro .handlediv {
+    display: none !important;
+}
+
+/* Only hide postbox header for specific banner meta boxes, not all */
+#wt_product_import_export_pro .postbox-header,
+#wt_coupon_import_export_pro .postbox-header,
+#wt_pdf_invoice_pro .postbox-header {
+    display: none !important;
+}
+
+.wt-cta-footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.wt-cta-footer-links .wt-cta-toggle {
+    color: #0500FF;
+    text-decoration: none;
+    font-size: 13px;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.wt-cta-footer-links .wt-cta-toggle:focus,
+.wt-cta-footer-links .wt-cta-toggle:active {
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.wt-cta-footer-links .wt-cta-button {
+    margin-bottom: 0;
+}
+
+.wt-cta-footer-links a:first-child {
+    color: #0500FF;
+    text-decoration: none;
+    font-size: 13px;
+    text-decoration: underline;
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+.wt-cta-footer-links a:first-child:focus,
+.wt-cta-footer-links a:first-child:active {
+    outline: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+} 

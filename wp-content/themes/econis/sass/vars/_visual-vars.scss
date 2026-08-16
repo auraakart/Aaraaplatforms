@@ -1,0 +1,163 @@
+// Visual heading and description
+// -------------------------
+$visual-title-font-size                    : 18px !default;
+$visual-description-font-size              : 12px !default;
+$visual-description-font-family            : $font-family-base !default;
+$visual-description-font-weight            : $font-weight-base !default;
+$visual-description-text-color             : $text-color !default;
+$visual-description-margin                 : 10px 0 !default;
+$visual-description-transform              : uppercase !default;
+
+// Reassuarence Content
+// -------------------------
+$reassuarence-margin                       : 0 0 0 0 !default;
+$reassuarence-padding                      : 0 0 0 0 !default;
+$reassuarence-icon-margin                  : 0 0 15px 0 !default;
+
+// Progress Bar
+// -------------------------
+$progress-bar-label-padding                : 0 !default;
+$progress-bar-label-margin                 : 0 !default;
+
+// Inforbox
+// -------------------------
+$inforbox-margin                           : 0 0 0 0 !default;
+$inforbox-padding-top                      : 100px !default;
+$inforbox-padding-horizontal               : 30px !default;
+$inforbox-size                             : 503px !default;
+
+$inforbox-title-transform                  : none !default;
+$inforbox-title-font-size                  : 36px !default;
+$inforbox-title-font-family                : $headings-font-family !default;
+$inforbox-title-line-height                : 1.2 !default;
+$inforbox-title-border                     : 1px solid $border-color !default;
+$inforbox-title-margin-bottom              : 25px !default;
+$inforbox-title-padding-bottom             : 0 !default;
+$inforbox-title-letter-spacing             : 0px !default;
+
+$inforbox-content-font-weight              : 500 !default;
+$inforbox-content-color                    : $black !default;
+
+// Callout
+// -------------------------
+$callout-bg                                : $theme-color !default;
+$callout-padding                           : 60px 0px !default;
+$callout-title-font-family                 : $headings-font-family !default;
+$callout-title-color                       : $white !default;
+$callout-btn-margin-vertical               : 16px !default;
+
+// Our Service
+// -------------------------
+$ourservice-alignment                      : left !default;
+$ourservice-icon-wrapper-size              : 52px !default;
+$ourservice-icon-wrapper-border            : 0px solid $theme-color !default;
+$ourservice-icon-wrapper-margin            : 0 0 30px 0 !default;
+$ourservice-icon-margin                    : 10px !default;
+$ourservice-icon-font-size                 : 50px !default;
+
+// Parallax
+// -------------------------
+$parallax-bg                               : rgba($gray-darker, 1) !default;
+$parallax-margin                           : (- $grid-gutter-width + 10) !default;
+$parallax-padding                          : 70px ($grid-gutter-width + 10) !default;
+$parallax-block-heading-color              : $white !default;
+
+// Separator
+// -------------------------
+$separator-grey-line-border-color          : $border-color !default;
+
+// Text Block
+// -------------------------
+$text-block-padding                        : 0px !default;
+
+// Info Text
+// -------------------------
+$info-text-content-padding                 : 70px 0 100px !default;
+
+$info-text1-font-size                      : 14px !default;
+$info-text1-color                          : $white !default;
+$info-text1-padding                        : 0 0 10px 0 !default;
+
+$info-text2-padding                        : 40px !default;
+$info-text2-margin                         : 20px !default;
+$info-text2-color                          : #f97354 !default;
+$info-text2-font-size                      : 72px !default;
+$info-text2-border                         : 3px solid #928988 !default;
+
+// Accordion
+// -------------------------
+$accordion-title-font-family               : $headings-font-family !default;
+$accordion-title-margin                    : -1px !default;
+$accordion-title-padding                   : 15px 20px !default;
+$accordion-title-font-weight               : 800 !default;
+$accordion-title-font-size                 : $font-size-base !default;
+$accordion-title-active-bg                 : $gray-darker !default;
+$accordion-title-active-color              : $white !default;
+$accordion-title-bg                        : transparent !default;
+$accordion-title-hover-bg                  : $theme-color !default;
+$accordion-title-line-height               : $headings-line-height !default;
+$accordion-title-color                     : $headings-color !default;
+$accordion-title-hover-color               : $white !default;
+
+$accordion-content-padding                 : 0 !default;
+$accordion-content-margin                  : 0 !default;
+
+$accordion-icon-color                      : $black !default;
+$accordion-icon-font-size                  : $font-size-base !default;
+$accordion-icon-active-color               : $white !default;
+
+// brand logo
+// -------------------------
+$widget-brand-margin                       : ($grid-gutter-width + 10) !default;
+
+// Product
+// -------------------------
+$product-carousel-position-top             : 20px !default;
+
+// Counter
+// -------------------------
+$counter-title-font-size                   : 12px !default;
+$counter-number-color                      : $white !default;
+$counter-number-margin                     : 10px !default;
+$counter-container-padding                 : 98px 0 !default;
+
+// Pie Chart
+// -------------------------
+$pie-chart-wrapper-margin                  : 0 0 10px 0 !default;
+$pie-chart-size                            : 165px !important;
+$pie-chart-heading-color                   : $white !default;
+$pie-chart-heading-transform               : none !default;
+
+// Portfolio
+// -------------------------
+$portfolio-border                          : 0 solid $border-color !default;
+$portfolio-text-color                      : $white !default;
+$portfolio-link-hover-color                : $white !default;
+
+$portfolio-filters-margin-top              : 0px !default;
+$portfolio-show-item                       : none !default;
+
+// Our Team
+// -------------------------
+$team-social-icon-font-size                : 17px !default;
+$team-social-icon-color                    : lighten($text-color , 16) !default;
+$team-social-icon-hover-color              : $white !default;
+
+// Shop By Category Filter
+// -------------------------
+$category-filter-border                    : 1px solid $border-color !default;
+$category-filter-image-size                : 160px !default;
+$category-filter-btn-color                 : $theme-color !default;
+
+$category-filter-item-link-color           : $text-color !default;
+$category-filter-item-link-hover-color     : $theme-color !default;
+$category-filter-item-font-size            : 12px !default;
+
+$category-filter-title-font-size           : 18px !default;
+$category-filter-title-margin              : 0px !default;
+$category-filter-title-line-height         : 20px !default;
+$category-filter-item-font-weight          : 700 !default;
+
+$category-filter-content-font-weight       : 700 !default;
+$category-filter-content-margin-top        : 10px;
+$category-filter-content-margin-horizontal : 5px;

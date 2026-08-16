@@ -1,0 +1,6349 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: WebToffee WooCommerce PDF Invoices, Packing Slips, "
+"Delivery Notes and Shipping Labels\n"
+"POT-Creation-Date: 2026-07-17 12:34+0530\n"
+"PO-Revision-Date: 2026-07-17 12:37+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: zh_CN\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.9\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: print-invoices-packing-slip-labels-for-woocommerce.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: tests\n"
+"X-Poedit-SearchPathExcluded-2: includes/vendor\n"
+"X-Poedit-SearchPathExcluded-3: vendor\n"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:142
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:66
+msgid "Settings updated."
+msgstr "设置已更新。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:143
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:67
+msgid "All fields are mandatory"
+msgstr "所有字段均为必填项"
+
+#. translators: 1$s: HTML line break, 2$s: HTML link opening tag, 3$s: HTML link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:145
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:69
+#, php-format
+msgid ""
+"Unable to update settings due to an internal error. %1$s To troubleshoot "
+"please click %2$s here. %3$s"
+msgstr "由于内部错误，无法更新设置。%1$s 如需排查问题，请点击%2$s此处。%3$s"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:146
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:70
+msgid "You have to select order(s) first!"
+msgstr "您必须先选择订单！"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:147
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:71
+msgid "One or more order do not have invoice generated. Generate manually?"
+msgstr "一个或多个订单尚未生成发票。是否手动生成？"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:148
+#: admin/class-wf-woocommerce-packing-list-admin.php:1659
+#: admin/class-wf-woocommerce-packing-list-admin.php:2315
+#: admin/class-wf-woocommerce-packing-list-admin.php:4674
+#: admin/class-wf-woocommerce-packing-list-admin.php:4785
+#: admin/class-wf-woocommerce-packing-list-admin.php:4968
+#: admin/modules/customizer/customizer.php:58
+#: admin/modules/customizer/customizer.php:257
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:132
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:72
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:92
+#: public/modules/invoice/invoice.php:202
+#: public/modules/shippinglabel/shippinglabel.php:250
+msgid "Error"
+msgstr "错误"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:149
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:73
+msgid "Please wait"
+msgstr "请稍候"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:150
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:74
+msgid "is required"
+msgstr "为必填项"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:151
+#: admin/class-wf-woocommerce-packing-list-admin.php:4613
+#: admin/views/documents.php:19 admin/views/freevspro.php:7
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:75
+#: public/modules/invoice/invoice.php:150
+#: public/modules/invoice/invoice.php:164
+#: public/modules/invoice/invoice.php:165
+#: public/modules/invoice/invoice.php:1221
+#: public/modules/invoice/invoice.php:1249
+#: public/modules/invoice/invoice.php:1554
+#: public/modules/invoice/invoice.php:2152
+#: public/modules/invoice/views/invoice-admin-settings.php:45
+msgid "Invoice"
+msgstr "发票"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:152
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:76
+msgid ""
+"number has not been generated yet. Do you want to manually generate one ?"
+msgstr "编号尚未生成。是否要手动生成一个？"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:153
+msgid "The order has not been created yet. Please save the order first."
+msgstr "订单尚未创建，请先保存订单。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:154
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:77
+msgid ""
+"‘Generate invoice for free orders’ is disabled in Invoice settings > "
+"Advanced. You are attempting to generate invoice for this free order. "
+"Proceed?"
+msgstr ""
+"‘为免费订单生成发票’已在 发票设置 > 高级 中被禁用。您正尝试为此免费订单生成发"
+"票。是否继续？"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:155
+msgid ""
+"Refund in this order seems not having credit number yet. Do you want to "
+"manually generate one ?"
+msgstr "此订单中的退款似乎尚未生成贷记单编号。是否要手动生成一个？"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:156
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:78
+msgid "Please fill the `from address` in the plugin's general settings."
+msgstr "请在插件的常规设置中填写 `发件地址`。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:157
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:79
+msgid "Code Copied"
+msgstr "代码已复制"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:158
+#: admin/partials/form_wizard/form_wizard.php:692
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:80
+msgid "Close"
+msgstr "关闭"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:159
+#: admin/modules/customizer/views/customize.php:757
+#: admin/views/admin-settings-debug.php:109
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:81
+msgid "Save"
+msgstr "保存"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:160
+#: admin/class-wf-woocommerce-packing-list-admin.php:2317
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:82
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:93
+msgid "Please enter mandatory fields"
+msgstr "请填写必填字段"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:161
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:83
+msgid "You can add more than 1 order meta in"
+msgstr "您可以在以下位置添加多个订单元数据"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:162
+#: admin/views/_custom_field_editor_form.php:20
+#: admin/views/_custom_field_editor_form.php:25
+#: admin/views/_custom_field_editor_form_product.php:24
+#: admin/views/_custom_field_editor_form_product.php:29
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:84
+msgid "Edit"
+msgstr "编辑"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:163
+#: admin/views/_custom_field_editor_form.php:43
+#: admin/views/_custom_field_editor_form_product.php:47
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:85
+msgid "You can edit an existing item by using its key."
+msgstr "您可以使用其键名编辑现有项目。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:165
+msgid "Add"
+msgstr "添加"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:166
+msgid "Request error."
+msgstr "请求错误。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:167
+msgid "Error loading data."
+msgstr "加载数据时出错。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:168
+msgid "minimum value should be"
+msgstr "最小值应为"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:169
+msgid "Generating document..."
+msgstr "正在生成文档……"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:170
+msgid "Failed to open new tab. Please check your browser settings."
+msgstr "无法打开新标签页。请检查您的浏览器设置。"
+
+#. translators: %1$s: HTML link opening tag, %2$s: HTML link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:337
+#, php-format
+msgid ""
+"For better RTL integration in PDF documents, click the link to install the "
+"%1$smPDF add-on%2$s by WebToffee (free)."
+msgstr ""
+"为了在 PDF 文档中更好地支持 RTL，请点击链接安装由 WebToffee 提供的 %1$smPDF "
+"插件%2$s（免费）。"
+
+#. translators: %1$s: HTML link opening tag, %2$s: HTML link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:341
+#, php-format
+msgid ""
+"For better RTL integration in PDF documents, click the link to update the "
+"%1$smPDF add-on%2$s by WebToffee (free)."
+msgstr ""
+"为了在 PDF 文档中更好地支持 RTL，请点击链接更新由 WebToffee 提供的 %1$smPDF "
+"插件%2$s（免费）。"
+
+#. translators: %1$s: HTML link opening tag, %2$s: HTML link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:345
+#, php-format
+msgid ""
+"For better RTL integration in PDF documents, click the link to activate the "
+"%1$smPDF add-on%2$s by WebToffee (free)."
+msgstr ""
+"为了在 PDF 文档中更好地支持 RTL，请点击链接激活由 WebToffee 提供的 %1$smPDF "
+"插件%2$s（免费）。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:384
+msgctxt "placeholder"
+msgid "Enter "
+msgstr "输入 "
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:579
+#: admin/class-wf-woocommerce-packing-list-admin.php:869
+msgid "Invoice/Packing"
+msgstr "发票/装箱单"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:581
+msgid "WT PDF Invoice Debug"
+msgstr "WT PDF 发票调试"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:591
+#: admin/partials/admin-settings.php:41
+#: public/modules/deliverynote/views/admin-settings.php:40
+#: public/modules/dispatchlabel/views/admin-settings.php:45
+#: public/modules/invoice/views/invoice-admin-settings.php:45
+#: public/modules/packinglist/views/admin-settings.php:41
+#: public/modules/shippinglabel/views/admin-settings.php:31
+msgid "Settings"
+msgstr "设置"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:592
+msgid "Support"
+msgstr "支持"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:593
+msgid "Review"
+msgstr "评价"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:594
+#: admin/views/help.php:47 admin/views/help.php:50
+msgid "Documentation"
+msgstr "文档"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:600
+msgid "PDF Invoices"
+msgstr "PDF 发票"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:604
+msgid "Shipping labels"
+msgstr "运输标签"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:608
+msgid "Pick lists"
+msgstr "拣货单"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:612
+msgid "Proforma invoices"
+msgstr "形式发票"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:616
+#: admin/views/documents.php:75
+msgid "Address labels"
+msgstr "地址标签"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:619
+msgid "Premium Extensions"
+msgstr "高级扩展"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:654
+msgid "Document details"
+msgstr "文档详情"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:675
+msgid "Print/Download"
+msgstr "打印/下载"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:868
+#: admin/class-wf-woocommerce-packing-list-admin.php:895
+msgid "General Settings"
+msgstr "常规设置"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:884
+#: admin/class-wf-woocommerce-packing-list-admin.php:885
+msgid "Extensions"
+msgstr "扩展"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:977
+#: admin/class-wf-woocommerce-packing-list-admin.php:986
+msgid "You are not allowed to access this page"
+msgstr "您无权访问此页面"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1004
+#: admin/class-wf-woocommerce-packing-list-admin.php:1144
+msgid "You are not allowed to view this page."
+msgstr "您无权查看此页面。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1005
+msgid "Access denied !!!."
+msgstr "访问被拒绝！！！。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1020
+#: admin/class-wf-woocommerce-packing-list-admin.php:1072
+#: admin/class-wf-woocommerce-packing-list-admin.php:1160
+#: admin/class-wf-woocommerce-packing-list-admin.php:2743
+#: admin/class-wf-woocommerce-packing-list-admin.php:4229
+#: admin/class-wf-woocommerce-packing-list-admin.php:4349
+#: admin/class-wf-woocommerce-packing-list-admin.php:4405
+#: admin/class-wf-woocommerce-packing-list-admin.php:4532
+msgid "You are not allowed to do this action"
+msgstr "您无权执行此操作"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1028
+#: admin/class-wf-woocommerce-packing-list-admin.php:1168
+msgid "There is no order with this id"
+msgstr "不存在此 id 对应的订单"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1031
+#: admin/class-wf-woocommerce-packing-list-admin.php:1171
+msgid ""
+"The order has not been created yet. Please save the order first before "
+"generating an invoice."
+msgstr "订单尚未创建。请先保存订单，然后再生成发票。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1050
+#: admin/class-wf-woocommerce-packing-list-admin.php:1191
+msgid "It seems this order is not yours"
+msgstr "此订单似乎不属于您"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1065
+#: admin/class-wf-woocommerce-packing-list-admin.php:1206
+msgid ""
+"It seems the products in this order were removed, we cannot proceed this "
+"actoin now."
+msgstr "此订单中的商品似乎已被移除，我们现在无法继续执行此操作。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1069
+#: admin/class-wf-woocommerce-packing-list-admin.php:1210
+msgid "There is no items in this order."
+msgstr "此订单中没有任何商品。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1130
+msgid "Invalid order id"
+msgstr "无效的订单 id"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1135
+msgid "Invalid access key and mail id"
+msgstr "无效的访问密钥和邮件 id"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1143
+msgid "Empty order"
+msgstr "空订单"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1152
+msgid "It seems this order is not yours."
+msgstr "此订单似乎不属于您。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1788
+#: admin/class-wf-woocommerce-packing-list-admin.php:5028
+#: admin/modules/customizer/customizer.php:452
+msgid "Settings Updated"
+msgstr "设置已更新"
+
+#. translators: %s: method
+#. translators: %s: Shipping method name
+#: admin/class-wf-woocommerce-packing-list-admin.php:2241
+#: public/modules/invoice/invoice.php:1112
+#, php-format
+msgid "via %s"
+msgstr "通过 %s"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2246
+msgid "Free!"
+msgstr "免费！"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2404
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:182
+msgid "Item with same meta key already exists"
+msgstr "已存在具有相同元键的项目"
+
+#. translators: 1$s: Tool description text, 2$s: Note label, 3$s: Article link opening tag, 4$s: Article link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:2476
+msgid ""
+"This will remove all invoice numbers created by WooCommerce PDF Invoices, "
+"Packing Slips, Delivery Notes & Shipping Labels by WebToffee."
+msgstr ""
+"此操作将移除由 WebToffee 的 WooCommerce PDF Invoices, Packing Slips, "
+"Delivery Notes & Shipping Labels 创建的所有发票编号。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2476
+msgid "Note:"
+msgstr "注意："
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2476
+#, php-format
+msgid ""
+"Before using this tool, please make sure you followed the steps described in "
+"this article %1$s how to reset/delete existing invoice numbers%2$s."
+msgstr ""
+"在使用此工具之前，请确保您已按照本文 %1$s 如何重置/删除现有发票编号 %2$s 中所"
+"述的步骤操作。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2479
+msgid "Delete all generated invoice numbers"
+msgstr "删除所有已生成的发票编号"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2480
+#: admin/modules/customizer/views/customize.php:946
+msgid "Delete"
+msgstr "删除"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2758
+msgid "Updated"
+msgstr "已更新"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2764
+msgid "No modules"
+msgstr "无模块"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4149
+#: admin/class-wf-woocommerce-packing-list-admin.php:4180
+msgid "Do not show again"
+msgstr "不再显示"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4155
+#: admin/class-wf-woocommerce-packing-list-admin.php:4168
+#: admin/class-wf-woocommerce-packing-list-admin.php:4186
+#: admin/modules/customizer/views/customize.php:928
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:182
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:113
+#: admin/views/admin-settings-debug.php:185
+#: admin/views/admin-settings-debug.php:241
+msgid "Cancel"
+msgstr "取消"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4158
+#: admin/class-wf-woocommerce-packing-list-admin.php:4189
+msgid "Generate"
+msgstr "生成"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4165
+msgid "Generating the document..."
+msgstr "正在生成文档……"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4249
+#: admin/modules/customizer/customizer.php:258
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:176
+msgid "Success"
+msgstr "成功"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4254
+msgid "Cannot close this banner"
+msgstr "无法关闭此横幅"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4431
+msgid "Settings are empty"
+msgstr "设置为空"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4478
+msgid "Imported successfully"
+msgstr "导入成功"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4482
+msgid "Incorrect file"
+msgstr "文件不正确"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4486
+msgid "Error: Empty JSON file"
+msgstr "错误：JSON 文件为空"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4490
+msgid "Error: Invalid JSON data"
+msgstr "错误：无效的 JSON 数据"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4494
+msgid "Error uploading the file"
+msgstr "上传文件时出错"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4564
+msgid "Error:"
+msgstr "错误："
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4564
+msgid "Truncation did not complete as expected."
+msgstr "截断未按预期完成。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4612
+#: admin/views/general.php:360
+msgid "Total files"
+msgstr "文件总数"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4614
+#: admin/views/documents.php:23 admin/views/freevspro.php:8
+#: public/modules/packinglist/packinglist.php:70
+#: public/modules/packinglist/packinglist.php:92
+#: public/modules/packinglist/packinglist.php:93
+#: public/modules/packinglist/packinglist.php:310
+#: public/modules/packinglist/packinglist.php:453
+#: public/modules/packinglist/views/admin-settings.php:41
+msgid "Packing slip"
+msgstr "装箱单"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4615
+#: admin/views/documents.php:40 admin/views/freevspro.php:10
+#: public/modules/shippinglabel/shippinglabel.php:66
+#: public/modules/shippinglabel/shippinglabel.php:221
+#: public/modules/shippinglabel/shippinglabel.php:222
+#: public/modules/shippinglabel/shippinglabel.php:517
+#: public/modules/shippinglabel/views/admin-settings.php:31
+msgid "Shipping label"
+msgstr "运输标签"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4616
+#: admin/views/documents.php:48 admin/views/freevspro.php:12
+#: public/modules/deliverynote/deliverynote.php:65
+#: public/modules/deliverynote/deliverynote.php:87
+#: public/modules/deliverynote/deliverynote.php:88
+#: public/modules/deliverynote/deliverynote.php:286
+#: public/modules/deliverynote/deliverynote.php:410
+#: public/modules/deliverynote/views/admin-settings.php:40
+msgid "Delivery note"
+msgstr "送货单"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4617
+#: admin/views/documents.php:44 admin/views/freevspro.php:11
+#: public/modules/dispatchlabel/dispatchlabel.php:65
+#: public/modules/dispatchlabel/dispatchlabel.php:87
+#: public/modules/dispatchlabel/dispatchlabel.php:88
+#: public/modules/dispatchlabel/dispatchlabel.php:382
+#: public/modules/dispatchlabel/views/admin-settings.php:45
+msgid "Dispatch label"
+msgstr "发货标签"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4618
+#: admin/views/documents.php:62
+msgid "Picklist"
+msgstr "拣货单"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4619
+#: admin/views/documents.php:88 admin/views/freevspro.php:13
+msgid "Proforma invoice"
+msgstr "形式发票"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4620
+#: admin/views/documents.php:27 admin/views/freevspro.php:9
+msgid "Credit note"
+msgstr "贷记单"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4806
+#: admin/views/_form_field_generator_new.php:688
+msgid "No temporary file found"
+msgstr "未找到临时文件"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4811
+msgid "Successfully cleared all temp files."
+msgstr "已成功清除所有临时文件。"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4812
+msgid "No files found."
+msgstr "未找到文件。"
+
+#: admin/data/data.filters-help.php:7
+msgid "Order Details"
+msgstr "订单详情"
+
+#: admin/data/data.filters-help.php:8
+#: public/modules/deliverynote/deliverynote.php:180
+#: public/modules/dispatchlabel/dispatchlabel.php:162
+#: public/modules/invoice/invoice.php:1312
+#: public/modules/packinglist/packinglist.php:205
+msgid "Product Table"
+msgstr "商品表格"
+
+#: admin/data/data.filters-help.php:9
+msgid "Summary Table"
+msgstr "汇总表格"
+
+#: admin/data/data.filters-help.php:10
+#: public/modules/invoice/views/general.php:284
+msgid "Others"
+msgstr "其他"
+
+#: admin/data/data.filters-help.php:15
+msgid "Alter order date"
+msgstr "修改订单日期"
+
+#: admin/data/data.filters-help.php:16
+msgid ""
+"This filter is used to alter the order date in all the document templates"
+msgstr "此过滤器用于修改所有文档模板中的订单日期"
+
+#: admin/data/data.filters-help.php:29
+msgid "Alter invoice date"
+msgstr "修改发票日期"
+
+#: admin/data/data.filters-help.php:30
+msgid ""
+"This filter is used to alter the invoice date in all the document templates"
+msgstr "此过滤器用于修改所有文档模板中的发票日期"
+
+#: admin/data/data.filters-help.php:43 admin/data/data.filters-help.php:44
+msgid "Alter dispatch date"
+msgstr "修改发货日期"
+
+#: admin/data/data.filters-help.php:57
+msgid "Alter barcode information"
+msgstr "修改条形码信息"
+
+#: admin/data/data.filters-help.php:58
+msgid ""
+"This filter is used to alter the barcode information for all the document "
+"templates"
+msgstr "此过滤器用于修改所有文档模板的条形码信息"
+
+#: admin/data/data.filters-help.php:67 admin/data/data.filters-help.php:68
+msgid "Alter shipping address"
+msgstr "修改收货地址"
+
+#: admin/data/data.filters-help.php:83 admin/data/data.filters-help.php:84
+msgid "Alter billing address"
+msgstr "修改账单地址"
+
+#: admin/data/data.filters-help.php:99 admin/data/data.filters-help.php:100
+msgid "Alter shipping from address"
+msgstr "修改发货地址"
+
+#: admin/data/data.filters-help.php:118
+msgid "Alter product table head.(Add,remove, change the order)"
+msgstr "修改商品表格表头。（添加、移除、更改顺序）"
+
+#: admin/data/data.filters-help.php:119
+msgid "Alter product table head.(Add, remove, change order)"
+msgstr "修改商品表格表头。（添加、移除、更改顺序）"
+
+#: admin/data/data.filters-help.php:134
+msgid "Alter the product name in package documents"
+msgstr "修改包裹文档中的商品名称"
+
+#: admin/data/data.filters-help.php:135
+msgid ""
+"Alter product name in product (Works with Packing List, Shipping Label and "
+"Delivery note only)"
+msgstr "修改商品中的商品名称（仅适用于装箱单、运输标签和送货单）"
+
+#: admin/data/data.filters-help.php:144
+msgid "Add product variation in package documents"
+msgstr "在包裹文档中添加商品变体"
+
+#: admin/data/data.filters-help.php:145
+msgid ""
+"Add product variation in product (Works with Packing List, Shipping Label "
+"and Delivery note only)"
+msgstr "在商品中添加商品变体（仅适用于装箱单、运输标签和送货单）"
+
+#: admin/data/data.filters-help.php:153
+msgid "Alter item quantity in package documents"
+msgstr "修改包裹文档中的商品数量"
+
+#: admin/data/data.filters-help.php:154
+msgid ""
+"Alter item quantity in product table (Works with Packing List, Shipping "
+"Label and Delivery note only)"
+msgstr "修改商品表格中的商品数量（仅适用于装箱单、运输标签和送货单）"
+
+#: admin/data/data.filters-help.php:162
+msgid "Alter item total in package documents"
+msgstr "修改包裹文档中的商品合计"
+
+#: admin/data/data.filters-help.php:163
+msgid ""
+"Alter item total in product table (Works with Packing List, Shipping Label "
+"and Delivery note only)"
+msgstr "修改商品表格中的商品合计（仅适用于装箱单、运输标签和送货单）"
+
+#: admin/data/data.filters-help.php:171
+msgid "Alter product table column in package documents"
+msgstr "修改包裹文档中的商品表格列"
+
+#: admin/data/data.filters-help.php:172
+msgid ""
+"Alter product table column. (Works with Packing List, Shipping Label and "
+"Delivery note only)"
+msgstr "修改商品表格列。（仅适用于装箱单、运输标签和送货单）"
+
+#: admin/data/data.filters-help.php:181
+msgid "Alter product name"
+msgstr "修改商品名称"
+
+#: admin/data/data.filters-help.php:182
+msgid "Alter product name. (Works with Invoice and Dispatch label only)"
+msgstr "修改商品名称。（仅适用于发票和发货标签）"
+
+#: admin/data/data.filters-help.php:191
+msgid "Add product variation"
+msgstr "添加商品变体"
+
+#: admin/data/data.filters-help.php:192
+msgid "Add product variation. (Works with Invoice and Dispatch label only)"
+msgstr "添加商品变体。（仅适用于发票和发货标签）"
+
+#: admin/data/data.filters-help.php:201
+msgid "Alter item quantity"
+msgstr "修改商品数量"
+
+#: admin/data/data.filters-help.php:202
+msgid "Alter item quantity. (Works with Invoice and Dispatch label only)"
+msgstr "修改商品数量。（仅适用于发票和发货标签）"
+
+#: admin/data/data.filters-help.php:210
+msgid "Alter item price"
+msgstr "修改商品价格"
+
+#: admin/data/data.filters-help.php:211
+msgid "Alter item price. (Works with Invoice and Dispatch label only)"
+msgstr "修改商品价格。（仅适用于发票和发货标签）"
+
+#: admin/data/data.filters-help.php:219
+msgid "Alter item price format"
+msgstr "修改商品价格格式"
+
+#: admin/data/data.filters-help.php:220
+msgid "Alter formated item price. (Works with Invoice and Dispatch label only)"
+msgstr "修改格式化后的商品价格。（仅适用于发票和发货标签）"
+
+#: admin/data/data.filters-help.php:228
+msgid "Alter item total"
+msgstr "修改商品合计"
+
+#: admin/data/data.filters-help.php:229
+msgid "Alter item total. (Works with Invoice and Dispatch label only)"
+msgstr "修改商品合计。（仅适用于发票和发货标签）"
+
+#: admin/data/data.filters-help.php:237
+msgid "Alter item total format"
+msgstr "修改商品合计格式"
+
+#: admin/data/data.filters-help.php:238
+msgid "Alter formated item total. (Works with Invoice and Dispatch label only)"
+msgstr "修改格式化后的商品合计。（仅适用于发票和发货标签）"
+
+#: admin/data/data.filters-help.php:246
+msgid "Alter product table column"
+msgstr "修改商品表格列"
+
+#: admin/data/data.filters-help.php:247
+msgid ""
+"Alter product table column. (Works with Invoice and Dispatch label only)"
+msgstr "修改商品表格列。（仅适用于发票和发货标签）"
+
+#: admin/data/data.filters-help.php:258 admin/data/data.filters-help.php:259
+msgid "Alter subtotal"
+msgstr "修改小计"
+
+#: admin/data/data.filters-help.php:268
+msgid "Alter subtotal format"
+msgstr "修改小计格式"
+
+#: admin/data/data.filters-help.php:269
+msgid "Alter formated subtotal"
+msgstr "修改格式化后的小计"
+
+#: admin/data/data.filters-help.php:278 admin/data/data.filters-help.php:279
+msgid "Alter shipping method"
+msgstr "修改配送方式"
+
+#: admin/data/data.filters-help.php:287 admin/data/data.filters-help.php:288
+msgid "Alter fee"
+msgstr "修改费用"
+
+#: admin/data/data.filters-help.php:296 admin/data/data.filters-help.php:297
+msgid "Alter total fee"
+msgstr "修改费用合计"
+
+#: admin/data/data.filters-help.php:305 admin/data/data.filters-help.php:306
+msgid "Alter total price"
+msgstr "修改总价"
+
+#: admin/data/data.filters-help.php:315 admin/data/data.filters-help.php:316
+msgid "Alter total price in words"
+msgstr "修改大写总价"
+
+#: admin/data/data.filters-help.php:327
+msgid "Hide/Show received seal in invoice"
+msgstr "在发票中隐藏/显示已收款印章"
+
+#: admin/data/data.filters-help.php:328
+msgid "Hide/Show received seal in invoice."
+msgstr "在发票中隐藏/显示已收款印章。"
+
+#: admin/data/data.filters-help.php:341
+msgid "Add extra text in received seal"
+msgstr "在已收款印章中添加额外文字"
+
+#: admin/data/data.filters-help.php:342
+msgid "Add extra text in received seal."
+msgstr "在已收款印章中添加额外文字。"
+
+#: admin/data/data.filters-help.php:357
+msgid "Alter template HTML before printing"
+msgstr "在打印前修改模板 HTML"
+
+#: admin/data/data.filters-help.php:358
+msgid "Alter template HTML before printing."
+msgstr "在打印前修改模板 HTML。"
+
+#: admin/data/data.filters-help.php:371
+msgid "Alter the variation data."
+msgstr "修改变体数据。"
+
+#: admin/data/data.filters-help.php:375
+msgid "Hide internal/technical order item meta keys from documents."
+msgstr "从文档中隐藏内部/技术订单项元键。"
+
+#: admin/data/data.filters-help.php:384
+msgid "Alter the settings array"
+msgstr "修改设置数组"
+
+#: admin/data/data.filters-help.php:398
+msgid "Alter the footer data"
+msgstr "修改页脚数据"
+
+#: admin/data/data.filters-help.php:399
+msgid "Alter the footer data."
+msgstr "修改页脚数据。"
+
+#: admin/data/data.tooltip.php:7
+msgid "Key in your company name."
+msgstr "输入您的公司名称。"
+
+#: admin/data/data.tooltip.php:8
+msgid ""
+"When enabled, replaces state code with state name in the from, return, "
+"billing and shipping addresses"
+msgstr "启用后，将在发件、退货、账单和收货地址中用省/州名称替换省/州代码"
+
+#: admin/data/data.tooltip.php:9
+msgid "Enable to have a preview of the document before the print is initiated"
+msgstr "启用后可在开始打印前预览文档"
+
+#: admin/data/data.tooltip.php:10
+msgid "The default library to be used PDF generation"
+msgstr "用于生成 PDF 的默认库"
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:151
+msgid ""
+"Under IAB Europe’s TCF policy, publishers participating in TCF must upgrade "
+"to TCF v2.3 by <b>28 February 2026</b> to remain compliant. <br>Ensure "
+"uninterrupted ad monetization with the <b>WebToffee GDPR Cookie Consent "
+"Plugin</b> – fully supporting <b>TCF v2.3</b>."
+msgstr ""
+"根据 IAB Europe 的 TCF 政策，参与 TCF 的发布商必须在<b>2026 年 2 月 28 日</b>"
+"之前升级到 TCF v2.3 以保持合规。<br>使用<b>WebToffee GDPR Cookie Consent 插件"
+"</b>确保广告变现不间断——完全支持<b>TCF v2.3</b> 。"
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:154
+msgid ""
+"<b>Important Update:</b> Starting October 31, 2025, Microsoft requires "
+"websites to use Clarity Consent V2 to continue collecting analytical data. "
+"<br>Ensure compliance by upgrading to the GDPR Cookie Consent Plugin, now "
+"fully compatible with <b>Clarity Consent V2</b> and <b>Google Consent Mode</"
+"b>."
+msgstr ""
+"<b>重要更新：</b>从 2025 年 10 月 31 日起，微软要求网站使用 Clarity Consent "
+"V2 继续收集分析数据。<br>升级到 GDPR Cookie Consent 插件，确保合规性，该插件"
+"现在完全兼容<b>Clarity Consent V2</b>和<b>Google Consent Mode</b> 。"
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:157
+msgid ""
+"Stay compliant with GDPR and US Privacy Laws using our Google-certified CMP "
+"plugin—now with <b>Microsoft Clarity Consent V2</b>, <br><b>UET Consent "
+"Mode</b> and <b>Google Consent Mode</b> support."
+msgstr ""
+"使用我们经谷歌认证的 CMP 插件（现已集成<b>Microsoft Clarity Consent V2）</"
+"b> ，即可遵守 GDPR 和美国隐私法。<br>支持<b>UET同意模式</b>和<b>Google同意模"
+"式</b>。"
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:297
+msgid "Are you running third-party ads?"
+msgstr "您是否投放了第三方广告？"
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:297
+msgid "Ensure Cookie Compliance for Your WordPress Website"
+msgstr "确保您的 WordPress 网站符合 Cookie 合规要求"
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:309
+msgid "Get plugin now"
+msgstr "立即获取插件"
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:313
+msgid "Certified Partner"
+msgstr "认证合作伙伴"
+
+#: admin/modules/banner/class-wt-mpdf-language-banner.php:37
+msgid "Language Detection Notice"
+msgstr "语言检测通知"
+
+#. translators: %s: Detected language name
+#: admin/modules/banner/class-wt-mpdf-language-banner.php:40
+#, php-format
+msgid ""
+"Your site language is detected as %s. For better compatibility with your "
+"language we recommend installing the mPDF add-on."
+msgstr ""
+"检测到您的站点语言为 %s。为更好地兼容您的语言，我们建议安装 mPDF 插件。"
+
+#: admin/modules/banner/class-wt-mpdf-language-banner.php:44
+msgid "You may install the free mPDF add-on by clicking here."
+msgstr "您可以点击此处安装免费的 mPDF 插件。"
+
+#: admin/modules/banner/class-wt-mpdf-language-banner.php:47
+msgid "Dismiss this notice"
+msgstr "关闭此通知"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:106
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:118
+msgid "Product Import Export"
+msgstr "商品导入导出"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:107
+msgid "WooCommerce PDF Invoices, Packing Slips and Credit Notes"
+msgstr "WooCommerce PDF Invoices, Packing Slips and Credit Notes"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:111
+msgid "Automatically generate PDF invoices, packing slips, and credit notes"
+msgstr "自动生成 PDF 发票、装箱单和贷记单"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:112
+msgid "Use ready-made, customizable templates to match your brand"
+msgstr "使用现成的可自定义模板，与您的品牌相匹配"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:113
+msgid "Print or download invoices individually or in bulk"
+msgstr "单独或批量打印或下载发票"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:114
+msgid "Set custom invoice numbering for better organization"
+msgstr "设置自定义发票编号以便更好地管理"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:115
+msgid "Customize documents fully with visual or code editors"
+msgstr "使用可视化或代码编辑器完全自定义文档"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:116
+msgid "Include VAT, GST, ABN, and other tax details"
+msgstr "包含 VAT、GST、ABN 及其他税务详情"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:117
+msgid "Add \"Pay Now\" link on invoices"
+msgstr "在发票上添加“立即付款”链接"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:118
+msgid "Add custom fields to any order document with ease"
+msgstr "轻松为任何订单文档添加自定义字段"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:123
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:135
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:123
+msgid "View all premium features"
+msgstr "查看所有高级功能"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:123
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:135
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:123
+msgid "Show less"
+msgstr "收起"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:124
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:136
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:124
+msgid "Get the plugin"
+msgstr "获取插件"
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:126
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:138
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:126
+#: includes/class-wt-pklist-promo-banners.php:104
+#: includes/class-wt-pklist-promo-banners.php:124
+#: includes/class-wt-pklist-promo-banners.php:155
+msgid "Dismiss"
+msgstr "关闭"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:90
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:119
+msgid "Product Import Export for WooCommerce"
+msgstr "Product Import Export for WooCommerce"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:123
+msgid "Import, export, or update WooCommerce products"
+msgstr "导入、导出或更新 WooCommerce 商品"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:124
+msgid ""
+"Supports all types of products (Simple, variable, subscription grouped, and "
+"external)"
+msgstr "支持所有类型的商品（简单、可变、订阅、组合和外部商品）"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:125
+msgid "Multiple file formats - CSV, XML, Excel, and TSV"
+msgstr "多种文件格式 - CSV、XML、Excel 和 TSV"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:126
+msgid "Advanced filters and customizations for better control"
+msgstr "高级筛选和自定义功能，实现更好的控制"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:127
+msgid "Bulk update WooCommerce product data"
+msgstr "批量更新 WooCommerce 商品数据"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:128
+msgid "Import via FTP/SFTP and URL"
+msgstr "通过 FTP/SFTP 和 URL 导入"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:129
+#: admin/views/premium_extension_listing.php:187
+#: admin/views/premium_extension_listing.php:222
+msgid "Schedule automated import & export"
+msgstr "计划自动导入和导出"
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:130
+msgid "Export and Import custom fields and third-party plugin fields"
+msgstr "导出和导入自定义字段及第三方插件字段"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:97
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:102
+msgid "Smart Coupons for WooCommerce Pro"
+msgstr "Smart Coupons for WooCommerce Pro"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:98
+msgid ""
+"Create better coupon campaigns with advanced WooCommerce coupon features"
+msgstr "利用高级 WooCommerce 优惠券功能，创建更出色的优惠券活动"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:106
+msgid "Auto-apply coupons"
+msgstr "自动应用优惠券"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:107
+msgid "Create attractive Buy X Get Y (BOGO) offers"
+msgstr "创建有吸引力的买 X 送 Y（BOGO）优惠"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:108
+msgid "Create product quantity/subtotal based discounts"
+msgstr "创建基于商品数量/小计的折扣"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:109
+msgid "Offer store credits and gift cards"
+msgstr "提供店铺积分和礼品卡"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:110
+msgid "Set up smart giveaway campaigns"
+msgstr "设置智能赠品活动"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:111
+msgid "Set advanced coupon rules and conditions"
+msgstr "设置高级优惠券规则和条件"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:112
+#: admin/views/premium_extension_listing.php:331
+msgid "Bulk generate coupons"
+msgstr "批量生成优惠券"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:113
+msgid "Shipping, purchase history, and payment method-based coupons"
+msgstr "基于配送、购买历史和支付方式的优惠券"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:114
+msgid "Sign up coupons"
+msgstr "注册优惠券"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:115
+#: admin/views/premium_extension_listing.php:329
+msgid "Cart abandonment coupons"
+msgstr "购物车放弃优惠券"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:116
+msgid "Create day-specific deals"
+msgstr "创建特定日期的优惠"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:117
+msgid "Display coupon banners and widgets"
+msgstr "显示优惠券横幅和小工具"
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:118
+msgid "Import coupons"
+msgstr "导入优惠券"
+
+#: admin/modules/customizer/classes/class-customizer.php:422
+msgid "Refund"
+msgstr "退款"
+
+#: admin/modules/customizer/classes/class-customizer.php:448
+msgid "incl. tax"
+msgstr "含税"
+
+#: admin/modules/customizer/classes/class-customizer.php:620
+msgid "Tax items"
+msgstr "税收项目"
+
+#: admin/modules/customizer/classes/class-customizer.php:782
+#: admin/modules/customizer/classes/class-customizer.php:1405
+msgid "n/a"
+msgstr "不适用"
+
+#: admin/modules/customizer/classes/class-customizer.php:1187
+msgid "Tax"
+msgstr "税"
+
+#: admin/modules/customizer/classes/class-customizer.php:2139
+msgid ""
+"Mauris dignissim neque ut sapien vulputate, eu semper tellus porttitor. Cras "
+"porta lectus id augue interdum egestas."
+msgstr ""
+"Mauris dignissim neque ut sapien vulputate, eu semper tellus porttitor. Cras "
+"porta lectus id augue interdum egestas."
+
+#: admin/modules/customizer/classes/class-customizer.php:2157
+msgid ""
+"Mauris dignissim neque ut sapien vulputate, eu semper tellus porttitor. Cras "
+"porta lectus id augue interdum egestas. Suspendisse potenti. Phasellus "
+"mollis porttitor enim sit amet fringilla. Nulla sed ligula venenatis, rutrum "
+"lectus vel"
+msgstr ""
+"Mauris dignissim neque ut sapien vulputate, eu semper tellus porttitor. Cras "
+"porta lectus id augue interdum egestas. Suspendisse potenti. Phasellus "
+"mollis porttitor enim sit amet fringilla. Nulla sed ligula venenatis, rutrum "
+"lectus vel"
+
+#: admin/modules/customizer/classes/class-customizer.php:2162
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec vehicula "
+"purus. Mauris tempor nec ipsum ac tempus. Aenean vehicula porttitor tortor, "
+"et interdum tellus fermentum at. Fusce pellentesque justo rhoncus"
+msgstr ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec vehicula "
+"purus. Mauris tempor nec ipsum ac tempus. Aenean vehicula porttitor tortor, "
+"et interdum tellus fermentum at. Fusce pellentesque justo rhoncus"
+
+#: admin/modules/customizer/customizer.php:87
+msgid "Unable to generate PDF."
+msgstr "无法生成 PDF。"
+
+#: admin/modules/customizer/customizer.php:92
+msgid "There is no order with this given id"
+msgstr "不存在此给定 id 对应的订单"
+
+#: admin/modules/customizer/customizer.php:191
+#: admin/modules/customizer/customizer.php:196
+msgid "Customize"
+msgstr "自定义"
+
+#: admin/modules/customizer/customizer.php:259
+msgid "You can't undo this action. Are you sure?"
+msgstr "此操作无法撤销。您确定吗？"
+
+#: admin/modules/customizer/customizer.php:260
+msgid "Click here to add Company logo"
+msgstr "点击此处添加公司徽标"
+
+#: admin/modules/customizer/customizer.php:261
+msgid "Click here to add Company name"
+msgstr "点击此处添加公司名称"
+
+#: admin/modules/customizer/customizer.php:262
+msgid "Click here to add From address"
+msgstr "点击此处添加发件地址"
+
+#: admin/modules/customizer/customizer.php:263
+msgid "Click here to add Signature"
+msgstr "点击此处添加签名"
+
+#: admin/modules/customizer/customizer.php:264
+msgid ""
+"Please save all data before leaving this page. All unsaved data will be "
+"lost. Are you sure?"
+msgstr "请在离开此页面前保存所有数据。所有未保存的数据都将丢失。您确定吗？"
+
+#: admin/modules/customizer/customizer.php:265
+#: admin/modules/customizer/views/customize.php:919
+msgid "Change template"
+msgstr "更换模板"
+
+#: admin/modules/customizer/customizer.php:266
+msgid "Change layout"
+msgstr "更改布局"
+
+#: admin/modules/customizer/customizer.php:267
+msgid "Saving"
+msgstr "正在保存"
+
+#: admin/modules/customizer/customizer.php:268
+#: public/modules/invoice/invoice.php:200
+#: public/modules/shippinglabel/shippinglabel.php:248
+msgid "Please enter order number"
+msgstr "请输入订单编号"
+
+#: admin/modules/customizer/customizer.php:269
+#: public/modules/invoice/invoice.php:201
+#: public/modules/shippinglabel/shippinglabel.php:249
+msgid "Generating"
+msgstr "正在生成"
+
+#: admin/modules/customizer/customizer.php:270
+msgid "This is premium template which is not compatible with the basic plugin"
+msgstr "这是高级模板，与基础版插件不兼容"
+
+#: admin/modules/customizer/customizer.php:271
+msgid ""
+"This is basic template. In order to use premium feature, you need to switch "
+"and activate the premium template"
+msgstr "这是基础模板。要使用高级功能，您需要切换并激活高级模板"
+
+#: admin/modules/customizer/customizer.php:272
+msgid "Template Name Required"
+msgstr "模板名称为必填项"
+
+#: admin/modules/customizer/customizer.php:324
+#: admin/modules/customizer/customizer.php:789
+msgid "Active"
+msgstr "已启用"
+
+#: admin/modules/customizer/customizer.php:421
+msgid "Unable to update setting."
+msgstr "无法更新设置。"
+
+#: admin/modules/customizer/customizer.php:430
+msgid "Invalid value."
+msgstr "无效值"
+
+#: admin/modules/customizer/customizer.php:765
+msgid "Error."
+msgstr "错误。"
+
+#: admin/modules/customizer/customizer.php:791
+#: admin/modules/customizer/views/customize.php:945
+msgid "Activate"
+msgstr "激活"
+
+#: admin/modules/customizer/customizer.php:817
+msgid "No template found."
+msgstr "未找到模板。"
+
+#: admin/modules/customizer/customizer.php:834
+msgid "Unable to save theme."
+msgstr "无法保存主题。"
+
+#: admin/modules/customizer/customizer.php:853
+msgid "Template with same name already exists."
+msgstr "已存在同名模板。"
+
+#: admin/modules/customizer/customizer.php:895
+msgid "Template created."
+msgstr "模板已创建。"
+
+#: admin/modules/customizer/customizer.php:901
+msgid "Template created and activated."
+msgstr "模板已创建并激活。"
+
+#: admin/modules/customizer/customizer.php:956
+msgid "Template updated."
+msgstr "模板已更新。"
+
+#: admin/modules/customizer/customizer.php:959
+msgid "Template updated and activated."
+msgstr "模板已更新并激活。"
+
+#: admin/modules/customizer/customizer.php:1007
+msgid "Unable to switch view."
+msgstr "无法切换视图。"
+
+#: admin/modules/customizer/customizer.php:1618
+msgid "Unable to load template."
+msgstr "无法加载模板。"
+
+#: admin/modules/customizer/customizer.php:1669
+msgid "Untitled template"
+msgstr "未命名模板"
+
+#: admin/modules/customizer/customizer.php:1817
+msgid "Add the order's"
+msgstr "添加订单的"
+
+#: admin/modules/customizer/customizer.php:1817
+#: admin/modules/customizer/customizer.php:1827
+#: public/modules/deliverynote/deliverynote.php:186
+#: public/modules/dispatchlabel/dispatchlabel.php:169
+#: public/modules/invoice/invoice.php:1338
+#: public/modules/packinglist/packinglist.php:212
+#: public/modules/shippinglabel/shippinglabel.php:169
+msgid "Tracking Number"
+msgstr "追踪编号"
+
+#: admin/modules/customizer/customizer.php:1817
+msgid ""
+"to your invoices so customers can easily view and track delivery details."
+msgstr "在您的发票中设置此功能，以便客户可以轻松查看和跟踪送货详情。"
+
+#: admin/modules/customizer/customizer.php:1818
+msgid "Display a combined"
+msgstr "显示组合"
+
+#: admin/modules/customizer/customizer.php:1818
+#: admin/modules/customizer/data/data.translation_strings.php:24
+#: admin/modules/customizer/views/_customize_properties.php:818
+#: public/modules/invoice/invoice.php:1343
+msgid "Total Tax"
+msgstr "税费合计"
+
+#: admin/modules/customizer/customizer.php:1818
+msgid ""
+"amount on the invoice to simplify how tax breakdown appears for customers."
+msgstr "发票上的金额，以便简化客户看到的税费明细。"
+
+#: admin/modules/customizer/customizer.php:1819
+msgid "Show"
+msgstr "显示"
+
+#: admin/modules/customizer/customizer.php:1819
+msgid "Coupon Details"
+msgstr "优惠券详情"
+
+#: admin/modules/customizer/customizer.php:1819
+msgid ""
+"to give customers a clear summary of the discounts applied to their order."
+msgstr "向顾客清晰地展示其订单所享受的折扣。"
+
+#: admin/modules/customizer/customizer.php:1825
+msgid "Add your"
+msgstr "添加您的"
+
+#: admin/modules/customizer/customizer.php:1825
+#: admin/modules/customizer/views/_customize_properties.php:162
+#: public/modules/shippinglabel/shippinglabel.php:155
+msgid "Company Logo"
+msgstr "公司徽标"
+
+#: admin/modules/customizer/customizer.php:1825
+msgid "to the shipping label for professional, branded packages."
+msgstr "用于专业品牌包装的运输标签。"
+
+#: admin/modules/customizer/customizer.php:1826
+#: admin/modules/customizer/customizer.php:1832
+#: admin/modules/customizer/customizer.php:1833
+msgid "Add a"
+msgstr "添加一个"
+
+#: admin/modules/customizer/customizer.php:1826
+#: public/modules/invoice/invoice.php:1327
+#: public/modules/shippinglabel/shippinglabel.php:168
+msgid "Barcode"
+msgstr "条形码"
+
+#: admin/modules/customizer/customizer.php:1826
+msgid ""
+"to your shipping label for quicker scanning and smoother order handling."
+msgstr "将标签添加到您的发货标签，以便更快地扫描和更顺畅地处理订单。"
+
+#: admin/modules/customizer/customizer.php:1827
+#: admin/modules/customizer/customizer.php:1834
+msgid "Add the"
+msgstr "添加"
+
+#: admin/modules/customizer/customizer.php:1827
+#: admin/modules/customizer/customizer.php:1834
+msgid "to the shipping label for easy shipment tracking."
+msgstr "添加到发货标签，以便轻松追踪货物运输情况。"
+
+#: admin/modules/customizer/customizer.php:1828
+msgid "Show the"
+msgstr "显示"
+
+#: admin/modules/customizer/customizer.php:1828
+#: public/modules/shippinglabel/shippinglabel.php:170
+msgid "Package Number"
+msgstr "包裹编号"
+
+#: admin/modules/customizer/customizer.php:1828
+msgid "on each shipping label for accurate multi-package orders."
+msgstr "为了确保多包裹订单的准确性，请在每张发货标签上都注明。"
+
+#: admin/modules/customizer/customizer.php:1829
+msgid "Display the"
+msgstr "显示文章"
+
+#: admin/modules/customizer/customizer.php:1829
+#: public/modules/shippinglabel/shippinglabel.php:171
+msgid "Box name"
+msgstr "箱名"
+
+#: admin/modules/customizer/customizer.php:1829
+msgid "on the label so recipients can identify contents quickly."
+msgstr "标签上会注明内容物，以便收件人能够快速识别。"
+
+#: admin/modules/customizer/customizer.php:1830
+msgid "Show how"
+msgstr "展示如何"
+
+#: admin/modules/customizer/customizer.php:1830
+msgid "Many Items"
+msgstr "许多物品"
+
+#: admin/modules/customizer/customizer.php:1830
+msgid "are in the order on the shipping label."
+msgstr "按照发货标签上的顺序排列。"
+
+#: admin/modules/customizer/customizer.php:1831
+msgid "Mark packages as"
+msgstr "标记包裹为"
+
+#: admin/modules/customizer/customizer.php:1831
+#: public/modules/shippinglabel/shippinglabel.php:173
+msgid "Fragile"
+msgstr "易碎品"
+
+#: admin/modules/customizer/customizer.php:1831
+msgid "so carriers know to handle them with extra care."
+msgstr "这样，运输人员就知道要格外小心地处理它们。"
+
+#: admin/modules/customizer/customizer.php:1832
+#: public/modules/shippinglabel/shippinglabel.php:174
+msgid "This way up"
+msgstr "此面朝上"
+
+#: admin/modules/customizer/customizer.php:1832
+msgid "indicator to help prevent damage during shipping."
+msgstr "用于防止运输过程中损坏的指示器。"
+
+#: admin/modules/customizer/customizer.php:1833
+#: public/modules/shippinglabel/shippinglabel.php:175
+msgid "Keep dry"
+msgstr "保持干燥"
+
+#: admin/modules/customizer/customizer.php:1833
+msgid "notice for moisture-sensitive shipments."
+msgstr "对湿度敏感货物的运输注意事项。"
+
+#: admin/modules/customizer/customizer.php:1834
+#: public/modules/shippinglabel/shippinglabel.php:177
+msgid "Return Policy"
+msgstr "退货政策"
+
+#: admin/modules/customizer/customizer.php:1849
+#: admin/modules/customizer/views/customize.php:812
+#: includes/class-wt-pklist-promo-banners.php:107
+#: includes/class-wt-pklist-promo-banners.php:131
+msgid "Upgrade to Pro"
+msgstr "升级到 Pro 版"
+
+#: admin/modules/customizer/customizer.php:1864
+msgid "Lighter"
+msgstr "更细"
+
+#: admin/modules/customizer/customizer.php:1865
+msgid "Normal"
+msgstr "常规"
+
+#: admin/modules/customizer/customizer.php:1866
+msgid "Bold"
+msgstr "加粗"
+
+#: admin/modules/customizer/customizer.php:1867
+msgid "Bolder"
+msgstr "更粗"
+
+#: admin/modules/customizer/customizer.php:1879
+msgid "Select One"
+msgstr "请选择"
+
+#: admin/modules/customizer/customizer.php:1897
+msgid "Left"
+msgstr "左"
+
+#: admin/modules/customizer/customizer.php:1898
+msgid "Right"
+msgstr "右"
+
+#: admin/modules/customizer/customizer.php:1899
+msgid "Center"
+msgstr "居中"
+
+#: admin/modules/customizer/customizer.php:1900
+msgid "Start"
+msgstr "起始"
+
+#: admin/modules/customizer/customizer.php:1901
+msgid "End"
+msgstr "末尾"
+
+#: admin/modules/customizer/customizer.php:1908
+msgid "None"
+msgstr "无"
+
+#: admin/modules/customizer/customizer.php:1920
+msgid "Solid"
+msgstr "实线"
+
+#: admin/modules/customizer/customizer.php:1921
+msgid "Dotted"
+msgstr "点线"
+
+#: admin/modules/customizer/customizer.php:1922
+msgid "Dashed"
+msgstr "虚线"
+
+#: admin/modules/customizer/data/data.tooltip.php:7
+msgid "Click to view predefined templates."
+msgstr "点击查看预定义模板。"
+
+#: admin/modules/customizer/data/data.tooltip.php:8
+msgid "Create a new template or edit an existing template."
+msgstr "创建新模板或编辑现有模板。"
+
+#: admin/modules/customizer/data/data.tooltip.php:9
+msgid ""
+"Displays the currently chosen document template with provisions to modify."
+msgstr "显示当前选择的文档模板，并提供修改选项。"
+
+#: admin/modules/customizer/data/data.tooltip.php:10
+msgid ""
+"Shows a preview of the template on an actual order. Key in an order number "
+"to view the same."
+msgstr "在实际订单上显示模板的预览。输入订单编号即可查看。"
+
+#: admin/modules/customizer/data/data.translation_strings.php:5
+msgid "Invoice No:"
+msgstr "发票编号："
+
+#: admin/modules/customizer/data/data.translation_strings.php:6
+msgid "Order Date:"
+msgstr "订单日期："
+
+#: admin/modules/customizer/data/data.translation_strings.php:7
+msgid "Dispatch Date:"
+msgstr "发货日期："
+
+#: admin/modules/customizer/data/data.translation_strings.php:8
+msgid "From Address:"
+msgstr "发件地址："
+
+#: admin/modules/customizer/data/data.translation_strings.php:9
+msgid "Billing Address:"
+msgstr "账单地址："
+
+#: admin/modules/customizer/data/data.translation_strings.php:10
+#: admin/modules/customizer/data/data.translation_strings.php:49
+msgid "Email:"
+msgstr "电子邮箱："
+
+#: admin/modules/customizer/data/data.translation_strings.php:11
+msgid "Tel:"
+msgstr "电话："
+
+#: admin/modules/customizer/data/data.translation_strings.php:12
+msgid "Shipping Address:"
+msgstr "收货地址："
+
+#: admin/modules/customizer/data/data.translation_strings.php:13
+msgid "Tracking number:"
+msgstr "追踪编号："
+
+#: admin/modules/customizer/data/data.translation_strings.php:14
+msgid "SSN:"
+msgstr "SSN："
+
+#: admin/modules/customizer/data/data.translation_strings.php:15
+msgid "SKU"
+msgstr "SKU"
+
+#: admin/modules/customizer/data/data.translation_strings.php:16
+msgid "Product"
+msgstr "商品"
+
+#: admin/modules/customizer/data/data.translation_strings.php:17
+msgid "Quantity"
+msgstr "数量"
+
+#: admin/modules/customizer/data/data.translation_strings.php:18
+msgid "Price"
+msgstr "价格"
+
+#: admin/modules/customizer/data/data.translation_strings.php:19
+msgid "Total Price"
+msgstr "总价"
+
+#: admin/modules/customizer/data/data.translation_strings.php:20
+#: admin/modules/customizer/views/_customize_properties.php:792
+#: admin/views/wt_ipc_free_pro.php:753 admin/views/wt_ipc_free_pro.php:795
+#: public/modules/invoice/invoice.php:1339
+msgid "Subtotal"
+msgstr "小计"
+
+#: admin/modules/customizer/data/data.translation_strings.php:21
+#: admin/modules/customizer/views/_customize_properties.php:798
+#: admin/views/wt_ipc_free_pro.php:757 admin/views/wt_ipc_free_pro.php:799
+#: public/modules/invoice/invoice.php:1340
+msgid "Shipping"
+msgstr "运费"
+
+#: admin/modules/customizer/data/data.translation_strings.php:22
+#: admin/modules/customizer/views/_customize_properties.php:805
+#: public/modules/invoice/invoice.php:1341
+msgid "Cart Discount"
+msgstr "购物车折扣"
+
+#: admin/modules/customizer/data/data.translation_strings.php:23
+#: admin/modules/customizer/views/_customize_properties.php:811
+#: public/modules/invoice/invoice.php:1342
+msgid "Order Discount"
+msgstr "订单折扣"
+
+#: admin/modules/customizer/data/data.translation_strings.php:25
+#: admin/modules/customizer/views/_customize_properties.php:824
+#: admin/views/wt_ipc_free_pro.php:769 admin/views/wt_ipc_free_pro.php:811
+#: public/modules/invoice/invoice.php:1344
+msgid "Fee"
+msgstr "费用"
+
+#: admin/modules/customizer/data/data.translation_strings.php:26
+msgid "Coupon Used"
+msgstr "已用优惠券"
+
+#: admin/modules/customizer/data/data.translation_strings.php:27
+#: admin/modules/customizer/views/_customize_properties.php:837
+#: admin/views/wt_ipc_free_pro.php:781 admin/views/wt_ipc_free_pro.php:823
+#: public/modules/invoice/invoice.php:1347
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:68
+msgid "Total"
+msgstr "合计"
+
+#: admin/modules/customizer/data/data.translation_strings.php:28
+msgid "INVOICE"
+msgstr "发票"
+
+#: admin/modules/customizer/data/data.translation_strings.php:29
+msgid "Invoice Date:"
+msgstr "发票日期："
+
+#: admin/modules/customizer/data/data.translation_strings.php:30
+msgid "Invoice No.:"
+msgstr "发票编号："
+
+#: admin/modules/customizer/data/data.translation_strings.php:31
+msgid "Order No.:"
+msgstr "订单编号："
+
+#: admin/modules/customizer/data/data.translation_strings.php:32
+msgid "Order date:"
+msgstr "订单日期："
+
+#: admin/modules/customizer/data/data.translation_strings.php:33
+msgid "Image"
+msgstr "图片"
+
+#: admin/modules/customizer/data/data.translation_strings.php:34
+msgid "Jumbing LED Light Wall Ball"
+msgstr "Jumbing LED Light Wall Ball"
+
+#: admin/modules/customizer/data/data.translation_strings.php:35
+msgid "Payment method:"
+msgstr "支付方式："
+
+#: admin/modules/customizer/data/data.translation_strings.php:36
+msgid "Payment method: "
+msgstr "支付方式： "
+
+#: admin/modules/customizer/data/data.translation_strings.php:37
+#: admin/views/wt_ipc_free_pro.php:777 admin/views/wt_ipc_free_pro.php:819
+msgid "Payment method"
+msgstr "支付方式"
+
+#: admin/modules/customizer/data/data.translation_strings.php:38
+msgid "Payment Method:"
+msgstr "支付方式："
+
+#: admin/modules/customizer/data/data.translation_strings.php:39
+#: admin/modules/customizer/views/_customize_properties.php:831
+#: public/modules/invoice/invoice.php:1346
+msgid "Payment Method"
+msgstr "支付方式"
+
+#: admin/modules/customizer/data/data.translation_strings.php:40
+msgid "Order No:"
+msgstr "订单编号："
+
+#: admin/modules/customizer/data/data.translation_strings.php:41
+msgid "Date:"
+msgstr "日期："
+
+#: admin/modules/customizer/data/data.translation_strings.php:42
+msgid "From:"
+msgstr "发件："
+
+#: admin/modules/customizer/data/data.translation_strings.php:43
+msgid "From"
+msgstr "发件"
+
+#: admin/modules/customizer/data/data.translation_strings.php:44
+msgid "To:"
+msgstr "收件："
+
+#: admin/modules/customizer/data/data.translation_strings.php:45
+msgid "Weight:"
+msgstr "重量："
+
+#: admin/modules/customizer/data/data.translation_strings.php:46
+msgid "Ship Date:"
+msgstr "发货日期："
+
+#: admin/modules/customizer/data/data.translation_strings.php:47
+msgid "Phone No:"
+msgstr "电话号码："
+
+#: admin/modules/customizer/data/data.translation_strings.php:48
+msgid "Ph No:"
+msgstr "电话："
+
+#: admin/modules/customizer/data/data.translation_strings.php:50
+msgid "Tracking Number:"
+msgstr "追踪编号："
+
+#: admin/modules/customizer/data/data.translation_strings.php:51
+msgid "Order no:"
+msgstr "订单编号："
+
+#: admin/modules/customizer/data/data.translation_strings.php:52
+msgid "Total Weight"
+msgstr "总重量"
+
+#: admin/modules/customizer/data/data.translation_strings.php:53
+msgid "Contact Number"
+msgstr "联系电话"
+
+#: admin/modules/customizer/data/data.translation_strings.php:54
+#: admin/views/general.php:163
+msgid "Email"
+msgstr "电子邮箱"
+
+#: admin/modules/customizer/data/data.translation_strings.php:55
+msgid "SSN"
+msgstr "SSN"
+
+#: admin/modules/customizer/data/data.translation_strings.php:56
+msgid "VAT"
+msgstr "VAT"
+
+#: admin/modules/customizer/data/data.translation_strings.php:57
+msgid "Customer Note"
+msgstr "客户备注"
+
+#: admin/modules/customizer/data/data.translation_strings.php:58
+msgid "Customer Note:"
+msgstr "客户备注："
+
+#: admin/modules/customizer/data/data.translation_strings.php:59
+msgid "Bill to"
+msgstr "账单寄送至"
+
+#: admin/modules/customizer/data/data.translation_strings.php:60
+msgid "Ship to"
+msgstr "收货人"
+
+#: admin/modules/customizer/data/data.translation_strings.php:61
+msgid "Invoice no:"
+msgstr "发票编号："
+
+#: admin/modules/customizer/data/data.translation_strings.php:62
+msgid "Invoice date:"
+msgstr "发票日期："
+
+#: admin/modules/customizer/data/data.translation_strings.php:63
+msgid "VAT:"
+msgstr "VAT："
+
+#: admin/modules/customizer/data/data.translation_strings.php:64
+msgid "Customer note:"
+msgstr "客户备注："
+
+#: admin/modules/customizer/data/data.translation_strings.php:65
+#: public/modules/deliverynote/deliverynote.php:182
+#: public/modules/dispatchlabel/dispatchlabel.php:164
+#: public/modules/invoice/invoice.php:1318
+#: public/modules/packinglist/packinglist.php:207
+#: public/modules/shippinglabel/shippinglabel.php:166
+msgid "Customer note"
+msgstr "客户备注"
+
+#: admin/modules/customizer/data/data.translation_strings.php:66
+msgid "Unit Price"
+msgstr "单价"
+
+#: admin/modules/customizer/data/data.translation_strings.php:67
+msgid "Unit price"
+msgstr "单价"
+
+#: admin/modules/customizer/data/data.translation_strings.php:68
+msgid "Total price"
+msgstr "总价"
+
+#: admin/modules/customizer/data/data.translation_strings.php:69
+msgid "S.no"
+msgstr "序号"
+
+#: admin/modules/customizer/data/data.translation_strings.php:70
+msgid "S.No"
+msgstr "序号"
+
+#: admin/modules/customizer/data/data.translation_strings.php:71
+msgid "Phone no:"
+msgstr "电话号码："
+
+#: admin/modules/customizer/data/data.translation_strings.php:72
+msgid "Shipping Method:"
+msgstr "配送方式："
+
+#: admin/modules/customizer/data/data.translation_strings.php:73
+msgid "Phone:"
+msgstr "电话："
+
+#: admin/modules/customizer/views/_customize_properties.php:123
+#: admin/modules/customizer/views/_customize_properties.php:323
+#: admin/modules/customizer/views/_customize_properties.php:361
+#: admin/modules/customizer/views/_customize_properties.php:751
+#: admin/views/wt_ipc_free_pro.php:479 admin/views/wt_ipc_free_pro.php:493
+#: public/modules/shippinglabel/shippinglabel.php:107
+#: public/modules/shippinglabel/shippinglabel.php:130
+msgid "Title"
+msgstr "标题"
+
+#: admin/modules/customizer/views/_customize_properties.php:129
+#: admin/modules/customizer/views/_customize_properties.php:216
+#: admin/modules/customizer/views/_customize_properties.php:294
+#: admin/modules/customizer/views/_customize_properties.php:350
+#: admin/modules/customizer/views/_customize_properties.php:366
+#: admin/modules/customizer/views/_customize_properties.php:756
+#: public/modules/invoice/invoice.php:386
+msgid "Font size"
+msgstr "字号"
+
+#: admin/modules/customizer/views/_customize_properties.php:136
+#: admin/modules/customizer/views/_customize_properties.php:335
+msgid "Text align"
+msgstr "文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:146
+msgid "Text Color"
+msgstr "文本颜色"
+
+#: admin/modules/customizer/views/_customize_properties.php:158
+msgid "Display"
+msgstr "显示"
+
+#: admin/modules/customizer/views/_customize_properties.php:163
+msgid "Company Name"
+msgstr "公司名称"
+
+#: admin/modules/customizer/views/_customize_properties.php:167
+msgid "Logo Width"
+msgstr "徽标宽度"
+
+#: admin/modules/customizer/views/_customize_properties.php:174
+msgid "Logo Height"
+msgstr "徽标高度"
+
+#: admin/modules/customizer/views/_customize_properties.php:182
+msgid "Company name font size"
+msgstr "公司名称字号"
+
+#: admin/modules/customizer/views/_customize_properties.php:188
+msgid "Extra Details"
+msgstr "额外详情"
+
+#: admin/modules/customizer/views/_customize_properties.php:194
+msgid "Extra detail font size"
+msgstr "额外详情字号"
+
+#: admin/modules/customizer/views/_customize_properties.php:200
+msgid "Header Color"
+msgstr "页眉颜色"
+
+#: admin/modules/customizer/views/_customize_properties.php:211
+#: admin/modules/customizer/views/_customize_properties.php:271
+#: public/modules/invoice/invoice.php:380
+msgid "Text"
+msgstr "文本"
+
+#: admin/modules/customizer/views/_customize_properties.php:224
+#: admin/modules/customizer/views/_customize_properties.php:302
+msgid "Style"
+msgstr "样式"
+
+#: admin/modules/customizer/views/_customize_properties.php:234
+#: admin/modules/customizer/views/_customize_properties.php:312
+#: admin/modules/customizer/views/_customize_properties.php:343
+#: admin/modules/customizer/views/_customize_properties.php:373
+msgid "Text color"
+msgstr "文本颜色"
+
+#: admin/modules/customizer/views/_customize_properties.php:246
+msgid "Due Date Period"
+msgstr "到期日期间"
+
+#: admin/modules/customizer/views/_customize_properties.php:249
+msgid "7 days"
+msgstr "7天"
+
+#: admin/modules/customizer/views/_customize_properties.php:250
+msgid "15 days"
+msgstr "15 天"
+
+#: admin/modules/customizer/views/_customize_properties.php:251
+msgid "30 days"
+msgstr "30天"
+
+#: admin/modules/customizer/views/_customize_properties.php:252
+msgid "Custom (enter manually)"
+msgstr "自定义（手动输入）"
+
+#: admin/modules/customizer/views/_customize_properties.php:260
+msgid "Custom Days"
+msgstr "自定义天数"
+
+#: admin/modules/customizer/views/_customize_properties.php:276
+#: public/modules/invoice/views/general.php:392
+msgid "Format"
+msgstr "格式"
+
+#: admin/modules/customizer/views/_customize_properties.php:328
+#: public/modules/shippinglabel/shippinglabel.php:112
+#: public/modules/shippinglabel/shippinglabel.php:135
+msgid "Title font size"
+msgstr "标题字号"
+
+#: admin/modules/customizer/views/_customize_properties.php:385
+#: admin/modules/customizer/views/customize.php:1009
+#: public/modules/deliverynote/deliverynote.php:178
+#: public/modules/dispatchlabel/dispatchlabel.php:160
+#: public/modules/invoice/invoice.php:1301
+#: public/modules/packinglist/packinglist.php:202
+#: public/modules/shippinglabel/shippinglabel.php:152
+msgid "Pro version"
+msgstr "专业版"
+
+#: admin/modules/customizer/views/_customize_properties.php:387
+#: public/modules/invoice/invoice.php:1309
+#: public/modules/shippinglabel/shippinglabel.php:158
+msgid "Order Number"
+msgstr "订单号"
+
+#: admin/modules/customizer/views/_customize_properties.php:388
+#: public/modules/invoice/invoice.php:1308
+#: public/modules/invoice/invoice.php:1579
+msgid "Invoice Number"
+msgstr "发票号码"
+
+#: admin/modules/customizer/views/_customize_properties.php:389
+msgid "Custom Meta"
+msgstr "自定义元"
+
+#: admin/modules/customizer/views/_customize_properties.php:394
+msgid "Add barcode data"
+msgstr "添加条形码数据"
+
+#: admin/modules/customizer/views/_customize_properties.php:407
+msgid "Custom Metadata"
+msgstr "自定义数据"
+
+#: admin/modules/customizer/views/_customize_properties.php:421
+msgid "Table head background"
+msgstr "表头背景"
+
+#: admin/modules/customizer/views/_customize_properties.php:428
+msgid "Table head text color"
+msgstr "表头文本颜色"
+
+#: admin/modules/customizer/views/_customize_properties.php:435
+msgid "Table body text color"
+msgstr "表格内容文本颜色"
+
+#: admin/modules/customizer/views/_customize_properties.php:449
+msgid "Serial No label"
+msgstr "序号标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:455
+msgid "Serial no text align"
+msgstr "序号文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:472
+msgid "Image label"
+msgstr "图片标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:478
+msgid "Image text align"
+msgstr "图片文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:493
+msgid "Image width"
+msgstr "图像宽度"
+
+#: admin/modules/customizer/views/_customize_properties.php:502
+msgid "Image height"
+msgstr "图像高度"
+
+#: admin/modules/customizer/views/_customize_properties.php:519
+msgid "SKU label"
+msgstr "SKU标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:525
+msgid "SKU text align"
+msgstr "SKU 文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:542
+msgid "Product label"
+msgstr "商品标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:548
+msgid "Product text align"
+msgstr "商品文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:565
+msgid "GTIN label"
+msgstr "GTIN 标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:571
+msgid "GTIN text align"
+msgstr "GTIN 文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:588
+msgid "Qty label"
+msgstr "数量标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:594
+msgid "Qty text align"
+msgstr "数量文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:611
+msgid "Price label"
+msgstr "价格标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:617
+msgid "Price text align"
+msgstr "价格文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:637
+msgid "Tax items value"
+msgstr "税收项目价值"
+
+#: admin/modules/customizer/views/_customize_properties.php:640
+msgid "Amount"
+msgstr "数量"
+
+#: admin/modules/customizer/views/_customize_properties.php:649
+msgid "Tax items text align"
+msgstr "税收项目文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:666
+msgid "Tax label"
+msgstr "税费标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:672
+msgid "Tax text align"
+msgstr "税费文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:689
+msgid "Total weight label"
+msgstr "总重量标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:695
+msgid "Total weight text align"
+msgstr "总重量文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:712
+msgid "Total label"
+msgstr "合计标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:718
+msgid "Total text align"
+msgstr "合计文本对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:742
+msgid "Signature type"
+msgstr "签名类型"
+
+#: admin/modules/customizer/views/_customize_properties.php:746
+msgid "Manual Signature"
+msgstr "手动签名"
+
+#: admin/modules/customizer/views/_customize_properties.php:747
+msgid "Image Signature"
+msgstr "图片签名"
+
+#: admin/modules/customizer/views/_customize_properties.php:764
+msgid "Align"
+msgstr "对齐"
+
+#: admin/modules/customizer/views/_customize_properties.php:781
+msgid "Label"
+msgstr "标签"
+
+#: admin/modules/customizer/views/_customize_properties.php:860
+msgid "Note"
+msgstr "备注"
+
+#: admin/modules/customizer/views/_customize_properties.php:861
+msgid ""
+"Displays customer`s VAT number saved in the order details by third-party "
+"plugins in this document. Supported meta keys are"
+msgstr ""
+"在此文档中显示由第三方插件保存在订单详情中的客户 VAT 编号。支持的元键为"
+
+#: admin/modules/customizer/views/_customize_properties.php:863
+msgid "To add a different meta key"
+msgstr "要添加其他元键"
+
+#: admin/modules/customizer/views/_customize_properties.php:864
+msgid "Upgrade to premium"
+msgstr "升级到高级版"
+
+#: admin/modules/customizer/views/_customize_properties.php:923
+#: admin/views/premium_extension_page.php:142
+#: public/modules/deliverynote/views/general.php:157
+#: public/modules/dispatchlabel/views/general.php:142
+#: public/modules/invoice/views/invoice-admin-settings.php:94
+#: public/modules/packinglist/views/general.php:175
+#: public/modules/shippinglabel/views/admin-settings.php:111
+msgid "Show More"
+msgstr "显示更多"
+
+#: admin/modules/customizer/views/_customize_properties.php:924
+#: admin/views/premium_extension_page.php:143
+#: public/modules/deliverynote/views/general.php:158
+#: public/modules/dispatchlabel/views/general.php:143
+#: public/modules/invoice/views/invoice-admin-settings.php:95
+#: public/modules/packinglist/views/general.php:176
+#: public/modules/shippinglabel/views/admin-settings.php:112
+msgid "Show Less"
+msgstr "显示更少"
+
+#: admin/modules/customizer/views/_customize_properties.php:928
+#: admin/views/premium_extension_page.php:147
+msgid "Checkout Premium"
+msgstr "查看高级版"
+
+#: admin/modules/customizer/views/_pdf_preview.php:23
+msgid "View sample customization demo"
+msgstr "查看自定义示例演示"
+
+#: admin/modules/customizer/views/_pdf_preview.php:29
+msgid "Preview sample PDF"
+msgstr "预览 PDF 示例"
+
+#: admin/modules/customizer/views/_pdf_preview.php:30
+msgid "Order"
+msgstr "订单"
+
+#: admin/modules/customizer/views/_pdf_preview.php:35
+#: admin/modules/customizer/views/_pdf_preview.php:36
+#: admin/partials/form_wizard/form_wizard.php:509
+#: admin/views/_form_field_generator_new.php:873
+#: public/modules/invoice/views/qrcode_promote.php:38
+msgid "Order number"
+msgstr "订单编号"
+
+#: admin/modules/customizer/views/customize.php:730
+#: admin/views/admin-settings-debug.php:160
+msgid "Templates"
+msgstr "模板"
+
+#: admin/modules/customizer/views/customize.php:735
+msgid "Type template name to search"
+msgstr "输入模板名称进行搜索"
+
+#: admin/modules/customizer/views/customize.php:747
+msgid "Choose a layout."
+msgstr "选择一个布局。"
+
+#: admin/modules/customizer/views/customize.php:753
+msgid "All unsaved changes will be lost upon switching to a new layout."
+msgstr "切换到新布局后，所有未保存的更改都将丢失。"
+
+#: admin/modules/customizer/views/customize.php:755
+msgid "Save before you proceed."
+msgstr "请在继续之前保存。"
+
+#: admin/modules/customizer/views/customize.php:756
+msgid "Saving..."
+msgstr "正在保存……"
+
+#: admin/modules/customizer/views/customize.php:799
+msgid "Get access to more shipping label templates."
+msgstr "获取更多运输标签模板。"
+
+#: admin/modules/customizer/views/customize.php:800
+msgid "Get access to more invoice templates."
+msgstr "获取更多发票模板。"
+
+#: admin/modules/customizer/views/customize.php:921
+msgid "This preview reflects your current settings from the General tab."
+msgstr "此预览反映的是您在“常规”选项卡中的当前设置。"
+
+#: admin/modules/customizer/views/customize.php:930
+msgid "Update template"
+msgstr "更新模板"
+
+#: admin/modules/customizer/views/customize.php:933
+msgid "Save template"
+msgstr "保存模板"
+
+#: admin/modules/customizer/views/customize.php:936
+msgid "Save and activate"
+msgstr "保存并激活"
+
+#: admin/modules/customizer/views/customize.php:947
+msgid "Create new"
+msgstr "新建"
+
+#: admin/modules/customizer/views/customize.php:948
+msgid "My templates"
+msgstr "我的模板"
+
+#: admin/modules/customizer/views/customize.php:958
+msgid "This template is not comaptible with QR Code addon plugin"
+msgstr "此模板与 QR Code 插件不兼容"
+
+#. translators: %s: Template display name (invoice, packing list, etc.)
+#: admin/modules/customizer/views/customize.php:987
+#, php-format
+msgid "Unlock limitless possibilities of %s customization with the addon -"
+msgstr "使用此插件解锁 %s 自定义的无限可能 -"
+
+#: admin/modules/customizer/views/customize.php:988
+msgid "Customizer for WooCommerce PDF Invoices Plugin"
+msgstr "Customizer for WooCommerce PDF Invoices Plugin"
+
+#: admin/modules/customizer/views/customize.php:995
+#: admin/modules/customizer/views/customize.php:1006
+msgid "Visual"
+msgstr "可视化"
+
+#: admin/modules/customizer/views/customize.php:996
+#: admin/modules/customizer/views/customize.php:1009
+msgid "Code"
+msgstr "代码"
+
+#: admin/modules/customizer/views/customize.php:1032
+msgid "Premium features"
+msgstr "高级功能"
+
+#. translators: %s: document type name (e.g. packing slip, invoice, credit note)
+#: admin/modules/customizer/views/customize.php:1035
+#, php-format
+msgid "Toggle the pro features on and off to see how they transform your %s."
+msgstr "打开和关闭专业功能，看看它们如何改变你的%s。"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:41
+msgid "I couldn't understand how to make it work"
+msgstr "我不明白如何让它正常工作"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:43
+msgid "Would you like us to assist you?"
+msgstr "您希望我们为您提供帮助吗？"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:47
+msgid "Language support issues"
+msgstr "语言支持问题"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:52
+msgid "Plugin settings not available in my language"
+msgstr "插件设置没有我的语言版本"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:54
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:61
+msgid "Which language?"
+msgstr "哪种语言？"
+
+#. translators: 1$s: HTML link opening tag, 2$s: HTML link closing tag
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:59
+msgid ""
+"Missing RTL/Unicode language(e.g Chinese, Arabic etc) support for PDF "
+"document."
+msgstr "PDF 文档缺少 RTL/Unicode 语言（例如中文、阿拉伯语等）支持。"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:59
+#, php-format
+msgid "Already tried the free %1$s WebToffee mPDF addon %2$s."
+msgstr "已经尝试过免费的 %1$s WebToffee mPDF 插件 %2$s。"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:59
+msgid ""
+" Click the link to activate the plugin and try printing the document again."
+msgstr " 点击链接激活插件，然后再次尝试打印文档。"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:67
+msgid ""
+"I am unable to add customer VAT(or GSTIN or ABN or any other tax id etc)"
+msgstr "我无法添加客户 VAT（或 GSTIN 或 ABN 或任何其他税号等）"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:72
+msgid ""
+"Unable to add from third party plugin that collects customer VAT(or GSTIN or "
+"ABN etc)"
+msgstr "无法从收集客户 VAT（或 GSTIN 或 ABN 等）的第三方插件中添加"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:74
+msgid "Mention the name of the plugin or meta key if any"
+msgstr "如有，请提供插件名称或元键"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:78
+msgid "Need a field to add the tax id on checkout page"
+msgstr "需要在结账页面添加税号的字段"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:86
+msgid "I found a better plugin"
+msgstr "我找到了更好的插件"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:88
+msgid "Which plugin?"
+msgstr "哪个插件？"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:92
+msgid "The plugin is great, but I need specific feature that you don't support"
+msgstr "插件很好，但我需要你们不支持的特定功能"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:94
+msgid "Could you tell us more about that feature?"
+msgstr "您能详细介绍一下该功能吗？"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:98
+msgid "The plugin didn't work as expected"
+msgstr "插件未按预期工作"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:100
+msgid "What did you expect?"
+msgstr "您期望的是什么？"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:104
+msgid "Other"
+msgstr "其他"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:106
+msgid "Could you tell us a bit more?"
+msgstr "您能再详细说明一下吗？"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:125
+msgid "If you have a moment, please let us know why you are deactivating:"
+msgstr "如果您有时间，请告诉我们您停用的原因："
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:163
+msgid "WebToffee can contact me about this feedback."
+msgstr "WebToffee 可以就此反馈与我联系。"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:166
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:106
+msgid "Enter your email address."
+msgstr "输入您的电子邮箱地址。"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:168
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:107
+msgid "Enter email address"
+msgstr "输入电子邮箱地址"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:171
+msgid "Delete all the settings made by this plugin"
+msgstr "删除此插件的所有设置"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:173
+msgid ""
+"We do not collect any personal data when you submit this form. It's your "
+"feedback that we value."
+msgstr "当您提交此表单时，我们不会收集任何个人数据。我们重视的是您的反馈。"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:174
+msgid "Privacy Policy"
+msgstr "隐私政策"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:180
+msgid "Go to support"
+msgstr "前往支持"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:181
+msgid "Submit & Deactivate"
+msgstr "提交并停用"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:183
+msgid "I rather wouldn't say"
+msgstr "我不想说"
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:309
+msgid "Please enter a valid email address."
+msgstr "请输入有效的电子邮箱地址。"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:72
+msgid "Please enter a message"
+msgstr "请输入留言"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:73
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:149
+msgid "We need your email address to contact you back."
+msgstr "我们需要您的电子邮箱地址以便回复您。"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:74
+msgid "Sending..."
+msgstr "正在发送……"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:75
+msgid "Unable to submit. Please try again later."
+msgstr "无法提交。请稍后再试。"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:76
+msgid "Thank you for your valuable suggestion."
+msgstr "感谢您宝贵的建议。"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:85
+msgid "Looking for a feature we don't have?"
+msgstr "正在寻找我们没有的功能？"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:85
+msgid "Request it here"
+msgstr "在此提出请求"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:89
+msgid "Missing a feature?"
+msgstr "缺少某项功能？"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:90
+msgid "Drop a message to let us know!"
+msgstr "留言告诉我们！"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:98
+msgid "What would you like to add as a new feature?"
+msgstr "您希望添加什么新功能？"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:99
+msgid "More the details you share, the better."
+msgstr "您分享的细节越多越好。"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:100
+msgid "I would like..."
+msgstr "我希望……"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:102
+msgid "WebToffee can contact me about this feedback"
+msgstr "WebToffee 可以就此反馈与我联系"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:112
+msgid "Send feature request"
+msgstr "发送功能请求"
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:145
+msgid "Please enter your message."
+msgstr "请输入您的留言。"
+
+#: admin/partials/admin-settings.php:20
+msgid "Documents"
+msgstr "文档"
+
+#: admin/partials/admin-settings.php:21
+#: public/modules/deliverynote/views/admin-settings.php:8
+#: public/modules/dispatchlabel/views/admin-settings.php:7
+#: public/modules/invoice/views/general.php:129
+#: public/modules/invoice/views/invoice-admin-settings.php:8
+#: public/modules/packinglist/views/admin-settings.php:8
+#: public/modules/shippinglabel/views/admin-settings.php:7
+#: public/modules/ubl/invoice/views/settings.php:52
+msgid "General"
+msgstr "常规"
+
+#: admin/partials/admin-settings.php:22
+msgid "Help Guide"
+msgstr "帮助指南"
+
+#: admin/partials/admin-settings.php:25
+msgid "Free vs Premium"
+msgstr "免费版与高级版对比"
+
+#: admin/partials/admin-settings.php:42
+msgid ""
+"WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels"
+msgstr ""
+"WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels"
+
+#: admin/partials/form_wizard/form_wizard.php:37
+#: admin/views/_form_field_generator_new.php:747
+#: public/modules/invoice/views/general.php:97
+#: public/modules/invoice/views/invoice_number_preview.php:24
+msgid "Click to append with existing data"
+msgstr "点击以追加到现有数据"
+
+#: admin/partials/form_wizard/form_wizard.php:378
+msgid "Hello there! Let’s begin with the basics"
+msgstr "您好！让我们从基础开始"
+
+#: admin/partials/form_wizard/form_wizard.php:383
+msgid "Step 1"
+msgstr "第 1 步"
+
+#: admin/partials/form_wizard/form_wizard.php:384
+msgid "Step 2"
+msgstr "第 2 步"
+
+#: admin/partials/form_wizard/form_wizard.php:385
+msgid "Step 3"
+msgstr "第 3 步"
+
+#: admin/partials/form_wizard/form_wizard.php:389
+msgid "Add shop details"
+msgstr "添加店铺详情"
+
+#: admin/partials/form_wizard/form_wizard.php:392
+msgid "Shop name"
+msgstr "店铺名称"
+
+#: admin/partials/form_wizard/form_wizard.php:398 admin/views/general.php:114
+msgid "Address line 1"
+msgstr "地址第 1 行"
+
+#: admin/partials/form_wizard/form_wizard.php:402 admin/views/general.php:122
+msgid "Address line 2"
+msgstr "地址第 2 行"
+
+#: admin/partials/form_wizard/form_wizard.php:409 admin/views/general.php:130
+#: public/modules/ubl/invoice/views/settings.php:166
+msgid "City"
+msgstr "城市"
+
+#: admin/partials/form_wizard/form_wizard.php:413 admin/views/general.php:138
+msgid "Country/State"
+msgstr "国家/省份"
+
+#: admin/partials/form_wizard/form_wizard.php:415
+#: admin/views/_form_field_generator_new.php:632
+msgid "Select country"
+msgstr "选择国家"
+
+#: admin/partials/form_wizard/form_wizard.php:431 admin/views/general.php:146
+msgid "Postal code"
+msgstr "邮政编码"
+
+#: admin/partials/form_wizard/form_wizard.php:435
+msgid "Phone number"
+msgstr "电话号码"
+
+#: admin/partials/form_wizard/form_wizard.php:441
+msgid "Tax ID"
+msgstr "税号"
+
+#: admin/partials/form_wizard/form_wizard.php:447
+msgid "Upload logo"
+msgstr "上传徽标"
+
+#: admin/partials/form_wizard/form_wizard.php:454
+#: admin/views/_form_field_generator_new.php:548
+msgid "Recommended size is 150x50px."
+msgstr "推荐尺寸为 150x50px。"
+
+#: admin/partials/form_wizard/form_wizard.php:461
+#: admin/partials/form_wizard/form_wizard.php:487
+msgid "Next"
+msgstr "下一步"
+
+#: admin/partials/form_wizard/form_wizard.php:462
+msgid "Skip invoice setup"
+msgstr "跳过发票设置"
+
+#: admin/partials/form_wizard/form_wizard.php:466
+msgid "Choose emails for invoice attachment"
+msgstr "选择用于附加发票的邮件"
+
+#: admin/partials/form_wizard/form_wizard.php:467
+msgid ""
+"Choose the order emails to which you'd like to attach invoices for your "
+"customers"
+msgstr "选择您希望为客户附加发票的订单邮件"
+
+#: admin/partials/form_wizard/form_wizard.php:488
+#: admin/partials/form_wizard/form_wizard.php:672
+msgid "Back"
+msgstr "上一步"
+
+#: admin/partials/form_wizard/form_wizard.php:492
+msgid "Create your unique invoice numbering system"
+msgstr "创建您独特的发票编号系统"
+
+#: admin/partials/form_wizard/form_wizard.php:495
+msgid "Complete the invoice number format to suit your requirements"
+msgstr "完成发票编号格式以满足您的需求"
+
+#: admin/partials/form_wizard/form_wizard.php:510
+#: admin/views/_form_field_generator_new.php:877
+msgid "Custom number"
+msgstr "自定义编号"
+
+#: admin/partials/form_wizard/form_wizard.php:522
+#: admin/views/_form_field_generator_new.php:751
+msgid "Type in prefix/ suffix / date format if required"
+msgstr "如需要，请输入前缀/后缀/日期格式"
+
+#: admin/partials/form_wizard/form_wizard.php:535
+#: admin/views/_form_field_generator_new.php:787
+msgid "Supported shortcodes for date"
+msgstr "支持的日期简码"
+
+#: admin/partials/form_wizard/form_wizard.php:597
+msgid "What should be the starting number for your invoices?"
+msgstr "您的发票起始编号应为多少？"
+
+#: admin/partials/form_wizard/form_wizard.php:607
+msgid "What length would you prefer for your invoice number"
+msgstr "您希望发票编号的长度为多少"
+
+#: admin/partials/form_wizard/form_wizard.php:639
+#: admin/views/_form_field_generator_new.php:933
+#: public/modules/invoice/views/invoice_number_preview.php:31
+msgid "PREVIEW"
+msgstr "预览"
+
+#: admin/partials/form_wizard/form_wizard.php:645
+#: admin/views/_form_field_generator_new.php:939
+#: public/modules/invoice/views/invoice_number_preview.php:34
+msgid "If the order number is"
+msgstr "如果订单编号为"
+
+#. translators: %s: Document type (invoice, packing list, etc.)
+#: admin/partials/form_wizard/form_wizard.php:650
+#: admin/views/_form_field_generator_new.php:944
+#: public/modules/invoice/views/invoice_number_preview.php:38
+#, php-format
+msgid "the %s number would be"
+msgstr "则 %s 编号将为"
+
+#. translators: %s: Document type (invoice, packing list, etc.)
+#: admin/partials/form_wizard/form_wizard.php:658
+#: admin/views/_form_field_generator_new.php:952
+#: public/modules/invoice/views/invoice_number_preview.php:43
+#, php-format
+msgid "Your next %s number would be"
+msgstr "您的下一个 %s 编号将为"
+
+#: admin/partials/form_wizard/form_wizard.php:671
+#: admin/partials/form_wizard/form_wizard.php:715
+msgid "Finish setup"
+msgstr "完成设置"
+
+#: admin/partials/form_wizard/form_wizard.php:689
+msgid "Invoice setup successfully"
+msgstr "发票设置成功"
+
+#: admin/partials/form_wizard/form_wizard.php:701
+msgid "Skip setup?"
+msgstr "跳过设置？"
+
+#: admin/partials/form_wizard/form_wizard.php:706
+msgid "We recommend completing the setup to ensure the plugin works properly."
+msgstr "我们建议完成设置以确保插件正常工作。"
+
+#: admin/partials/form_wizard/form_wizard.php:712
+msgid "Skip anyway"
+msgstr "仍然跳过"
+
+#: admin/partials/marketing-cta/marketing-cta.php:37
+#: admin/partials/marketing-cta/marketing-cta.php:64
+msgid "Invoice Icons"
+msgstr "发票图标"
+
+#: admin/partials/marketing-cta/marketing-cta.php:41
+msgid "All-in-One WooCommerce Invoice & Shipping Documents Bundle"
+msgstr "一体化 WooCommerce 发票与运输文档套装"
+
+#: admin/partials/marketing-cta/marketing-cta.php:42
+msgid ""
+"Generate and print all essential WooCommerce documents, including invoices, "
+"packing slips, shipping labels, and more—all in one powerful invoice bundle."
+msgstr ""
+"生成并打印所有必要的 WooCommerce 文档，包括发票、装箱单、运输标签等——全部集成"
+"于一个强大的发票套装中。"
+
+#: admin/partials/marketing-cta/marketing-cta.php:45
+msgid "Invoices"
+msgstr "发票"
+
+#: admin/partials/marketing-cta/marketing-cta.php:46
+msgid "Packing Slips"
+msgstr "装箱单"
+
+#: admin/partials/marketing-cta/marketing-cta.php:47
+msgid "Credit Notes"
+msgstr "贷记单"
+
+#: admin/partials/marketing-cta/marketing-cta.php:48
+msgid "Address Labels"
+msgstr "地址标签"
+
+#: admin/partials/marketing-cta/marketing-cta.php:49
+msgid "Delivery Notes"
+msgstr "送货单"
+
+#: admin/partials/marketing-cta/marketing-cta.php:50
+msgid "Dispatch Labels"
+msgstr "发货标签"
+
+#: admin/partials/marketing-cta/marketing-cta.php:51
+msgid "Shipping Labels"
+msgstr "运输标签"
+
+#: admin/partials/marketing-cta/marketing-cta.php:52
+msgid "Picklists"
+msgstr "拣货单"
+
+#: admin/partials/marketing-cta/marketing-cta.php:53
+msgid "Proforma Invoices"
+msgstr "形式发票"
+
+#: admin/partials/marketing-cta/marketing-cta.php:56
+msgid "Get Bundle Now"
+msgstr "立即获取套装"
+
+#: admin/partials/marketing-cta/marketing-cta.php:61
+msgid "Invoice Bundle"
+msgstr "发票套装"
+
+#: admin/views/_custom_field_editor_form.php:20
+#: admin/views/_custom_field_editor_form.php:23
+#: admin/views/_custom_field_editor_form.php:32
+#: admin/views/_custom_field_editor_form_product.php:24
+#: admin/views/_custom_field_editor_form_product.php:27
+#: admin/views/_custom_field_editor_form_product.php:36
+msgid "Add new"
+msgstr "新增"
+
+#: admin/views/_custom_field_editor_form.php:41
+msgid "You can add custom/predefined order meta using its key"
+msgstr "您可以使用键名添加自定义/预定义的订单元数据"
+
+#: admin/views/_custom_field_editor_form.php:48
+#: admin/views/_custom_field_editor_form_product.php:52
+msgid "Field Name"
+msgstr "字段名称"
+
+#: admin/views/_custom_field_editor_form.php:49
+#: admin/views/_custom_field_editor_form_product.php:53
+msgid "Meta Key"
+msgstr "元键"
+
+#: admin/views/_custom_field_editor_form.php:54
+msgid "To add more than one custom order meta,"
+msgstr "要添加多个自定义订单元数据，"
+
+#: admin/views/_custom_field_editor_form.php:54
+#: admin/views/_custom_field_editor_form_product.php:58
+msgid "upgrade to premium version"
+msgstr "升级到高级版"
+
+#: admin/views/_custom_field_editor_form_product.php:45
+msgid "You can add custom/predefined product meta using its key"
+msgstr "您可以使用键名添加自定义/预定义的商品元数据"
+
+#: admin/views/_custom_field_editor_form_product.php:58
+msgid "To add more than one custom product meta,"
+msgstr "要添加多个自定义商品元数据，"
+
+#: admin/views/_form_field_generator_new.php:469
+msgid "Order Meta"
+msgstr "订单元数据"
+
+#: admin/views/_form_field_generator_new.php:471
+msgid "Add/Edit Order Meta Field"
+msgstr "添加/编辑订单元字段"
+
+#: admin/views/_form_field_generator_new.php:522
+msgid "Product Meta"
+msgstr "商品元数据"
+
+#: admin/views/_form_field_generator_new.php:524
+msgid "Add/Edit Product Meta Field"
+msgstr "添加/编辑商品元字段"
+
+#: admin/views/_form_field_generator_new.php:545
+msgid "Upload your image"
+msgstr "上传您的图片"
+
+#: admin/views/_form_field_generator_new.php:607
+#: admin/views/admin-settings-debug.php:201
+#: admin/views/admin-settings-debug.php:244
+msgid "Reset"
+msgstr "重置"
+
+#: admin/views/_form_field_generator_new.php:680
+msgid "Document"
+msgstr "文档"
+
+#: admin/views/_form_field_generator_new.php:681
+msgid "PDF"
+msgstr "PDF"
+
+#: admin/views/_form_field_generator_new.php:682
+msgid "HTML"
+msgstr "HTML"
+
+#: admin/views/_form_field_generator_new.php:683
+msgid "Action"
+msgstr "操作"
+
+#: admin/views/_form_field_generator_new.php:749
+msgid "Add date to invoice number"
+msgstr "在发票编号中添加日期"
+
+#: admin/views/_form_field_generator_new.php:750
+msgid "Invoice number format"
+msgstr "发票编号格式"
+
+#: admin/views/_form_field_generator_new.php:752
+msgid "Invoice starting number"
+msgstr "发票起始编号"
+
+#: admin/views/_form_field_generator_new.php:753
+msgid "Invoice number length"
+msgstr "发票编号长度"
+
+#: admin/views/_form_field_generator_new.php:757
+#: admin/views/_form_field_generator_new.php:770
+msgid "Use order date as input instead."
+msgstr "改用订单日期作为输入。"
+
+#: admin/views/_form_field_generator_new.php:762
+msgid "Add date to credit note number"
+msgstr "在贷记单编号中添加日期"
+
+#: admin/views/_form_field_generator_new.php:763
+msgid "Creditnote number format"
+msgstr "贷记单编号格式"
+
+#: admin/views/_form_field_generator_new.php:764
+msgid "What should be the starting number for your credit notes?"
+msgstr "您的贷记单起始编号应为多少？"
+
+#: admin/views/_form_field_generator_new.php:765
+msgid "What length would you prefer for your credit note"
+msgstr "您希望贷记单编号的长度为多少"
+
+#: admin/views/_form_field_generator_new.php:773
+msgid "Add date to proforma invoice number"
+msgstr "在形式发票编号中添加日期"
+
+#: admin/views/_form_field_generator_new.php:774
+msgid "Proforma invoice number format"
+msgstr "形式发票编号格式"
+
+#: admin/views/_form_field_generator_new.php:775
+msgid "What should be the starting number for your proforma invoices?"
+msgstr "您的形式发票起始编号应为多少？"
+
+#: admin/views/_form_field_generator_new.php:776
+msgid "What length would you prefer for your proforma invoice"
+msgstr "您希望形式发票编号的长度为多少"
+
+#: admin/views/_form_field_generator_new.php:864
+msgid ""
+"Removing year [Y] from the prefix will disable the annual reset functionality"
+msgstr "从前缀中移除年份 [Y] 将禁用年度重置功能"
+
+#: admin/views/_form_field_generator_new.php:871
+msgid "Switching to order number will disable the annual reset functionality"
+msgstr "切换为订单编号将禁用年度重置功能"
+
+#: admin/views/_form_field_generator_new.php:887
+msgid ""
+"Removing year [Y] from the suffix will disable the annual reset functionality"
+msgstr "从后缀中移除年份 [Y] 将禁用年度重置功能"
+
+#: admin/views/_form_field_generator_new.php:915
+msgid "The latest specified starting number will be used after reset"
+msgstr "重置后将使用最近指定的起始编号"
+
+#: admin/views/admin-settings-branding.php:6
+msgid "Developed by"
+msgstr "开发者"
+
+#: admin/views/admin-settings-debug.php:41
+msgid "Reset successfully"
+msgstr "重置成功"
+
+#: admin/views/admin-settings-debug.php:50
+msgid "Debug"
+msgstr "调试"
+
+#: admin/views/admin-settings-debug.php:51
+msgid "Caution: Settings here are only for advanced users."
+msgstr "注意：此处的设置仅供高级用户使用。"
+
+#: admin/views/admin-settings-debug.php:120
+msgid "Export settings (JSON)"
+msgstr "导出设置 (JSON)"
+
+#: admin/views/admin-settings-debug.php:122
+msgid "Export"
+msgstr "导出"
+
+#: admin/views/admin-settings-debug.php:132
+msgid "Import settings (JSON)"
+msgstr "导入设置 (JSON)"
+
+#: admin/views/admin-settings-debug.php:136
+#: admin/views/admin-settings-debug.php:188
+msgid "Import"
+msgstr "导入"
+
+#: admin/views/admin-settings-debug.php:136
+msgid "Please select json file"
+msgstr "请选择 json 文件"
+
+#: admin/views/admin-settings-debug.php:141
+msgid "Last imported on:"
+msgstr "上次导入于："
+
+#: admin/views/admin-settings-debug.php:153
+msgid ""
+"Importing the file will delete all the settings and replace with data from "
+"chosen file"
+msgstr "导入文件将删除所有设置，并替换为所选文件中的数据"
+
+#: admin/views/admin-settings-debug.php:165
+msgid "Combine with the existing templates"
+msgstr "与现有模板合并"
+
+#: admin/views/admin-settings-debug.php:170
+msgid "Replace the existing templates"
+msgstr "替换现有模板"
+
+#. translators: %s: Confirmation text
+#: admin/views/admin-settings-debug.php:177
+#, php-format
+msgid "To proceed with the import, please type %1$s in the field below"
+msgstr "要继续导入，请在下方字段中输入 %1$s"
+
+#: admin/views/admin-settings-debug.php:199
+msgid "Reset all settings to default"
+msgstr "将所有设置重置为默认值"
+
+#: admin/views/admin-settings-debug.php:207
+msgid "Last updated on:"
+msgstr "上次更新于："
+
+#: admin/views/admin-settings-debug.php:219
+msgid ""
+"Reset will delete all the settings, saved templates and reset to the default "
+"settings"
+msgstr "重置将删除所有设置和已保存的模板，并恢复为默认设置"
+
+#: admin/views/admin-settings-debug.php:226
+msgid "Do not reset the templates"
+msgstr "不重置模板"
+
+#. translators: %s: Confirmation text
+#: admin/views/admin-settings-debug.php:232
+#, php-format
+msgid "To proceed with the reset, please type %1$s in the field below"
+msgstr "要继续重置，请在下方字段中输入 %1$s"
+
+#: admin/views/admin-settings-help-filters.php:29 admin/views/help.php:37
+msgid "Filters"
+msgstr "过滤器"
+
+#: admin/views/admin-settings-help-filters.php:31
+msgid "Some useful `filters` to extend plugin's functionality"
+msgstr "一些用于扩展插件功能的实用 `过滤器`"
+
+#: admin/views/admin-settings-help-filters.php:33
+msgid "search filter"
+msgstr "搜索过滤器"
+
+#: admin/views/admin-settings-help-filters.php:62
+msgid "Example Code"
+msgstr "示例代码"
+
+#: admin/views/admin-settings-help-filters.php:84
+msgid "Copy Code"
+msgstr "复制代码"
+
+#: admin/views/admin-settings-save-button-form-wizard.php:7
+#: admin/views/admin-settings-save-button.php:7
+#: public/modules/deliverynote/views/general.php:93
+#: public/modules/dispatchlabel/views/general.php:79
+#: public/modules/packinglist/views/general.php:109
+#: public/modules/shippinglabel/views/general.php:64
+msgid "Update Settings"
+msgstr "更新设置"
+
+#: admin/views/admin-settings-system-info.php:7
+msgid "System Configuration"
+msgstr "系统配置"
+
+#: admin/views/admin-settings-system-info.php:8
+msgid "Copy"
+msgstr "复制"
+
+#: admin/views/admin-settings-system-info.php:9
+msgid "Copied"
+msgstr "已复制"
+
+#: admin/views/admin-settings-system-info.php:19
+msgid "5.6 or higher recommended"
+msgstr "建议 5.6 或更高版本"
+
+#: admin/views/admin-settings-system-info.php:32
+msgid "Recommended, will use fallback functions"
+msgstr "推荐，将使用后备函数"
+
+#: admin/views/admin-settings-system-info.php:38
+msgid "Required if you have images in your documents"
+msgstr "如果文档中包含图片，则为必需"
+
+#: admin/views/admin-settings-system-info.php:41
+msgid "Better with transparent PNG images"
+msgstr "使用透明 PNG 图片效果更佳"
+
+#: admin/views/admin-settings-system-info.php:44
+#: admin/views/admin-settings-system-info.php:62
+msgid "Recommended for better performances"
+msgstr "推荐使用以获得更好的性能"
+
+#: admin/views/admin-settings-system-info.php:47
+msgid "Required when using .webp images"
+msgstr "使用 .webp 图片时为必需"
+
+#: admin/views/admin-settings-system-info.php:50
+msgid "Required if you have .webp images in your documents"
+msgstr "如果文档中包含 .webp 图片，则为必需"
+
+#: admin/views/admin-settings-system-info.php:53
+msgid "To compress PDF documents"
+msgstr "用于压缩 PDF 文档"
+
+#: admin/views/admin-settings-system-info.php:56
+msgid "Recommended to compress PDF documents"
+msgstr "推荐用于压缩 PDF 文档"
+
+#: admin/views/admin-settings-system-info.php:59
+msgid "For better performances"
+msgstr "以获得更好的性能"
+
+#: admin/views/admin-settings-system-info.php:65
+msgid ""
+"Required to detect custom templates and to clear the temp folder periodically"
+msgstr "检测自定义模板和定期清理临时文件夹所必需"
+
+#: admin/views/admin-settings-system-info.php:68
+msgid "Check PHP disable_functions"
+msgstr "检查 PHP disable_functions"
+
+#: admin/views/admin-settings-system-info.php:71
+msgid "Recommended 128MB or more"
+msgstr "建议 128MB 或更多"
+
+#: admin/views/admin-settings-system-info.php:76
+msgid "Necessary to verify the MIME type of local images."
+msgstr "验证本地图片的 MIME 类型所必需。"
+
+#: admin/views/admin-settings-system-info.php:79
+msgid "fileinfo disabled"
+msgstr "fileinfo 已禁用"
+
+#: admin/views/admin-settings-system-info.php:82
+msgid "Allow remote stylesheets and images"
+msgstr "允许远程样式表和图片"
+
+#: admin/views/admin-settings-system-info.php:85
+msgid "allow_url_fopen disabled"
+msgstr "allow_url_fopen 已禁用"
+
+#: admin/views/admin-settings-system-info.php:88
+msgid "Writable"
+msgstr "可写"
+
+#: admin/views/admin-settings-system-info.php:117
+msgid "Required"
+msgstr "必需"
+
+#: admin/views/admin-settings-system-info.php:118
+msgid "Present"
+msgstr "存在"
+
+#: admin/views/customizer-promotion-popup.php:151
+msgid "Unlock Advanced Customization"
+msgstr "解锁高级自定义功能"
+
+#: admin/views/customizer-promotion-popup.php:151
+msgid "with PDF Invoice Pro"
+msgstr "使用 PDF Invoice Pro"
+
+#: admin/views/customizer-promotion-popup.php:153
+msgid "Add additional fields to invoices"
+msgstr "为发票添加额外字段"
+
+#: admin/views/customizer-promotion-popup.php:154
+#: admin/views/customizer-promotion-popup.php:178
+#: admin/views/customizer-promotion-popup.php:190
+#: admin/views/customizer-promotion-popup.php:202
+msgid "Customize using Code Editor"
+msgstr "使用代码编辑器自定义"
+
+#: admin/views/customizer-promotion-popup.php:155
+#: admin/views/customizer-promotion-popup.php:179
+#: admin/views/customizer-promotion-popup.php:191
+#: admin/views/customizer-promotion-popup.php:203
+msgid "Multiple pre-built templates"
+msgstr "多个预建模板"
+
+#: admin/views/customizer-promotion-popup.php:156
+#: admin/views/customizer-promotion-popup.php:180
+#: admin/views/customizer-promotion-popup.php:192
+#: admin/views/customizer-promotion-popup.php:204
+msgid "More customization options"
+msgstr "更多自定义选项"
+
+#: admin/views/customizer-promotion-popup.php:162
+msgid "Upgrade for more customization on packing slip"
+msgstr "升级以获得更多装箱单自定义选项"
+
+#: admin/views/customizer-promotion-popup.php:164
+msgid "Advanced customization option for packing slip templates"
+msgstr "装箱单模板的高级自定义选项"
+
+#: admin/views/customizer-promotion-popup.php:165
+msgid "Show/hide fields like billing address, weight, product image etc"
+msgstr "显示/隐藏账单地址、重量、商品图片等字段"
+
+#: admin/views/customizer-promotion-popup.php:166
+msgid ""
+"Add additional data such as product meta, order meta, product attributes etc"
+msgstr "添加额外数据，例如商品元数据、订单元数据、商品属性等"
+
+#: admin/views/customizer-promotion-popup.php:167
+msgid "Group and sort product table based on different conditions"
+msgstr "根据不同条件对商品表格进行分组和排序"
+
+#: admin/views/customizer-promotion-popup.php:168
+msgid "Many more customization options"
+msgstr "更多自定义选项"
+
+#. translators: %s: highlighted phrase
+#: admin/views/customizer-promotion-popup.php:175
+#: admin/views/customizer-promotion-popup.php:187
+#: admin/views/customizer-promotion-popup.php:199
+#, php-format
+msgid ""
+"Get <span>%s</span> options for shipping labels, dispatch labels, and "
+"delivery notes"
+msgstr "获取<span>%s 个</span>用于运输标签、发货标签和送货单的选项"
+
+#: admin/views/customizer-promotion-popup.php:175
+#: admin/views/customizer-promotion-popup.php:187
+#: admin/views/customizer-promotion-popup.php:199
+msgid "advanced customization"
+msgstr "高级定制"
+
+#: admin/views/customizer-promotion-popup.php:177
+#: admin/views/customizer-promotion-popup.php:189
+#: admin/views/customizer-promotion-popup.php:201
+msgid "Add additional fields to shipping labels"
+msgstr "为运输标签添加额外字段"
+
+#: admin/views/customizer-promotion-popup.php:259 admin/views/freevspro.php:147
+msgid "Upgrade To Premium"
+msgstr "升级到高级版"
+
+#: admin/views/customizer-promotion-popup.php:312
+msgid "Upgrade to Premium"
+msgstr "升级到高级版"
+
+#: admin/views/documents.php:16
+msgid "Invoices, Packing Slips and Credit Notes Module"
+msgstr "发票、装箱单和贷记单模块"
+
+#: admin/views/documents.php:37
+msgid "Shipping labels, Dispatch labels and Delivery Notes Module"
+msgstr "运输标签、发货标签和送货单模块"
+
+#: admin/views/documents.php:59
+msgid "Picklists Add-on"
+msgstr "拣货单插件"
+
+#: admin/views/documents.php:72
+msgid "Address Label Add-on"
+msgstr "地址标签插件"
+
+#: admin/views/documents.php:85
+msgid "Proforma Invoices Add-on"
+msgstr "形式发票插件"
+
+#: admin/views/documents.php:138
+msgid "Free version"
+msgstr "免费版"
+
+#: admin/views/documents.php:142
+msgid "Premium version"
+msgstr "高级版"
+
+#. translators: 1$s: Document module title, 2$s: HTML link opening tag, 3$s: HTML link closing tag
+#: admin/views/documents.php:153
+#, php-format
+msgid "You are using free version of %1$s. %2$s Checkout premium here %3$s."
+msgstr "您正在使用 %1$s 的免费版。%2$s 在此查看高级版 %3$s。"
+
+#: admin/views/documents.php:188
+msgid "Get Add-on"
+msgstr "获取插件"
+
+#: admin/views/documents.php:213
+msgid "30% OFF"
+msgstr "30% 优惠"
+
+#: admin/views/freevspro.php:14
+msgid "Pick list"
+msgstr "拣货单"
+
+#: admin/views/freevspro.php:15
+msgid "Address label"
+msgstr "地址标签"
+
+#: admin/views/freevspro.php:16 public/modules/invoice/views/general.php:204
+msgid "My account - Order lists page"
+msgstr "我的账户 - 订单列表页面"
+
+#: admin/views/freevspro.php:17 public/modules/invoice/views/general.php:205
+msgid "My account - Order details page"
+msgstr "我的账户 - 订单详情页面"
+
+#: admin/views/freevspro.php:18 public/modules/invoice/views/general.php:206
+msgid "Order email"
+msgstr "订单邮件"
+
+#: admin/views/freevspro.php:88
+msgid "Features"
+msgstr "功能"
+
+#: admin/views/freevspro.php:89
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:45
+msgid "Free"
+msgstr "免费版"
+
+#: admin/views/freevspro.php:90
+msgid "Premium"
+msgstr "高级版"
+
+#: admin/views/freevspro.php:139
+msgid "30 Day Money Back Guarantee"
+msgstr "30 天退款保证"
+
+#: admin/views/freevspro.php:140
+msgid "Fast and Superior Support"
+msgstr "快速优质的支持"
+
+#: admin/views/general.php:14
+msgid ""
+"The company name and the address details from this section will be used as "
+"the sender address in the invoice and other related documents."
+msgstr "此部分中的公司名称和地址详情将用作发票及其他相关文档中的发件人地址。"
+
+#: admin/views/general.php:26
+msgid "Load from WooCommerce"
+msgstr "从 WooCommerce 加载"
+
+#: admin/views/general.php:40
+msgid "Company details"
+msgstr "公司详情"
+
+#: admin/views/general.php:45
+msgid "Name"
+msgstr "名称"
+
+#: admin/views/general.php:51
+msgid "To include the keyed in name to the Invoice, ensure to select"
+msgstr "要将输入的名称包含到发票中，请确保选择"
+
+#: admin/views/general.php:52
+msgid "Company name"
+msgstr "公司名称"
+
+#: admin/views/general.php:53
+msgid "from"
+msgstr "来自"
+
+#: admin/views/general.php:54 admin/views/general.php:66
+msgid "Invoice > Customize > Company Logo / Name"
+msgstr "发票 > 自定义 > 公司徽标 / 名称"
+
+#: admin/views/general.php:60
+msgid "Logo"
+msgstr "徽标"
+
+#: admin/views/general.php:65
+msgid ""
+"To include the uploaded image as logo to the invoice, ensure to select "
+"Company logo from"
+msgstr "要将上传的图片作为徽标包含到发票中，请确保从以下位置选择公司徽标"
+
+#: admin/views/general.php:67
+msgid "Recommended size is 150×50px"
+msgstr "推荐尺寸为 150×50px"
+
+#: admin/views/general.php:74
+msgid "Company Tax ID"
+msgstr "公司税号"
+
+#: admin/views/general.php:78
+msgid ""
+"Specify your company tax ID. For e.g., you may enter as VAT: GB123456789, "
+"GSTIN:0948745 or ABN:51 824 753 556"
+msgstr ""
+"指定您公司的税号。例如，您可以输入为 VAT: GB123456789、GSTIN:0948745 或 "
+"ABN:51 824 753 556"
+
+#: admin/views/general.php:82 public/modules/deliverynote/deliverynote.php:183
+#: public/modules/dispatchlabel/dispatchlabel.php:165
+#: public/modules/invoice/invoice.php:1329
+#: public/modules/invoice/invoice.php:1333
+#: public/modules/packinglist/packinglist.php:208
+#: public/modules/shippinglabel/shippinglabel.php:167
+msgid "Footer"
+msgstr "页脚"
+
+#: admin/views/general.php:85
+msgid "Set up a footer which will be used across the respective documents."
+msgstr "设置一个将在各个文件中使用的页脚。"
+
+#: admin/views/general.php:98
+msgid "Address details"
+msgstr "地址详情"
+
+#: admin/views/general.php:106
+msgid "Department/Business unit/Sender name"
+msgstr "部门/业务单元/发件人名称"
+
+#: admin/views/general.php:140
+msgid "Choose a country&hellip;"
+msgstr "选择国家&hellip;"
+
+#: admin/views/general.php:155
+msgid "Contact number"
+msgstr "联系电话"
+
+#: admin/views/general.php:179
+msgid "Advanced options"
+msgstr "高级选项"
+
+#: admin/views/general.php:186
+msgid "Display state name"
+msgstr "显示省/州名称"
+
+#: admin/views/general.php:190
+msgid "Enable to show state name in addresses"
+msgstr "启用后在地址中显示省/州名称"
+
+#: admin/views/general.php:198
+msgid "Display currency code"
+msgstr "显示货币代码"
+
+#: admin/views/general.php:202
+msgid "Enable to show currency code instead of currency symbol"
+msgstr "启用后显示货币代码而非货币符号"
+
+#: admin/views/general.php:210
+msgid "Preview before printing"
+msgstr "打印前预览"
+
+#: admin/views/general.php:214
+msgid "Preview documents before printing"
+msgstr "打印前预览文档"
+
+#: admin/views/general.php:222
+msgid "Enable RTL support"
+msgstr "启用 RTL 支持"
+
+#: admin/views/general.php:226
+msgid "RTL support for documents"
+msgstr "文档的 RTL 支持"
+
+#: admin/views/general.php:249
+msgid "PDF library"
+msgstr "PDF 库"
+
+#: admin/views/general.php:263 admin/views/general.php:284
+msgid "Enable additional currency font support"
+msgstr "启用额外的货币字体支持"
+
+#: admin/views/general.php:268 admin/views/general.php:289
+msgid ""
+"Enable to use additional font library to support the currency symbol in pdf"
+msgstr "启用后使用额外的字体库以支持 pdf 中的货币符号"
+
+#: admin/views/general.php:301
+msgid "Enable a common print button for"
+msgstr "启用通用打印按钮，适用于"
+
+#: admin/views/general.php:302 admin/views/general.php:318
+msgid "orders listing page"
+msgstr "订单列表页面"
+
+#: admin/views/general.php:307
+msgid "All document types"
+msgstr "所有文档类型"
+
+#: admin/views/general.php:317
+msgid "Enable dedicated print buttons for"
+msgstr "启用专用打印按钮，适用于"
+
+#: admin/views/general.php:332
+msgid "Print button access for"
+msgstr "打印按钮访问权限，适用于"
+
+#: admin/views/general.php:339
+msgid "Logged in users"
+msgstr "已登录用户"
+
+#: admin/views/general.php:340
+msgid "Users will be redirected to login page if not logged in"
+msgstr "如果用户未登录，将被重定向到登录页面"
+
+#: admin/views/general.php:341
+msgid "Secure"
+msgstr "安全"
+
+#: admin/views/general.php:345
+msgid "All users"
+msgstr "所有用户"
+
+#: admin/views/general.php:346
+msgid "Users who haven`t logged will also be allowed to print"
+msgstr "未登录的用户也将被允许打印"
+
+#: admin/views/general.php:356
+msgid "File path"
+msgstr "文件路径"
+
+#: admin/views/general.php:364
+msgid "Automatic cleanup"
+msgstr "自动清理"
+
+#: admin/views/general.php:369 public/modules/deliverynote/views/general.php:31
+#: public/modules/deliverynote/views/general.php:46
+#: public/modules/deliverynote/views/general.php:61
+#: public/modules/dispatchlabel/views/general.php:32
+#: public/modules/dispatchlabel/views/general.php:47
+#: public/modules/packinglist/views/general.php:32
+#: public/modules/packinglist/views/general.php:47
+#: public/modules/packinglist/views/general.php:62
+#: public/modules/packinglist/views/general.php:77
+msgid "Yes"
+msgstr "是"
+
+#: admin/views/general.php:370 public/modules/deliverynote/views/general.php:32
+#: public/modules/deliverynote/views/general.php:47
+#: public/modules/deliverynote/views/general.php:62
+#: public/modules/dispatchlabel/views/general.php:33
+#: public/modules/dispatchlabel/views/general.php:48
+#: public/modules/packinglist/views/general.php:33
+#: public/modules/packinglist/views/general.php:48
+#: public/modules/packinglist/views/general.php:63
+#: public/modules/packinglist/views/general.php:78
+msgid "No"
+msgstr "否"
+
+#: admin/views/general.php:379
+msgid "Interval"
+msgstr "间隔"
+
+#: admin/views/general.php:389
+msgid "In minutes. Eg: 1440 for 1 day. Minimum value is 1440"
+msgstr "以分钟为单位。例如：1440 表示 1 天。最小值为 1440"
+
+#: admin/views/help.php:38 admin/views/help.php:43
+msgid "Help Links"
+msgstr "帮助链接"
+
+#: admin/views/help.php:39
+msgid "System Info"
+msgstr "系统信息"
+
+#: admin/views/help.php:48
+msgid "Refer to our documentation to setup and get started"
+msgstr "请参阅我们的文档进行设置并开始使用"
+
+#: admin/views/help.php:55
+msgid "Help and Support"
+msgstr "帮助与支持"
+
+#: admin/views/help.php:56
+msgid "We would love to help you on any queries or issues."
+msgstr "我们乐意帮助您解决任何疑问或问题。"
+
+#: admin/views/help.php:58
+msgid "Contact Us"
+msgstr "联系我们"
+
+#: admin/views/premium_extension_listing.php:9
+msgid "Premium extensions"
+msgstr "高级扩展"
+
+#: admin/views/premium_extension_listing.php:10
+msgid ""
+"Automatically generate professional WooCommerce order-related documents for "
+"all your orders"
+msgstr "为您所有的订单自动生成专业的 WooCommerce 订单相关文档"
+
+#: admin/views/premium_extension_listing.php:16
+#: admin/views/wt_ipc_free_pro.php:7 admin/views/wt_pro_addons_list.php:10
+msgid "WooCommerce PDF Invoices, Packing Slips and Credit Notes plugin"
+msgstr "WooCommerce PDF Invoices, Packing Slips and Credit Notes 插件"
+
+#: admin/views/premium_extension_listing.php:19
+#: admin/views/wt_pro_addons_list.php:15
+msgid "Auto-generate invoices, packing slips, and credit notes"
+msgstr "自动生成发票、装箱单和贷记单"
+
+#: admin/views/premium_extension_listing.php:20
+#: admin/views/wt_pro_addons_list.php:16
+msgid "Show payment link on invoice"
+msgstr "在发票上显示付款链接"
+
+#: admin/views/premium_extension_listing.php:21
+#: admin/views/wt_pro_addons_list.php:17
+msgid "Add ‘Pay Later’ option at checkout"
+msgstr "在结账时添加‘稍后付款’选项"
+
+#: admin/views/premium_extension_listing.php:22
+#: admin/views/wt_pro_addons_list.php:18
+msgid "Attach documents to selected order status emails"
+msgstr "将文档附加到选定订单状态的邮件"
+
+#: admin/views/premium_extension_listing.php:23
+#: admin/views/wt_pro_addons_list.php:19
+msgid "Enable customers to print invoices & packing slips"
+msgstr "允许客户打印发票和装箱单"
+
+#: admin/views/premium_extension_listing.php:24
+#: admin/views/wt_pro_addons_list.php:20
+msgid "Customize document layout & properties"
+msgstr "自定义文档布局和属性"
+
+#: admin/views/premium_extension_listing.php:25
+#: admin/views/premium_extension_listing.php:43
+#: admin/views/premium_extension_listing.php:60
+#: admin/views/wt_ipc_free_pro.php:286 admin/views/wt_pl_free_pro.php:67
+#: admin/views/wt_pro_addons_list.php:21 admin/views/wt_pro_addons_list.php:41
+#: admin/views/wt_pro_addons_list.php:60 admin/views/wt_sdd_free_pro.php:121
+msgid "Show product variation data"
+msgstr "显示商品变体数据"
+
+#: admin/views/premium_extension_listing.php:26
+#: admin/views/wt_pro_addons_list.php:22
+msgid "Add custom data to documents"
+msgstr "向文档添加自定义数据"
+
+#: admin/views/premium_extension_listing.php:27
+#: admin/views/wt_pro_addons_list.php:23
+msgid "Multiple display options for bundle products"
+msgstr "组合商品的多种显示选项"
+
+#: admin/views/premium_extension_listing.php:28
+#: admin/views/premium_extension_listing.php:46
+#: admin/views/wt_ipc_free_pro.php:232 admin/views/wt_pl_free_pro.php:39
+#: admin/views/wt_pro_addons_list.php:24 admin/views/wt_pro_addons_list.php:44
+#: admin/views/wt_sdd_free_pro.php:105
+msgid "Group products by ‘Category’"
+msgstr "按‘分类’对商品分组"
+
+#: admin/views/premium_extension_listing.php:29
+#: admin/views/wt_pro_addons_list.php:25
+msgid "Verified compatibility with major plugins"
+msgstr "已验证与主流插件的兼容性"
+
+#: admin/views/premium_extension_listing.php:30
+#: admin/views/premium_extension_listing.php:48
+#: admin/views/premium_extension_listing.php:64
+#: admin/views/premium_extension_listing.php:78
+#: admin/views/premium_extension_listing.php:96
+#: admin/views/wt_pi_free_pro.php:394 admin/views/wt_pro_addons_list.php:26
+#: admin/views/wt_pro_addons_list.php:46 admin/views/wt_pro_addons_list.php:64
+#: admin/views/wt_pro_addons_list.php:84 admin/views/wt_pro_addons_list.php:104
+msgid "Multilingual support"
+msgstr "多语言支持"
+
+#: admin/views/premium_extension_listing.php:36
+#: admin/views/wt_pro_addons_list.php:32 admin/views/wt_sdd_free_pro.php:7
+msgid "WooCommerce Shipping labels, Dispatch labels and Delivery Notes plugin"
+msgstr "WooCommerce Shipping labels, Dispatch labels and Delivery Notes 插件"
+
+#: admin/views/premium_extension_listing.php:39
+#: admin/views/wt_pro_addons_list.php:37
+msgid "Create delivery notes, shipping & dispatch labels"
+msgstr "创建送货单、运输和发货标签"
+
+#: admin/views/premium_extension_listing.php:40
+#: admin/views/wt_pro_addons_list.php:38
+msgid "Enable customers to print the documents from order emails"
+msgstr "允许客户从订单邮件中打印文档"
+
+#: admin/views/premium_extension_listing.php:41
+#: admin/views/wt_pro_addons_list.php:39
+msgid "Customize shipping label size"
+msgstr "自定义运输标签尺寸"
+
+#: admin/views/premium_extension_listing.php:42
+#: admin/views/wt_pro_addons_list.php:40
+msgid "Add multiple shipping labels on one page"
+msgstr "在一页上添加多个运输标签"
+
+#: admin/views/premium_extension_listing.php:44
+#: admin/views/wt_pro_addons_list.php:42
+msgid "Add extra product & order data fields"
+msgstr "添加额外的商品和订单数据字段"
+
+#: admin/views/premium_extension_listing.php:45
+#: admin/views/wt_pro_addons_list.php:43
+msgid "Pre-built layouts & customizable templates"
+msgstr "预建布局和可自定义模板"
+
+#: admin/views/premium_extension_listing.php:47
+#: admin/views/wt_pro_addons_list.php:45
+msgid "Sort products based on Name or SKU"
+msgstr "根据名称或 SKU 对商品排序"
+
+#: admin/views/premium_extension_listing.php:54
+#: admin/views/wt_pro_addons_list.php:52
+msgid "WooCommerce Picklists plugin"
+msgstr "WooCommerce Picklists 插件"
+
+#: admin/views/premium_extension_listing.php:57
+#: admin/views/wt_pro_addons_list.php:57
+msgid "Bulk print picklists from the admin order page"
+msgstr "从管理员订单页面批量打印拣货单"
+
+#: admin/views/premium_extension_listing.php:58
+#: admin/views/wt_pl_free_pro.php:25 admin/views/wt_pro_addons_list.php:58
+msgid "Automatically email picklists based on order status"
+msgstr "根据订单状态自动发送拣货单邮件"
+
+#: admin/views/premium_extension_listing.php:59
+#: admin/views/wt_pro_addons_list.php:59
+msgid "Create or customize picklist templates"
+msgstr "创建或自定义拣货单模板"
+
+#: admin/views/premium_extension_listing.php:61
+#: admin/views/wt_pro_addons_list.php:61
+msgid "Group products in picklist by order/category"
+msgstr "按订单/分类对拣货单中的商品分组"
+
+#: admin/views/premium_extension_listing.php:62
+#: admin/views/wt_pro_addons_list.php:62
+msgid "Add product meta fields & attributes"
+msgstr "添加商品元字段和属性"
+
+#: admin/views/premium_extension_listing.php:63
+#: admin/views/wt_pro_addons_list.php:63
+msgid "Exclude virtual products from picklists"
+msgstr "从拣货单中排除虚拟商品"
+
+#: admin/views/premium_extension_listing.php:70
+#: admin/views/wt_pi_free_pro.php:293 admin/views/wt_pro_addons_list.php:90
+msgid "WooCommerce Address Labels plugin"
+msgstr "WooCommerce Address Labels 插件"
+
+#: admin/views/premium_extension_listing.php:73
+msgid ""
+"Generate ‘Shipping Address’, ‘Billing Address’, ‘From Address’, and ‘Return "
+"Address’ labels"
+msgstr "生成‘收货地址’、‘账单地址’、‘发件地址’和‘退货地址’标签"
+
+#: admin/views/premium_extension_listing.php:74
+#: admin/views/wt_pro_addons_list.php:99
+msgid "Customize label sizes"
+msgstr "自定义标签尺寸"
+
+#: admin/views/premium_extension_listing.php:75
+#: admin/views/wt_pro_addons_list.php:100
+msgid "Bulk print address labels"
+msgstr "批量打印地址标签"
+
+#: admin/views/premium_extension_listing.php:76
+msgid "Offers built-in label templates"
+msgstr "提供内置标签模板"
+
+#: admin/views/premium_extension_listing.php:77
+#: admin/views/wt_pro_addons_list.php:102
+msgid "Change address label layout"
+msgstr "更改地址标签布局"
+
+#: admin/views/premium_extension_listing.php:84
+msgid "WooCommerce Proforma Invoices"
+msgstr "WooCommerce Proforma Invoices"
+
+#: admin/views/premium_extension_listing.php:87
+#: admin/views/wt_pro_addons_list.php:75
+msgid "Create proforma invoices automatically"
+msgstr "自动创建形式发票"
+
+#: admin/views/premium_extension_listing.php:88
+#: admin/views/wt_pro_addons_list.php:76
+msgid "Pre-built proforma invoice layouts"
+msgstr "预建形式发票布局"
+
+#: admin/views/premium_extension_listing.php:89
+#: admin/views/premium_extension_listing.php:107
+#: admin/views/wt_pro_addons_list.php:77
+msgid "Easy invoice layout customization"
+msgstr "轻松自定义发票布局"
+
+#: admin/views/premium_extension_listing.php:90
+#: admin/views/wt_pro_addons_list.php:78
+msgid "Attach proforma invoice PDF to order emails"
+msgstr "将形式发票 PDF 附加到订单邮件"
+
+#: admin/views/premium_extension_listing.php:91
+#: admin/views/wt_pro_addons_list.php:79
+msgid "Allow customers to print invoices"
+msgstr "允许客户打印发票"
+
+#: admin/views/premium_extension_listing.php:92
+#: admin/views/wt_pi_free_pro.php:62 admin/views/wt_pro_addons_list.php:80
+msgid "Set custom proforma invoice number"
+msgstr "设置自定义形式发票编号"
+
+#: admin/views/premium_extension_listing.php:93
+#: admin/views/wt_pro_addons_list.php:81
+msgid "Add additional product & order data fields"
+msgstr "添加额外的商品和订单数据字段"
+
+#: admin/views/premium_extension_listing.php:94
+#: admin/views/wt_pi_free_pro.php:207 admin/views/wt_pro_addons_list.php:82
+msgid "Attach special notes with proforma invoices"
+msgstr "为形式发票附加特别说明"
+
+#: admin/views/premium_extension_listing.php:95
+#: admin/views/wt_pro_addons_list.php:83
+msgid "Attach transport & sales terms"
+msgstr "附加运输和销售条款"
+
+#: admin/views/premium_extension_listing.php:102
+msgid "Customizer for WooCommerce PDF Invoices"
+msgstr "Customizer for WooCommerce PDF Invoices"
+
+#: admin/views/premium_extension_listing.php:105
+msgid "Drag-and-drop easy customization"
+msgstr "拖放式轻松自定义"
+
+#: admin/views/premium_extension_listing.php:106
+msgid "Advanced visual and code editor"
+msgstr "高级可视化和代码编辑器"
+
+#: admin/views/premium_extension_listing.php:108
+msgid "Customize individual elements using block editors"
+msgstr "使用块编辑器自定义各个元素"
+
+#: admin/views/premium_extension_listing.php:109
+msgid "View live preview of customization"
+msgstr "查看自定义的实时预览"
+
+#: admin/views/premium_extension_listing.php:110
+msgid "Change color, text, background, border & more"
+msgstr "更改颜色、文本、背景、边框等"
+
+#: admin/views/premium_extension_listing.php:116
+#: admin/views/wt_pro_addons_list.php:110
+#: public/modules/invoice/views/qrcode_promote.php:26
+msgid "QR Code Addon for WooCommerce PDF Invoices"
+msgstr "QR Code Addon for WooCommerce PDF Invoices"
+
+#: admin/views/premium_extension_listing.php:119
+#: admin/views/wt_pro_addons_list.php:115
+msgid "Assign QR codes to all generated invoices"
+msgstr "为所有已生成的发票分配 QR 码"
+
+#: admin/views/premium_extension_listing.php:120
+#: admin/views/wt_pro_addons_list.php:116
+msgid "Create QR code that reads order or invoice number"
+msgstr "创建可读取订单或发票编号的 QR 码"
+
+#: admin/views/premium_extension_listing.php:121
+#: admin/views/wt_pro_addons_list.php:117
+msgid "Add custom data to invoices"
+msgstr "向发票添加自定义数据"
+
+#: admin/views/premium_extension_listing.php:122
+msgid ""
+"Compatible with WooCommerce PDF Invoice, Packing Slip & Credit Note (Premium)"
+msgstr "兼容 WooCommerce PDF Invoice, Packing Slip & Credit Note（高级版）"
+
+#: admin/views/premium_extension_listing.php:123
+#: admin/views/wt_pro_addons_list.php:119
+msgid ""
+"Compatible with WooCommerce PDF Invoices, Packing Slips, Delivery Notes, and "
+"Shipping Labels (Free)"
+msgstr ""
+"兼容 WooCommerce PDF Invoices, Packing Slips, Delivery Notes, and Shipping "
+"Labels（免费版）"
+
+#: admin/views/premium_extension_listing.php:129
+msgid "Remote Print add-on for WooCommerce PDF Invoices - PrintNode"
+msgstr "WooCommerce PDF Invoices 的远程打印插件 - PrintNode"
+
+#: admin/views/premium_extension_listing.php:132
+msgid "Offers cloud printing of invoice PDFs using PrintNode"
+msgstr "使用 PrintNode 提供发票 PDF 的云打印"
+
+#: admin/views/premium_extension_listing.php:133
+msgid "Print PDF invoices for WooCommerce"
+msgstr "为 WooCommerce 打印 PDF 发票"
+
+#: admin/views/premium_extension_listing.php:134
+msgid "Lightning-fast printing"
+msgstr "闪电般快速的打印"
+
+#: admin/views/premium_extension_listing.php:135
+msgid "Supports automatic & manual printing"
+msgstr "支持自动和手动打印"
+
+#: admin/views/premium_extension_listing.php:136
+msgid "Support for serial and USB scales"
+msgstr "支持串行和 USB 秤"
+
+#: admin/views/premium_extension_listing.php:137
+msgid "Ensure security with base64 & URI printing"
+msgstr "通过 base64 和 URI 打印确保安全"
+
+#: admin/views/premium_extension_listing.php:138
+msgid "Cross-platform compatibility"
+msgstr "跨平台兼容性"
+
+#: admin/views/premium_extension_listing.php:144
+msgid "WebToffee WooCommerce Request A Quote"
+msgstr "WebToffee WooCommerce Request A Quote"
+
+#: admin/views/premium_extension_listing.php:147
+msgid "Add quote button to the product & shop pages"
+msgstr "在商品和商店页面添加报价按钮"
+
+#: admin/views/premium_extension_listing.php:148
+msgid "Enable quotation request for selected products"
+msgstr "为选定商品启用报价请求"
+
+#: admin/views/premium_extension_listing.php:149
+msgid "Automatically send quotes to users"
+msgstr "自动向用户发送报价"
+
+#: admin/views/premium_extension_listing.php:150
+msgid "Disable guest users from asking for quote"
+msgstr "禁止访客用户请求报价"
+
+#: admin/views/premium_extension_listing.php:151
+msgid "Hide prices and ‘add to cart’ button"
+msgstr "隐藏价格和‘加入购物车’按钮"
+
+#: admin/views/premium_extension_listing.php:152
+msgid "Automatic email alerts for admin & users"
+msgstr "为管理员和用户提供自动邮件提醒"
+
+#: admin/views/premium_extension_listing.php:153
+msgid "Easy button and form customization"
+msgstr "轻松自定义按钮和表单"
+
+#: admin/views/premium_extension_listing.php:154
+msgid "Set quote expiry period"
+msgstr "设置报价有效期"
+
+#: admin/views/premium_extension_listing.php:155
+msgid "Limit spams with reCAPTCHA"
+msgstr "使用 reCAPTCHA 限制垃圾信息"
+
+#: admin/views/premium_extension_listing.php:161
+msgid "Sequential Order Number for WooCommerce"
+msgstr "Sequential Order Number for WooCommerce"
+
+#: admin/views/premium_extension_listing.php:164
+msgid "Auto reset sequence per month/year etc"
+msgstr "按月/年等自动重置序列"
+
+#: admin/views/premium_extension_listing.php:165
+msgid "Add a custom suffix for order numbers"
+msgstr "为订单编号添加自定义后缀"
+
+#: admin/views/premium_extension_listing.php:166
+msgid "Date suffix in order numbers"
+msgstr "订单编号中的日期后缀"
+
+#: admin/views/premium_extension_listing.php:167
+msgid "Custom sequence for free orders"
+msgstr "免费订单的自定义序列"
+
+#: admin/views/premium_extension_listing.php:168
+msgid "Increment sequence in custom series"
+msgstr "在自定义系列中递增序列"
+
+#: admin/views/premium_extension_listing.php:169
+msgid "More order number templates"
+msgstr "更多订单编号模板"
+
+#: admin/views/premium_extension_listing.php:175
+msgid "Data Import & Export"
+msgstr "数据导入和导出"
+
+#: admin/views/premium_extension_listing.php:176
+msgid ""
+"The best-in-the-class import, export, and migration solutions for your "
+"WooCommerce data"
+msgstr "为您的 WooCommerce 数据提供一流的导入、导出和迁移解决方案"
+
+#: admin/views/premium_extension_listing.php:182
+msgid "Import Export Suite for WooCommerce"
+msgstr "Import Export Suite for WooCommerce"
+
+#: admin/views/premium_extension_listing.php:185
+msgid ""
+"Import/export Products, Orders, Subscriptions, Coupons, Customers, WordPress "
+"Users, Categories & Tags, Reviews"
+msgstr ""
+"导入/导出商品、订单、订阅、优惠券、客户、WordPress 用户、分类和标签、评价"
+
+#: admin/views/premium_extension_listing.php:186
+#: admin/views/premium_extension_listing.php:203
+#: admin/views/premium_extension_listing.php:221
+#: admin/views/premium_extension_listing.php:240
+msgid "Supports Excel, XML, CSV, and TSV file formats"
+msgstr "支持 Excel、XML、CSV 和 TSV 文件格式"
+
+#: admin/views/premium_extension_listing.php:188
+#: admin/views/premium_extension_listing.php:207
+#: admin/views/premium_extension_listing.php:226
+#: admin/views/premium_extension_listing.php:246
+msgid "Import from URL, Google Sheets, FTP/SFTP"
+msgstr "从 URL、Google Sheets、FTP/SFTP 导入"
+
+#: admin/views/premium_extension_listing.php:189
+#: admin/views/premium_extension_listing.php:208
+#: admin/views/premium_extension_listing.php:227
+#: admin/views/premium_extension_listing.php:247
+msgid "Export to FTP/SFTP"
+msgstr "导出到 FTP/SFTP"
+
+#: admin/views/premium_extension_listing.php:190
+msgid "Import & export custom fields and values"
+msgstr "导入和导出自定义字段和值"
+
+#: admin/views/premium_extension_listing.php:191
+#: admin/views/premium_extension_listing.php:228
+#: admin/views/premium_extension_listing.php:248
+msgid "Advanced filters and customizations for import & export"
+msgstr "用于导入和导出的高级筛选和自定义功能"
+
+#: admin/views/premium_extension_listing.php:192
+#: admin/views/premium_extension_listing.php:210
+msgid "Add and update data while importing"
+msgstr "导入时添加和更新数据"
+
+#: admin/views/premium_extension_listing.php:193
+#: admin/views/premium_extension_listing.php:211
+#: admin/views/premium_extension_listing.php:230
+#: admin/views/premium_extension_listing.php:250
+msgid "Maintains action history and debug logs"
+msgstr "维护操作历史和调试日志"
+
+#: admin/views/premium_extension_listing.php:194
+#: admin/views/premium_extension_listing.php:212
+#: admin/views/premium_extension_listing.php:231
+#: admin/views/premium_extension_listing.php:251
+msgid "Compatible with major 3rd-party plugins"
+msgstr "兼容主流第三方插件"
+
+#: admin/views/premium_extension_listing.php:200
+msgid "Product Import Export Plugin For WooCommerce"
+msgstr "Product Import Export Plugin For WooCommerce"
+
+#: admin/views/premium_extension_listing.php:204
+#: admin/views/premium_extension_listing.php:241
+msgid "Schedule automated import and export"
+msgstr "计划自动导入和导出"
+
+#: admin/views/premium_extension_listing.php:205
+msgid "Support for multiple product types"
+msgstr "支持多种商品类型"
+
+#: admin/views/premium_extension_listing.php:206
+msgid "Export product images in a separate zip file"
+msgstr "在单独的 zip 文件中导出商品图片"
+
+#: admin/views/premium_extension_listing.php:209
+msgid "Advanced filters and customizations for import and export"
+msgstr "用于导入和导出的高级筛选和自定义功能"
+
+#: admin/views/premium_extension_listing.php:218
+msgid "Order, Coupon, Subscription Export Import for WooCommerce"
+msgstr "Order, Coupon, Subscription Export Import for WooCommerce"
+
+#: admin/views/premium_extension_listing.php:223
+msgid "Email customers on order status change"
+msgstr "在订单状态更改时向客户发送邮件"
+
+#: admin/views/premium_extension_listing.php:224
+msgid "Create users on order import"
+msgstr "在导入订单时创建用户"
+
+#: admin/views/premium_extension_listing.php:225
+msgid "Filter export by products, order status, email, date, etc"
+msgstr "按商品、订单状态、邮件、日期等筛选导出"
+
+#: admin/views/premium_extension_listing.php:229
+#: admin/views/premium_extension_listing.php:249
+msgid "Add & update data while importing"
+msgstr "导入时添加和更新数据"
+
+#: admin/views/premium_extension_listing.php:237
+msgid "WordPress Users & WooCommerce Customers Import Export"
+msgstr "WordPress Users & WooCommerce Customers Import Export"
+
+#: admin/views/premium_extension_listing.php:242
+msgid "Customize and send emails to new users on import"
+msgstr "导入时自定义并向新用户发送邮件"
+
+#: admin/views/premium_extension_listing.php:243
+msgid "Retain user passwords on import/export"
+msgstr "在导入/导出时保留用户密码"
+
+#: admin/views/premium_extension_listing.php:244
+msgid "Export and import custom fields and third-party plugin fields"
+msgstr "导出和导入自定义字段及第三方插件字段"
+
+#: admin/views/premium_extension_listing.php:245
+msgid "Filter by user role, email, date, etc"
+msgstr "按用户角色、邮件、日期等筛选"
+
+#: admin/views/premium_extension_listing.php:257
+msgid "WebToffee WooCommerce Product Feed & Sync Manager"
+msgstr "WebToffee WooCommerce Product Feed & Sync Manager"
+
+#: admin/views/premium_extension_listing.php:260
+msgid ""
+"Generate WooCommerce product feeds for Google Shopping, Facebook Shop, and "
+"Instagram Shop"
+msgstr ""
+"为 Google Shopping、Facebook Shop 和 Instagram Shop 生成 WooCommerce 商品数据"
+"流"
+
+#: admin/views/premium_extension_listing.php:261
+msgid "Sync WooCommerce products to Facebook catalog"
+msgstr "将 WooCommerce 商品同步到 Facebook 目录"
+
+#: admin/views/premium_extension_listing.php:262
+msgid "Additional feed intervals (30 minutes, 6 hours, 12 hours)"
+msgstr "额外的数据流间隔（30 分钟、6 小时、12 小时）"
+
+#: admin/views/premium_extension_listing.php:263
+msgid "Support for additional fields that can be added to the feed"
+msgstr "支持可添加到数据流的额外字段"
+
+#: admin/views/premium_extension_listing.php:264
+msgid "WPML multilingual and multicurrency support "
+msgstr "WPML 多语言和多货币支持 "
+
+#: admin/views/premium_extension_listing.php:265
+msgid "Google local product inventory feed"
+msgstr "Google 本地商品库存数据流"
+
+#: admin/views/premium_extension_listing.php:266
+msgid "Exclude specific products"
+msgstr "排除特定商品"
+
+#: admin/views/premium_extension_listing.php:267
+msgid "Include or exclude specific categories"
+msgstr "包含或排除特定分类"
+
+#: admin/views/premium_extension_listing.php:268
+msgid "Exclude out-of-stock products"
+msgstr "排除缺货商品"
+
+#: admin/views/premium_extension_listing.php:269
+msgid "Filter products based on product type"
+msgstr "根据商品类型筛选商品"
+
+#: admin/views/premium_extension_listing.php:270
+msgid "Map categories on product level"
+msgstr "在商品级别映射分类"
+
+#: admin/views/premium_extension_listing.php:277
+msgid "E-commerce Promotions"
+msgstr "电子商务促销"
+
+#: admin/views/premium_extension_listing.php:278
+msgid ""
+"Create and run successful promotional campaigns with the best tools for "
+"WooCommerce"
+msgstr "使用适用于 WooCommerce 的最佳工具，创建并开展成功的促销活动"
+
+#: admin/views/premium_extension_listing.php:284
+msgid "WebToffee WooCommerce Gift Cards"
+msgstr "WebToffee WooCommerce Gift Cards"
+
+#: admin/views/premium_extension_listing.php:287
+msgid "Create unlimited gift cards"
+msgstr "创建无限量礼品卡"
+
+#: admin/views/premium_extension_listing.php:288
+msgid "Email gift cards to customers"
+msgstr "通过邮件向客户发送礼品卡"
+
+#: admin/views/premium_extension_listing.php:289
+msgid "Provide refunds to store credit"
+msgstr "以店铺积分形式提供退款"
+
+#: admin/views/premium_extension_listing.php:290
+msgid "20+ predefined gift card templates"
+msgstr "20+ 个预定义礼品卡模板"
+
+#: admin/views/premium_extension_listing.php:291
+msgid "Category wise template listing"
+msgstr "按分类列出模板"
+
+#: admin/views/premium_extension_listing.php:292
+msgid "Add custom templates for gift cards"
+msgstr "为礼品卡添加自定义模板"
+
+#: admin/views/premium_extension_listing.php:293
+msgid "Generate gift cards based on order status"
+msgstr "根据订单状态生成礼品卡"
+
+#: admin/views/premium_extension_listing.php:294
+msgid "Manage user credit balance"
+msgstr "管理用户积分余额"
+
+#: admin/views/premium_extension_listing.php:295
+msgid "Fixed and custom gift card amounts"
+msgstr "固定和自定义礼品卡金额"
+
+#: admin/views/premium_extension_listing.php:296
+msgid "Add usage restrictions for gift cards"
+msgstr "为礼品卡添加使用限制"
+
+#: admin/views/premium_extension_listing.php:302
+msgid "Frequently Bought Together for WooCommerce"
+msgstr "Frequently Bought Together for WooCommerce"
+
+#: admin/views/premium_extension_listing.php:305
+msgid "Automatically generate suggestions based on order history"
+msgstr "根据订单历史自动生成建议"
+
+#: admin/views/premium_extension_listing.php:306
+msgid "Display recommended products on the product pages"
+msgstr "在商品页面显示推荐商品"
+
+#: admin/views/premium_extension_listing.php:307
+msgid "Quick setup page to add & edit recommendations"
+msgstr "用于添加和编辑推荐的快速设置页面"
+
+#: admin/views/premium_extension_listing.php:308
+msgid "Multiple product recommendation layouts"
+msgstr "多种商品推荐布局"
+
+#: admin/views/premium_extension_listing.php:309
+msgid "Set up discounts on the recommended product bundle"
+msgstr "为推荐的商品组合设置折扣"
+
+#: admin/views/premium_extension_listing.php:310
+msgid "Manually create a bought-together list"
+msgstr "手动创建搭配购买列表"
+
+#: admin/views/premium_extension_listing.php:311
+msgid ""
+"Use upsells, cross-sells, & related products as frequently bought products"
+msgstr "将追加销售、交叉销售和相关商品用作经常搭配购买的商品"
+
+#: admin/views/premium_extension_listing.php:312
+msgid "Customize the title, button, and label texts"
+msgstr "自定义标题、按钮和标签文本"
+
+#: admin/views/premium_extension_listing.php:313
+msgid "Customize the display of the recommended products"
+msgstr "自定义推荐商品的显示方式"
+
+#: admin/views/premium_extension_listing.php:319
+msgid "Smart Coupons for WooCommerce"
+msgstr "Smart Coupons for WooCommerce"
+
+#: admin/views/premium_extension_listing.php:322
+msgid "Advanced BOGO Coupons"
+msgstr "高级 BOGO 优惠券"
+
+#: admin/views/premium_extension_listing.php:323
+msgid "Offer store credits"
+msgstr "提供店铺积分"
+
+#: admin/views/premium_extension_listing.php:324
+msgid "Create attractive gift cards "
+msgstr "创建有吸引力的礼品卡 "
+
+#: admin/views/premium_extension_listing.php:325
+msgid "Give away product coupons"
+msgstr "赠送商品优惠券"
+
+#: admin/views/premium_extension_listing.php:326
+msgid "Coupons based on past purchases"
+msgstr "基于过往购买记录的优惠券"
+
+#: admin/views/premium_extension_listing.php:327
+msgid "Restrict coupons by country"
+msgstr "按国家限制优惠券"
+
+#: admin/views/premium_extension_listing.php:328
+msgid "Create and offer sign-up discount coupons"
+msgstr "创建并提供注册折扣优惠券"
+
+#: admin/views/premium_extension_listing.php:330
+msgid "Customizable countdown sales banner"
+msgstr "可自定义的倒计时促销横幅"
+
+#: admin/views/premium_extension_listing.php:332
+msgid "Import and export coupons"
+msgstr "导入和导出优惠券"
+
+#: admin/views/premium_extension_listing.php:333
+msgid "Coupon embeds"
+msgstr "优惠券嵌入"
+
+#: admin/views/premium_extension_listing.php:334
+msgid "Allow coupon combinations"
+msgstr "允许优惠券组合使用"
+
+#: admin/views/premium_extension_listing.php:340
+msgid "URL Coupons for WooCommerce"
+msgstr "URL Coupons for WooCommerce"
+
+#: admin/views/premium_extension_listing.php:343
+msgid "Generate custom coupon URLs"
+msgstr "生成自定义优惠券 URL"
+
+#: admin/views/premium_extension_listing.php:344
+msgid "Set up a redirect page"
+msgstr "设置重定向页面"
+
+#: admin/views/premium_extension_listing.php:345
+msgid "Automatically add products"
+msgstr "自动添加商品"
+
+#: admin/views/premium_extension_listing.php:346
+msgid "Create QR code coupons"
+msgstr "创建 QR 码优惠券"
+
+#: admin/views/premium_extension_listing.php:352
+msgid "Privacy compliance"
+msgstr "隐私合规"
+
+#: admin/views/premium_extension_listing.php:353
+msgid ""
+"Get Help with Ensuring Compliance to Major Privacy Laws for Your WordPress "
+"Website - GDPR, CCPA, LGPD, CNIL, and More."
+msgstr ""
+"获得帮助，确保您的 WordPress 网站符合主要隐私法规 - GDPR、CCPA、LGPD、CNIL "
+"等。"
+
+#: admin/views/premium_extension_listing.php:359
+msgid "GDPR Cookie Consent Plugin (CCPA Ready)"
+msgstr "GDPR Cookie Consent Plugin (CCPA Ready)"
+
+#: admin/views/premium_extension_listing.php:362
+msgid "Assits in GDPR (RGPD, DSVGO), LGPD, CNIL, POPIA, and CCPA"
+msgstr "协助遵守 GDPR (RGPD, DSVGO)、LGPD、CNIL、POPIA 和 CCPA"
+
+#: admin/views/premium_extension_listing.php:363
+msgid "Create a cookie consent banner"
+msgstr "创建 Cookie 同意横幅"
+
+#: admin/views/premium_extension_listing.php:364
+msgid "Scan and list cookies"
+msgstr "扫描并列出 Cookie"
+
+#: admin/views/premium_extension_listing.php:365
+msgid "Automatically block cookies/script"
+msgstr "自动阻止 Cookie/脚本"
+
+#: admin/views/premium_extension_listing.php:366
+msgid "Customize cookie banner"
+msgstr "自定义 Cookie 横幅"
+
+#: admin/views/premium_extension_listing.php:367
+msgid "Create cookie policy"
+msgstr "创建 Cookie 政策"
+
+#: admin/views/premium_extension_listing.php:368
+msgid "User consent logging"
+msgstr "用户同意记录"
+
+#: admin/views/premium_extension_listing.php:369
+msgid "Explicit/Implicit consent"
+msgstr "显式/隐式同意"
+
+#: admin/views/premium_extension_listing.php:370
+msgid "Location based exclusion for banner"
+msgstr "基于位置的横幅排除"
+
+#: admin/views/premium_extension_listing.php:371
+msgid "Granular consent based on cookie categories"
+msgstr "基于 Cookie 类别的精细化同意"
+
+#: admin/views/premium_extension_listing.php:377
+msgid ""
+"Accessibility Tool Kit: WP Accessibility for WCAG, Section 508, ADA, EAA "
+"Compliance"
+msgstr ""
+"无障碍工具包：适用于 WCAG、Section 508、ADA、EAA 合规的 WP Accessibility"
+
+#: admin/views/premium_extension_listing.php:380
+msgid "Build an accessible WordPress site that works for everyone"
+msgstr "构建适合所有人使用的无障碍 WordPress 网站"
+
+#: admin/views/premium_extension_listing.php:381
+msgid "Scan for accessibility issues"
+msgstr "扫描无障碍问题"
+
+#: admin/views/premium_extension_listing.php:382
+msgid "Get fix recommendations"
+msgstr "获取修复建议"
+
+#: admin/views/premium_extension_listing.php:383
+msgid "Ensure WCAG compliance"
+msgstr "确保符合 WCAG 标准"
+
+#: admin/views/premium_extension_listing.php:384
+msgid "Inclusive web design made simple"
+msgstr "让包容性网页设计变得简单"
+
+#: admin/views/premium_extension_page.php:82
+msgid "You are covered by our 30-Day Money Back Guarantee"
+msgstr "您享有我们的 30 天退款保证"
+
+#: admin/views/premium_extension_page.php:92
+msgid "Supported by a team with 99% Customer Satisfaction Score"
+msgstr "由客户满意度评分达 99% 的团队提供支持"
+
+#: admin/views/wt_ipc_free_pro.php:11 admin/views/wt_sdd_free_pro.php:11
+msgid "Supported documents"
+msgstr "支持的文档"
+
+#: admin/views/wt_ipc_free_pro.php:42
+msgid "Automatically create invoice based on order status"
+msgstr "根据订单状态自动创建发票"
+
+#: admin/views/wt_ipc_free_pro.php:55
+msgid "Attach document to order email"
+msgstr "将文档附加到订单邮件"
+
+#: admin/views/wt_ipc_free_pro.php:86
+msgid "Custom invoice date"
+msgstr "自定义发票日期"
+
+#: admin/views/wt_ipc_free_pro.php:89 admin/views/wt_ipc_free_pro.php:99
+msgid "Use order date"
+msgstr "使用订单日期"
+
+#: admin/views/wt_ipc_free_pro.php:93 admin/views/wt_ipc_free_pro.php:103
+msgid "Use invoice created date"
+msgstr "使用发票创建日期"
+
+#: admin/views/wt_ipc_free_pro.php:109
+msgid "Show print invoice button to customers"
+msgstr "向客户显示打印发票按钮"
+
+#: admin/views/wt_ipc_free_pro.php:140
+msgid "Show print packing slip button to customers"
+msgstr "向客户显示打印装箱单按钮"
+
+#: admin/views/wt_ipc_free_pro.php:163
+msgid "Use order number as document number"
+msgstr "使用订单编号作为文档编号"
+
+#: admin/views/wt_ipc_free_pro.php:186
+msgid "Use custom number series to number documents"
+msgstr "使用自定义编号系列为文档编号"
+
+#: admin/views/wt_ipc_free_pro.php:209
+msgid "Change document number format & length"
+msgstr "更改文档编号格式和长度"
+
+#: admin/views/wt_ipc_free_pro.php:255 admin/views/wt_pi_free_pro.php:123
+#: admin/views/wt_pl_free_pro.php:95 admin/views/wt_sdd_free_pro.php:81
+msgid "Sort order items in product table"
+msgstr "在商品表格中对订单项目排序"
+
+#: admin/views/wt_ipc_free_pro.php:317
+msgid "Display options for bundled products"
+msgstr "组合商品的显示选项"
+
+#: admin/views/wt_ipc_free_pro.php:340
+msgid "Generate invoices for old orders"
+msgstr "为旧订单生成发票"
+
+#: admin/views/wt_ipc_free_pro.php:353
+#: public/modules/invoice/views/general.php:302
+msgid "Generate invoices for free orders"
+msgstr "为免费订单生成发票"
+
+#: admin/views/wt_ipc_free_pro.php:366
+msgid "Option to include/exclude tax to Invoice"
+msgstr "在发票中包含/排除税费的选项"
+
+#: admin/views/wt_ipc_free_pro.php:379
+msgid ""
+"Separate tax column in the product table for multiple tax options in invoices"
+msgstr "在商品表格中为发票的多种税费选项设置单独的税费列"
+
+#: admin/views/wt_ipc_free_pro.php:392
+msgid "Customizable tax items, tax fields (SSN, VAT, etc.)"
+msgstr "可自定义的税费项目、税费字段（SSN、VAT 等）"
+
+#: admin/views/wt_ipc_free_pro.php:423
+msgid "Display free line items on invoice"
+msgstr "在发票上显示免费行项目"
+
+#: admin/views/wt_ipc_free_pro.php:436
+msgid "Customize invoice PDF name format"
+msgstr "自定义发票 PDF 名称格式"
+
+#: admin/views/wt_ipc_free_pro.php:449
+msgid "Add a payment link to invoice"
+msgstr "为发票添加付款链接"
+
+#: admin/views/wt_ipc_free_pro.php:462
+msgid "Show Pay Later option at checkout"
+msgstr "在结账时显示稍后付款选项"
+
+#: admin/views/wt_ipc_free_pro.php:475
+msgid "Customize Pay Later option display"
+msgstr "自定义稍后付款选项的显示"
+
+#: admin/views/wt_ipc_free_pro.php:483 admin/views/wt_ipc_free_pro.php:497
+msgid "Description"
+msgstr "描述"
+
+#: admin/views/wt_ipc_free_pro.php:487 admin/views/wt_ipc_free_pro.php:501
+msgid "Instruction"
+msgstr "说明"
+
+#: admin/views/wt_ipc_free_pro.php:506 admin/views/wt_sdd_free_pro.php:145
+msgid "Add order meta fields"
+msgstr "添加订单元字段"
+
+#: admin/views/wt_ipc_free_pro.php:514
+msgid "(But customer notes can be added)"
+msgstr "（但可以添加客户备注）"
+
+#: admin/views/wt_ipc_free_pro.php:537 admin/views/wt_pi_free_pro.php:165
+#: admin/views/wt_sdd_free_pro.php:177
+msgid "Add product meta fields"
+msgstr "添加商品元字段"
+
+#: admin/views/wt_ipc_free_pro.php:568 admin/views/wt_pi_free_pro.php:179
+#: admin/views/wt_sdd_free_pro.php:201
+#: public/modules/deliverynote/views/general.php:114
+#: public/modules/dispatchlabel/views/general.php:98
+msgid "Add product attributes"
+msgstr "添加商品属性"
+
+#: admin/views/wt_ipc_free_pro.php:599
+#: public/modules/invoice/views/general.php:267
+msgid "Custom logo for invoice"
+msgstr "发票的自定义徽标"
+
+#: admin/views/wt_ipc_free_pro.php:612
+msgid "Add product images to packing slips"
+msgstr "向装箱单添加商品图片"
+
+#: admin/views/wt_ipc_free_pro.php:625
+msgid "Custom footer"
+msgstr "自定义页脚"
+
+#: admin/views/wt_ipc_free_pro.php:648 admin/views/wt_pi_free_pro.php:263
+#: admin/views/wt_pl_free_pro.php:151 admin/views/wt_sdd_free_pro.php:289
+msgid "Document customizer"
+msgstr "文档自定义工具"
+
+#: admin/views/wt_ipc_free_pro.php:652 admin/views/wt_sdd_free_pro.php:293
+msgid "(Visual editor)"
+msgstr "（可视化编辑器）"
+
+#: admin/views/wt_ipc_free_pro.php:666 admin/views/wt_sdd_free_pro.php:307
+msgid "(Visual and code editor)"
+msgstr "（可视化和代码编辑器）"
+
+#: admin/views/wt_ipc_free_pro.php:679
+msgid "Pre-built layouts for documents"
+msgstr "文档的预建布局"
+
+#: admin/views/wt_ipc_free_pro.php:710
+msgid "Save document layout as template"
+msgstr "将文档布局另存为模板"
+
+#: admin/views/wt_ipc_free_pro.php:741
+msgid "Add additional data to invoice layout"
+msgstr "向发票布局添加额外数据"
+
+#: admin/views/wt_ipc_free_pro.php:745 admin/views/wt_ipc_free_pro.php:787
+msgid "Total tax"
+msgstr "税费合计"
+
+#: admin/views/wt_ipc_free_pro.php:749 admin/views/wt_ipc_free_pro.php:791
+msgid "Tracking number"
+msgstr "追踪编号"
+
+#: admin/views/wt_ipc_free_pro.php:761 admin/views/wt_ipc_free_pro.php:803
+msgid "Cart discount"
+msgstr "购物车折扣"
+
+#: admin/views/wt_ipc_free_pro.php:765 admin/views/wt_ipc_free_pro.php:807
+msgid "Order discount"
+msgstr "订单折扣"
+
+#: admin/views/wt_ipc_free_pro.php:773 admin/views/wt_ipc_free_pro.php:815
+#: public/modules/invoice/invoice.php:1345
+msgid "Coupon info"
+msgstr "优惠券信息"
+
+#: admin/views/wt_ipc_free_pro.php:828 admin/views/wt_pi_free_pro.php:277
+#: admin/views/wt_pl_free_pro.php:165 admin/views/wt_sdd_free_pro.php:429
+msgid "WPML compatibility"
+msgstr "WPML 兼容性"
+
+#: admin/views/wt_pi_free_pro.php:7 admin/views/wt_pro_addons_list.php:70
+msgid "WooCommerce Proforma Invoices plugin"
+msgstr "WooCommerce Proforma Invoices 插件"
+
+#: admin/views/wt_pi_free_pro.php:11
+msgid "Create proforma invoice automatically for selected order statuses"
+msgstr "为选定订单状态自动创建形式发票"
+
+#: admin/views/wt_pi_free_pro.php:25
+msgid "Attach invoice PDF to order emails"
+msgstr "将发票 PDF 附加到订单邮件"
+
+#: admin/views/wt_pi_free_pro.php:39
+#: public/modules/invoice/views/general.php:198
+msgid "Show print invoice button for customers"
+msgstr "为客户显示打印发票按钮"
+
+#: admin/views/wt_pi_free_pro.php:71
+msgid "Based on order number"
+msgstr "基于订单编号"
+
+#: admin/views/wt_pi_free_pro.php:75
+msgid "Custom number series"
+msgstr "自定义编号系列"
+
+#: admin/views/wt_pi_free_pro.php:81
+msgid ""
+"Separate tax column in product table for multiple tax options in proforma "
+"invoices"
+msgstr "在商品表格中为形式发票的多种税费选项设置单独的税费列"
+
+#: admin/views/wt_pi_free_pro.php:95
+msgid "Use custom number format & length"
+msgstr "使用自定义编号格式和长度"
+
+#: admin/views/wt_pi_free_pro.php:109
+msgid "Group products by 'Category'"
+msgstr "按‘分类’对商品分组"
+
+#: admin/views/wt_pi_free_pro.php:137
+msgid "Show variation data of products"
+msgstr "显示商品的变体数据"
+
+#: admin/views/wt_pi_free_pro.php:151
+msgid "Add order meta fields "
+msgstr "添加订单元字段 "
+
+#: admin/views/wt_pi_free_pro.php:193
+msgid "Add custom footer"
+msgstr "添加自定义页脚"
+
+#: admin/views/wt_pi_free_pro.php:221
+msgid "Attach transport terms"
+msgstr "附加运输条款"
+
+#: admin/views/wt_pi_free_pro.php:235
+msgid "Attach sales terms"
+msgstr "附加销售条款"
+
+#: admin/views/wt_pi_free_pro.php:249
+msgid "Multiple pre-built layouts"
+msgstr "多个预建布局"
+
+#: admin/views/wt_pi_free_pro.php:297
+msgid "Generate address labels"
+msgstr "生成地址标签"
+
+#: admin/views/wt_pi_free_pro.php:311
+msgid "Supported address types"
+msgstr "支持的地址类型"
+
+#: admin/views/wt_pi_free_pro.php:320
+msgid "Shipping address"
+msgstr "收货地址"
+
+#: admin/views/wt_pi_free_pro.php:324
+msgid "Billing address"
+msgstr "账单地址"
+
+#: admin/views/wt_pi_free_pro.php:328
+msgid "From address"
+msgstr "发件地址"
+
+#: admin/views/wt_pi_free_pro.php:332
+msgid "Return address"
+msgstr "退货地址"
+
+#: admin/views/wt_pi_free_pro.php:338
+msgid "Multiple address label layouts"
+msgstr "多种地址标签布局"
+
+#: admin/views/wt_pi_free_pro.php:352
+msgid "Customize layout properties"
+msgstr "自定义布局属性"
+
+#: admin/views/wt_pi_free_pro.php:366
+msgid "WPML compatibilityCustomize label sizes"
+msgstr "WPML 兼容性自定义标签尺寸"
+
+#: admin/views/wt_pi_free_pro.php:380
+msgid "Bulk print shipping labels"
+msgstr "批量打印运输标签"
+
+#: admin/views/wt_pl_free_pro.php:7
+msgid "WooCommerce Pick lists plugin"
+msgstr "WooCommerce Pick lists 插件"
+
+#: admin/views/wt_pl_free_pro.php:11
+msgid "Generate picklists"
+msgstr "生成拣货单"
+
+#: admin/views/wt_pl_free_pro.php:53
+msgid "Group products by ‘Order’"
+msgstr "按‘订单’对商品分组"
+
+#: admin/views/wt_pl_free_pro.php:81
+msgid "Exclude virtual items from picklists"
+msgstr "从拣货单中排除虚拟项目"
+
+#: admin/views/wt_pl_free_pro.php:109
+msgid "Product meta fields"
+msgstr "商品元字段"
+
+#: admin/views/wt_pl_free_pro.php:123
+msgid "Product attributes"
+msgstr "商品属性"
+
+#: admin/views/wt_pl_free_pro.php:137
+msgid "Pre-built layouts"
+msgstr "预建布局"
+
+#: admin/views/wt_pro_addons_list.php:95
+msgid "Generate Shipping Address labels"
+msgstr "生成收货地址标签"
+
+#: admin/views/wt_pro_addons_list.php:96
+msgid "Generate Billing Address labels"
+msgstr "生成账单地址标签"
+
+#: admin/views/wt_pro_addons_list.php:97
+msgid "Generate From Address labels"
+msgstr "生成发件地址标签"
+
+#: admin/views/wt_pro_addons_list.php:98
+msgid "Generate Return Address labels"
+msgstr "生成退货地址标签"
+
+#: admin/views/wt_pro_addons_list.php:101
+msgid "Built-in label templates"
+msgstr "内置标签模板"
+
+#: admin/views/wt_pro_addons_list.php:103
+msgid "Customize layout elements & properties"
+msgstr "自定义布局元素和属性"
+
+#: admin/views/wt_pro_addons_list.php:118
+msgid ""
+"Compatible with WooCommerce PDF Invoice, Packing Slip & Credit Note (Pro)"
+msgstr "兼容 WooCommerce PDF Invoice, Packing Slip & Credit Note（Pro 版）"
+
+#: admin/views/wt_sdd_free_pro.php:43
+#: public/modules/shippinglabel/views/general.php:27
+msgid "Shipping label size"
+msgstr "运输标签尺寸"
+
+#: admin/views/wt_sdd_free_pro.php:47 admin/views/wt_sdd_free_pro.php:57
+msgid "Full page"
+msgstr "整页"
+
+#: admin/views/wt_sdd_free_pro.php:51 admin/views/wt_sdd_free_pro.php:61
+msgid "Custom"
+msgstr "自定义"
+
+#: admin/views/wt_sdd_free_pro.php:67
+msgid "Add multiple shipping labels in one page"
+msgstr "在一页中添加多个运输标签"
+
+#: admin/views/wt_sdd_free_pro.php:225
+msgid "Add print document button to selected order emails"
+msgstr "向选定订单邮件添加打印文档按钮"
+
+#: admin/views/wt_sdd_free_pro.php:257
+msgid "Pre-built layout for documents"
+msgstr "文档的预建布局"
+
+#: admin/views/wt_sdd_free_pro.php:321
+msgid "Add custom fields to shipping label layout"
+msgstr "向运输标签布局添加自定义字段"
+
+#: admin/views/wt_sdd_free_pro.php:325 admin/views/wt_sdd_free_pro.php:335
+msgid "Company logo"
+msgstr "公司徽标"
+
+#: admin/views/wt_sdd_free_pro.php:329 admin/views/wt_sdd_free_pro.php:339
+#: public/modules/deliverynote/deliverynote.php:188
+#: public/modules/dispatchlabel/dispatchlabel.php:166
+msgid "Return policy"
+msgstr "退货政策"
+
+#: admin/views/wt_sdd_free_pro.php:345
+msgid "Include product image in delivery note"
+msgstr "在送货单中包含商品图片"
+
+#: admin/views/wt_sdd_free_pro.php:359
+#: public/modules/deliverynote/views/general.php:40
+#: public/modules/dispatchlabel/views/general.php:26
+#: public/modules/packinglist/views/general.php:56
+msgid "Add customer note"
+msgstr "添加客户备注"
+
+#: admin/views/wt_sdd_free_pro.php:383
+#: public/modules/deliverynote/views/general.php:55
+#: public/modules/dispatchlabel/views/general.php:41
+#: public/modules/packinglist/views/general.php:71
+msgid "Add footer"
+msgstr "添加页脚"
+
+#: admin/views/wt_sdd_free_pro.php:415
+msgid ""
+"Separate tax column in product table for multiple tax options in dispatch "
+"labels"
+msgstr "在商品表格中为发货标签的多种税费选项设置单独的税费列"
+
+#: common/class-wt-pklist-common.php:661
+msgid "Admin email"
+msgstr "管理员邮件"
+
+#: common/class-wt-pklist-common.php:664
+msgid "Manual email"
+msgstr "手动邮件"
+
+#: common/class-wt-pklist-common.php:676
+msgid "Admin email (Renewal order)"
+msgstr "管理员邮件（续订订单）"
+
+#: common/class-wt-pklist-common.php:677
+msgid "Manual email (Renewal order)"
+msgstr "手动邮件（续订订单）"
+
+#: common/class-wt-pklist-common.php:678
+msgid "Order on-hold (Renewal order)"
+msgstr "订单暂挂（续订订单）"
+
+#: common/class-wt-pklist-common.php:679
+msgid "Order processing (Renewal order)"
+msgstr "订单处理中（续订订单）"
+
+#: common/class-wt-pklist-common.php:680
+msgid "Order completed (Renewal order)"
+msgstr "订单已完成（续订订单）"
+
+#: includes/admin/class-wf-woocommerce-packing-list-admin_notices.php:29
+msgid "Invoice Generation In Progress"
+msgstr "发票生成中"
+
+#: includes/admin/class-wf-woocommerce-packing-list-admin_notices.php:30
+msgid ""
+"Invoice numbers are getting generated in the background. This process may "
+"take a little while, so please be patient."
+msgstr "发票编号正在后台生成。此过程可能需要一些时间，请耐心等待。"
+
+#: includes/admin/class-wf-woocommerce-packing-list-admin_notices.php:31
+msgid "View progress"
+msgstr "查看进度"
+
+#. translators: 1$s: HTML bold opening tag, 2$s: HTML bold closing tag, 3$s: HTML bold opening tag, 4$s: Plugin title, 5$s: HTML bold closing tag, 6$s: HTML line break
+#: includes/class-wf-woocommerce-packing-list-review_request.php:62
+#, php-format
+msgid ""
+"Hey, we at %1$s WebToffee %2$s would like to thank you for using %3$s %4$s "
+"%5$s. %6$s Less than a minute of your time will motivate us to keep doing "
+"what we do. We would really appreciate if you could take a moment to drop a "
+"quick review that motivate us to keep going."
+msgstr ""
+"您好，我们 %1$s WebToffee %2$s 团队想感谢您使用 %3$s %4$s %5$s。%6$s 只需不到"
+"一分钟的时间，就能激励我们继续做好我们的工作。如果您能抽空留下一条快速评价，"
+"我们将不胜感激，这将激励我们继续前行。"
+
+#. translators: 1$s: Star emoji, 2$s: HTML span opening tag, 3$s: HTML span closing tag, 4$s: HTML span opening tag, 5$s: HTML span closing tag
+#: includes/class-wf-woocommerce-packing-list-review_request.php:64
+#, php-format
+msgid ""
+"%1$s  %2$s  Loving %3$s  WooCommerce PDF Invoices, Packing Slips, Delivery "
+"Notes and Shipping Labels plugin? %4$s  Share Your Feedback! %5$s"
+msgstr ""
+"%1$s  %2$s  喜欢 %3$s  WooCommerce PDF Invoices, Packing Slips, Delivery "
+"Notes and Shipping Labels 插件吗？%4$s  分享您的反馈！%5$s"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:67
+msgid "Remind me later"
+msgstr "稍后提醒我"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:68
+msgid "Not interested"
+msgstr "不感兴趣"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:69
+msgid "Review now"
+msgstr "立即评价"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:70
+msgid "You deserve it"
+msgstr "这是您应得的"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:71
+msgid "Nope, maybe later"
+msgstr "不了，也许以后吧"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:72
+msgid "I already did"
+msgstr "我已经评价过了"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:80
+msgid "Knock, Knock!"
+msgstr "咚咚咚！"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:81
+msgid "You`ve just created"
+msgstr "您刚刚创建了"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:83
+msgid "commercial documents using"
+msgstr "份商业文档，使用的是"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:84
+msgid ""
+"Woocommerce PDF invoices, packing slips, delivery notes, and shipping labels"
+msgstr ""
+"Woocommerce PDF invoices, packing slips, delivery notes, and shipping labels"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:85
+msgid ""
+"That's awesome! We'd love it if you take a moment to share what you think "
+"and help spread the word."
+msgstr "太棒了！如果您能抽空分享您的想法并帮助宣传，我们将非常感激。"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:87
+msgid "Rate us now"
+msgstr "立即为我们评分"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:190
+msgid "there"
+msgstr "朋友"
+
+#. translators: 1$s: User name in bold HTML, 2$s: HTML line break, 3$s: HTML bold opening tag, 4$s: HTML bold closing tag, 5$s: HTML bold opening tag, 6$s: HTML bold closing tag, 7$s: Double HTML line break, 8$s: HTML bold opening tag, 9$s: HTML bold closing tag, 10$s: Double HTML line break, 11$s: HTML line break with bold opening tag, 12$s: HTML bold closing tag
+#: includes/class-wf-woocommerce-packing-list-review_request.php:192
+#, php-format
+msgid ""
+"Hi  %1$s, %2$s We're thrilled to see you making great use of our WooCommerce "
+"PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels plugin! It's "
+"our mission to make %3$s invoicing as seamless %4$s and %5$s efficient %6$s "
+"as possible for you. %7$s If you found the plugin helpful, please leave us a "
+"quick %8$s 5-star review. %9$s It would mean the world to us. %10$s Warm "
+"regards, %11$s Team WebToffee %12$s"
+msgstr ""
+"您好 %1$s，%2$s 我们很高兴看到您充分利用我们的 WooCommerce PDF Invoices, "
+"Packing Slips, Delivery Notes and Shipping Labels 插件！我们的使命是让 %3$s "
+"开票尽可能顺畅 %4$s 且 %5$s 高效 %6$s。%7$s 如果您觉得这款插件有帮助，请给我"
+"们留下一个快速的 %8$s 五星好评。%9$s 这对我们意义重大。%10$s 诚挚问候，%11$s "
+"WebToffee 团队 %12$s"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:428
+msgid "Did you know?"
+msgstr "您知道吗？"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:429
+msgid ""
+"You can now bulk export PDF invoices, packing slips, and credit notes of "
+"WooCommerce orders with custom filters."
+msgstr ""
+"现在，您可以使用自定义筛选器批量导出 WooCommerce 订单的 PDF 发票、装箱单和贷"
+"记单。"
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:433
+msgid "Checkout"
+msgstr "结账"
+
+#. translators: 1: plugin title, 2: uploads folder path
+#: includes/class-wt-pklist-non-apache-info.php:62
+#, php-format
+msgid ""
+"The <b>%1$s</b> plugin stores generated PDF files inside the <b>%2$s</b> "
+"folder. Please ensure that public access restrictions are set in your server "
+"for this folder."
+msgstr ""
+"<b>%1$s</b>插件会将生成的 PDF 文件存储在<b>%2$s</b>文件夹中。请确保您的服务器"
+"已为此文件夹设置公开访问限制。"
+
+#: includes/class-wt-pklist-non-apache-info.php:81
+msgid ""
+"In case of an Nginx server, copy the below snippet into your server config "
+"to restrict public access to the plugin uploads folder, or contact your "
+"server team to assist accordingly."
+msgstr ""
+"如果是 Nginx 服务器，请将以下代码片段复制到服务器配置中，以限制对插件上传文件"
+"夹的公共访问，或联系您的服务器团队寻求帮助。"
+
+#: includes/class-wt-pklist-promo-banners.php:105
+msgid "🚀 Your Store Is Growing! Power It With PRO"
+msgstr "🚀 您的店铺正在发展壮大！使用 PRO 助力增长"
+
+#: includes/class-wt-pklist-promo-banners.php:106
+msgid ""
+"Processing 50 or more orders daily? Upgrade to Pro for advanced invoice "
+"customization, automated credit notes and flexible invoice numbering formats "
+"with auto-reset option."
+msgstr ""
+"每天处理 50 个或更多订单？升级到专业版，即可享受高级发票自定义、自动贷项通知"
+"单和灵活的发票编号格式（带自动重置选项）。"
+
+#. translators: %s: coupon code
+#: includes/class-wt-pklist-promo-banners.php:119
+#, php-format
+msgid "Use coupon code %s at checkout."
+msgstr "结账时使用优惠码%s。"
+
+#: includes/class-wt-pklist-promo-banners.php:125
+msgid ""
+"🎉 Congratulations! You've been using the free WebToffee PDF Invoices plugin "
+"for a while, and we'd love to reward you."
+msgstr ""
+"🎉 恭喜！您已经使用免费的 WebToffee PDF 发票插件一段时间了，我们想奖励您。"
+
+#: includes/class-wt-pklist-promo-banners.php:127
+msgid ""
+"Enjoy an exclusive 15% discount on the PRO plugin and unlock premium "
+"templates, advanced customization, bulk export tools, priority support, and "
+"a complete order document workflow."
+msgstr ""
+"享受 PRO 插件 15% 的专属折扣，解锁高级模板、高级自定义、批量导出工具、优先支"
+"持和完整的订单文档工作流程。"
+
+#: includes/class-wt-pklist-promo-banners.php:156
+msgid "Your Shipping Labels Are Basic. The Pro Add-on Makes Them Powerful."
+msgstr "您的货运标签功能较为基础。专业版插件可使其功能更加强大。"
+
+#: includes/class-wt-pklist-promo-banners.php:157
+msgid ""
+"The Shipping Pro add-on slots right in and unlocks everything your free "
+"shipping labels can't do - custom sizes, dispatch docs, multiple templates, "
+"and more."
+msgstr ""
+"Shipping Pro 插件可直接插入并解锁免费运输标签无法实现的所有功能——自定义尺寸、"
+"发货单据、多个模板等等。"
+
+#: includes/class-wt-pklist-promo-banners.php:158
+msgid "Checkout plugin"
+msgstr "结账插件"
+
+#. translators: 1$s: Active plugin name, 2$s: Current plugin name
+#: print-invoices-packing-slip-labels-for-woocommerce.php:52
+#, php-format
+msgid ""
+"The plugins %1$s and %2$s cannot be active in your store at the same time. "
+"Kindly deactivate one of these prior to activating the other."
+msgstr ""
+"插件 %1$s 和 %2$s 不能同时在您的商店中启用。请先停用其中一个插件，然后再启用"
+"另一个。"
+
+#: print-invoices-packing-slip-labels-for-woocommerce.php:52
+msgid "Go to plugins page"
+msgstr "前往插件页面"
+
+#. translators: 1$s: Plugin name, 2$s: Plugin name, 3$s: WooCommerce link opening tag, 4$s: WooCommerce link closing tag
+#: print-invoices-packing-slip-labels-for-woocommerce.php:220
+#, php-format
+msgid ""
+"%1$s %2$s is enabled but not effective. It requires %3$s WooCommerce %4$s in "
+"order to work."
+msgstr "%1$s %2$s 已启用但未生效。它需要 %3$s WooCommerce %4$s 才能正常工作。"
+
+#: public/modules/deliverynote/data/data.templates.php:8
+msgid "Classic"
+msgstr "经典"
+
+#: public/modules/deliverynote/data/data.tooltip.php:7
+#: public/modules/packinglist/data/data.tooltip.php:7
+msgid "Adds product image to the line items in the product table"
+msgstr "将商品图片添加到商品表格的行项目中"
+
+#: public/modules/deliverynote/data/data.tooltip.php:8
+msgid "Adds customer note to the delivery note"
+msgstr "将客户备注添加到送货单"
+
+#: public/modules/deliverynote/data/data.tooltip.php:9
+msgid "Adds Footer to the delivery note"
+msgstr "将页脚添加到送货单"
+
+#: public/modules/deliverynote/deliverynote.php:181
+#: public/modules/dispatchlabel/dispatchlabel.php:163
+#: public/modules/invoice/invoice.php:1315
+#: public/modules/packinglist/packinglist.php:206
+msgid "Shipping Address"
+msgstr "收货地址"
+
+#: public/modules/deliverynote/deliverynote.php:184
+#: public/modules/dispatchlabel/dispatchlabel.php:167
+#: public/modules/invoice/invoice.php:1319
+#: public/modules/packinglist/packinglist.php:210
+#: public/modules/shippinglabel/shippinglabel.php:165
+msgid "SSN number"
+msgstr "SSN 编号"
+
+#: public/modules/deliverynote/deliverynote.php:185
+#: public/modules/dispatchlabel/dispatchlabel.php:168
+#: public/modules/invoice/invoice.php:1320
+#: public/modules/packinglist/packinglist.php:211
+#: public/modules/shippinglabel/shippinglabel.php:164
+msgid "VAT number"
+msgstr "VAT 编号"
+
+#: public/modules/deliverynote/deliverynote.php:187
+msgid "Signature"
+msgstr "签名"
+
+#: public/modules/deliverynote/deliverynote.php:189
+msgid "Bar code"
+msgstr "条形码"
+
+#: public/modules/deliverynote/deliverynote.php:275
+#: public/modules/deliverynote/deliverynote.php:293
+#: public/modules/deliverynote/deliverynote.php:303
+#: public/modules/deliverynote/deliverynote.php:304
+msgid "Print Delivery note"
+msgstr "打印送货单"
+
+#: public/modules/deliverynote/deliverynote.php:287
+msgid "Print/Download Delivery note"
+msgstr "打印/下载送货单"
+
+#: public/modules/deliverynote/deliverynote.php:292
+#: public/modules/deliverynote/deliverynote.php:442
+#: public/modules/dispatchlabel/dispatchlabel.php:283
+#: public/modules/dispatchlabel/dispatchlabel.php:423
+#: public/modules/invoice/invoice.php:1541
+#: public/modules/invoice/invoice.php:2186
+#: public/modules/packinglist/packinglist.php:316
+#: public/modules/packinglist/packinglist.php:485
+#: public/modules/shippinglabel/shippinglabel.php:348
+#: public/modules/shippinglabel/shippinglabel.php:553
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:344
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:418
+msgid "Print"
+msgstr "打印"
+
+#: public/modules/deliverynote/deliverynote.php:374
+msgid "Unable to print Delivery note. Please check the items in the order."
+msgstr "无法打印送货单。请检查订单中的商品。"
+
+#: public/modules/deliverynote/views/general.php:13
+msgid "Configure the general settings required for the delivery note."
+msgstr "配置送货单所需的常规设置。"
+
+#: public/modules/deliverynote/views/general.php:25
+#: public/modules/packinglist/views/general.php:26
+msgid "Include product image"
+msgstr "包含商品图片"
+
+#: public/modules/deliverynote/views/general.php:108
+msgid "Multiple templates to personalize the document"
+msgstr "多个模板用于个性化文档"
+
+#: public/modules/deliverynote/views/general.php:109
+msgid "Add a print delivery note button to the order email"
+msgstr "向订单邮件添加打印送货单按钮"
+
+#: public/modules/deliverynote/views/general.php:110
+#: public/modules/dispatchlabel/views/general.php:100
+#: public/modules/packinglist/views/general.php:128
+msgid "Sort order items in the product table"
+msgstr "在商品表格中对订单项目排序"
+
+#: public/modules/deliverynote/views/general.php:111
+#: public/modules/invoice/views/invoice-admin-settings.php:25
+#: public/modules/packinglist/views/general.php:127
+msgid "Group products by category"
+msgstr "按分类对商品分组"
+
+#: public/modules/deliverynote/views/general.php:112
+#: public/modules/dispatchlabel/views/general.php:99
+#: public/modules/invoice/views/invoice-admin-settings.php:27
+#: public/modules/packinglist/views/general.php:129
+msgid "Show variation data for variable products"
+msgstr "显示可变商品的变体数据"
+
+#: public/modules/deliverynote/views/general.php:113
+msgid "Add product & order meta fields"
+msgstr "添加商品和订单元字段"
+
+#: public/modules/deliverynote/views/general.php:115
+msgid "Generate shipping labels and dispatch labels"
+msgstr "生成运输标签和发货标签"
+
+#: public/modules/deliverynote/views/general.php:135
+#: public/modules/dispatchlabel/views/general.php:120
+#: public/modules/invoice/views/invoice-admin-settings.php:72
+#: public/modules/packinglist/views/general.php:153
+#: public/modules/shippinglabel/views/admin-settings.php:89
+msgid "Get advanced features for your"
+msgstr "获取高级功能，适用于您的"
+
+#: public/modules/deliverynote/views/general.php:141
+#: public/modules/dispatchlabel/views/general.php:126
+#: public/modules/shippinglabel/views/admin-settings.php:95
+msgid "Shipping labels, Dispatch labels and Delivery notes"
+msgstr "运输标签、发货标签和送货单"
+
+#: public/modules/deliverynote/views/general.php:161
+#: public/modules/dispatchlabel/views/general.php:146
+#: public/modules/invoice/views/invoice-admin-settings.php:98
+#: public/modules/packinglist/views/general.php:179
+#: public/modules/shippinglabel/views/admin-settings.php:115
+msgid "View add-on"
+msgstr "查看插件"
+
+#: public/modules/dispatchlabel/data/data.templates.php:8
+msgid "Dispatch Label 1"
+msgstr "发货标签 1"
+
+#: public/modules/dispatchlabel/data/data.tooltip.php:7
+msgid "Adds customer note in the dispatch label"
+msgstr "在发货标签中添加客户备注"
+
+#: public/modules/dispatchlabel/data/data.tooltip.php:8
+msgid "Adds footer in dispatch label"
+msgstr "在发货标签中添加页脚"
+
+#: public/modules/dispatchlabel/dispatchlabel.php:255
+#: public/modules/dispatchlabel/dispatchlabel.php:284
+#: public/modules/dispatchlabel/dispatchlabel.php:294
+#: public/modules/dispatchlabel/dispatchlabel.php:295
+msgid "Print Dispatch Label"
+msgstr "打印发货标签"
+
+#: public/modules/dispatchlabel/dispatchlabel.php:277
+msgid "Dispatch Label"
+msgstr "发货标签"
+
+#: public/modules/dispatchlabel/dispatchlabel.php:278
+msgid "Print/Download Dispatch Label"
+msgstr "打印/下载发货标签"
+
+#: public/modules/dispatchlabel/views/general.php:14
+msgid "Configure the general settings required for the dispatch label."
+msgstr "配置发货标签所需的常规设置。"
+
+#: public/modules/dispatchlabel/views/general.php:94
+#: public/modules/shippinglabel/views/admin-settings.php:61
+msgid "Multiple templates to personalize the label"
+msgstr "多个模板用于个性化标签"
+
+#: public/modules/dispatchlabel/views/general.php:95
+#: public/modules/shippinglabel/views/admin-settings.php:62
+msgid "Add a print label button to the order email"
+msgstr "向订单邮件添加打印标签按钮"
+
+#: public/modules/dispatchlabel/views/general.php:96
+#: public/modules/invoice/views/invoice-admin-settings.php:24
+msgid "Show different taxes in separate columns"
+msgstr "在单独的列中显示不同的税费"
+
+#: public/modules/dispatchlabel/views/general.php:97
+msgid "Add order & product meta fields"
+msgstr "添加订单和商品元字段"
+
+#: public/modules/dispatchlabel/views/general.php:101
+msgid "Generate shipping labels and delivery notes"
+msgstr "生成运输标签和送货单"
+
+#: public/modules/invoice/data/data.templates-prev-version.php:8
+#: public/modules/packinglist/data/data.templates.php:8
+msgid "Basic - 1"
+msgstr "基础 - 1"
+
+#: public/modules/invoice/data/data.templates.php:8
+msgid "Basic - 0"
+msgstr "基础 - 0"
+
+#: public/modules/invoice/data/data.tooltip.php:7
+msgid ""
+"Admins and customers both can leverage this feature wherever applicable. "
+"Disabling will remove all the provisions. Yet, the invoices are customizable."
+msgstr ""
+"管理员和客户均可在适用的情况下使用此功能。禁用将移除所有相关选项。但发票仍可"
+"自定义。"
+
+#: public/modules/invoice/data/data.tooltip.php:8
+msgid ""
+"The date is displayed on the invoice. It can be either the order creation "
+"date or the invoiced date."
+msgstr "该日期显示在发票上。它可以是订单创建日期或开票日期。"
+
+#: public/modules/invoice/data/data.tooltip.php:9
+msgid "Allows customers to print the invoice from the specified pages."
+msgstr "允许客户从指定页面打印发票。"
+
+#: public/modules/invoice/invoice.php:151
+msgid "Print invoice"
+msgstr "打印发票"
+
+#: public/modules/invoice/invoice.php:152
+msgid "Download invoice"
+msgstr "下载发票"
+
+#. translators: 1: Opening anchor tag for the documentation link, 2: Closing anchor tag.
+#: public/modules/invoice/invoice.php:340
+#, php-format
+msgid ""
+"You can control the visibility of the seal according to order status via "
+"filters. See filter documentation %1$s here.%2$s"
+msgstr ""
+"您可以通过筛选器根据订单状态控制封条的可见性。请参阅此处的筛选器文档 %1$s。"
+"%2$s"
+
+#: public/modules/invoice/invoice.php:345
+msgid "This feature might not work in mPDF."
+msgstr "此功能在 mPDF 中可能无法正常工作。"
+
+#: public/modules/invoice/invoice.php:363
+msgid "Width"
+msgstr "宽度"
+
+#: public/modules/invoice/invoice.php:371
+msgid "Height"
+msgstr "高度"
+
+#: public/modules/invoice/invoice.php:395
+msgid "Border width"
+msgstr "边框宽度"
+
+#: public/modules/invoice/invoice.php:403
+msgid "Line height"
+msgstr "行高"
+
+#: public/modules/invoice/invoice.php:411
+msgid "Opacity"
+msgstr "不透明度"
+
+#: public/modules/invoice/invoice.php:432
+msgid "Border radius"
+msgstr "边框圆角"
+
+#: public/modules/invoice/invoice.php:440
+msgid "From left"
+msgstr "距左侧"
+
+#: public/modules/invoice/invoice.php:448
+msgid "From top"
+msgstr "距顶部"
+
+#: public/modules/invoice/invoice.php:456
+msgid "Angle"
+msgstr "角度"
+
+#: public/modules/invoice/invoice.php:463
+msgid "Color"
+msgstr "颜色"
+
+#: public/modules/invoice/invoice.php:1302
+msgid "Pro Add-on"
+msgstr "Pro 插件"
+
+#: public/modules/invoice/invoice.php:1306
+msgid "Document title"
+msgstr "文档标题"
+
+#: public/modules/invoice/invoice.php:1307
+msgid "Company Logo / Name"
+msgstr "公司徽标 / 名称"
+
+#: public/modules/invoice/invoice.php:1310
+msgid "Invoice Date"
+msgstr "发票日期"
+
+#: public/modules/invoice/invoice.php:1311
+#: public/modules/shippinglabel/shippinglabel.php:159
+msgid "Order Date"
+msgstr "订单日期"
+
+#: public/modules/invoice/invoice.php:1313
+#: public/modules/shippinglabel/shippinglabel.php:156
+msgid "From Address"
+msgstr "发件地址"
+
+#: public/modules/invoice/invoice.php:1314
+msgid "Billing Address"
+msgstr "账单地址"
+
+#: public/modules/invoice/invoice.php:1316
+#: public/modules/shippinglabel/shippinglabel.php:162
+msgid "Email Field"
+msgstr "电子邮箱字段"
+
+#: public/modules/invoice/invoice.php:1317
+#: public/modules/shippinglabel/shippinglabel.php:163
+msgid "Tel Field"
+msgstr "电话字段"
+
+#: public/modules/invoice/invoice.php:1322
+msgid "Payment received stamp"
+msgstr "已收款印章"
+
+#: public/modules/invoice/invoice.php:1330
+msgid "QR code"
+msgstr "QR 码"
+
+#: public/modules/invoice/invoice.php:1332
+msgid "QR Code"
+msgstr "QR 码"
+
+#: public/modules/invoice/invoice.php:1487
+msgid "Print Invoices"
+msgstr "打印发票"
+
+#: public/modules/invoice/invoice.php:1488
+msgid "Download Invoices"
+msgstr "下载发票"
+
+#: public/modules/invoice/invoice.php:1527
+#: public/modules/invoice/invoice.php:1564
+msgid "Print Invoice"
+msgstr "打印发票"
+
+#: public/modules/invoice/invoice.php:1535
+#: public/modules/invoice/invoice.php:1565
+msgid "Download Invoice"
+msgstr "下载发票"
+
+#: public/modules/invoice/invoice.php:1542
+#: public/modules/packinglist/packinglist.php:323
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:352
+msgid "Download"
+msgstr "下载"
+
+#: public/modules/invoice/invoice.php:1555
+msgid "Print/Download Invoice"
+msgstr "打印/下载发票"
+
+#: public/modules/invoice/invoice.php:1869
+msgid "Customizer module is not active."
+msgstr "自定义工具模块未启用。"
+
+#: public/modules/invoice/views/general.php:42
+msgid "Subscribe to our newsletter for exclusive offers & updates"
+msgstr "订阅我们的电子简报，获取独家优惠和最新动态"
+
+#: public/modules/invoice/views/general.php:49
+#: public/modules/invoice/views/general.php:72
+msgid "Subscribe"
+msgstr "订阅"
+
+#: public/modules/invoice/views/general.php:50
+msgid "indicates required"
+msgstr "表示必填项"
+
+#: public/modules/invoice/views/general.php:51
+msgid "Enter your email address"
+msgstr "输入您的电子邮箱地址"
+
+#: public/modules/invoice/views/general.php:58
+#, php-format
+msgid ""
+"I consent to receive newsletters and exclusive offers from WebToffee and "
+"agree to the %1$sPrivacy Policy%2$s."
+msgstr ""
+"我同意接收来自 WebToffee 的电子简报和独家优惠，并同意 %1$s隐私政策%2$s。"
+
+#: public/modules/invoice/views/general.php:90
+msgid "Configure the general settings required for the invoice."
+msgstr "配置发票所需的常规设置。"
+
+#: public/modules/invoice/views/general.php:111
+msgid "Enable to print, download, and mail invoices."
+msgstr "启用后可打印、下载和邮寄发票。"
+
+#: public/modules/invoice/views/general.php:113
+msgid "Enable Invoice"
+msgstr "启用发票"
+
+#: public/modules/invoice/views/general.php:136
+#: public/modules/invoice/views/qrcode_promote.php:39
+msgid "Invoice date"
+msgstr "发票日期"
+
+#: public/modules/invoice/views/general.php:142
+#: public/modules/invoice/views/qrcode_promote.php:40
+msgid "Order date"
+msgstr "订单日期"
+
+#: public/modules/invoice/views/general.php:143
+msgid "Invoiced date"
+msgstr "开票日期"
+
+#: public/modules/invoice/views/general.php:153
+msgid "Automate invoice creation"
+msgstr "自动创建发票"
+
+#: public/modules/invoice/views/general.php:160
+#: public/modules/ubl/invoice/views/settings.php:99
+msgid "Choose order status"
+msgstr "选择订单状态"
+
+#: public/modules/invoice/views/general.php:161
+msgid "Automatically creates invoices for selected order statuses."
+msgstr "为选定的订单状态自动创建发票。"
+
+#: public/modules/invoice/views/general.php:168
+msgid "Attach invoice PDF to selected WooCommerce emails."
+msgstr "将发票 PDF 附加到选定的 WooCommerce 邮件。"
+
+#: public/modules/invoice/views/general.php:175
+msgid "Choose email classes"
+msgstr "选择邮件类型"
+
+#: public/modules/invoice/views/general.php:176
+msgid ""
+"Select email types corresponding to the order statuses under Automate "
+"invoice creation option. If none are selected, invoices must be generated "
+"manually to be attached to emails."
+msgstr ""
+"选择与‘自动创建发票’选项下的订单状态相对应的邮件类型。如果未选择任何类型，则"
+"必须手动生成发票才能附加到邮件中。"
+
+#: public/modules/invoice/views/general.php:183
+msgid "Disable invoice attachment for"
+msgstr "禁用发票附件"
+
+#: public/modules/invoice/views/general.php:190
+msgid "Choose payment methods"
+msgstr "选择付款方式"
+
+#: public/modules/invoice/views/general.php:191
+msgid ""
+"Select payment methods corresponding to the order statuses under the "
+"Automate invoice creation option for which the invoice attachment should be "
+"restricted. If none are selected, the invoice will be attached for all "
+"payment methods."
+msgstr ""
+"在“自动创建发票”选项下，选择与订单状态对应的付款方式，以限制发票附件的使用。"
+"如果未选择任何付款方式，则发票将附加到所有付款方式。"
+
+#: public/modules/invoice/views/general.php:223
+#: public/modules/invoice/views/qrcode_promote.php:33
+#: public/modules/invoice/views/qrcode_promote.php:37
+msgid "Invoice number"
+msgstr "发票编号"
+
+#: public/modules/invoice/views/general.php:242
+msgid "Invoice details"
+msgstr "发票详情"
+
+#: public/modules/invoice/views/general.php:249
+msgid "Order meta fields"
+msgstr "订单元字段"
+
+#: public/modules/invoice/views/general.php:253
+msgid ""
+"Select/add order meta to display additional information related to the order "
+"on the invoice."
+msgstr "选择/添加订单元数据，以在发票上显示与订单相关的其他信息。"
+
+#: public/modules/invoice/views/general.php:258
+msgid "Product metadata"
+msgstr "商品元数据"
+
+#: public/modules/invoice/views/general.php:262
+msgid ""
+"Select/add product meta to display additional information related to the "
+"product on the invoice."
+msgstr "选择/添加商品元数据，以在发票上显示与商品相关的其他信息。"
+
+#: public/modules/invoice/views/general.php:270
+msgid ""
+"If left blank, default to the logo from General settings. Ensure to select "
+"company logo from ‘Invoice > Customize > Company Logo’ to reflect on the "
+"invoice. Recommended size is 150×50px."
+msgstr ""
+"如果留空，将默认使用常规设置中的徽标。请确保从‘发票 > 自定义 > 公司徽标’中选"
+"择公司徽标以显示在发票上。推荐尺寸为 150×50px。"
+
+#: public/modules/invoice/views/general.php:291
+msgid "Generate invoices for existing orders"
+msgstr "为现有订单生成发票"
+
+#: public/modules/invoice/views/general.php:295
+msgid ""
+"Enable to create invoice for orders generated before plugin installation"
+msgstr "启用后为插件安装前生成的订单创建发票"
+
+#: public/modules/invoice/views/general.php:306
+msgid "Enable to create invoices for free orders"
+msgstr "启用后为免费订单创建发票"
+
+#: public/modules/invoice/views/general.php:313
+msgid "Display free line items in the invoice"
+msgstr "在发票中显示免费行项目"
+
+#: public/modules/invoice/views/general.php:317
+msgid "Include free(priced as 0) line items in the invoice"
+msgstr "在发票中包含免费（价格为 0）的行项目"
+
+#: public/modules/invoice/views/general.php:320
+msgid "Enable to create invoices for free orders."
+msgstr "启用后为免费订单创建发票。"
+
+#: public/modules/invoice/views/general.php:326
+msgid "PDF name format"
+msgstr "PDF 名称格式"
+
+#: public/modules/invoice/views/general.php:331
+msgid "[prefix][order_no]"
+msgstr "[前缀][订单号]"
+
+#: public/modules/invoice/views/general.php:332
+msgid "[prefix][invoice_no]"
+msgstr "[前缀][发票号]"
+
+#: public/modules/invoice/views/general.php:336
+msgid ""
+"Select a name format for PDF invoice that includes invoice/order number."
+msgstr "为 PDF 发票选择一个包含发票/订单编号的名称格式。"
+
+#: public/modules/invoice/views/general.php:342
+msgid "Custom PDF name prefix"
+msgstr "自定义 PDF 名称前缀"
+
+#: public/modules/invoice/views/general.php:344
+msgid ""
+"Input a custom prefix for ‘PDF name format’ that will appear at the "
+"beginning of the name. Defaulted to ‘Invoice_’."
+msgstr "为‘PDF 名称格式’输入将出现在名称开头的自定义前缀。默认为‘Invoice_’。"
+
+#: public/modules/invoice/views/general.php:350
+msgid "Use latest settings for invoice"
+msgstr "为发票使用最新设置"
+
+#: public/modules/invoice/views/general.php:357
+msgid ""
+"Enable to apply the most recent settings to previous order invoices. This "
+"will match the previous invoices with the upcoming invoices.Changing the "
+"company address, name or any other settings in the future may overwrite "
+"previously created invoices with the most up-to-date information."
+msgstr ""
+"启用后将最新设置应用于以前的订单发票。这将使以前的发票与后续发票保持一致。将"
+"来更改公司地址、名称或任何其他设置可能会用最新信息覆盖以前创建的发票。"
+
+#: public/modules/invoice/views/general.php:385
+msgid "Date formats"
+msgstr "日期格式"
+
+#: public/modules/invoice/views/general.php:392
+msgid "Output"
+msgstr "输出"
+
+#: public/modules/invoice/views/invoice-admin-settings.php:20
+msgid "Multiple premium invoice templates to choose from"
+msgstr "多个高级发票模板可供选择"
+
+#: public/modules/invoice/views/invoice-admin-settings.php:21
+msgid "Add custom data like product meta, order meta, attributes etc"
+msgstr "添加自定义数据，例如商品元数据、订单元数据、属性等"
+
+#: public/modules/invoice/views/invoice-admin-settings.php:22
+msgid "Enable customers to Pay Later at checkout"
+msgstr "允许客户在结账时选择稍后付款"
+
+#: public/modules/invoice/views/invoice-admin-settings.php:23
+msgid "Collect payments with a payment link on the invoice"
+msgstr "通过发票上的付款链接收款"
+
+#: public/modules/invoice/views/invoice-admin-settings.php:26
+msgid "Sort order items in the product table "
+msgstr "在商品表格中对订单项目排序 "
+
+#: public/modules/invoice/views/invoice-admin-settings.php:28
+#: public/modules/packinglist/views/general.php:130
+msgid "Multiple display formats for bundled products"
+msgstr "组合商品的多种显示格式"
+
+#: public/modules/invoice/views/invoice-admin-settings.php:29
+msgid "Generate packing slips and credit notes"
+msgstr "生成装箱单和贷记单"
+
+#: public/modules/invoice/views/invoice-admin-settings.php:78
+#: public/modules/packinglist/views/general.php:159
+msgid "Invoices, Packing slips and Credit notes"
+msgstr "发票、装箱单和贷记单"
+
+#: public/modules/invoice/views/qrcode_promote.php:27
+msgid "To help you comply with invoice mandates that require QR Codes"
+msgstr "帮助您遵守要求使用 QR 码的发票规定"
+
+#: public/modules/invoice/views/qrcode_promote.php:29
+msgid ""
+"Assign QR code to all of invoices generated for the orders in your store"
+msgstr "为您商店中订单生成的所有发票分配 QR 码"
+
+#: public/modules/invoice/views/qrcode_promote.php:30
+msgid "Assign different types of info in your QR code, including:"
+msgstr "在您的 QR 码中分配不同类型的信息，包括："
+
+#: public/modules/invoice/views/qrcode_promote.php:32
+msgid "Order number (default)"
+msgstr "订单编号（默认）"
+
+#: public/modules/invoice/views/qrcode_promote.php:35
+msgid "Custom details, as below:"
+msgstr "自定义详情，如下所示："
+
+#: public/modules/invoice/views/qrcode_promote.php:41
+msgid "Seller tax ID"
+msgstr "卖家税号"
+
+#: public/modules/invoice/views/qrcode_promote.php:42
+msgid "Buyer name"
+msgstr "买家名称"
+
+#: public/modules/invoice/views/qrcode_promote.php:43
+msgid "Seller name"
+msgstr "卖家名称"
+
+#: public/modules/invoice/views/qrcode_promote.php:44
+msgid "Invoice total"
+msgstr "发票总额"
+
+#: public/modules/invoice/views/qrcode_promote.php:45
+msgid "Invoice total tax"
+msgstr "发票税费合计"
+
+#: public/modules/invoice/views/qrcode_promote.php:50
+msgid ""
+"Compatible with WooCommerce PDF Invoice, Packing Slips, Delivery Notes, and "
+"Shipping Label (Free and Pro versions)"
+msgstr "兼容 WooCommerce PDF 发票、装箱单、送货单和运输标签（免费版和专业版）"
+
+#: public/modules/invoice/views/qrcode_promote.php:52
+msgid "Get Plugin"
+msgstr "获取插件"
+
+#: public/modules/packinglist/data/data.tooltip.php:8
+msgid "Adds product SKU to the line items in the product table"
+msgstr "将产品 SKU 添加到产品表中的行项目。"
+
+#: public/modules/packinglist/data/data.tooltip.php:9
+msgid "Adds customer note to the packing slip"
+msgstr "将客户备注添加到装箱单"
+
+#: public/modules/packinglist/data/data.tooltip.php:10
+msgid "Adds Footer to the packing slip"
+msgstr "将页脚添加到装箱单"
+
+#: public/modules/packinglist/packinglist.php:296
+#: public/modules/packinglist/packinglist.php:317
+#: public/modules/packinglist/packinglist.php:334
+#: public/modules/packinglist/packinglist.php:335
+msgid "Print Packing slip"
+msgstr "打印装箱单"
+
+#: public/modules/packinglist/packinglist.php:311
+msgid "Print/Download Packing slip"
+msgstr "打印/下载装箱单"
+
+#: public/modules/packinglist/packinglist.php:324
+#: public/modules/packinglist/packinglist.php:341
+#: public/modules/packinglist/packinglist.php:342
+msgid "Download Packing slip"
+msgstr "下载装箱单"
+
+#: public/modules/packinglist/packinglist.php:417
+msgid "Unable to print packling slip. Please check the items in the order."
+msgstr "无法打印装箱单。请检查订单中的商品。"
+
+#: public/modules/packinglist/views/general.php:13
+msgid "Configure the general settings required for the packing slip."
+msgstr "配置装箱单所需的常规设置。"
+
+#: public/modules/packinglist/views/general.php:41
+msgid "Include product SKU"
+msgstr "请提供产品 SKU"
+
+#: public/modules/packinglist/views/general.php:124
+msgid "Automatically attach packing slip with order email"
+msgstr "自动将装箱单附加到订单邮件"
+
+#: public/modules/packinglist/views/general.php:125
+msgid "Built-in templates to personalize packing slip"
+msgstr "内置模板用于个性化装箱单"
+
+#: public/modules/packinglist/views/general.php:126
+msgid "Add a print packing slip button to My account page"
+msgstr "向‘我的账户’页面添加打印装箱单按钮"
+
+#: public/modules/packinglist/views/general.php:131
+msgid "Add custom footers to packing slips"
+msgstr "向装箱单添加自定义页脚"
+
+#: public/modules/packinglist/views/general.php:132
+msgid "Add additional order & product meta fields"
+msgstr "添加额外的订单和商品元字段"
+
+#: public/modules/packinglist/views/general.php:133
+msgid "Add additional product attributes"
+msgstr "添加额外的商品属性"
+
+#: public/modules/packinglist/views/general.php:134
+msgid "Generate invoices and credits notes"
+msgstr "生成发票和贷记单"
+
+#: public/modules/shippinglabel/data/data.templates.php:8
+msgid "Shipping Label 1"
+msgstr "运输标签 1"
+
+#: public/modules/shippinglabel/data/data.tooltip.php:7
+msgid "Adds footer to the  Shipping label"
+msgstr "将页脚添加到运输标签"
+
+#: public/modules/shippinglabel/shippinglabel.php:119
+msgid "Address font size"
+msgstr "地址字号"
+
+#: public/modules/shippinglabel/shippinglabel.php:157
+msgid "To Address"
+msgstr "收件地址"
+
+#: public/modules/shippinglabel/shippinglabel.php:160
+msgid "Weight"
+msgstr "重量"
+
+#: public/modules/shippinglabel/shippinglabel.php:161
+msgid "Shipping Method"
+msgstr "配送方式"
+
+#: public/modules/shippinglabel/shippinglabel.php:172
+msgid "No of Items"
+msgstr "商品数量"
+
+#: public/modules/shippinglabel/shippinglabel.php:326
+#: public/modules/shippinglabel/shippinglabel.php:341
+#: public/modules/shippinglabel/shippinglabel.php:349
+#: public/modules/shippinglabel/shippinglabel.php:358
+#: public/modules/shippinglabel/shippinglabel.php:359
+msgid "Print Shipping Label"
+msgstr "打印运输标签"
+
+#: public/modules/shippinglabel/shippinglabel.php:340
+msgid "Shipping Label"
+msgstr "运输标签"
+
+#: public/modules/shippinglabel/shippinglabel.php:476
+msgid "Unable to print shipping label. Please check the items in the order."
+msgstr "无法打印运输标签。请检查订单中的商品。"
+
+#: public/modules/shippinglabel/views/admin-settings.php:63
+msgid "Generate custom-sized shipping labels"
+msgstr "生成自定义尺寸的运输标签"
+
+#: public/modules/shippinglabel/views/admin-settings.php:64
+msgid "Fit multiple shipping labels on a single page"
+msgstr "在单页上容纳多个运输标签"
+
+#: public/modules/shippinglabel/views/admin-settings.php:65
+msgid "Add company logo & return policy to label"
+msgstr "向标签添加公司徽标和退货政策"
+
+#: public/modules/shippinglabel/views/admin-settings.php:66
+msgid "Add notes like fragile, keep dry, etc."
+msgstr "添加备注，例如易碎品、保持干燥等。"
+
+#: public/modules/shippinglabel/views/admin-settings.php:67
+msgid "Add order meta fields to shipping labels"
+msgstr "向运输标签添加订单元字段"
+
+#: public/modules/shippinglabel/views/admin-settings.php:68
+msgid "Include the package number & box names on the label"
+msgstr "在标签上包含包裹编号和箱名"
+
+#: public/modules/shippinglabel/views/admin-settings.php:69
+msgid "Display the total number of items on label"
+msgstr "在标签上显示商品总数"
+
+#: public/modules/shippinglabel/views/admin-settings.php:70
+msgid "Generate dispatch labels and delivery notes"
+msgstr "生成发货标签和送货单"
+
+#: public/modules/shippinglabel/views/general.php:13
+msgid "Configure the general settings required for the shipping label."
+msgstr "配置运输标签所需的常规设置。"
+
+#: public/modules/shippinglabel/views/general.php:32
+msgid "Full Page"
+msgstr "整页"
+
+#: public/modules/shippinglabel/views/general.php:33
+msgid "Custom (Pro version)"
+msgstr "自定义（Pro 版）"
+
+#: public/modules/shippinglabel/views/general.php:37
+msgid ""
+"Set the  Size of the Shipping label to be either full page or custom size."
+msgstr "将运输标签的尺寸设置为整页或自定义尺寸。"
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:79
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:360
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:382
+msgid "UBL Invoice"
+msgstr "UBL 发票"
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:154
+msgid "UBL (Beta)"
+msgstr "UBL (Beta)"
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:184
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:201
+msgid "Default"
+msgstr "默认"
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:341
+msgid "Print UBL Invoice"
+msgstr "打印 UBL 发票"
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:349
+msgid "Download UBL Invoice"
+msgstr "下载 UBL 发票"
+
+#: public/modules/ubl/invoice/views/settings.php:14
+msgid "Standard"
+msgstr "标准"
+
+#: public/modules/ubl/invoice/views/settings.php:63
+msgid "Enable to print, download and attach UBL (XML) invoices"
+msgstr "启用后可打印、下载和附加 UBL (XML) 发票"
+
+#: public/modules/ubl/invoice/views/settings.php:65
+msgid "Enable UBL Invoice"
+msgstr "启用 UBL 发票"
+
+#: public/modules/ubl/invoice/views/settings.php:73
+msgid "Select UBL format"
+msgstr "选择 UBL 格式"
+
+#: public/modules/ubl/invoice/views/settings.php:78
+msgid "PEPPOL"
+msgstr "PEPPOL"
+
+#: public/modules/ubl/invoice/views/settings.php:79
+msgid "Austrian"
+msgstr "奥地利"
+
+#: public/modules/ubl/invoice/views/settings.php:80
+msgid "Italia"
+msgstr "意大利"
+
+#: public/modules/ubl/invoice/views/settings.php:81
+msgid "Netherlands"
+msgstr "荷兰"
+
+#: public/modules/ubl/invoice/views/settings.php:82
+msgid "Spanish"
+msgstr "西班牙"
+
+#: public/modules/ubl/invoice/views/settings.php:83
+msgid "Romania"
+msgstr "罗马尼亚"
+
+#: public/modules/ubl/invoice/views/settings.php:92
+msgid "Select email(s) to attach UBL invoice"
+msgstr "选择要附加 UBL 发票的邮件"
+
+#: public/modules/ubl/invoice/views/settings.php:100
+msgid ""
+"Select email classes to send UBL invoice as attachment. This option depends "
+"on the order statuses selected under the `Automate invoice creation` "
+"(Invoice/Packing > Invoice >General) setting. Ensure that the selected email "
+"classes match the order statuses for the invoice to be sent correctly."
+msgstr ""
+"选择要将 UBL 发票作为附件发送的邮件类型。此选项取决于在‘自动创建发"
+"票’(Invoice/Packing > Invoice > General) 设置下选择的订单状态。请确保所选的邮"
+"件类型与订单状态匹配，以便正确发送发票。"
+
+#: public/modules/ubl/invoice/views/settings.php:128
+msgid "Tax classification"
+msgstr "税务分类"
+
+#: public/modules/ubl/invoice/views/settings.php:130
+msgid ""
+"Map your WooCommerce tax classes to the appropriate UBL tax categories and "
+"schemes"
+msgstr "将您的 WooCommerce 税级映射到相应的 UBL 税务类别和方案"
+
+#: public/modules/ubl/invoice/views/settings.php:163
+msgid "Country&nbsp;code"
+msgstr "国家&nbsp;代码"
+
+#: public/modules/ubl/invoice/views/settings.php:164
+msgid "State code"
+msgstr "省/州代码"
+
+#: public/modules/ubl/invoice/views/settings.php:165
+msgid "Postcode / ZIP"
+msgstr "邮政编码 / ZIP"
+
+#: public/modules/ubl/invoice/views/settings.php:167
+msgid "Rate&nbsp;%"
+msgstr "税率&nbsp;%"
+
+#: public/modules/ubl/invoice/views/settings.php:170
+msgid "Tax Scheme"
+msgstr "税务方案"
+
+#: public/modules/ubl/invoice/views/settings.php:172
+#: public/modules/ubl/invoice/views/settings.php:180
+msgid "Learn more"
+msgstr "了解更多"
+
+#: public/modules/ubl/invoice/views/settings.php:178
+msgid "Tax Category"
+msgstr "税务类别"
+
+#: public/modules/ubl/invoice/views/settings.php:229
+msgid "No taxes found for this class."
+msgstr "未找到此税级的税费。"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:19
+msgid "Standard rate"
+msgstr "标准税率"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:20
+msgid "Lower rate"
+msgstr "较低税率"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:21
+msgid "Zero rated goods"
+msgstr "零税率商品"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:22
+msgid "Mixed tax rate"
+msgstr "混合税率"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:23
+msgid "Exempt for resale"
+msgstr "转售免税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:24
+msgid "Value Added Tax (VAT) not now due for payment"
+msgstr "增值税 (VAT) 当前无需支付"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:25
+msgid "Value Added Tax (VAT) due from a previous invoice"
+msgstr "上一张发票应付的增值税 (VAT)"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:26
+msgid "Transferred (VAT)"
+msgstr "已转移的增值税 (VAT)"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:27
+msgid "Duty paid by supplier"
+msgstr "由供应商缴纳的关税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:28
+msgid "Exempt from tax"
+msgstr "免税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:29
+msgid "Free export item, tax not charged"
+msgstr "免费出口项目，不收取税费"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:30
+msgid "Higher rate"
+msgstr "较高税率"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:31
+msgid "Services outside scope of tax"
+msgstr "税收范围外的服务"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:19
+msgid "Value added tax (VAT)"
+msgstr "增值税 (VAT)"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:20
+msgid "Goods and services tax (GST)"
+msgstr "商品及服务税 (GST)"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:21
+msgid "Petroleum tax"
+msgstr "石油税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:22
+msgid "Provisional countervailing duty cash"
+msgstr "临时反补贴税（现金）"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:23
+msgid "Provisional countervailing duty bond"
+msgstr "临时反补贴税（保证金）"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:24
+msgid "Tobacco tax"
+msgstr "烟草税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:25
+msgid "Energy fee"
+msgstr "能源费"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:26
+msgid "Coffee tax"
+msgstr "咖啡税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:27
+msgid "Harmonised sales tax, Canadian"
+msgstr "统一销售税（加拿大）"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:28
+msgid "Quebec sales tax"
+msgstr "魁北克销售税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:29
+msgid "Canadian provincial sales tax"
+msgstr "加拿大省级销售税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:30
+msgid "Tax on replacement part"
+msgstr "替换零件税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:31
+msgid "Mineral oil tax"
+msgstr "矿物油税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:32
+msgid "Special tax"
+msgstr "特别税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:33
+msgid "Anti-dumping duty"
+msgstr "反倾销税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:34
+msgid "Stamp duty (Imposta di Bollo)"
+msgstr "印花税 (Imposta di Bollo)"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:35
+msgid "Agricultural levy"
+msgstr "农业税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:36
+msgid "Car tax"
+msgstr "汽车税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:37
+msgid "Paper consortium tax (Italy)"
+msgstr "纸张联盟税（意大利）"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:38
+msgid "Commodity specific tax"
+msgstr "特定商品税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:39
+msgid "Customs duty"
+msgstr "关税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:40
+msgid "Countervailing duty"
+msgstr "反补贴税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:41
+msgid "Environmental tax"
+msgstr "环境税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:42
+msgid "Excise duty"
+msgstr "消费税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:43
+msgid "Agricultural export rebate"
+msgstr "农业出口退税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:44
+msgid "Federal excise tax"
+msgstr "联邦消费税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:46
+msgid "General construction tax"
+msgstr "一般建筑税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:47
+msgid "Illuminants tax"
+msgstr "照明剂税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:48
+msgid "Import tax"
+msgstr "进口税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:49
+msgid "Individual tax"
+msgstr "个人税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:50
+msgid "Business license fee"
+msgstr "营业执照费"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:51
+msgid "Local construction tax"
+msgstr "地方建筑税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:52
+msgid "Light dues payable"
+msgstr "应付灯塔税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:53
+msgid "Local sales tax"
+msgstr "地方销售税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:54
+msgid "Lust tax"
+msgstr "LUST 税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:55
+msgid "Monetary compensatory amount"
+msgstr "货币补偿金额"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:56
+msgid "Miscellaneous cash deposit"
+msgstr "杂项现金保证金"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:57
+msgid "Other taxes"
+msgstr "其他税费"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:58
+msgid "Provisional duty bond"
+msgstr "临时关税保证金"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:59
+msgid "Provisional duty cash"
+msgstr "临时关税现金"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:60
+msgid "Preference duty"
+msgstr "优惠关税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:61
+msgid "Special construction tax"
+msgstr "特别建筑税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:62
+msgid "Shifted social securities"
+msgstr "转移的社会保障金"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:63
+msgid "State/provincial sales tax"
+msgstr "州/省销售税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:64
+msgid "Suspended duty"
+msgstr "暂缓关税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:65
+msgid "Surtax"
+msgstr "附加税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:66
+msgid "Shifted wage tax"
+msgstr "转移的工资税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:67
+msgid "Alcohol mark tax"
+msgstr "酒类标志税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:69
+msgid "Turnover tax"
+msgstr "营业税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:70
+msgid "Tonnage taxes"
+msgstr "吨位税"
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:71
+msgid "Valuation deposit"
+msgstr "估价保证金"
+
+#. Plugin Name of the plugin/theme
+msgid ""
+"WebToffee WooCommerce PDF Invoices, Packing Slips, Delivery Notes and "
+"Shipping Labels"
+msgstr ""
+"WebToffee WooCommerce PDF Invoices, Packing Slips, Delivery Notes and "
+"Shipping Labels"
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://www.webtoffee.com/product/woocommerce-pdf-invoices-packing-slips/"
+msgstr ""
+"https://www.webtoffee.com/product/woocommerce-pdf-invoices-packing-slips/"
+
+#. Description of the plugin/theme
+msgid "Prints Packing List,Invoice,Delivery Note and Shipping Label."
+msgstr "打印装箱单、发票、送货单和运输标签。"
+
+#. Author of the plugin/theme
+msgid "WebToffee"
+msgstr "WebToffee"
+
+#. Author URI of the plugin/theme
+msgid "https://www.webtoffee.com/"
+msgstr "https://www.webtoffee.com/"
+
+#~ msgid "Black Friday Cyber Monday 2025"
+#~ msgstr "2025 黑色星期五 网络星期一"
+
+#~ msgid "Never Miss This Deal"
+#~ msgstr "切勿错过此优惠"
+
+#, php-format
+#~ msgid ""
+#~ "Your Last Chance to Avail %1$s on WebToffee Plugins. Grab the deal before "
+#~ "it`s gone!"
+#~ msgstr "享受 WebToffee 插件 %1$s 优惠的最后机会。趁优惠还在，赶快抢购！"
+
+#~ msgid "OFF"
+#~ msgstr "优惠"
+
+#~ msgid "View plugins"
+#~ msgstr "查看插件"
+
+#~ msgid "invoices, packing slips, and credit notes."
+#~ msgstr "发票、装箱单和贷记单。"
+
+#~ msgid "Crown"
+#~ msgstr "皇冠"
+
+#~ msgid "Your current delivery note."
+#~ msgstr "您当前的送货单。"
+
+#~ msgid "How your delivery note will appear to customers."
+#~ msgstr "送货单在客户端的显示效果。"
+
+#~ msgid "Delivery note Preview"
+#~ msgstr "送货单预览"
+
+#~ msgid "Pre-built templates"
+#~ msgstr "预建模板"
+
+#~ msgid "Sort and group products by category"
+#~ msgstr "按分类对商品排序和分组"
+
+#~ msgid "Show product variations, attributes, SKUs, return policy and footer"
+#~ msgstr "显示商品变体、属性、SKU、退货政策和页脚"
+
+#~ msgid "Add order meta, product meta, and customer notes"
+#~ msgstr "添加订单元数据、商品元数据和客户备注"
+
+#~ msgid "Give your delivery team and customers the right details at a glance."
+#~ msgstr "让您的配送团队和客户一目了然地获得准确的详情。"
+
+#~ msgid "Your current dispatch label."
+#~ msgstr "您当前的发货标签。"
+
+#~ msgid "How your dispatch label will appear to customers."
+#~ msgstr "发货标签在客户端的显示效果。"
+
+#~ msgid "Dispatch Label Preview"
+#~ msgstr "发货标签预览"
+
+#~ msgid "Sort and group items in the product table"
+#~ msgstr "在商品表格中对项目排序和分组"
+
+#~ msgid "Display product variations, SKUs, and meta details"
+#~ msgstr "显示商品变体、SKU 和元数据详情"
+
+#~ msgid ""
+#~ "Add additional product meta, order meta, product attributes & custom notes"
+#~ msgstr "添加额外的商品元数据、订单元数据、商品属性和自定义备注"
+
+#~ msgid "Customize document layout and add footer section"
+#~ msgstr "自定义文档布局并添加页脚部分"
+
+#~ msgid "Add print button to order emails for faster access"
+#~ msgstr "向订单邮件添加打印按钮以便更快访问"
+
+#~ msgid "Handle order fulfillment with more control and precision."
+#~ msgstr "以更强的控制力和精确度处理订单履行。"
+
+#~ msgid "Your current packing slip."
+#~ msgstr "您当前的装箱单。"
+
+#~ msgid "How your packing slip will appear to customers."
+#~ msgstr "装箱单在客户端的显示效果。"
+
+#~ msgid "Packing Slip Preview"
+#~ msgstr "装箱单预览"
+
+#~ msgid "Professional templates for packing slip"
+#~ msgstr "装箱单的专业模板"
+
+#~ msgid ""
+#~ "Show or hide fields like billing address, weight, product image, and more"
+#~ msgstr "显示或隐藏账单地址、重量、商品图片等字段"
+
+#~ msgid ""
+#~ "Add extra details such as product meta, order info, or custom attributes"
+#~ msgstr "添加额外详情，例如商品元数据、订单信息或自定义属性"
+
+#~ msgid "Group and sort products in the table using flexible conditions"
+#~ msgstr "使用灵活的条件对表格中的商品进行分组和排序"
+
+#~ msgid ""
+#~ "Create fully personalized packing slips that fit your brand — with "
+#~ "Premium."
+#~ msgstr "使用高级版创建完全个性化、符合您品牌的装箱单。"
+
+#~ msgid "Plus, many more customization options"
+#~ msgstr "此外，还有更多自定义选项"

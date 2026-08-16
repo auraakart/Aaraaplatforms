@@ -1,0 +1,41 @@
+2026-08-11T06:44:37+00:00 INFO Starting batch import. Cursor: 2026-08-10 18:05:55 (ID: 0), batch size: 100
+2026-08-11T06:44:37+00:00 INFO No orders to process
+2026-08-11T07:03:14+00:00 INFO Starting batch import. Cursor: 2026-08-10 18:58:34 (ID: 76275), batch size: 100
+2026-08-11T07:03:15+00:00 INFO Batch import completed. Processed: 34/34 orders in 0.30 seconds. Cursor: 2026-08-11 07:01:41 (ID: 80840)
+2026-08-11T19:07:12+00:00 INFO Starting batch import. Cursor: 2026-08-11 07:01:41 (ID: 80840), batch size: 100
+2026-08-11T19:07:13+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.82 seconds. Cursor: 2026-08-11 12:03:30 (ID: 80285)
+2026-08-11T19:07:13+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:07:34+00:00 INFO Starting batch import. Cursor: 2026-08-11 12:03:30 (ID: 80285), batch size: 100
+2026-08-11T19:07:35+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-11 12:03:35 (ID: 80397)
+2026-08-11T19:07:35+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:08:39+00:00 INFO Starting batch import. Cursor: 2026-08-11 12:03:35 (ID: 80397), batch size: 100
+2026-08-11T19:08:40+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.89 seconds. Cursor: 2026-08-11 12:03:40 (ID: 80479)
+2026-08-11T19:08:40+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:09:18+00:00 INFO Starting batch import. Cursor: 2026-08-11 12:03:40 (ID: 80479), batch size: 100
+2026-08-11T19:09:19+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.81 seconds. Cursor: 2026-08-11 12:03:45 (ID: 80585)
+2026-08-11T19:09:19+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:12:18+00:00 INFO Starting batch import. Cursor: 2026-08-11 12:03:45 (ID: 80585), batch size: 100
+2026-08-11T19:12:19+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-11 12:03:50 (ID: 80687)
+2026-08-11T19:12:19+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:14:20+00:00 INFO Starting batch import. Cursor: 2026-08-11 12:03:50 (ID: 80687), batch size: 100
+2026-08-11T19:14:20+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-11 12:04:43 (ID: 80221)
+2026-08-11T19:14:20+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:16:24+00:00 INFO Starting batch import. Cursor: 2026-08-11 12:04:43 (ID: 80221), batch size: 100
+2026-08-11T19:16:25+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.83 seconds. Cursor: 2026-08-11 12:42:46 (ID: 80994)
+2026-08-11T19:16:25+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:16:43+00:00 INFO Starting batch import. Cursor: 2026-08-11 12:42:46 (ID: 80994), batch size: 100
+2026-08-11T19:16:44+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.83 seconds. Cursor: 2026-08-11 13:57:20 (ID: 81108)
+2026-08-11T19:16:44+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:18:21+00:00 INFO Starting batch import. Cursor: 2026-08-11 13:57:20 (ID: 81108), batch size: 100
+2026-08-11T19:18:22+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.75 seconds. Cursor: 2026-08-11 15:43:54 (ID: 81218)
+2026-08-11T19:18:22+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:18:43+00:00 INFO Starting batch import. Cursor: 2026-08-11 15:43:54 (ID: 81218), batch size: 100
+2026-08-11T19:18:44+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.89 seconds. Cursor: 2026-08-11 16:47:50 (ID: 81332)
+2026-08-11T19:18:44+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:20:21+00:00 INFO Starting batch import. Cursor: 2026-08-11 16:47:50 (ID: 81332), batch size: 100
+2026-08-11T19:20:22+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.84 seconds. Cursor: 2026-08-11 18:03:21 (ID: 81268)
+2026-08-11T19:20:22+00:00 INFO Full batch processed, scheduling next batch
+2026-08-11T19:22:25+00:00 INFO Starting batch import. Cursor: 2026-08-11 18:03:21 (ID: 81268), batch size: 100
+2026-08-11T19:22:25+00:00 INFO Batch import completed. Processed: 37/37 orders in 0.34 seconds. Cursor: 2026-08-11 19:01:01 (ID: 81417)
+2026-08-11T21:51:44+00:00 INFO Starting batch import. Cursor: 2026-08-11 06:44:37 (ID: 0), batch size: 100
+2026-08-11T21:51:44+00:00 INFO No orders to process

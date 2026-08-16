@@ -1,0 +1,29 @@
+.btn-default{
+    border: 1px solid $btn-default-border;
+}
+.btn-primary{
+    border: 1px solid $btn-primary-border;
+}
+.btn-default, .btn-primary{
+    position: relative;
+    z-index: 0;
+    &:hover{
+        color: $white !important;
+        border-color: $theme-color !important;
+        &:before{
+            height: 100%;
+            @include opacity-s();
+        }
+    }
+    &:before{
+        position: absolute;
+        content: "";
+        top: 0;
+        background: $theme-color;
+        @include rtl-left(0);
+        @include size(100%, 0);
+        @include opacity-h();
+        @include transition(all 0.2s ease-in-out);
+        z-index: -1;
+    }
+}

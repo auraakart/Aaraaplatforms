@@ -1,0 +1,842 @@
+/* Page default --------------------------------- */
+.default-template .article{
+	background: $white;
+}
+
+/* Elements Boostrap Page ---------------------------------- */
+.bs-component,
+.bs-docs-section{
+	.modal{
+		bottom: auto;
+		display: block;
+		left: auto;
+		position: relative;
+		right: auto;
+		top: auto;
+		z-index: 1;
+	}
+	p:empty{
+		margin: 0;
+		padding: 0;
+		@include hide-text();
+	}
+	br{
+		display: none;
+	}
+	.modal-dialog{
+		width: 90%;
+	}
+}
+
+/* Contact Page ---------------------------------- */
+.contact-top{
+	.contact-title{
+		margin-bottom: 28px;
+		margin-top: -8px;
+		font-weight: 700;
+		font-size:35px;
+		color:$gray-dark;
+	}
+	.contact-text{
+		max-width:770px;
+		margin:auto;
+	}
+	.contact-meta{
+		text-align:center;
+		@media(max-width:$screen-xs-max){
+			margin-bottom:30px;
+		}
+		.style-contact{
+			.contact-info-style{
+				.icon-style{
+					@include square(93px);
+					line-height:93px;
+					text-align:center;
+					margin:auto;
+					@include border-radius(50%);
+					background:$white;
+					@include box-shadow(0px 0px 10px 3px rgba(18, 18, 18, 0.1));
+					margin-bottom:28px;
+					i{
+						font-size:40px;
+						color:$theme-color;
+						line-height:93px;
+					}
+				}
+				.text-style{
+					max-width:200px;
+					margin:auto;
+					.title-contact-info{
+						font-size:20px;
+						font-weight:700;
+						text-transform:capitalize;
+						margin:0;
+						margin-bottom:15px;
+						color:$gray-dark;
+					}
+					.description{
+						
+					}
+				}
+			}
+		}
+	}
+}
+.contact-text-form{
+	max-width:580px;
+	margin:auto;
+}
+div.wpcf7-validation-errors{
+	margin: 0;
+	padding: 10px;
+}
+.contact-form-content{
+	padding: $theme-padding;
+	background: $contact-bg;
+	margin-bottom: $theme-margin + 10;
+	min-height: 260px;
+	.rounded{
+		color: $white;
+		@include size(40px,40px);
+		background: darken($body-bg, 20%);
+		.fa,.icon{
+			@include font-size(font-size,16px);
+			margin: 13px;
+		}
+	}
+	small{
+		color: darken($text-color, 20%);
+	}
+}
+
+
+
+##{$app-prefix}-main{
+    .wpb_gmaps_widget .wpb_wrapper {background: none; padding: 0;}
+    
+    
+    #wpcf7-f8-p321-o1 {
+        p {
+            .wpcf7-form-control-wrap {
+				display: block;
+            }
+        }
+    }
+}
+
+.text-block-page{
+	border-bottom: 1px solid $border-color;
+	padding-bottom: 10px;
+	@include rtl-margin(0, 0, 22px, 0);
+}
+h3.text-block-page{
+	font-size: 18px;
+}
+.contact-info{
+	ul{
+		list-style-type: none;
+		@include rtl-padding-left(0px);
+		li{
+			margin-bottom: 25px;
+			font-weight:400;
+			position:relative;
+			strong{
+				display: block;
+				font-weight: 700;
+				color: $gray-dark;
+				padding-bottom: 13px;
+				font-size:18px;
+				text-transform:uppercase;
+			}
+		}
+	}
+	@media (max-width:$screen-xs-max){
+		@include rtl-padding-left(0);
+		margin-bottom:50px !important;
+	}
+}
+.wpb_gmaps_widget{
+	iframe{
+		height:540px;
+	}
+}
+.contact-form{
+	h2{
+		font-size:28px;
+		font-weight:500;
+		line-height:1.3;
+		max-width:314px;
+	}
+}
+.contact-info-form{
+	h2.vc_custom_heading{
+		margin-bottom: 35px;
+		margin-top:2px;
+		font-weight:700;
+	}
+	.title-input{
+		font-size:14px;
+	}
+	.form-required{
+		.title-input{
+			position:relative;
+			&:before{
+				content:"*";
+				position:absolute;
+				color:red;
+				right:-10px;
+				top:0;
+			}
+		}
+	}
+	p{
+		margin-bottom:0;
+	}
+	.ajax-loader{
+		position:absolute;
+	}
+}
+.contact{
+	.wpcf7-form div.wpcf7-validation-errors, .wpcf7-form div.wpcf7-acceptance-missing{
+		margin-top: 15px !important;
+	}
+}
+.form-required{
+	.wpcf7-not-valid-tip{
+		position:absolute;
+		top:-45px;
+		left:0px;
+	}
+}
+.social-contact{
+	.social-link{
+		li{
+			margin:0;
+			@include rtl-margin-right(10px);
+			&:last-child{
+				@include rtl-margin-right(0);
+			}
+			a{
+				@include square(45px);
+				@include border-radius(50%);
+				border:1px solid $gray-dark;
+				display:inline-block;
+				line-height:45px;
+				text-align:center;
+				i{
+					font-size:18px;
+					color:$gray-dark;
+				}
+				&:hover{
+					background:$theme-color;
+					border-color:$theme-color;
+					i{
+						color:$white;
+					}
+				}
+			}
+		}
+	}
+}
+.contact-us-form{
+	>.row{
+		margin:0 -4px;
+		>div{
+			padding:0 4px;
+		}
+	}
+	label{
+		color:$gray-dark;
+		font-size:14px;
+		margin-bottom:10px;
+		position:relative;
+		font-weight:600;
+	}
+	input[type="text"], input[type="email"]{
+		height: 50px;
+		line-height:50px;
+		margin-bottom: 20px;
+		width: 100%;
+		padding: 10px 20px;
+		border:0;
+		font-weight:400;
+		color:$white;
+		background:$white;
+		border:1px solid #e4e4e4;
+		@include border-radius(4px);
+		
+	}
+	textarea{
+		width: 100%;
+		max-height: 370px;
+		padding: 10px 20px;
+		border:0;
+		font-weight:400;
+		margin-bottom:23px;
+		background:$white;
+		border:1px solid #e4e4e4;
+		@include border-radius(4px);
+	}
+	.ajax-loader{
+		position:absolute;
+		right:20px;
+		top:30px;
+	}
+	.button{
+		position:relative;
+		display:inline-block;
+	}
+	input[type="submit"]{
+		height: 50px;
+		line-height: 50px;
+		font-size: 14px;
+		padding: 0 40px;
+		color: $white;
+		background: $gray-dark;
+		border: none;
+		@include transition(all 0.3s ease); 
+		cursor:pointer;
+		font-weight:500;
+		@include border-radius(30px);
+		&:hover{
+			background:$theme-color;
+		} 
+	}
+	.wpcf7-text,.wpcf7-textarea{
+		&::placeholder {
+			font-size:14px;
+			font-weight:300;
+		}
+	}
+}
+.text-block-contact{
+	a{
+		text-decoration: underline !important;
+	}
+}
+/* Page About Us ---------------------------------- */
+
+
+/* Page Not Found ---------------------------------- */
+
+.woocommerce-page .header-title{
+	display: none;
+}
+
+.blog-page-list{
+	.entry-title{
+		font-size: $font-size-base + 3;
+		line-height: 1.2;
+		padding-top: 10px;
+		margin-bottom: 0!important;
+	}
+	.entry-meta{
+		margin-top: 5px!important;
+	}
+}
+
+.bwp-portfolio{
+	.portfolio-tab{
+		display: block;
+		text-align: center;
+		margin-bottom: 40px;
+    	margin-top:0px;
+		ul{
+			@include rtl-padding-left(0);
+			li{
+                font-size:14px;
+				font-weight:700;
+				@include rtl-margin-right(30px);
+				line-height:40px;
+				text-transform:uppercase;
+				position: relative;
+				color:$gray-dark;
+				padding:0 35px;
+				background:#f4f4f4;
+				display: inline-block;
+				cursor:pointer;
+				&:last-child{
+					@include rtl-margin-right(0);
+				}
+				&:hover,&.selected {
+					background:$theme-color;
+					color:$white;
+				}
+            }
+		}
+	}
+	.portfolio-container{
+		margin-bottom:-30px;
+		ul{
+			@include rtl-padding-left(0);
+			width:100%;
+			li{
+				list-style: none;
+				margin-bottom: 30px;
+			}
+		}
+		.portfolio-item-inner{
+			position: relative;
+			overflow: hidden;
+			&:before{
+				content: "";
+				position: absolute;
+				@include square(100%);
+				top: 0;
+				@include rtl-left(0);
+				background: rgba($gray-dark,0.35);
+				@include transition(all 0.3s ease-in-out);
+				@include scale(0.9);
+				@include opacity-h;
+				z-index:1;
+			}
+			.portfolio-img{
+				img{
+					@include transition(transform 0.3s ease);
+				}
+			}
+			&:hover{
+				&:before{
+					@include scale(1);	
+					@include opacity-s;		
+				}
+				.pitem-text{
+					a{
+						@include opacity-s;
+						top: -17.5px;
+					}
+				}
+				.portfolio-img{
+					img{
+						@include scale(1.1);
+						@include transition(transform 0.3s ease);
+					}
+				}
+			}
+			.pitem-text{
+				position: absolute;
+				top: 50%;
+				@include rtl-left(50%);
+				width: 100%;
+				display: inline-block;
+				text-align: center;
+				z-index:9;
+				@include translate(-50%, -50%);
+				a{
+					position: absolute;
+					top: -30px;
+					@include opacity-h;
+					color: $text-color;
+					background: $white;
+					line-height: 35px;
+					z-index:9;
+					text-align: center;
+					@include square(35px);
+					@include transition(top 0.3s ease-in-out);
+					&:hover{
+						color: $white;
+						background: $theme-color;
+					}
+					span{
+						line-height: 35px;
+					}
+				}
+				.item-more{
+					@include rtl-right(calc( 50% - 40px));		
+				}
+				.item-popup{
+					@include rtl-left(calc(50% - 40px));	
+				}
+			}
+		}
+	}
+	.bwp-portfolio.masonry{
+		.portfolio-content{
+			li{
+				padding: 0;
+				margin-bottom: 0;
+			}
+		}
+	}
+}
+
+.error404{
+	.bwp-main{
+		text-align: center;
+		.page-title{
+			display:none;
+		}
+	}
+	.page-404{
+		position:relative;
+		.title-error{
+			font-size:300px;
+			line-height:1;
+			color:$gray-dark;
+		}
+		.sub-title{
+			font-size:50px;
+			color:$gray-dark;
+			font-weight:500;
+			margin-bottom:25px;
+			position:relative;
+			padding-bottom:10px;
+			&:before{
+				position:absolute;
+				content:"";
+				@include size(140px,2px);
+				bottom:0;
+				left:calc(50% - 70px);
+				background:$gray-light;
+			}
+		}
+		.sub-error{
+			max-width:325px;
+			margin:auto;
+		}
+		.content-page-404{
+			padding:100px 0 60px;
+			a{
+				margin-top: 30px;
+				padding: 0 40px;
+				height:50px;
+				line-height:46px;
+				font-weight: 500;
+				font-size: 18px;
+				color: $white;
+				font-size:14px;
+				background: $gray-dark;
+				@include border-radius(0);
+				position:relative;
+				z-index:1;
+				@include border-radius(6px);
+				border:2px solid $gray-dark;
+				&:after{
+					display:inline-block;
+					content: "\24";
+					font-family: eleganticons;
+					font-size:20px;
+					line-height:1;
+					position:relative;
+					top:5px;
+					@media (max-width:$screen-xs-max){
+						font-size:15px;
+					}
+				}
+				&:hover{
+					background:$white;
+					color:$gray-dark;
+				}
+			}
+		}
+		@media (max-width:$screen-sm-max){
+			.content-page-404{
+				position:unset;
+			}
+		}
+		@media (max-width:$screen-xs-max){
+			.content-page-404{
+				position:unset;
+				a{
+					margin-top:20px;
+				}
+			}
+			.title-error{
+				font-size:200px;
+				margin-bottom:-10px;
+			}
+			.sub-title{
+				font-size:20px;
+			}
+			.sub-error{
+				font-size:15px;
+			}
+		}
+	}
+}
+
+/* Page My Account ---------------------------------- */
+.woocommerce-MyAccount-navigation{
+	background: #f5f5f5;
+    border: 1px solid #f5f5f5;
+    margin-bottom: 60px;
+    padding: 20px 30px;
+	width : 30%;
+	@include rtl-float-left();
+	
+	ul{
+		padding: 0;     
+		list-style: none;
+		li{
+			border-bottom: 1px solid rgba($gray-lighter,0.5);
+			list-style-type: none;
+			padding: 10px 0;
+			vertical-align: middle;
+			&:last-child{
+				border-bottom : none;
+			}
+			a, span{
+                @include transition(all .2s ease 0s);
+				font-weight:600;
+                &.active, &:hover{
+                    color: $theme-color;
+                    cursor: pointer;
+                }
+            }
+		}
+	}
+}
+.woocommerce-MyAccount-content{
+	width : 68%;
+	@include rtl-float-right();
+	h2{
+		font-size: 16px;
+	}
+	h3{
+		font-size: 12px;
+	}
+	input[type="submit"]{
+		background: $theme-color;
+		color: $white;
+		border: none;
+		@include transition(all 0.3s ease); 
+		font-size: 12px;
+		text-transform: uppercase;
+		font-weight: bold;
+		padding: 5px 10px;
+	    &:hover{
+			background: lighten($theme-color, 5%);
+		}   
+	}
+}
+
+.lost_reset_password{
+	.form-row{
+		margin: 0;
+		input[type="submit"]{
+			position: absolute;
+			bottom: 0;
+			height: 35px;
+		}
+	}
+}
+.woocommerce-lost-password .lost_reset_password{
+	.form-row.form-row-first{
+		float: none;
+		@media (max-width: $screen-xs-max){
+			width: 100%;
+		}
+	}
+	button[type="submit"]{
+		margin-top: 10px;
+	}
+}
+.woocommerce-cart-form{
+	margin-bottom: 30px;
+	@include rtl-border-right(1px solid #e8e8e8);
+	table.shop_table{
+		margin:0;
+		.button{
+			padding:0 35px;
+			background:$gray-dark;
+			text-transform:uppercase;
+			color:$white;
+			font-size:11px;
+			@include border-radius(0);
+			line-height:52px;
+			cursor:pointer;
+			font-weight:600;
+			@include border-radius(4px);
+			font-family:$font-family-second;
+			&:disabled{
+				opacity:0.8;
+				background:$gray-dark;
+				color:$white;
+				cursor: not-allowed;
+				&:hover{
+					opacity:0.8;
+					background:$gray-dark;
+					color:$white;
+				}
+			}
+			&:hover{
+				background:darken($theme-color,10%);
+			}
+		}
+		.coupon{
+			.button{
+				padding:0 35px;
+				background:$gray-dark;
+				text-transform:uppercase;
+				color:$white;
+				font-size:11px;
+				@include border-radius(0);
+				line-height:52px;
+				cursor:pointer;
+				@include border-radius(4px);
+				font-weight:600;
+				font-family:$font-family-second;
+				&:hover{
+					background:darken($theme-color,10%);
+				}
+			}
+		}
+	}
+}
+
+.cart_totals{
+	.woocommerce-shipping-destination{
+		margin-bottom:10px;
+		>strong{
+			color:$gray-dark;
+			font-weight:700;
+		}
+	}
+	table.shop_table{
+		>tbody{
+			border: 1px solid rgba($gray-lighter,0.25);
+			border-top:0;
+			>tr{
+				td,th{
+					padding:15px;
+					border:0;
+					border-bottom: 1px solid rgba($gray-lighter,0.5);
+				}
+				&.order-total{
+					.woocommerce-Price-amount{
+						font-size:24px;
+					}
+				}
+				&.shipping{
+					ul {
+						&.woocommerce-shipping-methods{
+							margin-bottom:10px;
+							@media (max-width:$screen-xs-max){
+								display:block;
+							}
+						}
+						li {
+							@include rtl-margin-right(20px);
+							input[type="radio"], input[type="checkbox"]{
+								margin-top:0;
+							}
+							.shipping_method{
+								display:none;
+							}
+							label{
+								margin:0;
+								@include rtl-margin-left(0);
+								font-weight:400;
+								margin-bottom:0;
+								position:relative;
+								@include rtl-padding-left(18px);
+								cursor:pointer;
+								&:before{
+									position:absolute;
+									@include rtl-left(0);
+									@include border-radius(50%);
+									top:calc(50% - 6px);
+									@include square(12px);
+									border:1px solid $text-color;
+									content:"";
+								}
+							}
+							.shipping_method:checked +label{
+								&:before{
+									background:$theme-color;
+									border-color:$theme-color;
+								}
+							}
+						}
+					}
+				}
+				>td{
+					a.shipping-calculator-button{
+						color: $gray-dark;
+						text-transform: uppercase;
+						font-weight:700;
+						position:relative;
+						display:inline-block;
+						padding-bottom:2px;
+						font-size:13px;
+						&:before{
+							content:"";
+							@include size(100%,2px);
+							position:absolute;
+							bottom:0;
+							left:50%;
+							@include transform(translateX(-50%));
+							background:$gray-dark;
+							@include transition(all 0.3s ease);
+						}
+						&:hover{
+							color:$theme-color;
+							&:before{
+								background:$theme-color;
+								width:60%;
+							}
+						}
+					}
+					.shipping-calculator-form{
+						margin-top:30px;
+						.select2{
+							height:40px;
+							line-height:40px;
+							@include border-radius(0);
+							span{
+								height:40px;
+								line-height:40px;
+								@include border-radius(0);
+							}
+						}
+						.button{
+							background:$theme-color;
+							color:$white;
+							font-weight:700;
+							font-size:13px;
+							text-transform:uppercase;
+							letter-spacing:2px;
+							@include border-radius(0);
+							cursor:pointer;
+							padding:0 20px;
+							line-height:40px;
+							&:hover{
+								background:darken($theme-color,10%);
+							}
+						}
+					}
+					.woocommerce-shipping-destination{
+						strong{
+							font-weight:500;
+						}
+					}
+					.woocommerce-Price-amount{
+						font-weight:500;
+					}
+				}
+			}
+		}
+	}
+	.wc-proceed-to-checkout{
+		padding:0 30px;
+		>a.wc-forward{
+			background: $gray-dark;
+			color: $white;
+			padding: 24px 20px;
+			text-transform: uppercase;
+			font-size: 12px;
+			display:inline-block;
+			width:100%;
+			text-align:center;
+			font-weight:600;
+			@include border-radius(6px);
+			font-family:$font-family-second;
+			&:hover{
+				background: darken($theme-color,10%);
+			}
+			&:before{
+				display: none;
+			}
+		}
+	}
+}

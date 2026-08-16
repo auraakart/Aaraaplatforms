@@ -1,0 +1,77 @@
+/**
+ * Aaraa login screen branding.
+ * Colours injected via wp_add_inline_style(); fallbacks match defaults.
+ *
+ * @package Aaraa\Admin
+ */
+
+:root {
+	--aaraa-login-bg: #F5FEFF;
+	--aaraa-btn: #10B7D4;
+	--aaraa-btn-hover: #0A9AB5;
+}
+
+body.login {
+	background: var(--aaraa-login-bg);
+}
+
+.login h1 a {
+	background-image: none;
+	width: auto;
+	height: auto;
+}
+
+.login form {
+	border-radius: 14px;
+	border: 1px solid rgba(15, 23, 42, 0.08);
+	box-shadow: 0 10px 30px rgba(15, 23, 42, 0.10);
+	padding: 26px 24px;
+}
+
+.login form .input,
+.login input[type="text"],
+.login input[type="password"] {
+	border-radius: 8px;
+	border: 1px solid #CBD5E1;
+	padding: 10px 12px;
+}
+
+.login form .input:focus,
+.login input[type="text"]:focus,
+.login input[type="password"]:focus {
+	border-color: var(--aaraa-btn);
+	box-shadow: 0 0 0 1px var(--aaraa-btn);
+}
+
+.wp-core-ui .button-primary,
+.login .button-primary {
+	background: var(--aaraa-btn) !important;
+	border-color: var(--aaraa-btn-hover) !important;
+	border-radius: 8px !important;
+	text-shadow: none !important;
+	box-shadow: none !important;
+	transition: background 0.15s ease-in-out;
+}
+
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:focus,
+.login .button-primary:hover,
+.login .button-primary:focus {
+	background: var(--aaraa-btn-hover) !important;
+	border-color: var(--aaraa-btn-hover) !important;
+}
+
+.login #backtoblog a,
+.login #nav a {
+	color: var(--aaraa-btn-hover);
+}
+
+.login #backtoblog a:hover,
+.login #nav a:hover {
+	color: var(--aaraa-btn);
+}
+
+/* Hide the language switcher's WP-centric styling gaps, keep it usable. */
+.login .privacy-policy-page-link {
+	margin-top: 18px;
+}

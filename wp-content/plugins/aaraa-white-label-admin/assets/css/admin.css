@@ -1,0 +1,994 @@
+/**
+ * Aaraa admin theme.
+ * Palette is injected as CSS variables via wp_add_inline_style(); the values
+ * below are safe fallbacks matching the plugin defaults.
+ *
+ * @package Aaraa\Admin
+ */
+
+:root {
+	--aaraa-primary: #10B7D4;
+	--aaraa-secondary: #0A9AB5;
+	--aaraa-bg: #F5FEFF;
+	--aaraa-sidebar: #0F172A;
+}
+
+/* ---- Base surfaces ---------------------------------------------------- */
+body.wp-admin,
+#wpwrap,
+#wpcontent,
+#wpbody-content {
+	background: var(--aaraa-bg);
+}
+
+/* ---- Sidebar ---------------------------------------------------------- */
+#adminmenuback,
+#adminmenuwrap,
+#adminmenu,
+#adminmenu .wp-submenu {
+	background: var(--aaraa-sidebar);
+}
+
+#adminmenu a {
+	color: #CBD5E1;
+}
+
+#adminmenu .wp-submenu a {
+	color: #94A3B8;
+}
+
+#adminmenu li.menu-top:hover,
+#adminmenu li.opensub > a.menu-top,
+#adminmenu li > a.menu-top:focus {
+	background: rgba(16, 183, 212, 0.15);
+	color: #FFFFFF;
+}
+
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu,
+#adminmenu li.current a.menu-top,
+#adminmenu .wp-has-current-submenu .wp-submenu .wp-submenu-head,
+#adminmenu li.wp-has-current-submenu > a.wp-has-current-submenu {
+	background: var(--aaraa-primary);
+	color: #FFFFFF;
+}
+
+#adminmenu .wp-submenu li.current a,
+#adminmenu a.wp-has-current-submenu:focus + .wp-submenu li.current a {
+	color: #FFFFFF;
+	font-weight: 600;
+}
+
+#adminmenu div.wp-menu-image::before {
+	color: #94A3B8;
+}
+
+#adminmenu li.current div.wp-menu-image::before,
+#adminmenu li.wp-has-current-submenu div.wp-menu-image::before,
+#adminmenu li:hover div.wp-menu-image::before {
+	color: #FFFFFF;
+}
+
+/* Collapse button + admin bar accents. */
+#collapse-button {
+	color: #94A3B8;
+}
+
+/* ---- Buttons ---------------------------------------------------------- */
+.wp-core-ui .button-primary {
+	background: var(--aaraa-primary);
+	border-color: var(--aaraa-secondary);
+	box-shadow: none;
+	text-shadow: none;
+	border-radius: 8px;
+}
+
+.wp-core-ui .button-primary:hover,
+.wp-core-ui .button-primary:focus {
+	background: var(--aaraa-secondary);
+	border-color: var(--aaraa-secondary);
+}
+
+.wp-core-ui .button,
+.wp-core-ui .button-secondary {
+	border-radius: 8px;
+}
+
+/* ---- Links / focus ---------------------------------------------------- */
+a {
+	color: var(--aaraa-secondary);
+}
+
+a:hover,
+a:focus {
+	color: var(--aaraa-primary);
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+.wp-core-ui .button:focus {
+	border-color: var(--aaraa-primary);
+	box-shadow: 0 0 0 1px var(--aaraa-primary);
+}
+
+/* ---- Dashboard widgets: modern SaaS cards ----------------------------- */
+#dashboard-widgets .postbox,
+.postbox {
+	border-radius: 12px;
+	border: 1px solid rgba(15, 23, 42, 0.08);
+	box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+	overflow: hidden;
+}
+
+#dashboard-widgets .postbox-header,
+.postbox .postbox-header {
+	border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.postbox .hndle,
+.postbox h2.hndle {
+	font-weight: 600;
+}
+
+/* ---- Welcome widget --------------------------------------------------- */
+.aaraa-welcome__subtitle {
+	font-size: 14px;
+	color: #475569;
+	margin: 0 0 16px;
+}
+
+.aaraa-welcome__note {
+	color: #64748B;
+	font-style: italic;
+}
+
+.aaraa-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 16px;
+}
+
+.aaraa-stat {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	padding: 22px 20px;
+	border-radius: 12px;
+	background: linear-gradient(135deg, rgba(16, 183, 212, 0.10), rgba(10, 154, 181, 0.06));
+	border: 1px solid rgba(16, 183, 212, 0.20);
+}
+
+.aaraa-stat__icon.dashicons {
+	font-size: 26px;
+	width: 26px;
+	height: 26px;
+	color: var(--aaraa-primary);
+	margin-bottom: 4px;
+}
+
+.aaraa-stat__value {
+	font-size: 30px;
+	font-weight: 700;
+	color: var(--aaraa-sidebar);
+	line-height: 1.1;
+}
+
+.aaraa-stat__label {
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: #64748B;
+	font-weight: 600;
+}
+
+/* ---- Shop Owner: expand only the current section's submenu inline
+ * Only the section that owns the current page is opened; every other section
+ * stays collapsed and shows as a hover flyout.
+ *
+ * The open section is chosen in PHP (Roles::current_section) and marked with an
+ * `aaraa-open-<section>` body class, then expanded here by menu id. We do NOT
+ * rely on WordPress' own `.wp-has-current-submenu` detection: it never resolves
+ * for our foreign-slug children (Products = edit.php?post_type=product, Orders =
+ * admin.php?page=wc-orders, the Analytics reports), so those sections stayed
+ * collapsed on their own pages. The body class is deterministic.
+ *
+ * Scoped to .aaraa-shop-owner so admins are unaffected, and to :not(.folded) so
+ * the collapsed sidebar keeps its flyouts.
+ */
+body.aaraa-shop-owner.aaraa-open-aaraa-kart:not(.folded) #toplevel_page_aaraa-kart > .wp-submenu,
+body.aaraa-shop-owner.aaraa-open-aaraa-analytics:not(.folded) #toplevel_page_aaraa-analytics > .wp-submenu,
+body.aaraa-shop-owner.aaraa-open-aaraa-delivery:not(.folded) #toplevel_page_aaraa-delivery > .wp-submenu {
+	position: static !important;
+	display: block !important;
+	left: auto !important;
+	top: auto !important;
+	margin: 0 !important;
+	padding: 2px 0 6px !important;
+	min-width: 0 !important;
+	width: auto !important;
+	box-shadow: none !important;
+	background: rgba(0, 0, 0, 0.18) !important;
+}
+
+body.aaraa-shop-owner.aaraa-open-aaraa-kart:not(.folded) #toplevel_page_aaraa-kart > .wp-submenu .wp-submenu-head,
+body.aaraa-shop-owner.aaraa-open-aaraa-analytics:not(.folded) #toplevel_page_aaraa-analytics > .wp-submenu .wp-submenu-head,
+body.aaraa-shop-owner.aaraa-open-aaraa-delivery:not(.folded) #toplevel_page_aaraa-delivery > .wp-submenu .wp-submenu-head {
+	display: none !important;
+}
+
+body.aaraa-shop-owner.aaraa-open-aaraa-kart:not(.folded) #toplevel_page_aaraa-kart > .wp-submenu a,
+body.aaraa-shop-owner.aaraa-open-aaraa-analytics:not(.folded) #toplevel_page_aaraa-analytics > .wp-submenu a,
+body.aaraa-shop-owner.aaraa-open-aaraa-delivery:not(.folded) #toplevel_page_aaraa-delivery > .wp-submenu a {
+	color: #CBD5E1 !important;
+	padding: 7px 12px 7px 46px !important;
+	font-size: 13px !important;
+}
+
+body.aaraa-shop-owner.aaraa-open-aaraa-kart:not(.folded) #toplevel_page_aaraa-kart > .wp-submenu li.current a,
+body.aaraa-shop-owner.aaraa-open-aaraa-kart:not(.folded) #toplevel_page_aaraa-kart > .wp-submenu a:hover,
+body.aaraa-shop-owner.aaraa-open-aaraa-kart:not(.folded) #toplevel_page_aaraa-kart > .wp-submenu a:focus,
+body.aaraa-shop-owner.aaraa-open-aaraa-analytics:not(.folded) #toplevel_page_aaraa-analytics > .wp-submenu li.current a,
+body.aaraa-shop-owner.aaraa-open-aaraa-analytics:not(.folded) #toplevel_page_aaraa-analytics > .wp-submenu a:hover,
+body.aaraa-shop-owner.aaraa-open-aaraa-analytics:not(.folded) #toplevel_page_aaraa-analytics > .wp-submenu a:focus,
+body.aaraa-shop-owner.aaraa-open-aaraa-delivery:not(.folded) #toplevel_page_aaraa-delivery > .wp-submenu li.current a,
+body.aaraa-shop-owner.aaraa-open-aaraa-delivery:not(.folded) #toplevel_page_aaraa-delivery > .wp-submenu a:hover,
+body.aaraa-shop-owner.aaraa-open-aaraa-delivery:not(.folded) #toplevel_page_aaraa-delivery > .wp-submenu a:focus {
+	color: #FFFFFF !important;
+}
+
+/* Hide the flyout arrow on the open section; collapsed sections keep it because
+ * they are back to hover flyouts. */
+body.aaraa-shop-owner.aaraa-open-aaraa-kart:not(.folded) #toplevel_page_aaraa-kart .wp-menu-arrow,
+body.aaraa-shop-owner.aaraa-open-aaraa-analytics:not(.folded) #toplevel_page_aaraa-analytics .wp-menu-arrow,
+body.aaraa-shop-owner.aaraa-open-aaraa-delivery:not(.folded) #toplevel_page_aaraa-delivery .wp-menu-arrow {
+	display: none !important;
+}
+
+/* ---- Dashboard: full-width overview, no leftover chrome ----------------
+ * WordPress sets the column widths (.columns-N #postbox-container-N) and
+ * postboxes.js can add inline widths, so !important is required to force the
+ * single Aaraa widget to span the full row.
+ */
+body.index-php #welcome-panel {
+	display: none !important;
+}
+
+body.index-php #dashboard-widgets .postbox-container {
+	width: 100% !important;
+	float: none !important;
+}
+
+body.index-php #dashboard-widgets #postbox-container-2,
+body.index-php #dashboard-widgets #postbox-container-3,
+body.index-php #dashboard-widgets #postbox-container-4 {
+	display: none !important;
+}
+
+body.index-php #aaraa_overview {
+	max-width: none;
+}
+
+body.index-php #aaraa_overview .inside {
+	margin: 0;
+	padding: 16px 20px 20px;
+}
+
+/* ======================================================================= *
+ * Aaraa Customer 360 — customer profile view
+ * ======================================================================= */
+.aac {
+	max-width: 100%;
+	--aac-line: rgba(15, 23, 42, 0.08);
+	--aac-ink: #0F172A;
+	--aac-sub: #64748B;
+	color: var(--aac-ink);
+}
+
+.aac * {
+	box-sizing: border-box;
+}
+
+/* Signature: dark identity band with a cyan-gradient monogram. */
+.aac-id {
+	display: flex;
+	align-items: center;
+	gap: 18px;
+	background: linear-gradient(135deg, #0F172A 0%, #14243f 100%);
+	border-radius: 16px;
+	padding: 22px 24px;
+	position: relative;
+	overflow: hidden;
+	margin-top: 8px;
+}
+
+.aac-id::after {
+	content: "";
+	position: absolute;
+	right: -50px;
+	top: -60px;
+	width: 220px;
+	height: 220px;
+	background: radial-gradient(closest-side, rgba(16, 183, 212, 0.22), transparent 70%);
+	pointer-events: none;
+}
+
+.aac-avatar {
+	flex: 0 0 auto;
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 23px;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	color: #042027;
+	background: linear-gradient(135deg, #10B7D4, #0A9AB5);
+	box-shadow: 0 6px 16px rgba(16, 183, 212, 0.35);
+}
+
+.aac-id__body {
+	min-width: 0;
+	position: relative;
+	z-index: 1;
+}
+
+.aac-id__name {
+	margin: 0;
+	padding: 0;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1.2;
+	color: #FFFFFF;
+}
+
+.aac-id__meta {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 6px 8px;
+	margin-top: 8px;
+	font-size: 13px;
+	color: #94A3B8;
+}
+
+.aac-id__meta span:not(.dashicons) {
+	margin-right: 10px;
+}
+
+.aac-id__meta .dashicons {
+	font-size: 16px;
+	width: 16px;
+	height: 16px;
+	color: #10B7D4;
+}
+
+.aac-id__actions {
+	margin-left: auto;
+	display: flex;
+	gap: 8px;
+	position: relative;
+	z-index: 1;
+}
+
+/* Details strip under the identity band. */
+.aac-details {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 1px;
+	background: var(--aac-line);
+	border: 1px solid var(--aac-line);
+	border-radius: 12px;
+	overflow: hidden;
+	margin: 14px 0 0;
+}
+
+.aac-details > div {
+	background: #FFFFFF;
+	padding: 14px 18px;
+}
+
+.aac-details dt {
+	margin: 0 0 3px;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	color: var(--aac-sub);
+	font-weight: 600;
+}
+
+.aac-details dd {
+	margin: 0;
+	font-size: 14px;
+	color: var(--aac-ink);
+}
+
+/* Stat cards. */
+.aac-stats {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+	gap: 16px;
+	margin: 18px 0;
+}
+
+.aac-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	background: #FFFFFF;
+	border: 1px solid var(--aac-line);
+	border-radius: 14px;
+	padding: 20px;
+	box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.aac-card--accent {
+	border-top: 3px solid #10B7D4;
+}
+
+.aac-card__icon.dashicons {
+	font-size: 22px;
+	width: 22px;
+	height: 22px;
+	color: #10B7D4;
+}
+
+.aac-card__value {
+	font-size: 28px;
+	font-weight: 700;
+	line-height: 1.1;
+	color: var(--aac-ink);
+	font-variant-numeric: tabular-nums;
+}
+
+.aac-card__value .woocommerce-Price-amount {
+	font-size: 28px;
+	font-weight: 700;
+}
+
+.aac-card__label {
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--aac-sub);
+	font-weight: 600;
+}
+
+/* Section panels with tables. */
+.aac-section {
+	background: #FFFFFF;
+	border: 1px solid var(--aac-line);
+	border-radius: 14px;
+	overflow: hidden;
+	margin-top: 18px;
+}
+
+.aac-section__head {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 14px 20px;
+	border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--aac-ink);
+}
+
+.aac-section__head .dashicons {
+	color: #10B7D4;
+	font-size: 18px;
+	width: 18px;
+	height: 18px;
+}
+
+.aac-badge {
+	margin-left: 6px;
+	background: rgba(16, 183, 212, 0.12);
+	color: #0A7C92;
+	border-radius: 999px;
+	padding: 1px 9px;
+	font-size: 12px;
+	font-weight: 600;
+	font-variant-numeric: tabular-nums;
+}
+
+.aac-tablewrap {
+	overflow-x: auto;
+}
+
+.aac-table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+.aac-table th {
+	text-align: left;
+	padding: 10px 20px;
+	background: #F8FAFC;
+	font-size: 11px;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	color: var(--aac-sub);
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.aac-table td {
+	padding: 12px 20px;
+	border-top: 1px solid rgba(15, 23, 42, 0.05);
+	font-size: 13px;
+	color: #334155;
+	vertical-align: middle;
+}
+
+.aac-table tbody tr:hover td {
+	background: rgba(16, 183, 212, 0.04);
+}
+
+.aac-table .aac-num {
+	text-align: right;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.aac-table a {
+	font-weight: 600;
+	text-decoration: none;
+}
+
+/* Status pills. */
+.aac-pill {
+	display: inline-block;
+	padding: 3px 10px;
+	border-radius: 999px;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 1.6;
+	white-space: nowrap;
+}
+
+.aac-pill.is-green { background: #DCFCE7; color: #166534; }
+.aac-pill.is-amber { background: #FEF3C7; color: #92400E; }
+.aac-pill.is-blue  { background: #DBEAFE; color: #1E40AF; }
+.aac-pill.is-red   { background: #FEE2E2; color: #991B1B; }
+.aac-pill.is-gray  { background: #E2E8F0; color: #475569; }
+
+.aac-muted { color: #94A3B8; }
+
+.aac-sub-line {
+	display: inline-block;
+	font-size: 12px;
+	line-height: 1.6;
+	color: #475569;
+}
+
+.aac-sub-line--resume { color: #166534; }
+.aac-sub-line--resume strong { color: #166534; }
+
+.aac-type {
+	display: inline-block;
+	padding: 2px 8px;
+	border-radius: 6px;
+	font-size: 11px;
+	font-weight: 600;
+	background: #EEF2F7;
+	color: #475569;
+	white-space: nowrap;
+}
+
+.aac-empty {
+	margin: 0;
+	padding: 26px 20px;
+	color: var(--aac-sub);
+	text-align: center;
+}
+
+@media (max-width: 640px) {
+	.aac-id {
+		flex-wrap: wrap;
+	}
+	.aac-id__actions {
+		margin-left: 0;
+		width: 100%;
+	}
+}
+
+/* Table pager. */
+.aac-pager {
+	display: flex;
+	justify-content: flex-end;
+	gap: 4px;
+	padding: 12px 20px;
+	border-top: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.aac-pager .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 30px;
+	height: 30px;
+	padding: 0 8px;
+	border-radius: 8px;
+	border: 1px solid var(--aac-line);
+	background: #FFFFFF;
+	color: #334155;
+	font-size: 13px;
+	font-weight: 600;
+	text-decoration: none;
+	line-height: 1;
+}
+
+.aac-pager a.page-numbers:hover {
+	border-color: #10B7D4;
+	color: #0A7C92;
+}
+
+.aac-pager .page-numbers.current {
+	background: #10B7D4;
+	border-color: #10B7D4;
+	color: #FFFFFF;
+}
+
+.aac-pager .page-numbers.dots {
+	border-color: transparent;
+	background: transparent;
+}
+
+/* Wallet: inline credit/debit form + amount coloring. */
+.aac-wallet-form {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin-left: auto;
+	flex-wrap: wrap;
+}
+
+.aac-wallet-form select,
+.aac-wallet-form input {
+	height: 32px;
+	border: 1px solid var(--aac-line);
+	border-radius: 8px;
+	padding: 0 10px;
+	font-size: 13px;
+}
+
+.aac-wallet-form input[name="wtx_amount"] {
+	width: 110px;
+}
+
+.aac-wallet-form input[name="wtx_note"] {
+	width: 160px;
+}
+
+.aac-amt {
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+.aac-amt.is-green { color: #166534; }
+.aac-amt.is-red   { color: #991B1B; }
+
+.aac-amt .woocommerce-Price-amount { font-weight: 700; }
+
+.aac-note {
+	color: var(--aac-sub);
+	font-size: 12px;
+}
+
+@media (max-width: 782px) {
+	.aac-wallet-form {
+		width: 100%;
+		margin-top: 10px;
+	}
+}
+
+/* Notification tabs. */
+.aac-tabs {
+	display: flex;
+	gap: 4px;
+	flex-wrap: wrap;
+	padding: 12px 20px 0;
+	border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.aac-tab {
+	padding: 8px 14px;
+	border-radius: 8px 8px 0 0;
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--aac-sub);
+	text-decoration: none;
+	border: 1px solid transparent;
+	border-bottom: none;
+	position: relative;
+	top: 1px;
+}
+
+.aac-tab:hover {
+	color: #0A7C92;
+}
+
+.aac-tab.is-active {
+	color: #0F172A;
+	background: #FFFFFF;
+	border-color: rgba(15, 23, 42, 0.08);
+	box-shadow: 0 -2px 0 #10B7D4 inset;
+}
+
+/* System activity timeline. */
+.aac-timeline {
+	margin: 0;
+	padding: 8px 20px;
+	list-style: none;
+}
+
+.aac-tl {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 0;
+	border-top: 1px solid rgba(15, 23, 42, 0.05);
+}
+
+.aac-tl:first-child {
+	border-top: none;
+}
+
+.aac-tl__dot {
+	flex: 0 0 auto;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(16, 183, 212, 0.12);
+	color: #0A7C92;
+	font-size: 18px;
+}
+
+.aac-tl__body {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.aac-tl__title {
+	font-size: 13px;
+	font-weight: 600;
+	color: #1E293B;
+}
+
+.aac-tl__time {
+	font-size: 12px;
+	color: var(--aac-sub);
+}
+
+.aac-tl__meta {
+	margin-left: auto;
+	font-size: 13px;
+	font-weight: 600;
+	color: #334155;
+	font-variant-numeric: tabular-nums;
+	white-space: nowrap;
+}
+
+/* ----------------------------------------------------------------------- *
+ * Wallet Management page.
+ * ----------------------------------------------------------------------- */
+.aaraa-wallet__bar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	background: #fff;
+	border: 1px solid #E2E8F0;
+	border-radius: 10px;
+	padding: 18px 22px;
+	margin: 12px 0 0;
+}
+.aaraa-wallet__title {
+	margin: 0;
+	font-size: 20px;
+	font-weight: 700;
+	color: var(--aaraa-secondary, #0A9AB5);
+	font-style: italic;
+}
+.aaraa-wallet__add.button-primary {
+	background: var(--aaraa-primary, #10B7D4);
+	border-color: var(--aaraa-secondary, #0A9AB5);
+}
+.aaraa-wallet__tabs {
+	display: flex;
+	gap: 4px;
+	margin: 16px 0 0;
+	border-bottom: 1px solid #CBD5E1;
+}
+.aaraa-wallet__tab {
+	padding: 10px 20px;
+	text-decoration: none;
+	font-weight: 600;
+	color: #475569;
+	background: #EEF2F6;
+	border: 1px solid #CBD5E1;
+	border-bottom: none;
+	border-radius: 8px 8px 0 0;
+	position: relative;
+	top: 1px;
+}
+.aaraa-wallet__tab.is-active {
+	background: #fff;
+	color: var(--aaraa-sidebar, #0F172A);
+	border-bottom: 1px solid #fff;
+}
+.aaraa-wallet__panel {
+	background: #fff;
+	border: 1px solid #E2E8F0;
+	border-top: none;
+	border-radius: 0 0 10px 10px;
+	padding: 18px 22px;
+}
+.aaraa-wallet__formwrap,
+.aaraa-wallet[data-x] .aaraa-wallet__panel {
+	border-top: 1px solid #E2E8F0;
+	border-radius: 10px;
+}
+.aaraa-wallet__toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 16px;
+	flex-wrap: wrap;
+	margin-bottom: 12px;
+}
+.aaraa-wallet__show select { min-height: 30px; }
+.aaraa-wallet__table { margin-top: 6px; }
+.aaraa-wallet__table th { color: var(--aaraa-secondary, #0A9AB5); }
+.aaraa-wallet__amt {
+	font-variant-numeric: tabular-nums;
+	font-weight: 600;
+	white-space: nowrap;
+}
+.aaraa-wallet__actions .button { margin-right: 4px; }
+.aaraa-wallet__del { color: #991B1B; }
+.aaraa-wallet__pill {
+	display: inline-block;
+	padding: 2px 10px;
+	border-radius: 999px;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1.6;
+}
+.aaraa-wallet__pill.is-green { background: #DCFCE7; color: #166534; }
+.aaraa-wallet__pill.is-red   { background: #FEE2E2; color: #991B1B; }
+.aaraa-wallet__pager { margin-top: 12px; }
+.aaraa-wallet__pager .pagination-links { float: right; }
+.aaraa-wallet__field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	max-width: 520px;
+	margin: 0 0 16px;
+}
+.aaraa-wallet__field > label:first-child { font-weight: 600; color: #334155; }
+.aaraa-wallet__radio {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-right: 18px;
+	font-weight: 400;
+}
+.aaraa-wallet__static { font-size: 15px; color: #0F172A; font-weight: 600; }
+.aaraa-wallet__uhead {
+	display: flex;
+	align-items: baseline;
+	gap: 14px;
+	margin: 0 0 4px;
+}
+.aaraa-wallet__ubal {
+	font-size: 16px;
+	color: var(--aaraa-secondary, #0A9AB5);
+	font-variant-numeric: tabular-nums;
+}
+.aaraa-wallet__umeta { margin: 0 0 14px; color: #64748B; }
+
+/* Wallet popups */
+.aaraa-modal { display: none; }
+.aaraa-modal.is-open {
+	display: block;
+	position: fixed;
+	inset: 0;
+	z-index: 100000;
+}
+.aaraa-modal__backdrop {
+	position: absolute;
+	inset: 0;
+	background: rgba(15, 23, 42, 0.55);
+}
+.aaraa-modal__box {
+	position: relative;
+	z-index: 1;
+	width: 92%;
+	max-width: 520px;
+	margin: 6vh auto 0;
+	background: #fff;
+	border-radius: 12px;
+	box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
+	overflow: hidden;
+	animation: aaraaModalIn 0.16s ease-out;
+}
+@keyframes aaraaModalIn {
+	from { transform: translateY(-10px); opacity: 0; }
+	to   { transform: translateY(0); opacity: 1; }
+}
+.aaraa-modal__head {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 20px;
+	background: linear-gradient(135deg, #10B7D4, #0A9AB5);
+	color: #fff;
+}
+.aaraa-modal__head h2 { margin: 0; font-size: 17px; color: #fff; }
+.aaraa-modal__x {
+	background: none;
+	border: none;
+	color: #fff;
+	font-size: 24px;
+	line-height: 1;
+	cursor: pointer;
+	padding: 0 4px;
+}
+.aaraa-modal__body { padding: 20px; }
+.aaraa-modal__foot {
+	display: flex;
+	justify-content: flex-end;
+	gap: 8px;
+	margin-top: 8px;
+}
+body.aaraa-modal-open { overflow: hidden; }
+
+/* Autocomplete */
+.aaraa-wallet__ac { position: relative; }
+.aaraa-wallet__results {
+	list-style: none;
+	margin: 4px 0 0;
+	padding: 0;
+	border: 1px solid #CBD5E1;
+	border-radius: 8px;
+	max-height: 220px;
+	overflow-y: auto;
+	background: #fff;
+	box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+.aaraa-wallet__results li {
+	margin: 0;
+	padding: 9px 12px;
+	cursor: pointer;
+	font-size: 13px;
+	border-bottom: 1px solid #F1F5F9;
+}
+.aaraa-wallet__results li:hover { background: #ECFEFF; }
+.aaraa-wallet__results li.is-empty { color: #94A3B8; cursor: default; }
+.aaraa-wallet__chosen {
+	display: inline-block;
+	margin-top: 6px;
+	padding: 6px 12px;
+	background: #ECFEFF;
+	border: 1px solid #10B7D4;
+	border-radius: 8px;
+	font-weight: 600;
+	color: #0F172A;
+}
+
+/* Order edit — Aaraa Delivery panel */
+.aaraa-orddel__actions { margin-top: 14px; }
+.aaraa-orddel__msg { display: block; margin-top: 8px; font-weight: 600; }
+.aaraa-orddel__msg.ok { color: #166534; }
+.aaraa-orddel__msg.error { color: #991B1B; }

@@ -1,0 +1,916 @@
+/*----------  Font Size Variable  ----------*/
+
+
+/*=====  End of Typography Variable and Declaration  ======*/
+
+
+/* Placeholders */
+
+
+/* Mixins */
+
+
+/* SCSS Functions */
+
+
+/* Enter Your Global CSS here */
+:root{
+  --wallet-pc :'';
+  
+}
+* {
+  box-sizing: border-box;
+}
+
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover,
+a:active,
+a:focus {
+  text-decoration: none;
+  outline: none;
+  color: none;
+  box-shadow: none;
+}
+
+ul {
+  margin: 0;
+}
+
+.wps-info-img {
+  display: inline-block;
+  margin-right: 6px;
+  margin-top: -3px;
+  max-width: 15px;
+}
+
+
+/* Enter Button Global CSS Here */
+
+input[type=submit].wps-btn__filled {
+  padding: 10px 25px;
+  border-radius: 6px;
+  background-color: var(--wallet-pc);
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.5;
+  transition: all 0.3s linear;
+  border: 1px solid var(--wallet-pc);
+  min-height: 30px;
+  cursor: pointer;
+}
+
+input[type=submit].wps-btn__filled:hover {
+  border-color: var(--wallet-pc);
+  color: var(--wallet-pc);
+  background-color: #fff;
+}
+
+@media screen and (min-width: 992px) {
+  input[type=submit].wps-btn__filled {
+      padding: 10px 54px;
+      border-radius: 8px;
+  }
+}
+
+
+/* Header CSS */
+
+
+/* Footer CSS */
+
+
+/* Navigation CSS */
+
+
+/* Sidebar CSS */
+
+
+/* About page css */
+
+
+/* Home Page CSS */
+
+
+/*====================================
+=            Tabs Section            =
+====================================*/
+
+.wps_wcb_wallet_display_wrapper a:hover,
+.wps_wcb_wallet_display_wrapper a:active,
+.wps_wcb_wallet_display_wrapper a:focus {
+  outline: none!important;
+}
+
+.wps_wcb_wallet_balance_container {
+  position: relative;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: var(--wallet-pc);
+  /* .wps_wcb_wallet_balance_container { */
+    /* padding: 18px 32px; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+/* } */
+}
+
+.wps_wcb_wallet_cashback_wrap {
+  text-align: right;
+}
+
+.wps_wcb_wallet_view_transaction {
+  grid-column-start: 1;
+}
+
+.wps_wcb_wallet_display_wrapper_with_qr .wps_wcb_wallet_balance_container h4 {
+  margin: 0 0 4px;
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: #fff;
+}
+
+.wps_wcb_wallet_balance_container p {
+  margin: 0;
+}
+
+
+
+.wps_wcb_wallet_balance_container .woocommerce-Price-amount {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 600;
+  color: #fff;
+}
+
+.wps_wcb_content_template ul.tabs,
+.wps_wcb_content_template ul.tabs:last-child {
+  padding: 0;
+  margin: 28px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: #f9f9f9;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.wps_wcb_content_template ul.tabs li {
+  list-style: none;
+  margin: 0;
+}
+
+.wps_wcb_content_template ul.tabs li h3 {
+  font-size: 14px;
+  line-height: 1.25;
+  font-weight: 400;
+  margin: 0 0 10px;
+  color: #000;
+}
+
+.wps_wcb_content_template ul.tabs li.active {
+  background-color: #f2f2f2;
+  border-radius: 6px;
+}
+
+.wps_wcb_content_template ul.tabs li a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  height: 100%;
+}
+
+.wps_wcb_content_template ul.tabs li svg path {
+  fill: var(--wallet-pc);
+}
+
+.wps_wcb_content_template ul.tabs li .wps_wallet_transfer_tab path:last-of-type,
+.wps_wcb_content_template ul.tabs li .wps_wallet_withdrawal_tab path:last-of-type {
+  fill: #000;
+}
+
+.wps_wcb_content_template ul.tabs li .wps_wallet_transactions_tab path:first-of-type,
+.wps_wcb_content_template ul.wps_wcb_content_template ul.tabs li .wps_wallet_transfer_tab path:last-of-type,
+.wps_wcb_content_template ul.tabs li .wps_wallet_withdrawal_tab path:last-of-type,
+.wps_wcb_content_template ul.tabs li .wps_kyc_verification_tab path:first-of-type,
+.wps_wcb_content_template ul.tabs li .wps_wallet_recharge_tab path:first-of-type,
+.wps_wcb_content_template ul.tabs li .wps_wallet_transactions_tab path:first-of-type,
+.wps_wcb_content_template ul.tabs li .wps_wallet_transactions_tab path:last-of-type,
+.wps_wcb_content_template ul.tabs li .wps_wallet_fund_request_tab path:last-of-type,
+.wps_wcb_content_template ul.tabs li .wps_wallet_referral_tab path:last-of-type, .wps_wcb_content_template ul.tabs li .wps_wallet_referral_tab path:first-of-type {
+    fill: #000;
+}
+
+.wps_wcb_wallet_display_wrapper_with_qr .wps_wcb_wallet_balance_container h4.wallet-balance-title {
+  font-size: 18px;
+}
+
+.wps_kyc_approved_icon {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.wps_kyc_approved_icon svg {
+    width: 24px;
+    height: 24px;
+}
+
+
+
+/* Notifications start */
+
+.wps_wcb_wallet_display_wrapper .woocommerce {
+  padding: 0!important;
+}
+
+.wps_wcb_wallet_display_wrapper .woocommerce .woocommerce-info {
+  border-radius: 8px;
+  border: 1px solid var(--wallet-pc);
+  padding: 12px 18px 12px 42px;
+  background-color: var(--wallet-pc)10;
+  color: var(--wallet-pc);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  margin: 0 0 32px;
+  flex: 1;
+}
+
+.wps_wcb_wallet_display_wrapper .woocommerce-info::before {
+  top: 12px;
+  color: var(--wallet-pc);
+  font-size: 20px;
+  left: 14px;
+  line-height: 1;
+}
+
+
+/* Notifications ends */
+
+@media screen and (min-width: 992px) {
+  .wps_wcb_wallet_balance_container {
+      padding: 18px 32px;
+  }
+  .wps_wcb_wallet_balance_container .woocommerce-Price-amount {
+      font-size: 40px;
+      line-height: 1.25;
+  }
+
+  .wps_wcb_content_template ul.tabs {
+      margin: 32px 0;
+      border-radius: 8px;
+  }
+  .wps_wcb_content_template ul.tabs li {
+      padding: 16px;
+  }
+  .wps_wcb_content_template ul.tabs li.active {
+      border-radius: 8px;
+  }
+  .wps_wcb_content_template ul.tabs li a {
+      padding: 20px 0 5px;
+  }
+}
+
+
+/*=====  End of Tabs Section  ======*/
+
+
+/*====================================
+=      Add Balance Section            =
+====================================*/
+
+
+/*=====  End of Add Balance Section  ======*/
+
+
+/*====================================
+=      Transfer Section            =
+====================================*/
+
+#wps_wallet_transfer_form label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #000;
+  line-height: 1.25;
+  margin-bottom: 10px;
+  display: block;
+}
+
+#wps_wallet_transfer_form input[type=email],
+#wps_wallet_transfer_form input[type=text],
+#wps_wallet_transfer_form input[type=number],
+#wps_wallet_transfer_form input[type=select],
+#wps_wallet_transfer_form textarea {
+  box-shadow: none;
+  border: 2px solid #DFE3E8;
+  border-radius: 6px;
+  background: transparent;
+  padding: 8px;
+  font-size: 16px;
+  margin: 0 0 28px;
+  min-height: 30px;
+  width: 100%;
+  max-width: 100%;
+}
+
+#wps_wallet_transfer_form input[type=email]:focus,
+#wps_wallet_transfer_form input[type=number]:focus,
+#wps_wallet_transfer_form input[type=text]:focus,
+#wps_wallet_transfer_form textarea:focus {
+  outline: none;
+  border-color: var(--wallet-pc);
+}
+
+#wps_wallet_transfer_form p {
+  margin: 0;
+}
+
+#wps_wallet_transfer_form .wps-wallet-field-container+.error {
+  margin: -24px 0 28px;
+  color: #FF4842;
+  font-size: 14px;
+}
+
+@media screen and (min-width:992px) {
+  #wps_wallet_transfer_form label {
+      margin-bottom: 12px;
+  }
+  #wps_wallet_transfer_form input[type=email],
+  #wps_wallet_transfer_form input[type=number],
+  #wps_wallet_transfer_form input[type=text],
+  #wps_wallet_transfer_form select,
+  #wps_wallet_transfer_form textarea {
+      border-radius: 8px;
+      padding: 12px;
+      margin: 0 0 32px;
+  }
+  #wps_wallet_transfer_form .wps-wallet-field-container+.error {
+      margin: -26px 0 32px;
+  }
+}
+
+
+/*=====  End of Transfer Section  ======*/
+
+
+/*====================================
+=      Transaction Section            =
+====================================*/
+
+.wps-wallet-transaction-container #transactions_table_wrapper {
+  overflow: auto;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom {
+  position: sticky;
+  left: 0;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table thead tr {
+  background-color: #F4F6F8;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table thead tr th,
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table tbody tr td {
+  padding: 8px 18px 8px 8px;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table thead tr th {
+  background-color: transparent;
+  border: none;
+  color: #637381;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.25;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  box-shadow: none;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table thead tr th:first-of-type {
+  border-radius: 6px 0 0 0;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table thead tr th:last-of-type {
+  border-radius: 0 6px 0 0;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table tbody tr td {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #637381;
+  font-weight: 400;
+  background-color: transparent;
+  border: none;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table {
+  border-bottom: 1px solid #919EAB3D;
+  margin: 0;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table tbody tr td:last-of-type {
+  font-weight: 600;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom .dataTables_length {
+  padding: 10px 0;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom .dataTables_info {
+  padding: 0;
+  font-size: 10px;
+  font-weight: 400;
+  color: #212B36;
+  margin-left: 10px;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom .dataTables_paginate {
+  margin: 0 0 0 10px;
+  padding: 0;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom .dataTables_length label {
+  font-size: 10px;
+  color: #000;
+  margin: 0;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom .dataTables_length select {
+  border: none;
+  background: none;
+  font-size: 10px;
+  font-weight: 400;
+  color: #212B36;
+  margin: 0 0 0 10px;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: none;
+  -webkit-appearance: auto;
+  appearance: auto;
+  display: inline-block;
+  width: auto;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom .dataTables_paginate .paginate_button {
+  padding: 0;
+  cursor: pointer;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom .dataTables_paginate .paginate_button.current {
+  display: none;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper>.bottom .dataTables_paginate .paginate_button.disabled {
+  cursor: auto;
+}
+
+.wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table tbody tr:nth-of-type(even) {
+  background-color: #F4F6F8;
+}
+
+@media screen and (min-width:992px) {
+  .wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table thead tr th:first-of-type {
+      border-radius: 8px 0 0 0;
+  }
+  .wps-wallet-transaction-container #transactions_table_wrapper .wps-wsfw-wallet-field-table thead tr th:last-of-type {
+      border-radius: 0 8px 0 0;
+  }
+}
+
+.wps_wallet_debit{
+  color:red !important;
+}
+
+.wps_wallet_credit{
+  color:green !important;
+}
+
+.wsfw_show_user_restriction_notice{
+  width: 100%;
+  max-width: 275px;
+  margin:5px auto;
+  color:#ff0000;
+  background-color: #ffcbcb;
+  padding: 5px;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  text-align: center;
+}
+
+.wps_view_withdrawal span {
+  color: var(--wallet-pc);
+  text-decoration: underline;
+  margin-bottom: 20px;
+  display: block;
+  cursor: pointer;
+}
+.wps_withdrawal_table{
+  display: none;
+}
+.wps_fund_send_table{
+  display: none;
+}
+
+.wps_fund_recieve_table{
+  display: none;
+}
+
+/*=====  End of Transaction Section  ======*/
+
+.wps-show-cashback-notice-on-shop-page {
+  border: none;
+  color: #000;
+padding: 5px 14px;
+  font-size: 12px;
+  text-transform: uppercase;
+  font-weight: 600;
+  display: inline-block;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  background-image: linear-gradient(180deg, #d4ecc4, #ebf6c9);
+  border-bottom: 2px solid #a9cd3a;
+  position: relative;
+}
+
+.wsfw_comment_section_notice{
+  color: green;
+  font-weight: 600;
+}
+
+.wps-show-cashback-notice-on-shop-page:after {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 8px;
+  height: 8px;
+  background-color: #a9cd3a;
+  border-radius: 10px;
+  box-shadow: 0 0 0 2px #fff;
+}
+
+/* Referal start */
+.wps_wcb_wallet_balance_container .wps_wallet_referral_friend_link {
+  text-decoration: none!important;
+}
+
+.wps_wallet_referral_friend.dashicons {
+  position: absolute;
+  bottom: 15px;
+  right: 25px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  /* width:122px !important; */
+}
+
+.wps-wallet-referral-wrapper h4 {
+  font-size: 18px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.wps-wallet-popup-right-rewards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+  border-radius: 5px;
+}
+
+.wps-wallet-referral-wrapper code {
+ 
+
+  font-size: 14px;
+  font-family: monospace;
+  background: #f9f9f9;
+  border: 1px solid #dcdcdc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: #333;
+  word-wrap: break-word;
+  white-space: break-spaces;
+  word-break: break-all;
+  line-height: 1.25;
+  display: inline-block;
+}
+
+.wps-wallet-referral-wrapper #wps_notify_user_copy {
+  margin: 0;
+  padding: 5px;
+}
+
+.wps-wallet-referral-wrapper button.wps_wsfw_btn_copy {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  background: #F6F5FD;
+  cursor: pointer;
+  color: var(--wallet-pc);
+}
+
+.wps-wallet-referral-wrapper button.wps_wsfw_btn_copy:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+.wps-wallet-referral-wrapper button.wps_wsfw_btn_copy img {
+  width: auto;
+  height: 18px;
+}
+
+.wps-wallet-popup-right-rewards .wps_tooltiptext_scl {
+  color: #f78200;
+}
+
+.wps-wallet-referral-wrapper .wps-wallet-referral-notification {
+  font-size: 14px;
+  margin: 5px 0 0;
+  color: #0c8603;
+}
+
+/* Promotion tab start */
+
+.wallet-recharge-tab,
+.wallet-promotion-tab {
+    margin: 0 0 20px;
+}
+
+.wps-wsfw__prom-tab-item,
+.wps-wsfw__re-tab-item {
+    padding: 5px 15px;
+    cursor: pointer;
+}
+
+.wps-wsfw__prom-tab-item .wps-pr__item-wrap,
+.wps-wsfw__re-tab-item .wps-re__item-wrap {
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    padding: 0;
+}
+
+.wps-wsfw__prom-tab-item.wps-active .wps-pr__item-wrap,
+.wps-wsfw__re-tab-item.wps-active .wps-re__item-wrap {
+    border:1px solid var(--wallet-pc);
+    background: #f6f5fd;
+}
+.wps-wsfw__prom-tab-item .wps-pr-offer,
+.wps-wsfw__re-tab-item .wps-re-offer {
+    border-radius: 5px 0 5px 0;
+    padding: 5px;
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: var(--wallet-pc);
+    color: #fff;
+}
+
+.wps-wsfw__prom-tab-item .wps-pr-offer-desc,
+.wps-wsfw__re-tab-item .wps-re-offer-desc {
+    padding: 5px 15px;
+    margin: 0;
+}
+
+.wps-wsfw__re-tab-item .wps-re-offer-desc {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.wps-wsfw__prom-tab-head,
+.wps-wsfw__re-tab-head {
+    margin: 0 0 25px;
+}
+
+.wps-wsfw__prom-tab-head h3,
+.wps-wsfw__re-tab-head h3 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 10px;
+}
+
+.wps-wsfw__prom-tab-head .wps-pr-sub {
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.wps-wsfw__prom-tab-head .wps-pr-time {
+    color: var(--wallet-pc);
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.wps-wsfw__re-tab-item{
+display:inline-block
+}
+
+form#wps_wallet_transfer_form {
+  margin-top: 20px;
+}
+
+/* Promotion tab and recharge end */
+
+@media only screen and ( max-width: 992px ){
+  .wps_wallet_referral_friend.dashicons{
+    right : 15px;
+  }
+}
+
+
+.wps-wsfw-wallet-field-table #overlay {
+  display:none;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  right: 50%;
+}
+
+.wps-wsfw-wallet-field-table select .approved, .wps-wsfw-wallet-field-table select.approved {
+  color: #03dac5 !important;
+}
+
+.wps-wsfw-wallet-field-table select .pending, .wps-wsfw-wallet-field-table select.pending1 {
+  color: #fdb51a !important;
+}
+
+.wps-wsfw-wallet-field-table select .rejected , .wps-wsfw-wallet-field-table select.rejected {
+  color: #f32121 !important;
+}
+
+.wps_wsfw_wallet_fund_request_wrapper {
+  display: flex;
+  gap: 32px;
+  margin: 0 0 15px;
+}
+
+.wps_wsfw_wallet_fund_request_wrapper #wps_fund_recieve_table_div,.wps_wsfw_wallet_fund_request_wrapper #wps_fund_send_table_div {
+  cursor: pointer;
+  position: relative;
+  color: var(--wallet-pc);
+  text-decoration: underline;
+}
+
+.wps_wsfw_wallet_fund_request_wrapper #wps_fund_recieve_table_div .show_pending_fund_request_count {
+  position: absolute;
+  top: 0;
+  display: inline-flex;
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 50%;
+  background: var(--wallet-pc);
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 5px;
+}
+
+.wps-wsfw-wallet-field-table select {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.wps-wsfw-wallet-field-table select:focus {
+  outline: none;
+}
+
+.wps_wsfw_fund_request_status {
+  text-align: center;
+  position: relative;
+}
+
+.wps_wsfw_fund_request_status img {
+  margin: auto;
+}
+.wps-wallet-popup-right-rewards-in {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.wps_wsfw_wallet_user_id{
+  text-align: right;
+}
+.wps_wsfw_wallet_user_id h4{
+  font-size: 16px !important;
+}
+
+/* kyc css start  */
+
+/* Container */
+.wps-wallet-kyc-documents {
+  margin: 20px 0;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Status messages */
+.wps-wallet-kyc-status {
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.wps-wallet-kyc-status.pending {
+  background-color: #fff3cd;
+  border: 1px solid #ffeeba;
+  color: #856404;
+}
+
+.wps-wallet-kyc-status.approved {
+  background-color: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+}
+
+.wps-wallet-kyc-status.rejected {
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+}
+
+/* Headings */
+.wps-wallet-kyc-documents h4 {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 5px;
+}
+
+/* Paragraphs */
+.wps-wallet-kyc-documents p {
+  margin: 8px 0;
+  font-size: 14px;
+  color: #444;
+}
+
+/* Strong labels */
+.wps-wallet-kyc-documents p strong {
+  color: #222;
+}
+
+/* Documents list */
+.wps-wallet-kyc-documents ul {
+  list-style: disc inside;
+  margin: 10px 0 15px 10px;
+  padding: 0;
+}
+
+.wps-wallet-kyc-documents ul li {
+  margin: 5px 0;
+}
+
+.wps-wallet-kyc-documents ul li a {
+  color: #0073e6;
+  text-decoration: none;
+  transition: color 0.2s ease-in-out;
+}
+
+.wps-wallet-kyc-documents ul li a:hover {
+  color: #005bb5;
+  text-decoration: underline;
+}
+/* kyc verification */

@@ -1,0 +1,23 @@
+.wc-metaboxes-wrapper .wc-metabox h3 a.delete {
+    padding: 5px;
+    color: red;
+    font-weight: 400;
+    line-height: 26px;
+    text-decoration: none;
+    position: relative;
+}
+
+.wc-metaboxes-wrapper .wc-metabox h3 {
+    font-size: 1em !important;
+}
+
+.wc-metaboxes-wrapper :not(#variable_product_options_inner) .toolbar:not(.expand-close-hidden),
+.wc-metaboxes-wrapper#product_attributes .toolbar:not(.expand-close-hidden) {
+    border-bottom: 1px solid #eee;
+}
+
+.wc-metaboxes-wrapper .toolbar {
+    margin: 0 !important;
+    border-top: 1px solid #fff;
+    padding: 9px 12px 12px 12px !important;
+}

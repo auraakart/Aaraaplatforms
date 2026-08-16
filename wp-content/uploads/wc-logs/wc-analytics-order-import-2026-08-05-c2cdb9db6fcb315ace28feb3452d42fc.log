@@ -1,0 +1,459 @@
+2026-08-05T05:38:18+00:00 INFO Starting batch import. Cursor: 2026-08-04 16:56:22 (ID: 0), batch size: 100
+2026-08-05T05:38:18+00:00 INFO No orders to process
+2026-08-05T07:12:45+00:00 INFO Starting batch import. Cursor: 2026-08-04 12:58:11 (ID: 59687), batch size: 100
+2026-08-05T07:12:45+00:00 INFO No orders to process
+2026-08-05T18:15:43+00:00 INFO Starting batch import. Cursor: 2026-08-05 05:38:18 (ID: 0), batch size: 100
+2026-08-05T18:15:43+00:00 INFO No orders to process
+2026-08-05T19:13:42+00:00 INFO Starting batch import. Cursor: 2026-08-05 07:12:45 (ID: 0), batch size: 100
+2026-08-05T19:13:43+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.68 seconds. Cursor: 2026-08-05 09:19:32 (ID: 59788)
+2026-08-05T19:13:43+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:15:11+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:19:32 (ID: 59788), batch size: 100
+2026-08-05T19:15:12+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.95 seconds. Cursor: 2026-08-05 09:20:18 (ID: 59888)
+2026-08-05T19:15:12+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:15:49+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:20:18 (ID: 59888), batch size: 100
+2026-08-05T19:15:50+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.76 seconds. Cursor: 2026-08-05 09:21:04 (ID: 59988)
+2026-08-05T19:15:50+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:16:37+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:21:04 (ID: 59988), batch size: 100
+2026-08-05T19:16:38+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.80 seconds. Cursor: 2026-08-05 09:21:48 (ID: 60088)
+2026-08-05T19:16:38+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:17:50+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:21:48 (ID: 60088), batch size: 100
+2026-08-05T19:17:50+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.82 seconds. Cursor: 2026-08-05 09:22:30 (ID: 60188)
+2026-08-05T19:17:50+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:18:40+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:22:30 (ID: 60188), batch size: 100
+2026-08-05T19:18:41+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.86 seconds. Cursor: 2026-08-05 09:23:11 (ID: 60288)
+2026-08-05T19:18:41+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:19:15+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:23:11 (ID: 60288), batch size: 100
+2026-08-05T19:19:16+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.81 seconds. Cursor: 2026-08-05 09:23:55 (ID: 60388)
+2026-08-05T19:19:16+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:20:20+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:23:55 (ID: 60388), batch size: 100
+2026-08-05T19:20:21+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.83 seconds. Cursor: 2026-08-05 09:24:36 (ID: 60488)
+2026-08-05T19:20:21+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:20:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:24:36 (ID: 60488), batch size: 100
+2026-08-05T19:20:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.77 seconds. Cursor: 2026-08-05 09:25:18 (ID: 60588)
+2026-08-05T19:20:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:21:34+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:25:18 (ID: 60588), batch size: 100
+2026-08-05T19:21:35+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 09:25:56 (ID: 60688)
+2026-08-05T19:21:35+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:22:33+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:25:56 (ID: 60688), batch size: 100
+2026-08-05T19:22:34+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.76 seconds. Cursor: 2026-08-05 09:26:40 (ID: 60788)
+2026-08-05T19:22:34+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:23:39+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:26:40 (ID: 60788), batch size: 100
+2026-08-05T19:23:40+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.85 seconds. Cursor: 2026-08-05 09:27:23 (ID: 60888)
+2026-08-05T19:23:40+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:24:44+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:27:23 (ID: 60888), batch size: 100
+2026-08-05T19:24:45+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.78 seconds. Cursor: 2026-08-05 09:28:06 (ID: 60988)
+2026-08-05T19:24:45+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:25:53+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:28:06 (ID: 60988), batch size: 100
+2026-08-05T19:25:54+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.86 seconds. Cursor: 2026-08-05 09:28:49 (ID: 61088)
+2026-08-05T19:25:54+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:26:44+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:28:49 (ID: 61088), batch size: 100
+2026-08-05T19:26:45+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-05 09:29:31 (ID: 61188)
+2026-08-05T19:26:45+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:26:58+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:29:31 (ID: 61188), batch size: 100
+2026-08-05T19:26:58+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.87 seconds. Cursor: 2026-08-05 09:30:16 (ID: 61288)
+2026-08-05T19:26:58+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:27:59+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:30:16 (ID: 61288), batch size: 100
+2026-08-05T19:28:00+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.86 seconds. Cursor: 2026-08-05 09:31:02 (ID: 61388)
+2026-08-05T19:28:00+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:28:45+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:31:02 (ID: 61388), batch size: 100
+2026-08-05T19:28:46+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.71 seconds. Cursor: 2026-08-05 09:31:51 (ID: 61488)
+2026-08-05T19:28:46+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:29:44+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:31:51 (ID: 61488), batch size: 100
+2026-08-05T19:29:45+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.88 seconds. Cursor: 2026-08-05 09:32:34 (ID: 61588)
+2026-08-05T19:29:45+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:30:46+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:32:34 (ID: 61588), batch size: 100
+2026-08-05T19:30:47+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.78 seconds. Cursor: 2026-08-05 09:33:16 (ID: 61688)
+2026-08-05T19:30:47+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:31:44+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:33:16 (ID: 61688), batch size: 100
+2026-08-05T19:31:45+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-05 09:33:57 (ID: 61788)
+2026-08-05T19:31:45+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:32:01+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:33:57 (ID: 61788), batch size: 100
+2026-08-05T19:32:02+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.84 seconds. Cursor: 2026-08-05 09:34:40 (ID: 61888)
+2026-08-05T19:32:02+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:33:45+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:34:40 (ID: 61888), batch size: 100
+2026-08-05T19:33:46+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-05 09:35:21 (ID: 61988)
+2026-08-05T19:33:46+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:34:47+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:35:21 (ID: 61988), batch size: 100
+2026-08-05T19:34:48+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.75 seconds. Cursor: 2026-08-05 09:36:02 (ID: 62088)
+2026-08-05T19:34:48+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:35:36+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:36:02 (ID: 62088), batch size: 100
+2026-08-05T19:35:37+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 09:36:46 (ID: 62188)
+2026-08-05T19:35:37+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:36:38+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:36:46 (ID: 62188), batch size: 100
+2026-08-05T19:36:39+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.82 seconds. Cursor: 2026-08-05 09:37:28 (ID: 62288)
+2026-08-05T19:36:39+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:36:48+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:37:28 (ID: 62288), batch size: 100
+2026-08-05T19:36:49+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.89 seconds. Cursor: 2026-08-05 09:38:09 (ID: 62388)
+2026-08-05T19:36:49+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:39:17+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:38:09 (ID: 62388), batch size: 100
+2026-08-05T19:39:18+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.77 seconds. Cursor: 2026-08-05 09:38:48 (ID: 62488)
+2026-08-05T19:39:18+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:40:18+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:38:48 (ID: 62488), batch size: 100
+2026-08-05T19:40:18+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 09:39:26 (ID: 62588)
+2026-08-05T19:40:18+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:42:13+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:39:26 (ID: 62588), batch size: 100
+2026-08-05T19:42:14+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.96 seconds. Cursor: 2026-08-05 09:40:06 (ID: 62688)
+2026-08-05T19:42:14+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:42:36+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:40:06 (ID: 62688), batch size: 100
+2026-08-05T19:42:37+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.92 seconds. Cursor: 2026-08-05 09:40:45 (ID: 62788)
+2026-08-05T19:42:37+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:43:37+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:40:45 (ID: 62788), batch size: 100
+2026-08-05T19:43:38+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.80 seconds. Cursor: 2026-08-05 09:41:24 (ID: 62888)
+2026-08-05T19:43:38+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:45:03+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:41:24 (ID: 62888), batch size: 100
+2026-08-05T19:45:03+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.97 seconds. Cursor: 2026-08-05 09:42:06 (ID: 62988)
+2026-08-05T19:45:03+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:46:19+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:42:06 (ID: 62988), batch size: 100
+2026-08-05T19:46:20+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.72 seconds. Cursor: 2026-08-05 09:42:45 (ID: 63088)
+2026-08-05T19:46:20+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:47:20+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:42:45 (ID: 63088), batch size: 100
+2026-08-05T19:47:20+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.64 seconds. Cursor: 2026-08-05 09:43:24 (ID: 63188)
+2026-08-05T19:47:20+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:49:11+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:43:24 (ID: 63188), batch size: 100
+2026-08-05T19:49:12+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.59 seconds. Cursor: 2026-08-05 09:44:04 (ID: 63288)
+2026-08-05T19:49:12+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:50:57+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:44:04 (ID: 63288), batch size: 100
+2026-08-05T19:50:58+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.71 seconds. Cursor: 2026-08-05 09:44:43 (ID: 63388)
+2026-08-05T19:50:58+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:52:59+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:44:43 (ID: 63388), batch size: 100
+2026-08-05T19:53:00+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.64 seconds. Cursor: 2026-08-05 09:45:21 (ID: 63488)
+2026-08-05T19:53:00+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:54:59+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:45:21 (ID: 63488), batch size: 100
+2026-08-05T19:55:00+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-05 09:46:01 (ID: 63588)
+2026-08-05T19:55:00+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:57:00+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:46:01 (ID: 63588), batch size: 100
+2026-08-05T19:57:01+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.81 seconds. Cursor: 2026-08-05 09:46:47 (ID: 63688)
+2026-08-05T19:57:01+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:58:30+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:46:47 (ID: 63688), batch size: 100
+2026-08-05T19:58:31+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.60 seconds. Cursor: 2026-08-05 09:47:27 (ID: 63788)
+2026-08-05T19:58:31+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T19:59:36+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:47:27 (ID: 63788), batch size: 100
+2026-08-05T19:59:37+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.63 seconds. Cursor: 2026-08-05 09:48:10 (ID: 63888)
+2026-08-05T19:59:37+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:00:56+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:48:10 (ID: 63888), batch size: 100
+2026-08-05T20:00:57+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.68 seconds. Cursor: 2026-08-05 09:48:53 (ID: 63988)
+2026-08-05T20:00:57+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:01:35+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:48:53 (ID: 63988), batch size: 100
+2026-08-05T20:01:36+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-05 09:49:37 (ID: 64088)
+2026-08-05T20:01:36+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:01:57+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:49:37 (ID: 64088), batch size: 100
+2026-08-05T20:01:58+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.81 seconds. Cursor: 2026-08-05 09:50:33 (ID: 64188)
+2026-08-05T20:01:58+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:03:05+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:50:33 (ID: 64188), batch size: 100
+2026-08-05T20:03:06+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.84 seconds. Cursor: 2026-08-05 09:51:39 (ID: 64288)
+2026-08-05T20:03:06+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:03:36+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:51:39 (ID: 64288), batch size: 100
+2026-08-05T20:03:37+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.81 seconds. Cursor: 2026-08-05 09:52:33 (ID: 64388)
+2026-08-05T20:03:37+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:04:35+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:52:33 (ID: 64388), batch size: 100
+2026-08-05T20:04:36+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.86 seconds. Cursor: 2026-08-05 09:53:22 (ID: 64488)
+2026-08-05T20:04:36+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:05:34+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:53:22 (ID: 64488), batch size: 100
+2026-08-05T20:05:35+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.12 seconds. Cursor: 2026-08-05 09:54:10 (ID: 64588)
+2026-08-05T20:05:35+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:06:36+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:54:10 (ID: 64588), batch size: 100
+2026-08-05T20:06:37+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.68 seconds. Cursor: 2026-08-05 09:54:56 (ID: 64688)
+2026-08-05T20:06:37+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:07:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:54:56 (ID: 64688), batch size: 100
+2026-08-05T20:07:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.67 seconds. Cursor: 2026-08-05 09:55:43 (ID: 64788)
+2026-08-05T20:07:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:08:37+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:55:43 (ID: 64788), batch size: 100
+2026-08-05T20:08:38+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.75 seconds. Cursor: 2026-08-05 09:56:27 (ID: 64888)
+2026-08-05T20:08:38+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:10:38+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:56:27 (ID: 64888), batch size: 100
+2026-08-05T20:10:39+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.72 seconds. Cursor: 2026-08-05 09:57:10 (ID: 64988)
+2026-08-05T20:10:39+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:12:40+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:57:10 (ID: 64988), batch size: 100
+2026-08-05T20:12:40+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.61 seconds. Cursor: 2026-08-05 09:57:54 (ID: 65088)
+2026-08-05T20:12:40+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:13:37+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:57:54 (ID: 65088), batch size: 100
+2026-08-05T20:13:37+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.63 seconds. Cursor: 2026-08-05 09:58:49 (ID: 65188)
+2026-08-05T20:13:37+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:15:18+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:58:49 (ID: 65188), batch size: 100
+2026-08-05T20:15:19+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.76 seconds. Cursor: 2026-08-05 09:59:44 (ID: 65288)
+2026-08-05T20:15:19+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:15:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 09:59:44 (ID: 65288), batch size: 100
+2026-08-05T20:15:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.63 seconds. Cursor: 2026-08-05 10:00:43 (ID: 65388)
+2026-08-05T20:15:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:17:19+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:00:43 (ID: 65388), batch size: 100
+2026-08-05T20:17:20+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.71 seconds. Cursor: 2026-08-05 10:01:33 (ID: 65488)
+2026-08-05T20:17:20+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:17:42+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:01:33 (ID: 65488), batch size: 100
+2026-08-05T20:17:43+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.65 seconds. Cursor: 2026-08-05 10:02:30 (ID: 65588)
+2026-08-05T20:17:43+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:19:20+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:02:30 (ID: 65588), batch size: 100
+2026-08-05T20:19:21+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.67 seconds. Cursor: 2026-08-05 10:03:32 (ID: 65688)
+2026-08-05T20:19:21+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:19:43+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:03:32 (ID: 65688), batch size: 100
+2026-08-05T20:19:44+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 10:04:33 (ID: 65788)
+2026-08-05T20:19:44+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:21:05+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:04:33 (ID: 65788), batch size: 100
+2026-08-05T20:21:05+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.67 seconds. Cursor: 2026-08-05 10:05:37 (ID: 65888)
+2026-08-05T20:21:05+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:21:44+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:05:37 (ID: 65888), batch size: 100
+2026-08-05T20:21:45+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.72 seconds. Cursor: 2026-08-05 10:06:28 (ID: 65988)
+2026-08-05T20:21:45+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:23:06+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:06:28 (ID: 65988), batch size: 100
+2026-08-05T20:23:07+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.84 seconds. Cursor: 2026-08-05 10:07:22 (ID: 66088)
+2026-08-05T20:23:07+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:25:06+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:07:22 (ID: 66088), batch size: 100
+2026-08-05T20:25:07+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.91 seconds. Cursor: 2026-08-05 10:08:03 (ID: 66188)
+2026-08-05T20:25:07+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:27:07+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:08:03 (ID: 66188), batch size: 100
+2026-08-05T20:27:08+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.96 seconds. Cursor: 2026-08-05 10:08:48 (ID: 66288)
+2026-08-05T20:27:08+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:29:09+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:08:48 (ID: 66288), batch size: 100
+2026-08-05T20:29:10+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.77 seconds. Cursor: 2026-08-05 10:09:37 (ID: 66388)
+2026-08-05T20:29:10+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:31:09+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:09:37 (ID: 66388), batch size: 100
+2026-08-05T20:31:10+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-05 10:10:22 (ID: 66488)
+2026-08-05T20:31:10+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T20:33:07+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:10:22 (ID: 66488), batch size: 100
+2026-08-05T20:33:07+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.76 seconds. Cursor: 2026-08-05 10:11:09 (ID: 66588)
+2026-08-05T20:33:07+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:24:05+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:11:09 (ID: 66588), batch size: 100
+2026-08-05T22:24:05+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.75 seconds. Cursor: 2026-08-05 10:11:49 (ID: 66688)
+2026-08-05T22:24:05+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:25:10+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:11:49 (ID: 66688), batch size: 100
+2026-08-05T22:25:11+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.77 seconds. Cursor: 2026-08-05 10:12:42 (ID: 66788)
+2026-08-05T22:25:11+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:26:00+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:12:42 (ID: 66788), batch size: 100
+2026-08-05T22:26:01+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.62 seconds. Cursor: 2026-08-05 10:13:27 (ID: 66888)
+2026-08-05T22:26:01+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:27:11+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:13:27 (ID: 66888), batch size: 100
+2026-08-05T22:27:11+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-05 10:14:14 (ID: 66988)
+2026-08-05T22:27:11+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:27:42+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:14:14 (ID: 66988), batch size: 100
+2026-08-05T22:27:43+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.88 seconds. Cursor: 2026-08-05 10:15:01 (ID: 67088)
+2026-08-05T22:27:43+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:28:39+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:15:01 (ID: 67088), batch size: 100
+2026-08-05T22:28:40+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.87 seconds. Cursor: 2026-08-05 10:15:55 (ID: 67188)
+2026-08-05T22:28:40+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:29:29+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:15:55 (ID: 67188), batch size: 100
+2026-08-05T22:29:30+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.82 seconds. Cursor: 2026-08-05 10:16:51 (ID: 67288)
+2026-08-05T22:29:30+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:30:46+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:16:51 (ID: 67288), batch size: 100
+2026-08-05T22:30:47+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.86 seconds. Cursor: 2026-08-05 10:17:42 (ID: 67388)
+2026-08-05T22:30:47+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:31:50+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:17:42 (ID: 67388), batch size: 100
+2026-08-05T22:31:51+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.92 seconds. Cursor: 2026-08-05 10:18:30 (ID: 67488)
+2026-08-05T22:31:51+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:32:58+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:18:30 (ID: 67488), batch size: 100
+2026-08-05T22:32:58+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.84 seconds. Cursor: 2026-08-05 10:19:20 (ID: 67588)
+2026-08-05T22:32:58+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:33:53+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:19:20 (ID: 67588), batch size: 100
+2026-08-05T22:33:54+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.88 seconds. Cursor: 2026-08-05 10:20:05 (ID: 67688)
+2026-08-05T22:33:54+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:34:44+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:20:05 (ID: 67688), batch size: 100
+2026-08-05T22:34:45+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.92 seconds. Cursor: 2026-08-05 10:21:12 (ID: 67788)
+2026-08-05T22:34:45+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:36:20+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:21:12 (ID: 67788), batch size: 100
+2026-08-05T22:36:20+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.89 seconds. Cursor: 2026-08-05 10:22:16 (ID: 67888)
+2026-08-05T22:36:20+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:37:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:22:16 (ID: 67888), batch size: 100
+2026-08-05T22:37:41+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.83 seconds. Cursor: 2026-08-05 10:23:34 (ID: 67988)
+2026-08-05T22:37:41+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:38:56+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:23:34 (ID: 67988), batch size: 100
+2026-08-05T22:38:57+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.92 seconds. Cursor: 2026-08-05 10:24:42 (ID: 68088)
+2026-08-05T22:38:57+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:39:47+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:24:42 (ID: 68088), batch size: 100
+2026-08-05T22:39:48+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.88 seconds. Cursor: 2026-08-05 10:25:41 (ID: 68188)
+2026-08-05T22:39:48+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:40:35+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:25:41 (ID: 68188), batch size: 100
+2026-08-05T22:40:35+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.71 seconds. Cursor: 2026-08-05 10:26:34 (ID: 68288)
+2026-08-05T22:40:35+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:41:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:26:34 (ID: 68288), batch size: 100
+2026-08-05T22:41:41+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 10:27:29 (ID: 68388)
+2026-08-05T22:41:41+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:42:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:27:29 (ID: 68388), batch size: 100
+2026-08-05T22:42:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.87 seconds. Cursor: 2026-08-05 10:28:27 (ID: 68488)
+2026-08-05T22:42:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:45:42+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:28:27 (ID: 68488), batch size: 100
+2026-08-05T22:45:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.68 seconds. Cursor: 2026-08-05 10:29:15 (ID: 68588)
+2026-08-05T22:45:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:47:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:29:15 (ID: 68588), batch size: 100
+2026-08-05T22:47:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.67 seconds. Cursor: 2026-08-05 10:30:31 (ID: 68688)
+2026-08-05T22:47:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:48:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:30:31 (ID: 68688), batch size: 100
+2026-08-05T22:48:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.77 seconds. Cursor: 2026-08-05 10:31:41 (ID: 68788)
+2026-08-05T22:48:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:49:45+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:31:41 (ID: 68788), batch size: 100
+2026-08-05T22:49:46+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.64 seconds. Cursor: 2026-08-05 10:32:37 (ID: 68888)
+2026-08-05T22:49:46+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:51:25+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:32:37 (ID: 68888), batch size: 100
+2026-08-05T22:51:26+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.78 seconds. Cursor: 2026-08-05 10:33:27 (ID: 68988)
+2026-08-05T22:51:26+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:52:42+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:33:27 (ID: 68988), batch size: 100
+2026-08-05T22:52:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.72 seconds. Cursor: 2026-08-05 10:34:15 (ID: 69088)
+2026-08-05T22:52:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:53:51+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:34:15 (ID: 69088), batch size: 100
+2026-08-05T22:53:52+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.80 seconds. Cursor: 2026-08-05 10:34:59 (ID: 69188)
+2026-08-05T22:53:52+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:55:02+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:34:59 (ID: 69188), batch size: 100
+2026-08-05T22:55:03+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.96 seconds. Cursor: 2026-08-05 10:35:41 (ID: 69288)
+2026-08-05T22:55:03+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:56:09+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:35:41 (ID: 69288), batch size: 100
+2026-08-05T22:56:10+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.69 seconds. Cursor: 2026-08-05 10:36:25 (ID: 69388)
+2026-08-05T22:56:10+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:57:11+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:36:25 (ID: 69388), batch size: 100
+2026-08-05T22:57:12+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.66 seconds. Cursor: 2026-08-05 10:37:13 (ID: 69488)
+2026-08-05T22:57:12+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:57:36+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:37:13 (ID: 69488), batch size: 100
+2026-08-05T22:57:36+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.58 seconds. Cursor: 2026-08-05 10:37:56 (ID: 69588)
+2026-08-05T22:57:36+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:58:41+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:37:56 (ID: 69588), batch size: 100
+2026-08-05T22:58:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.72 seconds. Cursor: 2026-08-05 10:38:44 (ID: 69688)
+2026-08-05T22:58:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T22:59:34+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:38:44 (ID: 69688), batch size: 100
+2026-08-05T22:59:35+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.65 seconds. Cursor: 2026-08-05 10:39:25 (ID: 69788)
+2026-08-05T22:59:35+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:01:11+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:39:25 (ID: 69788), batch size: 100
+2026-08-05T23:01:12+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.66 seconds. Cursor: 2026-08-05 10:40:09 (ID: 69888)
+2026-08-05T23:01:12+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:03:13+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:40:09 (ID: 69888), batch size: 100
+2026-08-05T23:03:13+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.70 seconds. Cursor: 2026-08-05 10:40:54 (ID: 69988)
+2026-08-05T23:03:13+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:03:46+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:40:54 (ID: 69988), batch size: 100
+2026-08-05T23:03:46+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.60 seconds. Cursor: 2026-08-05 10:41:46 (ID: 70088)
+2026-08-05T23:03:46+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:05:03+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:41:46 (ID: 70088), batch size: 100
+2026-08-05T23:05:04+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.76 seconds. Cursor: 2026-08-05 10:42:39 (ID: 70188)
+2026-08-05T23:05:04+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:05:44+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:42:39 (ID: 70188), batch size: 100
+2026-08-05T23:05:44+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.67 seconds. Cursor: 2026-08-05 10:43:30 (ID: 70288)
+2026-08-05T23:05:44+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:06:57+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:43:30 (ID: 70288), batch size: 100
+2026-08-05T23:06:58+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 10:44:57 (ID: 70388)
+2026-08-05T23:06:58+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:08:01+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:44:57 (ID: 70388), batch size: 100
+2026-08-05T23:08:02+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.62 seconds. Cursor: 2026-08-05 10:46:05 (ID: 70488)
+2026-08-05T23:08:02+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:09:02+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:46:05 (ID: 70488), batch size: 100
+2026-08-05T23:09:02+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.83 seconds. Cursor: 2026-08-05 10:47:16 (ID: 70588)
+2026-08-05T23:09:02+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:10:01+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:47:16 (ID: 70588), batch size: 100
+2026-08-05T23:10:02+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 10:48:07 (ID: 70688)
+2026-08-05T23:10:02+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:10:43+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:48:07 (ID: 70688), batch size: 100
+2026-08-05T23:10:44+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.72 seconds. Cursor: 2026-08-05 10:48:56 (ID: 70788)
+2026-08-05T23:10:44+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:11:05+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:48:56 (ID: 70788), batch size: 100
+2026-08-05T23:11:06+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.86 seconds. Cursor: 2026-08-05 10:49:40 (ID: 70888)
+2026-08-05T23:11:06+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:12:08+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:49:40 (ID: 70888), batch size: 100
+2026-08-05T23:12:09+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.64 seconds. Cursor: 2026-08-05 10:50:24 (ID: 70988)
+2026-08-05T23:12:09+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:14:08+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:50:24 (ID: 70988), batch size: 100
+2026-08-05T23:14:09+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.69 seconds. Cursor: 2026-08-05 10:51:11 (ID: 71088)
+2026-08-05T23:14:09+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:16:09+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:51:11 (ID: 71088), batch size: 100
+2026-08-05T23:16:09+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.75 seconds. Cursor: 2026-08-05 10:51:55 (ID: 71188)
+2026-08-05T23:16:09+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:18:10+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:51:55 (ID: 71188), batch size: 100
+2026-08-05T23:18:10+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.75 seconds. Cursor: 2026-08-05 10:52:39 (ID: 71288)
+2026-08-05T23:18:10+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:20:10+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:52:39 (ID: 71288), batch size: 100
+2026-08-05T23:20:10+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 10:53:20 (ID: 71388)
+2026-08-05T23:20:10+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:22:54+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:53:20 (ID: 71388), batch size: 100
+2026-08-05T23:22:55+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.83 seconds. Cursor: 2026-08-05 10:54:06 (ID: 71488)
+2026-08-05T23:22:55+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:24:09+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:54:06 (ID: 71488), batch size: 100
+2026-08-05T23:24:09+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.65 seconds. Cursor: 2026-08-05 10:54:48 (ID: 71588)
+2026-08-05T23:24:09+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:26:08+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:54:48 (ID: 71588), batch size: 100
+2026-08-05T23:26:09+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.73 seconds. Cursor: 2026-08-05 10:55:32 (ID: 71688)
+2026-08-05T23:26:09+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:28:08+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:55:32 (ID: 71688), batch size: 100
+2026-08-05T23:28:09+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.77 seconds. Cursor: 2026-08-05 10:56:19 (ID: 71788)
+2026-08-05T23:28:09+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:29:51+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:56:19 (ID: 71788), batch size: 100
+2026-08-05T23:29:52+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.82 seconds. Cursor: 2026-08-05 10:57:00 (ID: 71888)
+2026-08-05T23:29:52+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:30:14+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:57:00 (ID: 71888), batch size: 100
+2026-08-05T23:30:14+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.84 seconds. Cursor: 2026-08-05 10:57:43 (ID: 71988)
+2026-08-05T23:30:14+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:31:27+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:57:43 (ID: 71988), batch size: 100
+2026-08-05T23:31:28+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.89 seconds. Cursor: 2026-08-05 10:58:26 (ID: 72088)
+2026-08-05T23:31:28+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:32:19+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:58:26 (ID: 72088), batch size: 100
+2026-08-05T23:32:19+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.63 seconds. Cursor: 2026-08-05 10:59:11 (ID: 72188)
+2026-08-05T23:32:19+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:32:35+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:59:11 (ID: 72188), batch size: 100
+2026-08-05T23:32:36+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.84 seconds. Cursor: 2026-08-05 10:59:56 (ID: 72288)
+2026-08-05T23:32:36+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:34:29+00:00 INFO Starting batch import. Cursor: 2026-08-05 10:59:56 (ID: 72288), batch size: 100
+2026-08-05T23:34:30+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 11:00:54 (ID: 72388)
+2026-08-05T23:34:30+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:34:36+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:00:54 (ID: 72388), batch size: 100
+2026-08-05T23:34:36+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.89 seconds. Cursor: 2026-08-05 11:01:47 (ID: 72488)
+2026-08-05T23:34:36+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:35:30+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:01:47 (ID: 72488), batch size: 100
+2026-08-05T23:35:31+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.79 seconds. Cursor: 2026-08-05 11:02:47 (ID: 72588)
+2026-08-05T23:35:31+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:37:00+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:02:47 (ID: 72588), batch size: 100
+2026-08-05T23:37:01+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.90 seconds. Cursor: 2026-08-05 11:03:42 (ID: 72688)
+2026-08-05T23:37:01+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:38:31+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:03:42 (ID: 72688), batch size: 100
+2026-08-05T23:38:32+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.71 seconds. Cursor: 2026-08-05 11:04:36 (ID: 72788)
+2026-08-05T23:38:32+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:38:38+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:04:36 (ID: 72788), batch size: 100
+2026-08-05T23:38:38+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.76 seconds. Cursor: 2026-08-05 11:05:31 (ID: 72888)
+2026-08-05T23:38:38+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:39:50+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:05:31 (ID: 72888), batch size: 100
+2026-08-05T23:39:51+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.72 seconds. Cursor: 2026-08-05 11:06:17 (ID: 72988)
+2026-08-05T23:39:51+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:40:56+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:06:17 (ID: 72988), batch size: 100
+2026-08-05T23:40:57+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.65 seconds. Cursor: 2026-08-05 11:07:05 (ID: 73088)
+2026-08-05T23:40:57+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:41:35+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:07:05 (ID: 73088), batch size: 100
+2026-08-05T23:41:36+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.73 seconds. Cursor: 2026-08-05 11:07:57 (ID: 73188)
+2026-08-05T23:41:36+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:42:31+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:07:57 (ID: 73188), batch size: 100
+2026-08-05T23:42:31+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.73 seconds. Cursor: 2026-08-05 11:08:53 (ID: 73288)
+2026-08-05T23:42:31+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:44:24+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:08:53 (ID: 73288), batch size: 100
+2026-08-05T23:44:24+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.70 seconds. Cursor: 2026-08-05 11:09:50 (ID: 73388)
+2026-08-05T23:44:24+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:45:42+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:09:50 (ID: 73388), batch size: 100
+2026-08-05T23:45:43+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.68 seconds. Cursor: 2026-08-05 11:10:52 (ID: 73488)
+2026-08-05T23:45:43+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:47:21+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:10:52 (ID: 73488), batch size: 100
+2026-08-05T23:47:22+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.73 seconds. Cursor: 2026-08-05 11:11:47 (ID: 73588)
+2026-08-05T23:47:22+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:48:20+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:11:47 (ID: 73588), batch size: 100
+2026-08-05T23:48:21+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.63 seconds. Cursor: 2026-08-05 11:12:47 (ID: 73688)
+2026-08-05T23:48:21+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:48:34+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:12:47 (ID: 73688), batch size: 100
+2026-08-05T23:48:35+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.81 seconds. Cursor: 2026-08-05 11:13:55 (ID: 73788)
+2026-08-05T23:48:35+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:50:20+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:13:55 (ID: 73788), batch size: 100
+2026-08-05T23:50:21+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.74 seconds. Cursor: 2026-08-05 11:14:45 (ID: 73888)
+2026-08-05T23:50:21+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:50:34+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:14:45 (ID: 73888), batch size: 100
+2026-08-05T23:50:35+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.78 seconds. Cursor: 2026-08-05 11:15:40 (ID: 73988)
+2026-08-05T23:50:35+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:51:26+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:15:40 (ID: 73988), batch size: 100
+2026-08-05T23:51:27+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.69 seconds. Cursor: 2026-08-05 11:16:34 (ID: 74088)
+2026-08-05T23:51:27+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:52:29+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:16:34 (ID: 74088), batch size: 100
+2026-08-05T23:52:29+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.71 seconds. Cursor: 2026-08-05 11:17:22 (ID: 74188)
+2026-08-05T23:52:29+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:52:35+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:17:22 (ID: 74188), batch size: 100
+2026-08-05T23:52:36+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.77 seconds. Cursor: 2026-08-05 11:18:16 (ID: 74288)
+2026-08-05T23:52:36+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:54:28+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:18:16 (ID: 74288), batch size: 100
+2026-08-05T23:54:29+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.89 seconds. Cursor: 2026-08-05 11:19:02 (ID: 74388)
+2026-08-05T23:54:29+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:54:39+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:19:02 (ID: 74388), batch size: 100
+2026-08-05T23:54:40+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.76 seconds. Cursor: 2026-08-05 11:19:50 (ID: 74488)
+2026-08-05T23:54:40+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:55:42+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:19:50 (ID: 74488), batch size: 100
+2026-08-05T23:55:42+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.71 seconds. Cursor: 2026-08-05 11:20:41 (ID: 74588)
+2026-08-05T23:55:42+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:57:04+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:20:41 (ID: 74588), batch size: 100
+2026-08-05T23:57:06+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.20 seconds. Cursor: 2026-08-05 11:21:46 (ID: 74688)
+2026-08-05T23:57:06+00:00 INFO Full batch processed, scheduling next batch
+2026-08-05T23:58:22+00:00 INFO Starting batch import. Cursor: 2026-08-05 11:21:46 (ID: 74688), batch size: 100
+2026-08-05T23:58:23+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.69 seconds. Cursor: 2026-08-05 11:22:44 (ID: 74788)
+2026-08-05T23:58:23+00:00 INFO Full batch processed, scheduling next batch

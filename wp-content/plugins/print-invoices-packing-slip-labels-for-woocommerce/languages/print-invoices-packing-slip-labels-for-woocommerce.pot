@@ -1,0 +1,5922 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WebToffee WooCommerce PDF Invoices, Packing Slips, "
+"Delivery Notes and Shipping Labels\n"
+"POT-Creation-Date: 2025-11-13 13:19+0530\n"
+"PO-Revision-Date: 2025-11-13 13:18+0530\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"X-Generator: Poedit 3.7\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: print-invoices-packing-slip-labels-for-woocommerce.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.min.js\n"
+"X-Poedit-SearchPathExcluded-1: includes/vendor\n"
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:138
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:65
+msgid "Settings updated."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:139
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:66
+msgid "All fields are mandatory"
+msgstr ""
+
+#. translators: 1$s: HTML line break, 2$s: HTML link opening tag, 3$s: HTML link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:141
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:68
+#, php-format
+msgid ""
+"Unable to update settings due to an internal error. %1$s To troubleshoot "
+"please click %2$s here. %3$s"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:142
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:69
+msgid "You have to select order(s) first!"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:143
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:70
+msgid "One or more order do not have invoice generated. Generate manually?"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:144
+#: admin/class-wf-woocommerce-packing-list-admin.php:1754
+#: admin/class-wf-woocommerce-packing-list-admin.php:2421
+#: admin/class-wf-woocommerce-packing-list-admin.php:4735
+#: admin/class-wf-woocommerce-packing-list-admin.php:4853
+#: admin/class-wf-woocommerce-packing-list-admin.php:5044
+#: admin/modules/customizer/customizer.php:59
+#: admin/modules/customizer/customizer.php:260
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:132
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:71
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:91
+#: public/modules/invoice/invoice.php:201
+#: public/modules/shippinglabel/shippinglabel.php:267
+msgid "Error"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:145
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:72
+msgid "Please wait"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:146
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:73
+msgid "is required"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:147
+#: admin/class-wf-woocommerce-packing-list-admin.php:4671
+#: admin/views/documents.php:18 admin/views/freevspro.php:6
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:74
+#: public/class-wf-woocommerce-packing-list-public.php:161
+#: public/modules/invoice/invoice.php:149
+#: public/modules/invoice/invoice.php:163
+#: public/modules/invoice/invoice.php:164
+#: public/modules/invoice/invoice.php:1199
+#: public/modules/invoice/invoice.php:1227
+#: public/modules/invoice/invoice.php:1531
+#: public/modules/invoice/invoice.php:2039
+#: public/modules/invoice/views/invoice-admin-settings.php:44
+msgid "Invoice"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:148
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:75
+#: public/class-wf-woocommerce-packing-list-public.php:162
+msgid ""
+"number has not been generated yet. Do you want to manually generate one ?"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:149
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:76
+#: public/class-wf-woocommerce-packing-list-public.php:158
+msgid ""
+"‘Generate invoice for free orders’ is disabled in Invoice settings > "
+"Advanced. You are attempting to generate invoice for this free order. "
+"Proceed?"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:150
+#: public/class-wf-woocommerce-packing-list-public.php:159
+msgid ""
+"Refund in this order seems not having credit number yet. Do you want to "
+"manually generate one ?"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:151
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:77
+#: public/class-wf-woocommerce-packing-list-public.php:160
+msgid "Please fill the `from address` in the plugin's general settings."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:152
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:78
+msgid "Code Copied"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:153
+#: admin/partials/form_wizard/form_wizard.php:686
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:79
+msgid "Close"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:154
+#: admin/modules/customizer/views/customize.php:618
+#: admin/views/admin-settings-debug.php:108
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:80
+msgid "Save"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:155
+#: admin/class-wf-woocommerce-packing-list-admin.php:2422
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:81
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:92
+msgid "Please enter mandatory fields"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:156
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:82
+msgid "You can add more than 1 order meta in"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:157
+#: admin/views/_custom_field_editor_form.php:19
+#: admin/views/_custom_field_editor_form.php:24
+#: admin/views/_custom_field_editor_form_product.php:23
+#: admin/views/_custom_field_editor_form_product.php:28
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:83
+msgid "Edit"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:158
+#: admin/views/_custom_field_editor_form.php:42
+#: admin/views/_custom_field_editor_form_product.php:46
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:84
+msgid "You can edit an existing item by using its key."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:160
+msgid "Add"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:161
+#: public/class-wf-woocommerce-packing-list-public.php:164
+msgid "Request error."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:162
+#: public/class-wf-woocommerce-packing-list-public.php:165
+msgid "Error loading data."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:163
+#: public/class-wf-woocommerce-packing-list-public.php:166
+msgid "minimum value should be"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:164
+#: public/class-wf-woocommerce-packing-list-public.php:167
+msgid "Generating document..."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:165
+#: public/class-wf-woocommerce-packing-list-public.php:168
+msgid "Failed to open new tab. Please check your browser settings."
+msgstr ""
+
+#. translators: %1$s: HTML link opening tag, %2$s: HTML link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:336
+#, php-format
+msgid ""
+"For better RTL integration in PDF documents, click the link to install the "
+"%1$smPDF add-on%2$s by WebToffee (free)."
+msgstr ""
+
+#. translators: %1$s: HTML link opening tag, %2$s: HTML link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:340
+#, php-format
+msgid ""
+"For better RTL integration in PDF documents, click the link to update the "
+"%1$smPDF add-on%2$s by WebToffee (free)."
+msgstr ""
+
+#. translators: %1$s: HTML link opening tag, %2$s: HTML link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:344
+#, php-format
+msgid ""
+"For better RTL integration in PDF documents, click the link to activate the "
+"%1$smPDF add-on%2$s by WebToffee (free)."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:387
+msgctxt "placeholder"
+msgid "Enter "
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:560
+#: admin/class-wf-woocommerce-packing-list-admin.php:878
+msgid "Invoice/Packing"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:562
+msgid "WT PDF Invoice Debug"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:573
+#: admin/partials/admin-settings.php:40
+#: public/modules/deliverynote/views/admin-settings.php:45
+#: public/modules/dispatchlabel/views/admin-settings.php:50
+#: public/modules/invoice/views/invoice-admin-settings.php:44
+#: public/modules/packinglist/views/admin-settings.php:46
+#: public/modules/shippinglabel/views/admin-settings.php:30
+msgid "Settings"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:574
+msgid "Support"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:575
+msgid "Review"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:576
+#: admin/views/help.php:46 admin/views/help.php:49
+msgid "Documentation"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:582
+msgid "PDF Invoices"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:586
+msgid "Shipping labels"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:590
+msgid "Pick lists"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:594
+msgid "Proforma invoices"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:598
+#: admin/views/documents.php:74
+msgid "Address labels"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:601
+msgid "Premium Extensions"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:639
+msgid "Document details"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:661
+msgid "Print/Download"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:877
+#: admin/class-wf-woocommerce-packing-list-admin.php:905
+msgid "General Settings"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:893
+#: admin/class-wf-woocommerce-packing-list-admin.php:894
+msgid "Extensions"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:993
+#: admin/class-wf-woocommerce-packing-list-admin.php:1003
+msgid "You are not allowed to access this page"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1021
+#: admin/class-wf-woocommerce-packing-list-admin.php:1163
+msgid "You are not allowed to view this page."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1022
+msgid "Access denied !!!."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1040
+#: admin/class-wf-woocommerce-packing-list-admin.php:1090
+#: admin/class-wf-woocommerce-packing-list-admin.php:1182
+#: admin/class-wf-woocommerce-packing-list-admin.php:2813
+#: admin/class-wf-woocommerce-packing-list-admin.php:4299
+#: admin/class-wf-woocommerce-packing-list-admin.php:4412
+#: admin/class-wf-woocommerce-packing-list-admin.php:4463
+#: admin/class-wf-woocommerce-packing-list-admin.php:4583
+msgid "You are not allowed to do this action"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1048
+#: admin/class-wf-woocommerce-packing-list-admin.php:1190
+msgid "There is no order with this id"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1068
+#: admin/class-wf-woocommerce-packing-list-admin.php:1210
+msgid "It seems this order is not yours"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1083
+#: admin/class-wf-woocommerce-packing-list-admin.php:1225
+msgid ""
+"It seems the products in this order were removed, we cannot proceed this "
+"actoin now."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1087
+#: admin/class-wf-woocommerce-packing-list-admin.php:1229
+msgid "There is no items in this order."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1149
+msgid "Invalid order id"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1154
+msgid "Invalid access key and mail id"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1162
+msgid "Empty order"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1172
+msgid "It seems this order is not yours."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:1885
+#: admin/class-wf-woocommerce-packing-list-admin.php:5104
+msgid "Settings Updated"
+msgstr ""
+
+#. translators: %s: method
+#. translators: %s: Shipping method name
+#: admin/class-wf-woocommerce-packing-list-admin.php:2349
+#: public/modules/invoice/invoice.php:1111
+#, php-format
+msgid "via %s"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2354
+msgid "Free!"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2511
+#: includes/class-wf-woocommerce-packing-list-basic-func.php:181
+msgid "Item with same meta key already exists"
+msgstr ""
+
+#. translators: 1$s: Tool description text, 2$s: Note label, 3$s: Article link opening tag, 4$s: Article link closing tag
+#: admin/class-wf-woocommerce-packing-list-admin.php:2586
+msgid ""
+"This will remove all invoice numbers created by WooCommerce PDF Invoices, "
+"Packing Slips, Delivery Notes & Shipping Labels by WebToffee."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2586
+msgid "Note:"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2586
+#, php-format
+msgid ""
+"Before using this tool, please make sure you followed the steps described in "
+"this article %1$s how to reset/delete existing invoice numbers%2$s."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2589
+msgid "Delete all generated invoice numbers"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2590
+#: admin/modules/customizer/views/customize.php:803
+msgid "Delete"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2828
+msgid "Updated"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:2835
+msgid "No modules"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4220
+#: admin/class-wf-woocommerce-packing-list-admin.php:4251
+msgid "Do not show again"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4226
+#: admin/class-wf-woocommerce-packing-list-admin.php:4239
+#: admin/class-wf-woocommerce-packing-list-admin.php:4257
+#: admin/modules/customizer/views/customize.php:785
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:182
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:113
+#: admin/views/admin-settings-debug.php:184
+#: admin/views/admin-settings-debug.php:240
+msgid "Cancel"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4229
+#: admin/class-wf-woocommerce-packing-list-admin.php:4260
+msgid "Generate"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4236
+msgid "Generating the document..."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4316
+#: admin/modules/customizer/customizer.php:261
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:176
+msgid "Success"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4318
+msgid "Cannot close this banner"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4489
+msgid "Settings are empty"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4529
+msgid "Imported successfully"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4533
+msgid "Incorrect file"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4537
+msgid "Error: Empty JSON file"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4541
+msgid "Error: Invalid JSON data"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4545
+msgid "Error uploading the file"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4616
+msgid "Error:"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4616
+msgid "Truncation did not complete as expected."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4670
+#: admin/views/general.php:345
+msgid "Total files"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4672
+#: admin/views/documents.php:22 admin/views/freevspro.php:7
+#: public/modules/packinglist/packinglist.php:62
+#: public/modules/packinglist/packinglist.php:85
+#: public/modules/packinglist/packinglist.php:86
+#: public/modules/packinglist/packinglist.php:239
+#: public/modules/packinglist/packinglist.php:385
+#: public/modules/packinglist/views/admin-settings.php:46
+msgid "Packing slip"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4673
+#: admin/views/documents.php:39 admin/views/freevspro.php:9
+#: public/modules/shippinglabel/shippinglabel.php:67
+#: public/modules/shippinglabel/shippinglabel.php:238
+#: public/modules/shippinglabel/shippinglabel.php:239
+#: public/modules/shippinglabel/shippinglabel.php:568
+#: public/modules/shippinglabel/views/admin-settings.php:30
+msgid "Shipping label"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4674
+#: admin/views/documents.php:47 admin/views/freevspro.php:11
+#: public/modules/deliverynote/deliverynote.php:59
+#: public/modules/deliverynote/deliverynote.php:82
+#: public/modules/deliverynote/deliverynote.php:83
+#: public/modules/deliverynote/deliverynote.php:229
+#: public/modules/deliverynote/deliverynote.php:356
+#: public/modules/deliverynote/views/admin-settings.php:45
+msgid "Delivery note"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4675
+#: admin/views/documents.php:43 admin/views/freevspro.php:10
+#: public/modules/dispatchlabel/dispatchlabel.php:57
+#: public/modules/dispatchlabel/dispatchlabel.php:80
+#: public/modules/dispatchlabel/dispatchlabel.php:81
+#: public/modules/dispatchlabel/dispatchlabel.php:326
+#: public/modules/dispatchlabel/views/admin-settings.php:50
+msgid "Dispatch label"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4676
+#: admin/views/documents.php:61
+msgid "Picklist"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4677
+#: admin/views/documents.php:87 admin/views/freevspro.php:12
+msgid "Proforma invoice"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4678
+#: admin/views/documents.php:26 admin/views/freevspro.php:8
+msgid "Credit note"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4874
+#: admin/views/_form_field_generator_new.php:675
+msgid "No temporary file found"
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4879
+msgid "Successfully cleared all temp files."
+msgstr ""
+
+#: admin/class-wf-woocommerce-packing-list-admin.php:4880
+msgid "No files found."
+msgstr ""
+
+#: admin/data/data.filters-help.php:3
+msgid "Order Details"
+msgstr ""
+
+#: admin/data/data.filters-help.php:4 public/modules/invoice/invoice.php:1291
+msgid "Product Table"
+msgstr ""
+
+#: admin/data/data.filters-help.php:5
+msgid "Summary Table"
+msgstr ""
+
+#: admin/data/data.filters-help.php:6
+#: public/modules/invoice/views/general.php:267
+msgid "Others"
+msgstr ""
+
+#: admin/data/data.filters-help.php:11
+msgid "Alter order date"
+msgstr ""
+
+#: admin/data/data.filters-help.php:12
+msgid ""
+"This filter is used to alter the order date in all the document templates"
+msgstr ""
+
+#: admin/data/data.filters-help.php:25
+msgid "Alter invoice date"
+msgstr ""
+
+#: admin/data/data.filters-help.php:26
+msgid ""
+"This filter is used to alter the invoice date in all the document templates"
+msgstr ""
+
+#: admin/data/data.filters-help.php:39 admin/data/data.filters-help.php:40
+msgid "Alter dispatch date"
+msgstr ""
+
+#: admin/data/data.filters-help.php:53
+msgid "Alter barcode information"
+msgstr ""
+
+#: admin/data/data.filters-help.php:54
+msgid ""
+"This filter is used to alter the barcode information for all the document "
+"templates"
+msgstr ""
+
+#: admin/data/data.filters-help.php:63 admin/data/data.filters-help.php:64
+msgid "Alter shipping address"
+msgstr ""
+
+#: admin/data/data.filters-help.php:79 admin/data/data.filters-help.php:80
+msgid "Alter billing address"
+msgstr ""
+
+#: admin/data/data.filters-help.php:95 admin/data/data.filters-help.php:96
+msgid "Alter shipping from address"
+msgstr ""
+
+#: admin/data/data.filters-help.php:114
+msgid "Alter product table head.(Add,remove, change the order)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:115
+msgid "Alter product table head.(Add, remove, change order)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:130
+msgid "Alter the product name in package documents"
+msgstr ""
+
+#: admin/data/data.filters-help.php:131
+msgid ""
+"Alter product name in product (Works with Packing List, Shipping Label and "
+"Delivery note only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:140
+msgid "Add product variation in package documents"
+msgstr ""
+
+#: admin/data/data.filters-help.php:141
+msgid ""
+"Add product variation in product (Works with Packing List, Shipping Label "
+"and Delivery note only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:149
+msgid "Alter item quantity in package documents"
+msgstr ""
+
+#: admin/data/data.filters-help.php:150
+msgid ""
+"Alter item quantity in product table (Works with Packing List, Shipping "
+"Label and Delivery note only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:158
+msgid "Alter item total in package documents"
+msgstr ""
+
+#: admin/data/data.filters-help.php:159
+msgid ""
+"Alter item total in product table (Works with Packing List, Shipping Label "
+"and Delivery note only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:167
+msgid "Alter product table column in package documents"
+msgstr ""
+
+#: admin/data/data.filters-help.php:168
+msgid ""
+"Alter product table column. (Works with Packing List, Shipping Label and "
+"Delivery note only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:177
+msgid "Alter product name"
+msgstr ""
+
+#: admin/data/data.filters-help.php:178
+msgid "Alter product name. (Works with Invoice and Dispatch label only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:187
+msgid "Add product variation"
+msgstr ""
+
+#: admin/data/data.filters-help.php:188
+msgid "Add product variation. (Works with Invoice and Dispatch label only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:197
+msgid "Alter item quantity"
+msgstr ""
+
+#: admin/data/data.filters-help.php:198
+msgid "Alter item quantity. (Works with Invoice and Dispatch label only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:206
+msgid "Alter item price"
+msgstr ""
+
+#: admin/data/data.filters-help.php:207
+msgid "Alter item price. (Works with Invoice and Dispatch label only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:215
+msgid "Alter item price format"
+msgstr ""
+
+#: admin/data/data.filters-help.php:216
+msgid "Alter formated item price. (Works with Invoice and Dispatch label only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:224
+msgid "Alter item total"
+msgstr ""
+
+#: admin/data/data.filters-help.php:225
+msgid "Alter item total. (Works with Invoice and Dispatch label only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:233
+msgid "Alter item total format"
+msgstr ""
+
+#: admin/data/data.filters-help.php:234
+msgid "Alter formated item total. (Works with Invoice and Dispatch label only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:242
+msgid "Alter product table column"
+msgstr ""
+
+#: admin/data/data.filters-help.php:243
+msgid ""
+"Alter product table column. (Works with Invoice and Dispatch label only)"
+msgstr ""
+
+#: admin/data/data.filters-help.php:254 admin/data/data.filters-help.php:255
+msgid "Alter subtotal"
+msgstr ""
+
+#: admin/data/data.filters-help.php:264
+msgid "Alter subtotal format"
+msgstr ""
+
+#: admin/data/data.filters-help.php:265
+msgid "Alter formated subtotal"
+msgstr ""
+
+#: admin/data/data.filters-help.php:274 admin/data/data.filters-help.php:275
+msgid "Alter shipping method"
+msgstr ""
+
+#: admin/data/data.filters-help.php:283 admin/data/data.filters-help.php:284
+msgid "Alter fee"
+msgstr ""
+
+#: admin/data/data.filters-help.php:292 admin/data/data.filters-help.php:293
+msgid "Alter total fee"
+msgstr ""
+
+#: admin/data/data.filters-help.php:301 admin/data/data.filters-help.php:302
+msgid "Alter total price"
+msgstr ""
+
+#: admin/data/data.filters-help.php:311 admin/data/data.filters-help.php:312
+msgid "Alter total price in words"
+msgstr ""
+
+#: admin/data/data.filters-help.php:323
+msgid "Hide/Show received seal in invoice"
+msgstr ""
+
+#: admin/data/data.filters-help.php:324
+msgid "Hide/Show received seal in invoice."
+msgstr ""
+
+#: admin/data/data.filters-help.php:337
+msgid "Add extra text in received seal"
+msgstr ""
+
+#: admin/data/data.filters-help.php:338
+msgid "Add extra text in received seal."
+msgstr ""
+
+#: admin/data/data.filters-help.php:353
+msgid "Alter template HTML before printing"
+msgstr ""
+
+#: admin/data/data.filters-help.php:354
+msgid "Alter template HTML before printing."
+msgstr ""
+
+#: admin/data/data.filters-help.php:367
+msgid "Alter the variation data."
+msgstr ""
+
+#: admin/data/data.filters-help.php:371
+msgid "Alter the settings array"
+msgstr ""
+
+#: admin/data/data.filters-help.php:385
+msgid "Alter the footer data"
+msgstr ""
+
+#: admin/data/data.filters-help.php:386
+msgid "Alter the footer data."
+msgstr ""
+
+#: admin/data/data.tooltip.php:3
+msgid "Key in your company name."
+msgstr ""
+
+#: admin/data/data.tooltip.php:4
+msgid ""
+"When enabled, replaces state code with state name in the from, return, "
+"billing and shipping addresses"
+msgstr ""
+
+#: admin/data/data.tooltip.php:5
+msgid "Enable to have a preview of the document before the print is initiated"
+msgstr ""
+
+#: admin/data/data.tooltip.php:6
+msgid "The default library to be used PDF generation"
+msgstr ""
+
+#: admin/modules/banner/class-wt-bfcm-twenty-twenty-five.php:114
+msgid "Black Friday Cyber Monday 2025"
+msgstr ""
+
+#: admin/modules/banner/class-wt-bfcm-twenty-twenty-five.php:118
+msgid "Never Miss This Deal"
+msgstr ""
+
+#. translators: 1: Discount text with span wrapper, e.g. <span>30% OFF</span>.
+#: admin/modules/banner/class-wt-bfcm-twenty-twenty-five.php:125
+#, php-format
+msgid ""
+"Your Last Chance to Avail %1$s on WebToffee Plugins. Grab the deal before "
+"it`s gone!"
+msgstr ""
+
+#: admin/modules/banner/class-wt-bfcm-twenty-twenty-five.php:126
+msgid "OFF"
+msgstr ""
+
+#: admin/modules/banner/class-wt-bfcm-twenty-twenty-five.php:132
+msgid "View plugins"
+msgstr ""
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:116
+msgid ""
+"<b>Important Update:</b> Starting October 31, 2025, Microsoft requires "
+"websites to use Clarity Consent V2 to continue collecting analytical data. "
+"Ensure compliance by upgrading to the GDPR Cookie Consent Plugin, now fully "
+"compatible with <b>Clarity Consent V2</b> and <b>Google Consent Mode</b>."
+msgstr ""
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:119
+msgid ""
+"Stay compliant with GDPR and US Privacy Laws using our Google-certified CMP "
+"plugin—now with <b>Microsoft Clarity Consent V2</b>, <b>UET Consent Mode</b> "
+"and <b>Google Consent Mode</b> support."
+msgstr ""
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:259
+msgid "Ensure Cookie Compliance for Your WordPress Website"
+msgstr ""
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:271
+msgid "Get plugin now"
+msgstr ""
+
+#: admin/modules/banner/class-wt-gdpr-cta-banner.php:275
+msgid "Certified Partner"
+msgstr ""
+
+#: admin/modules/banner/class-wt-mpdf-language-banner.php:37
+msgid "Language Detection Notice"
+msgstr ""
+
+#. translators: %s: Detected language name
+#: admin/modules/banner/class-wt-mpdf-language-banner.php:40
+#, php-format
+msgid ""
+"Your site language is detected as %s. For better compatibility with your "
+"language we recommend installing the mPDF add-on."
+msgstr ""
+
+#: admin/modules/banner/class-wt-mpdf-language-banner.php:44
+msgid "You may install the free mPDF add-on by clicking here."
+msgstr ""
+
+#: admin/modules/banner/class-wt-mpdf-language-banner.php:47
+msgid "Dismiss this notice"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:105
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:117
+msgid "Product Import Export"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:106
+msgid "WooCommerce PDF Invoices, Packing Slips and Credit Notes"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:110
+msgid "Automatically generate PDF invoices, packing slips, and credit notes"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:111
+msgid "Use ready-made, customizable templates to match your brand"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:112
+msgid "Print or download invoices individually or in bulk"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:113
+msgid "Set custom invoice numbering for better organization"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:114
+msgid "Customize documents fully with visual or code editors"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:115
+msgid "Include VAT, GST, ABN, and other tax details"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:116
+msgid "Add \"Pay Now\" link on invoices"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:117
+msgid "Add custom fields to any order document with ease"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:122
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:134
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:122
+msgid "View all premium features"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:122
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:134
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:122
+msgid "Show less"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:123
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:135
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:123
+msgid "Get the plugin"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-invoice-cta-banner.php:125
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:137
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:125
+msgid "Dismiss"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:89
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:118
+msgid "Product Import Export for WooCommerce"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:122
+msgid "Import, export, or update WooCommerce products"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:123
+msgid ""
+"Supports all types of products (Simple, variable, subscription grouped, and "
+"external)"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:124
+msgid "Multiple file formats - CSV, XML, Excel, and TSV"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:125
+msgid "Advanced filters and customizations for better control"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:126
+msgid "Bulk update WooCommerce product data"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:127
+msgid "Import via FTP/SFTP and URL"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:128
+#: admin/views/premium_extension_listing.php:186
+#: admin/views/premium_extension_listing.php:221
+msgid "Schedule automated import & export"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-p-iew-cta-banner.php:129
+msgid "Export and Import custom fields and third-party plugin fields"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:96
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:101
+msgid "Smart Coupons for WooCommerce Pro"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:97
+msgid ""
+"Create better coupon campaigns with advanced WooCommerce coupon features"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:105
+msgid "Auto-apply coupons"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:106
+msgid "Create attractive Buy X Get Y (BOGO) offers"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:107
+msgid "Create product quantity/subtotal based discounts"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:108
+msgid "Offer store credits and gift cards"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:109
+msgid "Set up smart giveaway campaigns"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:110
+msgid "Set advanced coupon rules and conditions"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:111
+#: admin/views/premium_extension_listing.php:330
+msgid "Bulk generate coupons"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:112
+msgid "Shipping, purchase history, and payment method-based coupons"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:113
+msgid "Sign up coupons"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:114
+#: admin/views/premium_extension_listing.php:328
+msgid "Cart abandonment coupons"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:115
+msgid "Create day-specific deals"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:116
+msgid "Display coupon banners and widgets"
+msgstr ""
+
+#: admin/modules/cross-promotion-banners/class-wt-smart-coupon-cta-banner.php:117
+msgid "Import coupons"
+msgstr ""
+
+#: admin/modules/customizer/classes/class-customizer.php:423
+msgid "Refund"
+msgstr ""
+
+#: admin/modules/customizer/classes/class-customizer.php:449
+msgid "incl. tax"
+msgstr ""
+
+#: admin/modules/customizer/classes/class-customizer.php:699
+#: admin/modules/customizer/classes/class-customizer.php:1241
+msgid "n/a"
+msgstr ""
+
+#: admin/modules/customizer/classes/class-customizer.php:1958
+msgid ""
+"Mauris dignissim neque ut sapien vulputate, eu semper tellus porttitor. Cras "
+"porta lectus id augue interdum egestas."
+msgstr ""
+
+#: admin/modules/customizer/classes/class-customizer.php:1976
+msgid ""
+"Mauris dignissim neque ut sapien vulputate, eu semper tellus porttitor. Cras "
+"porta lectus id augue interdum egestas. Suspendisse potenti. Phasellus "
+"mollis porttitor enim sit amet fringilla. Nulla sed ligula venenatis, rutrum "
+"lectus vel"
+msgstr ""
+
+#: admin/modules/customizer/classes/class-customizer.php:1981
+msgid ""
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc nec vehicula "
+"purus. Mauris tempor nec ipsum ac tempus. Aenean vehicula porttitor tortor, "
+"et interdum tellus fermentum at. Fusce pellentesque justo rhoncus"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:89
+msgid "Unable to generate PDF."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:94
+msgid "There is no order with this given id"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:203
+#: admin/modules/customizer/customizer.php:208
+#: public/modules/deliverynote/views/admin-settings.php:10
+#: public/modules/dispatchlabel/views/admin-settings.php:9
+#: public/modules/packinglist/views/admin-settings.php:10
+msgid "Customize"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:262
+msgid "You can't undo this action. Are you sure?"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:263
+msgid "Click here to add Company logo"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:264
+msgid "Click here to add Company name"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:265
+msgid "Click here to add From address"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:266
+msgid "Click here to add Signature"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:267
+msgid ""
+"Please save all data before leaving this page. All unsaved data will be "
+"lost. Are you sure?"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:268
+#: admin/modules/customizer/views/customize.php:780
+msgid "Change template"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:269
+msgid "Change layout"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:270
+msgid "Saving"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:271
+#: public/modules/invoice/invoice.php:199
+#: public/modules/shippinglabel/shippinglabel.php:265
+msgid "Please enter order number"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:272
+#: public/modules/invoice/invoice.php:200
+#: public/modules/shippinglabel/shippinglabel.php:266
+msgid "Generating"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:273
+msgid "This is premium template which is not compatible with the basic plugin"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:274
+msgid ""
+"This is basic template. In order to use premium feature, you need to switch "
+"and activate the premium template"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:275
+msgid "Template Name Required"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:322
+#: admin/modules/customizer/customizer.php:682
+msgid "Active"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:658
+msgid "Error."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:684
+#: admin/modules/customizer/views/customize.php:802
+msgid "Activate"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:710
+msgid "No template found."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:727
+msgid "Unable to save theme."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:746
+msgid "Template with same name already exists."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:788
+msgid "Template created."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:794
+msgid "Template created and activated."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:849
+msgid "Template updated."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:852
+msgid "Template updated and activated."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:900
+msgid "Unable to switch view."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1295
+msgid "Unable to load template."
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1346
+msgid "Untitled template"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1492
+msgid "Lighter"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1493
+msgid "Normal"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1494
+msgid "Bold"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1495
+msgid "Bolder"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1507
+msgid "Select One"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1525
+msgid "Left"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1526
+msgid "Right"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1527
+msgid "Center"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1528
+msgid "Start"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1529
+msgid "End"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1536
+msgid "None"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1548
+msgid "Solid"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1549
+msgid "Dotted"
+msgstr ""
+
+#: admin/modules/customizer/customizer.php:1550
+msgid "Dashed"
+msgstr ""
+
+#: admin/modules/customizer/data/data.tooltip.php:3
+msgid "Click to view predefined templates."
+msgstr ""
+
+#: admin/modules/customizer/data/data.tooltip.php:4
+msgid "Create a new template or edit an existing template."
+msgstr ""
+
+#: admin/modules/customizer/data/data.tooltip.php:5
+msgid ""
+"Displays the currently chosen document template with provisions to modify."
+msgstr ""
+
+#: admin/modules/customizer/data/data.tooltip.php:6
+msgid ""
+"Shows a preview of the template on an actual order. Key in an order number "
+"to view the same."
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:1
+msgid "Invoice No:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:2
+msgid "Order Date:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:3
+msgid "Dispatch Date:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:4
+msgid "From Address:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:5
+msgid "Billing Address:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:6
+#: admin/modules/customizer/data/data.translation_strings.php:45
+msgid "Email:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:7
+msgid "Tel:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:8
+msgid "Shipping Address:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:9
+msgid "Tracking number:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:10
+msgid "SSN:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:11
+msgid "SKU"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:12
+msgid "Product"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:13
+msgid "Quantity"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:14
+msgid "Price"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:15
+msgid "Total Price"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:16
+#: admin/modules/customizer/views/_customize_properties.php:659
+#: admin/views/wt_ipc_free_pro.php:752 admin/views/wt_ipc_free_pro.php:794
+#: public/modules/invoice/invoice.php:1318
+msgid "Subtotal"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:17
+#: admin/modules/customizer/views/_customize_properties.php:665
+#: admin/views/wt_ipc_free_pro.php:756 admin/views/wt_ipc_free_pro.php:798
+#: public/modules/invoice/invoice.php:1319
+msgid "Shipping"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:18
+#: admin/modules/customizer/views/_customize_properties.php:672
+#: public/modules/invoice/invoice.php:1320
+msgid "Cart Discount"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:19
+#: admin/modules/customizer/views/_customize_properties.php:678
+#: public/modules/invoice/invoice.php:1321
+msgid "Order Discount"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:20
+#: admin/modules/customizer/views/_customize_properties.php:685
+#: public/modules/invoice/invoice.php:1322
+msgid "Total Tax"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:21
+#: admin/modules/customizer/views/_customize_properties.php:691
+#: admin/views/wt_ipc_free_pro.php:768 admin/views/wt_ipc_free_pro.php:810
+#: public/modules/invoice/invoice.php:1323
+msgid "Fee"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:22
+msgid "Coupon Used"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:23
+#: admin/modules/customizer/views/_customize_properties.php:704
+#: admin/views/wt_ipc_free_pro.php:780 admin/views/wt_ipc_free_pro.php:822
+#: public/modules/invoice/invoice.php:1326
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:68
+msgid "Total"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:24
+msgid "INVOICE"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:25
+msgid "Invoice Date:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:26
+msgid "Invoice No.:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:27
+msgid "Order No.:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:28
+msgid "Order date:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:29
+msgid "Image"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:30
+msgid "Jumbing LED Light Wall Ball"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:31
+msgid "Payment method:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:32
+msgid "Payment method: "
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:33
+#: admin/views/wt_ipc_free_pro.php:776 admin/views/wt_ipc_free_pro.php:818
+msgid "Payment method"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:34
+msgid "Payment Method:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:35
+#: admin/modules/customizer/views/_customize_properties.php:698
+#: public/modules/invoice/invoice.php:1325
+msgid "Payment Method"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:36
+msgid "Order No:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:37
+msgid "Date:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:38
+msgid "From:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:39
+msgid "From"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:40
+msgid "To:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:41
+msgid "Weight:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:42
+msgid "Ship Date:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:43
+msgid "Phone No:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:44
+msgid "Ph No:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:46
+msgid "Tracking Number:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:47
+msgid "Order no:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:48
+msgid "Total Weight"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:49
+msgid "Contact Number"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:50
+msgid "Email"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:51
+msgid "SSN"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:52
+msgid "VAT"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:53
+msgid "Customer Note"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:54
+msgid "Customer Note:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:55
+msgid "Bill to"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:56
+msgid "Ship to"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:57
+msgid "Invoice no:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:58
+msgid "Invoice date:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:59
+msgid "VAT:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:60
+msgid "Customer note:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:61
+#: public/modules/invoice/invoice.php:1297
+#: public/modules/shippinglabel/shippinglabel.php:177
+msgid "Customer note"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:62
+msgid "Unit Price"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:63
+msgid "Unit price"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:64
+msgid "Total price"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:65
+msgid "S.no"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:66
+msgid "S.No"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:67
+msgid "Phone no:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:68
+msgid "Shipping Method:"
+msgstr ""
+
+#: admin/modules/customizer/data/data.translation_strings.php:69
+msgid "Phone:"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:119
+#: admin/modules/customizer/views/_customize_properties.php:293
+#: admin/modules/customizer/views/_customize_properties.php:331
+#: admin/modules/customizer/views/_customize_properties.php:618
+#: admin/views/wt_ipc_free_pro.php:478 admin/views/wt_ipc_free_pro.php:492
+#: public/modules/shippinglabel/shippinglabel.php:114
+#: public/modules/shippinglabel/shippinglabel.php:139
+msgid "Title"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:125
+#: admin/modules/customizer/views/_customize_properties.php:212
+#: admin/modules/customizer/views/_customize_properties.php:264
+#: admin/modules/customizer/views/_customize_properties.php:320
+#: admin/modules/customizer/views/_customize_properties.php:336
+#: admin/modules/customizer/views/_customize_properties.php:623
+#: public/modules/invoice/invoice.php:379
+msgid "Font size"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:132
+#: admin/modules/customizer/views/_customize_properties.php:305
+msgid "Text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:142
+msgid "Text Color"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:154
+msgid "Display"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:158
+#: public/modules/shippinglabel/shippinglabel.php:166
+msgid "Company Logo"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:159
+msgid "Company Name"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:163
+msgid "Logo Width"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:170
+msgid "Logo Height"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:178
+msgid "Company name font size"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:184
+msgid "Extra Details"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:190
+msgid "Extra detail font size"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:196
+msgid "Header Color"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:207
+#: admin/modules/customizer/views/_customize_properties.php:241
+#: public/modules/invoice/invoice.php:373
+msgid "Text"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:220
+#: admin/modules/customizer/views/_customize_properties.php:272
+msgid "Style"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:230
+#: admin/modules/customizer/views/_customize_properties.php:282
+#: admin/modules/customizer/views/_customize_properties.php:313
+#: admin/modules/customizer/views/_customize_properties.php:343
+msgid "Text color"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:246
+#: public/modules/invoice/views/general.php:375
+msgid "Format"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:298
+#: public/modules/shippinglabel/shippinglabel.php:119
+#: public/modules/shippinglabel/shippinglabel.php:144
+msgid "Title font size"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:354
+msgid "Table head background"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:361
+msgid "Table head text color"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:368
+msgid "Table body text color"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:382
+msgid "Serial No label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:388
+msgid "Serial no text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:405
+msgid "Image label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:411
+msgid "Image text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:428
+msgid "SKU label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:434
+msgid "SKU text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:451
+msgid "Product label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:457
+msgid "Product text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:474
+msgid "GTIN label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:480
+msgid "GTIN text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:497
+msgid "Qty label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:503
+msgid "Qty text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:520
+msgid "Price label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:526
+msgid "Price text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:543
+msgid "Tax label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:549
+msgid "Tax text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:566
+msgid "Total weight label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:572
+msgid "Total weight text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:589
+msgid "Total label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:595
+msgid "Total text align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:609
+msgid "Signature type"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:613
+msgid "Manual Signature"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:614
+msgid "Image Signature"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:631
+msgid "Align"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:648
+msgid "Label"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:727
+msgid "Note"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:728
+msgid ""
+"Displays customer`s VAT number saved in the order details by third-party "
+"plugins in this document. Supported meta keys are"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:730
+msgid "To add a different meta key"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:731
+#: public/modules/deliverynote/views/customize_pro.php:71
+#: public/modules/dispatchlabel/views/customize_pro.php:72
+#: public/modules/packinglist/views/customize_pro.php:72
+msgid "Upgrade to premium"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:790
+#: admin/views/premium_extension_page.php:141
+#: public/modules/deliverynote/views/general.php:156
+#: public/modules/dispatchlabel/views/general.php:141
+#: public/modules/invoice/views/invoice-admin-settings.php:93
+#: public/modules/packinglist/views/general.php:159
+#: public/modules/shippinglabel/views/admin-settings.php:110
+msgid "Show More"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:791
+#: admin/views/premium_extension_page.php:142
+#: public/modules/deliverynote/views/general.php:157
+#: public/modules/dispatchlabel/views/general.php:142
+#: public/modules/invoice/views/invoice-admin-settings.php:94
+#: public/modules/packinglist/views/general.php:160
+#: public/modules/shippinglabel/views/admin-settings.php:111
+msgid "Show Less"
+msgstr ""
+
+#: admin/modules/customizer/views/_customize_properties.php:795
+#: admin/views/premium_extension_page.php:146
+msgid "Checkout Premium"
+msgstr ""
+
+#: admin/modules/customizer/views/_pdf_preview.php:22
+msgid "View sample customization demo"
+msgstr ""
+
+#: admin/modules/customizer/views/_pdf_preview.php:28
+msgid "Preview sample PDF"
+msgstr ""
+
+#: admin/modules/customizer/views/_pdf_preview.php:29
+msgid "Order"
+msgstr ""
+
+#: admin/modules/customizer/views/_pdf_preview.php:34
+#: admin/modules/customizer/views/_pdf_preview.php:35
+#: admin/partials/form_wizard/form_wizard.php:503
+#: admin/views/_form_field_generator_new.php:860
+#: public/modules/invoice/views/qrcode_promote.php:37
+msgid "Order number"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:591
+#: admin/views/admin-settings-debug.php:159
+msgid "Templates"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:596
+msgid "Type template name to search"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:608
+msgid "Choose a layout."
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:614
+msgid "All unsaved changes will be lost upon switching to a new layout."
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:616
+msgid "Save before you proceed."
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:617
+msgid "Saving..."
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:660
+msgid "Get access to more shipping label templates."
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:661
+msgid "Get access to more invoice templates."
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:673
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:787
+msgid "Update template"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:790
+msgid "Save template"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:793
+msgid "Save and activate"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:804
+msgid "Create new"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:805
+msgid "My templates"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:814
+msgid "This template is not comaptible with QR Code addon plugin"
+msgstr ""
+
+#. translators: %s: Template display name (invoice, packing list, etc.)
+#: admin/modules/customizer/views/customize.php:843
+#, php-format
+msgid "Unlock limitless possibilities of %s customization with the addon -"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:844
+msgid "Customizer for WooCommerce PDF Invoices Plugin"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:851
+#: admin/modules/customizer/views/customize.php:862
+msgid "Visual"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:852
+#: admin/modules/customizer/views/customize.php:865
+msgid "Code"
+msgstr ""
+
+#: admin/modules/customizer/views/customize.php:865
+#: public/modules/invoice/invoice.php:1279
+#: public/modules/shippinglabel/shippinglabel.php:163
+msgid "Pro version"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:41
+msgid "I couldn't understand how to make it work"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:43
+msgid "Would you like us to assist you?"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:47
+msgid "Language support issues"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:52
+msgid "Plugin settings not available in my language"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:54
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:61
+msgid "Which language?"
+msgstr ""
+
+#. translators: 1$s: HTML link opening tag, 2$s: HTML link closing tag
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:59
+msgid ""
+"Missing RTL/Unicode language(e.g Chinese, Arabic etc) support for PDF "
+"document."
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:59
+#, php-format
+msgid "Already tried the free %1$s WebToffee mPDF addon %2$s."
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:59
+msgid ""
+" Click the link to activate the plugin and try printing the document again."
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:67
+msgid ""
+"I am unable to add customer VAT(or GSTIN or ABN or any other tax id etc)"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:72
+msgid ""
+"Unable to add from third party plugin that collects customer VAT(or GSTIN or "
+"ABN etc)"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:74
+msgid "Mention the name of the plugin or meta key if any"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:78
+msgid "Need a field to add the tax id on checkout page"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:86
+msgid "I found a better plugin"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:88
+msgid "Which plugin?"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:92
+msgid "The plugin is great, but I need specific feature that you don't support"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:94
+msgid "Could you tell us more about that feature?"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:98
+msgid "The plugin didn't work as expected"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:100
+msgid "What did you expect?"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:104
+msgid "Other"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:106
+msgid "Could you tell us a bit more?"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:125
+msgid "If you have a moment, please let us know why you are deactivating:"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:163
+msgid "WebToffee can contact me about this feedback."
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:166
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:106
+msgid "Enter your email address."
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:168
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:107
+msgid "Enter email address"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:171
+msgid "Delete all the settings made by this plugin"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:173
+msgid ""
+"We do not collect any personal data when you submit this form. It's your "
+"feedback that we value."
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:174
+msgid "Privacy Policy"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:180
+msgid "Go to support"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:181
+msgid "Submit & Deactivate"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:183
+msgid "I rather wouldn't say"
+msgstr ""
+
+#: admin/modules/uninstall-feedback/uninstall-feedback.php:309
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:72
+msgid "Please enter a message"
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:73
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:149
+msgid "We need your email address to contact you back."
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:74
+msgid "Sending..."
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:75
+msgid "Unable to submit. Please try again later."
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:76
+msgid "Thank you for your valuable suggestion."
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:85
+msgid "Looking for a feature we don't have?"
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:85
+msgid "Request it here"
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:89
+msgid "Missing a feature?"
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:90
+msgid "Drop a message to let us know!"
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:98
+msgid "What would you like to add as a new feature?"
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:99
+msgid "More the details you share, the better."
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:100
+msgid "I would like..."
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:102
+msgid "WebToffee can contact me about this feedback"
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:112
+msgid "Send feature request"
+msgstr ""
+
+#: admin/modules/wt-pdf-request-feature/class-wt-pdf-request-feature.php:145
+msgid "Please enter your message."
+msgstr ""
+
+#: admin/partials/admin-settings.php:19
+msgid "Documents"
+msgstr ""
+
+#: admin/partials/admin-settings.php:20
+#: public/modules/deliverynote/views/admin-settings.php:7
+#: public/modules/dispatchlabel/views/admin-settings.php:6
+#: public/modules/invoice/views/general.php:127
+#: public/modules/invoice/views/invoice-admin-settings.php:7
+#: public/modules/packinglist/views/admin-settings.php:7
+#: public/modules/shippinglabel/views/admin-settings.php:6
+#: public/modules/ubl/invoice/views/settings.php:51
+msgid "General"
+msgstr ""
+
+#: admin/partials/admin-settings.php:21
+msgid "Help Guide"
+msgstr ""
+
+#: admin/partials/admin-settings.php:24
+msgid "Free vs Premium"
+msgstr ""
+
+#: admin/partials/admin-settings.php:41
+msgid ""
+"WooCommerce PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:36
+#: admin/views/_form_field_generator_new.php:734
+#: public/modules/invoice/views/general.php:95
+#: public/modules/invoice/views/invoice_number_preview.php:23
+msgid "Click to append with existing data"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:377
+msgid "Hello there! Let’s begin with the basics"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:382
+msgid "Step 1"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:383
+msgid "Step 2"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:384
+msgid "Step 3"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:388
+msgid "Add shop details"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:391
+msgid "Shop name"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:397 admin/views/general.php:110
+msgid "Address line 1"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:401 admin/views/general.php:118
+msgid "Address line 2"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:408 admin/views/general.php:126
+#: public/modules/ubl/invoice/views/settings.php:165
+msgid "City"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:412 admin/views/general.php:134
+msgid "Country/State"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:414
+#: admin/views/_form_field_generator_new.php:619
+msgid "Select country"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:430 admin/views/general.php:142
+msgid "Postal code"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:434
+msgid "Phone number"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:440
+msgid "Tax ID"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:446
+msgid "Upload logo"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:453
+#: admin/views/_form_field_generator_new.php:556
+msgid "Recommended size is 150x50px."
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:460
+#: admin/partials/form_wizard/form_wizard.php:481
+msgid "Next"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:461
+msgid "Skip invoice setup"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:465
+msgid "Choose emails for invoice attachment"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:466
+msgid ""
+"Choose the order emails to which you'd like to attach invoices for your "
+"customers"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:482
+#: admin/partials/form_wizard/form_wizard.php:666
+msgid "Back"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:486
+msgid "Create your unique invoice numbering system"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:489
+msgid "Complete the invoice number format to suit your requirements"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:504
+#: admin/views/_form_field_generator_new.php:864
+msgid "Custom number"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:516
+#: admin/views/_form_field_generator_new.php:738
+msgid "Type in prefix/ suffix / date format if required"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:529
+#: admin/views/_form_field_generator_new.php:774
+msgid "Supported shortcodes for date"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:591
+msgid "What should be the starting number for your invoices?"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:601
+msgid "What length would you prefer for your invoice number"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:633
+#: admin/views/_form_field_generator_new.php:920
+#: public/modules/invoice/views/invoice_number_preview.php:30
+msgid "PREVIEW"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:639
+#: admin/views/_form_field_generator_new.php:926
+#: public/modules/invoice/views/invoice_number_preview.php:33
+msgid "If the order number is"
+msgstr ""
+
+#. translators: %s: Document type (invoice, packing list, etc.)
+#: admin/partials/form_wizard/form_wizard.php:644
+#: admin/views/_form_field_generator_new.php:931
+#: public/modules/invoice/views/invoice_number_preview.php:37
+#, php-format
+msgid "the %s number would be"
+msgstr ""
+
+#. translators: %s: Document type (invoice, packing list, etc.)
+#: admin/partials/form_wizard/form_wizard.php:652
+#: admin/views/_form_field_generator_new.php:939
+#: public/modules/invoice/views/invoice_number_preview.php:42
+#, php-format
+msgid "Your next %s number would be"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:665
+#: admin/partials/form_wizard/form_wizard.php:709
+msgid "Finish setup"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:683
+msgid "Invoice setup successfully"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:695
+msgid "Skip setup?"
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:700
+msgid "We recommend completing the setup to ensure the plugin works properly."
+msgstr ""
+
+#: admin/partials/form_wizard/form_wizard.php:706
+msgid "Skip anyway"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:36
+#: admin/partials/marketing-cta/marketing-cta.php:63
+msgid "Invoice Icons"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:40
+msgid "All-in-One WooCommerce Invoice & Shipping Documents Bundle"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:41
+msgid ""
+"Generate and print all essential WooCommerce documents, including invoices, "
+"packing slips, shipping labels, and more—all in one powerful invoice bundle."
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:44
+msgid "Invoices"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:45
+msgid "Packing Slips"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:46
+msgid "Credit Notes"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:47
+msgid "Address Labels"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:48
+msgid "Delivery Notes"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:49
+msgid "Dispatch Labels"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:50
+msgid "Shipping Labels"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:51
+msgid "Picklists"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:52
+msgid "Proforma Invoices"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:55
+msgid "Get Bundle Now"
+msgstr ""
+
+#: admin/partials/marketing-cta/marketing-cta.php:60
+msgid "Invoice Bundle"
+msgstr ""
+
+#: admin/views/_custom_field_editor_form.php:19
+#: admin/views/_custom_field_editor_form.php:22
+#: admin/views/_custom_field_editor_form.php:31
+#: admin/views/_custom_field_editor_form_product.php:23
+#: admin/views/_custom_field_editor_form_product.php:26
+#: admin/views/_custom_field_editor_form_product.php:35
+msgid "Add new"
+msgstr ""
+
+#: admin/views/_custom_field_editor_form.php:40
+msgid "You can add custom/predefined order meta using its key"
+msgstr ""
+
+#: admin/views/_custom_field_editor_form.php:47
+#: admin/views/_custom_field_editor_form_product.php:51
+msgid "Field Name"
+msgstr ""
+
+#: admin/views/_custom_field_editor_form.php:48
+#: admin/views/_custom_field_editor_form_product.php:52
+msgid "Meta Key"
+msgstr ""
+
+#: admin/views/_custom_field_editor_form.php:53
+msgid "To add more than one custom order meta,"
+msgstr ""
+
+#: admin/views/_custom_field_editor_form.php:53
+#: admin/views/_custom_field_editor_form_product.php:57
+msgid "upgrade to premium version"
+msgstr ""
+
+#: admin/views/_custom_field_editor_form_product.php:44
+msgid "You can add custom/predefined product meta using its key"
+msgstr ""
+
+#: admin/views/_custom_field_editor_form_product.php:57
+msgid "To add more than one custom product meta,"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:468
+msgid "Order Meta"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:470
+msgid "Add/Edit Order Meta Field"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:521
+msgid "Product Meta"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:523
+msgid "Add/Edit Product Meta Field"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:555
+msgid "Upload your image"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:594
+#: admin/views/admin-settings-debug.php:200
+#: admin/views/admin-settings-debug.php:243
+msgid "Reset"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:667
+msgid "Document"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:668
+msgid "PDF"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:669
+msgid "HTML"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:670
+msgid "Action"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:736
+msgid "Add date to invoice number"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:737
+msgid "Invoice number format"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:739
+msgid "Invoice starting number"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:740
+msgid "Invoice number length"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:744
+#: admin/views/_form_field_generator_new.php:757
+msgid "Use order date as input instead."
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:749
+msgid "Add date to credit note number"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:750
+msgid "Creditnote number format"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:751
+msgid "What should be the starting number for your credit notes?"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:752
+msgid "What length would you prefer for your credit note"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:760
+msgid "Add date to proforma invoice number"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:761
+msgid "Proforma invoice number format"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:762
+msgid "What should be the starting number for your proforma invoices?"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:763
+msgid "What length would you prefer for your proforma invoice"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:851
+msgid ""
+"Removing year [Y] from the prefix will disable the annual reset functionality"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:858
+msgid "Switching to order number will disable the annual reset functionality"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:874
+msgid ""
+"Removing year [Y] from the suffix will disable the annual reset functionality"
+msgstr ""
+
+#: admin/views/_form_field_generator_new.php:902
+msgid "The latest specified starting number will be used after reset"
+msgstr ""
+
+#: admin/views/admin-settings-branding.php:6
+msgid "Developed by"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:40
+msgid "Reset successfully"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:49
+msgid "Debug"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:50
+msgid "Caution: Settings here are only for advanced users."
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:119
+msgid "Export settings (JSON)"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:121
+msgid "Export"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:131
+msgid "Import settings (JSON)"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:135
+#: admin/views/admin-settings-debug.php:187
+msgid "Import"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:135
+msgid "Please select json file"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:140
+msgid "Last imported on:"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:152
+msgid ""
+"Importing the file will delete all the settings and replace with data from "
+"chosen file"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:164
+msgid "Combine with the existing templates"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:169
+msgid "Replace the existing templates"
+msgstr ""
+
+#. translators: %s: Confirmation text
+#: admin/views/admin-settings-debug.php:176
+#, php-format
+msgid "To proceed with the import, please type %1$s in the field below"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:198
+msgid "Reset all settings to default"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:206
+msgid "Last updated on:"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:218
+msgid ""
+"Reset will delete all the settings, saved templates and reset to the default "
+"settings"
+msgstr ""
+
+#: admin/views/admin-settings-debug.php:225
+msgid "Do not reset the templates"
+msgstr ""
+
+#. translators: %s: Confirmation text
+#: admin/views/admin-settings-debug.php:231
+#, php-format
+msgid "To proceed with the reset, please type %1$s in the field below"
+msgstr ""
+
+#: admin/views/admin-settings-help-filters.php:28 admin/views/help.php:36
+msgid "Filters"
+msgstr ""
+
+#: admin/views/admin-settings-help-filters.php:30
+msgid "Some useful `filters` to extend plugin's functionality"
+msgstr ""
+
+#: admin/views/admin-settings-help-filters.php:32
+msgid "search filter"
+msgstr ""
+
+#: admin/views/admin-settings-help-filters.php:61
+msgid "Example Code"
+msgstr ""
+
+#: admin/views/admin-settings-help-filters.php:83
+msgid "Copy Code"
+msgstr ""
+
+#: admin/views/admin-settings-save-button-form-wizard.php:6
+#: admin/views/admin-settings-save-button.php:6
+#: public/modules/deliverynote/views/general.php:92
+#: public/modules/dispatchlabel/views/general.php:78
+#: public/modules/packinglist/views/general.php:93
+#: public/modules/shippinglabel/views/general.php:63
+msgid "Update Settings"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:6
+msgid "System Configuration"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:7
+msgid "Copy"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:8
+msgid "Copied"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:18
+msgid "5.6 or higher recommended"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:31
+msgid "Recommended, will use fallback functions"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:37
+msgid "Required if you have images in your documents"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:40
+msgid "Better with transparent PNG images"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:43
+#: admin/views/admin-settings-system-info.php:61
+msgid "Recommended for better performances"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:46
+msgid "Required when using .webp images"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:49
+msgid "Required if you have .webp images in your documents"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:52
+msgid "To compress PDF documents"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:55
+msgid "Recommended to compress PDF documents"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:58
+msgid "For better performances"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:64
+msgid ""
+"Required to detect custom templates and to clear the temp folder periodically"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:67
+msgid "Check PHP disable_functions"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:70
+msgid "Recommended 128MB or more"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:75
+msgid "Necessary to verify the MIME type of local images."
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:78
+msgid "fileinfo disabled"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:81
+msgid "Allow remote stylesheets and images"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:84
+msgid "allow_url_fopen disabled"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:87
+msgid "Writable"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:116
+msgid "Required"
+msgstr ""
+
+#: admin/views/admin-settings-system-info.php:117
+msgid "Present"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:37
+#: admin/views/customizer-promotion-popup.php:60
+msgid "Get advanced customization options for"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:37
+msgid "invoices, packing slips, and credit notes."
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:39
+msgid "Add additional fields to invoices"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:40
+#: admin/views/customizer-promotion-popup.php:63
+msgid "Multiple pre-built templates"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:41
+#: admin/views/customizer-promotion-popup.php:64
+msgid "Customize using Code Editor"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:42
+#: admin/views/customizer-promotion-popup.php:65
+msgid "More customization options"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:48
+msgid "Upgrade for more customization on packing slip"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:50
+msgid "Advanced customization option for packing slip templates"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:51
+msgid "Show/hide fields like billing address, weight, product image etc"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:52
+msgid ""
+"Add additional data such as product meta, order meta, product attributes etc"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:53
+msgid "Group and sort product table based on different conditions"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:54
+msgid "Many more customization options"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:60
+msgid "shipping labels, dispatch labels, and delivery notes."
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:62
+msgid "Add additional fields to shipping labels"
+msgstr ""
+
+#: admin/views/customizer-promotion-popup.php:124 admin/views/freevspro.php:146
+msgid "Upgrade To Premium"
+msgstr ""
+
+#: admin/views/documents.php:15
+msgid "Invoices, Packing Slips and Credit Notes Module"
+msgstr ""
+
+#: admin/views/documents.php:36
+msgid "Shipping labels, Dispatch labels and Delivery Notes Module"
+msgstr ""
+
+#: admin/views/documents.php:58
+msgid "Picklists Add-on"
+msgstr ""
+
+#: admin/views/documents.php:71
+msgid "Address Label Add-on"
+msgstr ""
+
+#: admin/views/documents.php:84
+msgid "Proforma Invoices Add-on"
+msgstr ""
+
+#: admin/views/documents.php:137
+msgid "Free version"
+msgstr ""
+
+#: admin/views/documents.php:141
+msgid "Premium version"
+msgstr ""
+
+#. translators: 1$s: Document module title, 2$s: HTML link opening tag, 3$s: HTML link closing tag
+#: admin/views/documents.php:152
+#, php-format
+msgid "You are using free version of %1$s. %2$s Checkout premium here %3$s."
+msgstr ""
+
+#: admin/views/documents.php:187
+msgid "Get Add-on"
+msgstr ""
+
+#: admin/views/documents.php:212
+msgid "30% OFF"
+msgstr ""
+
+#: admin/views/freevspro.php:13
+msgid "Pick list"
+msgstr ""
+
+#: admin/views/freevspro.php:14
+msgid "Address label"
+msgstr ""
+
+#: admin/views/freevspro.php:15 public/modules/invoice/views/general.php:187
+msgid "My account - Order lists page"
+msgstr ""
+
+#: admin/views/freevspro.php:16 public/modules/invoice/views/general.php:188
+msgid "My account - Order details page"
+msgstr ""
+
+#: admin/views/freevspro.php:17 public/modules/invoice/views/general.php:189
+msgid "Order email"
+msgstr ""
+
+#: admin/views/freevspro.php:87
+msgid "Features"
+msgstr ""
+
+#: admin/views/freevspro.php:88
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:45
+msgid "Free"
+msgstr ""
+
+#: admin/views/freevspro.php:89
+msgid "Premium"
+msgstr ""
+
+#: admin/views/freevspro.php:138
+msgid "30 Day Money Back Guarantee"
+msgstr ""
+
+#: admin/views/freevspro.php:139
+msgid "Fast and Superior Support"
+msgstr ""
+
+#: admin/views/general.php:13
+msgid ""
+"The company name and the address details from this section will be used as "
+"the sender address in the invoice and other related documents."
+msgstr ""
+
+#: admin/views/general.php:26
+msgid "Load from WooCommerce"
+msgstr ""
+
+#: admin/views/general.php:40
+msgid "Company details"
+msgstr ""
+
+#: admin/views/general.php:45
+msgid "Name"
+msgstr ""
+
+#: admin/views/general.php:50
+msgid "To include the keyed in name to the Invoice, ensure to select"
+msgstr ""
+
+#: admin/views/general.php:51
+msgid "Company name"
+msgstr ""
+
+#: admin/views/general.php:52
+msgid "from"
+msgstr ""
+
+#: admin/views/general.php:53 admin/views/general.php:63
+msgid "Invoice > Customize > Company Logo / Name"
+msgstr ""
+
+#: admin/views/general.php:58
+msgid "Logo"
+msgstr ""
+
+#: admin/views/general.php:62
+msgid ""
+"To include the uploaded image as logo to the invoice, ensure to select "
+"Company logo from"
+msgstr ""
+
+#: admin/views/general.php:64
+msgid "Recommended size is 150×50px"
+msgstr ""
+
+#: admin/views/general.php:71
+msgid "Company Tax ID"
+msgstr ""
+
+#: admin/views/general.php:75
+msgid ""
+"Specify your company tax ID. For e.g., you may enter as VAT: GB123456789, "
+"GSTIN:0948745 or ABN:51 824 753 556"
+msgstr ""
+
+#: admin/views/general.php:79 public/modules/invoice/invoice.php:1308
+#: public/modules/invoice/invoice.php:1312
+#: public/modules/shippinglabel/shippinglabel.php:178
+msgid "Footer"
+msgstr ""
+
+#: admin/views/general.php:94
+msgid "Address details"
+msgstr ""
+
+#: admin/views/general.php:102
+msgid "Department/Business unit/Sender name"
+msgstr ""
+
+#: admin/views/general.php:136
+msgid "Choose a country&hellip;"
+msgstr ""
+
+#: admin/views/general.php:151
+msgid "Contact number"
+msgstr ""
+
+#: admin/views/general.php:166
+msgid "Advanced options"
+msgstr ""
+
+#: admin/views/general.php:173
+msgid "Display state name"
+msgstr ""
+
+#: admin/views/general.php:177
+msgid "Enable to show state name in addresses"
+msgstr ""
+
+#: admin/views/general.php:185
+msgid "Display currency code"
+msgstr ""
+
+#: admin/views/general.php:189
+msgid "Enable to show currency code instead of currency symbol"
+msgstr ""
+
+#: admin/views/general.php:197
+msgid "Preview before printing"
+msgstr ""
+
+#: admin/views/general.php:201
+msgid "Preview documents before printing"
+msgstr ""
+
+#: admin/views/general.php:209
+msgid "Enable RTL support"
+msgstr ""
+
+#: admin/views/general.php:213
+msgid "RTL support for documents"
+msgstr ""
+
+#: admin/views/general.php:238
+msgid "PDF library"
+msgstr ""
+
+#: admin/views/general.php:251 admin/views/general.php:271
+msgid "Enable additional currency font support"
+msgstr ""
+
+#: admin/views/general.php:256 admin/views/general.php:276
+msgid ""
+"Enable to use additional font library to support the currency symbol in pdf"
+msgstr ""
+
+#: admin/views/general.php:287
+msgid "Enable a common print button for"
+msgstr ""
+
+#: admin/views/general.php:288 admin/views/general.php:303
+msgid "orders listing page"
+msgstr ""
+
+#: admin/views/general.php:293
+msgid "All document types"
+msgstr ""
+
+#: admin/views/general.php:302
+msgid "Enable dedicated print buttons for"
+msgstr ""
+
+#: admin/views/general.php:317
+msgid "Print button access for"
+msgstr ""
+
+#: admin/views/general.php:324
+msgid "Logged in users"
+msgstr ""
+
+#: admin/views/general.php:325
+msgid "Users will be redirected to login page if not logged in"
+msgstr ""
+
+#: admin/views/general.php:326
+msgid "Secure"
+msgstr ""
+
+#: admin/views/general.php:330
+msgid "All users"
+msgstr ""
+
+#: admin/views/general.php:331
+msgid "Users who haven`t logged will also be allowed to print"
+msgstr ""
+
+#: admin/views/general.php:341
+msgid "File path"
+msgstr ""
+
+#: admin/views/general.php:349
+msgid "Automatic cleanup"
+msgstr ""
+
+#: admin/views/general.php:354 public/modules/deliverynote/views/general.php:30
+#: public/modules/deliverynote/views/general.php:45
+#: public/modules/deliverynote/views/general.php:60
+#: public/modules/dispatchlabel/views/general.php:31
+#: public/modules/dispatchlabel/views/general.php:46
+#: public/modules/packinglist/views/general.php:31
+#: public/modules/packinglist/views/general.php:46
+#: public/modules/packinglist/views/general.php:61
+msgid "Yes"
+msgstr ""
+
+#: admin/views/general.php:355 public/modules/deliverynote/views/general.php:31
+#: public/modules/deliverynote/views/general.php:46
+#: public/modules/deliverynote/views/general.php:61
+#: public/modules/dispatchlabel/views/general.php:32
+#: public/modules/dispatchlabel/views/general.php:47
+#: public/modules/packinglist/views/general.php:32
+#: public/modules/packinglist/views/general.php:47
+#: public/modules/packinglist/views/general.php:62
+msgid "No"
+msgstr ""
+
+#: admin/views/general.php:364
+msgid "Interval"
+msgstr ""
+
+#: admin/views/general.php:374
+msgid "In minutes. Eg: 1440 for 1 day. Minimum value is 1440"
+msgstr ""
+
+#: admin/views/help.php:37 admin/views/help.php:42
+msgid "Help Links"
+msgstr ""
+
+#: admin/views/help.php:38
+msgid "System Info"
+msgstr ""
+
+#: admin/views/help.php:47
+msgid "Refer to our documentation to setup and get started"
+msgstr ""
+
+#: admin/views/help.php:54
+msgid "Help and Support"
+msgstr ""
+
+#: admin/views/help.php:55
+msgid "We would love to help you on any queries or issues."
+msgstr ""
+
+#: admin/views/help.php:57
+msgid "Contact Us"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:8
+msgid "Premium extensions"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:9
+msgid ""
+"Automatically generate professional WooCommerce order-related documents for "
+"all your orders"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:15
+#: admin/views/wt_ipc_free_pro.php:6 admin/views/wt_pro_addons_list.php:9
+msgid "WooCommerce PDF Invoices, Packing Slips and Credit Notes plugin"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:18
+#: admin/views/wt_pro_addons_list.php:14
+msgid "Auto-generate invoices, packing slips, and credit notes"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:19
+#: admin/views/wt_pro_addons_list.php:15
+msgid "Show payment link on invoice"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:20
+#: admin/views/wt_pro_addons_list.php:16
+msgid "Add ‘Pay Later’ option at checkout"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:21
+#: admin/views/wt_pro_addons_list.php:17
+msgid "Attach documents to selected order status emails"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:22
+#: admin/views/wt_pro_addons_list.php:18
+msgid "Enable customers to print invoices & packing slips"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:23
+#: admin/views/wt_pro_addons_list.php:19
+msgid "Customize document layout & properties"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:24
+#: admin/views/premium_extension_listing.php:42
+#: admin/views/premium_extension_listing.php:59
+#: admin/views/wt_ipc_free_pro.php:285 admin/views/wt_pl_free_pro.php:66
+#: admin/views/wt_pro_addons_list.php:20 admin/views/wt_pro_addons_list.php:40
+#: admin/views/wt_pro_addons_list.php:59 admin/views/wt_sdd_free_pro.php:120
+msgid "Show product variation data"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:25
+#: admin/views/wt_pro_addons_list.php:21
+msgid "Add custom data to documents"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:26
+#: admin/views/wt_pro_addons_list.php:22
+msgid "Multiple display options for bundle products"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:27
+#: admin/views/premium_extension_listing.php:45
+#: admin/views/wt_ipc_free_pro.php:231 admin/views/wt_pl_free_pro.php:38
+#: admin/views/wt_pro_addons_list.php:23 admin/views/wt_pro_addons_list.php:43
+#: admin/views/wt_sdd_free_pro.php:104
+msgid "Group products by ‘Category’"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:28
+#: admin/views/wt_pro_addons_list.php:24
+msgid "Verified compatibility with major plugins"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:29
+#: admin/views/premium_extension_listing.php:47
+#: admin/views/premium_extension_listing.php:63
+#: admin/views/premium_extension_listing.php:77
+#: admin/views/premium_extension_listing.php:95
+#: admin/views/wt_pi_free_pro.php:393 admin/views/wt_pro_addons_list.php:25
+#: admin/views/wt_pro_addons_list.php:45 admin/views/wt_pro_addons_list.php:63
+#: admin/views/wt_pro_addons_list.php:83 admin/views/wt_pro_addons_list.php:103
+msgid "Multilingual support"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:35
+#: admin/views/wt_pro_addons_list.php:31 admin/views/wt_sdd_free_pro.php:6
+msgid "WooCommerce Shipping labels, Dispatch labels and Delivery Notes plugin"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:38
+#: admin/views/wt_pro_addons_list.php:36
+msgid "Create delivery notes, shipping & dispatch labels"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:39
+#: admin/views/wt_pro_addons_list.php:37
+msgid "Enable customers to print the documents from order emails"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:40
+#: admin/views/wt_pro_addons_list.php:38
+msgid "Customize shipping label size"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:41
+#: admin/views/wt_pro_addons_list.php:39
+msgid "Add multiple shipping labels on one page"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:43
+#: admin/views/wt_pro_addons_list.php:41
+msgid "Add extra product & order data fields"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:44
+#: admin/views/wt_pro_addons_list.php:42
+msgid "Pre-built layouts & customizable templates"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:46
+#: admin/views/wt_pro_addons_list.php:44
+msgid "Sort products based on Name or SKU"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:53
+#: admin/views/wt_pro_addons_list.php:51
+msgid "WooCommerce Picklists plugin"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:56
+#: admin/views/wt_pro_addons_list.php:56
+msgid "Bulk print picklists from the admin order page"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:57
+#: admin/views/wt_pl_free_pro.php:24 admin/views/wt_pro_addons_list.php:57
+msgid "Automatically email picklists based on order status"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:58
+#: admin/views/wt_pro_addons_list.php:58
+msgid "Create or customize picklist templates"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:60
+#: admin/views/wt_pro_addons_list.php:60
+msgid "Group products in picklist by order/category"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:61
+#: admin/views/wt_pro_addons_list.php:61
+msgid "Add product meta fields & attributes"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:62
+#: admin/views/wt_pro_addons_list.php:62
+msgid "Exclude virtual products from picklists"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:69
+#: admin/views/wt_pi_free_pro.php:292 admin/views/wt_pro_addons_list.php:89
+msgid "WooCommerce Address Labels plugin"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:72
+msgid ""
+"Generate ‘Shipping Address’, ‘Billing Address’, ‘From Address’, and ‘Return "
+"Address’ labels"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:73
+#: admin/views/wt_pro_addons_list.php:98
+msgid "Customize label sizes"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:74
+#: admin/views/wt_pro_addons_list.php:99
+msgid "Bulk print address labels"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:75
+msgid "Offers built-in label templates"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:76
+#: admin/views/wt_pro_addons_list.php:101
+msgid "Change address label layout"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:83
+msgid "WooCommerce Proforma Invoices"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:86
+#: admin/views/wt_pro_addons_list.php:74
+msgid "Create proforma invoices automatically"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:87
+#: admin/views/wt_pro_addons_list.php:75
+msgid "Pre-built proforma invoice layouts"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:88
+#: admin/views/premium_extension_listing.php:106
+#: admin/views/wt_pro_addons_list.php:76
+msgid "Easy invoice layout customization"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:89
+#: admin/views/wt_pro_addons_list.php:77
+msgid "Attach proforma invoice PDF to order emails"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:90
+#: admin/views/wt_pro_addons_list.php:78
+msgid "Allow customers to print invoices"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:91
+#: admin/views/wt_pi_free_pro.php:61 admin/views/wt_pro_addons_list.php:79
+msgid "Set custom proforma invoice number"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:92
+#: admin/views/wt_pro_addons_list.php:80
+msgid "Add additional product & order data fields"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:93
+#: admin/views/wt_pi_free_pro.php:206 admin/views/wt_pro_addons_list.php:81
+msgid "Attach special notes with proforma invoices"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:94
+#: admin/views/wt_pro_addons_list.php:82
+msgid "Attach transport & sales terms"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:101
+msgid "Customizer for WooCommerce PDF Invoices"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:104
+msgid "Drag-and-drop easy customization"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:105
+msgid "Advanced visual and code editor"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:107
+msgid "Customize individual elements using block editors"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:108
+msgid "View live preview of customization"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:109
+msgid "Change color, text, background, border & more"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:115
+#: admin/views/wt_pro_addons_list.php:109
+#: public/modules/invoice/views/qrcode_promote.php:25
+msgid "QR Code Addon for WooCommerce PDF Invoices"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:118
+#: admin/views/wt_pro_addons_list.php:114
+msgid "Assign QR codes to all generated invoices"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:119
+#: admin/views/wt_pro_addons_list.php:115
+msgid "Create QR code that reads order or invoice number"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:120
+#: admin/views/wt_pro_addons_list.php:116
+msgid "Add custom data to invoices"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:121
+msgid ""
+"Compatible with WooCommerce PDF Invoice, Packing Slip & Credit Note (Premium)"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:122
+#: admin/views/wt_pro_addons_list.php:118
+msgid ""
+"Compatible with WooCommerce PDF Invoices, Packing Slips, Delivery Notes, and "
+"Shipping Labels (Free)"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:128
+msgid "Remote Print add-on for WooCommerce PDF Invoices - PrintNode"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:131
+msgid "Offers cloud printing of invoice PDFs using PrintNode"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:132
+msgid "Print PDF invoices for WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:133
+msgid "Lightning-fast printing"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:134
+msgid "Supports automatic & manual printing"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:135
+msgid "Support for serial and USB scales"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:136
+msgid "Ensure security with base64 & URI printing"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:137
+msgid "Cross-platform compatibility"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:143
+msgid "WebToffee WooCommerce Request A Quote"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:146
+msgid "Add quote button to the product & shop pages"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:147
+msgid "Enable quotation request for selected products"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:148
+msgid "Automatically send quotes to users"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:149
+msgid "Disable guest users from asking for quote"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:150
+msgid "Hide prices and ‘add to cart’ button"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:151
+msgid "Automatic email alerts for admin & users"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:152
+msgid "Easy button and form customization"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:153
+msgid "Set quote expiry period"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:154
+msgid "Limit spams with reCAPTCHA"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:160
+msgid "Sequential Order Number for WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:163
+msgid "Auto reset sequence per month/year etc"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:164
+msgid "Add a custom suffix for order numbers"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:165
+msgid "Date suffix in order numbers"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:166
+msgid "Custom sequence for free orders"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:167
+msgid "Increment sequence in custom series"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:168
+msgid "More order number templates"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:174
+msgid "Data Import & Export"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:175
+msgid ""
+"The best-in-the-class import, export, and migration solutions for your "
+"WooCommerce data"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:181
+msgid "Import Export Suite for WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:184
+msgid ""
+"Import/export Products, Orders, Subscriptions, Coupons, Customers, WordPress "
+"Users, Categories & Tags, Reviews"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:185
+#: admin/views/premium_extension_listing.php:202
+#: admin/views/premium_extension_listing.php:220
+#: admin/views/premium_extension_listing.php:239
+msgid "Supports Excel, XML, CSV, and TSV file formats"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:187
+#: admin/views/premium_extension_listing.php:206
+#: admin/views/premium_extension_listing.php:225
+#: admin/views/premium_extension_listing.php:245
+msgid "Import from URL, Google Sheets, FTP/SFTP"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:188
+#: admin/views/premium_extension_listing.php:207
+#: admin/views/premium_extension_listing.php:226
+#: admin/views/premium_extension_listing.php:246
+msgid "Export to FTP/SFTP"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:189
+msgid "Import & export custom fields and values"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:190
+#: admin/views/premium_extension_listing.php:227
+#: admin/views/premium_extension_listing.php:247
+msgid "Advanced filters and customizations for import & export"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:191
+#: admin/views/premium_extension_listing.php:209
+msgid "Add and update data while importing"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:192
+#: admin/views/premium_extension_listing.php:210
+#: admin/views/premium_extension_listing.php:229
+#: admin/views/premium_extension_listing.php:249
+msgid "Maintains action history and debug logs"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:193
+#: admin/views/premium_extension_listing.php:211
+#: admin/views/premium_extension_listing.php:230
+#: admin/views/premium_extension_listing.php:250
+msgid "Compatible with major 3rd-party plugins"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:199
+msgid "Product Import Export Plugin For WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:203
+#: admin/views/premium_extension_listing.php:240
+msgid "Schedule automated import and export"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:204
+msgid "Support for multiple product types"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:205
+msgid "Export product images in a separate zip file"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:208
+msgid "Advanced filters and customizations for import and export"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:217
+msgid "Order, Coupon, Subscription Export Import for WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:222
+msgid "Email customers on order status change"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:223
+msgid "Create users on order import"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:224
+msgid "Filter export by products, order status, email, date, etc"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:228
+#: admin/views/premium_extension_listing.php:248
+msgid "Add & update data while importing"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:236
+msgid "WordPress Users & WooCommerce Customers Import Export"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:241
+msgid "Customize and send emails to new users on import"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:242
+msgid "Retain user passwords on import/export"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:243
+msgid "Export and import custom fields and third-party plugin fields"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:244
+msgid "Filter by user role, email, date, etc"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:256
+msgid "WebToffee WooCommerce Product Feed & Sync Manager"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:259
+msgid ""
+"Generate WooCommerce product feeds for Google Shopping, Facebook Shop, and "
+"Instagram Shop"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:260
+msgid "Sync WooCommerce products to Facebook catalog"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:261
+msgid "Additional feed intervals (30 minutes, 6 hours, 12 hours)"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:262
+msgid "Support for additional fields that can be added to the feed"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:263
+msgid "WPML multilingual and multicurrency support "
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:264
+msgid "Google local product inventory feed"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:265
+msgid "Exclude specific products"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:266
+msgid "Include or exclude specific categories"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:267
+msgid "Exclude out-of-stock products"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:268
+msgid "Filter products based on product type"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:269
+msgid "Map categories on product level"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:276
+msgid "E-commerce Promotions"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:277
+msgid ""
+"Create and run successful promotional campaigns with the best tools for "
+"WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:283
+msgid "WebToffee WooCommerce Gift Cards"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:286
+msgid "Create unlimited gift cards"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:287
+msgid "Email gift cards to customers"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:288
+msgid "Provide refunds to store credit"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:289
+msgid "20+ predefined gift card templates"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:290
+msgid "Category wise template listing"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:291
+msgid "Add custom templates for gift cards"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:292
+msgid "Generate gift cards based on order status"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:293
+msgid "Manage user credit balance"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:294
+msgid "Fixed and custom gift card amounts"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:295
+msgid "Add usage restrictions for gift cards"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:301
+msgid "Frequently Bought Together for WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:304
+msgid "Automatically generate suggestions based on order history"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:305
+msgid "Display recommended products on the product pages"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:306
+msgid "Quick setup page to add & edit recommendations"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:307
+msgid "Multiple product recommendation layouts"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:308
+msgid "Set up discounts on the recommended product bundle"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:309
+msgid "Manually create a bought-together list"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:310
+msgid ""
+"Use upsells, cross-sells, & related products as frequently bought products"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:311
+msgid "Customize the title, button, and label texts"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:312
+msgid "Customize the display of the recommended products"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:318
+msgid "Smart Coupons for WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:321
+msgid "Advanced BOGO Coupons"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:322
+msgid "Offer store credits"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:323
+msgid "Create attractive gift cards "
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:324
+msgid "Give away product coupons"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:325
+msgid "Coupons based on past purchases"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:326
+msgid "Restrict coupons by country"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:327
+msgid "Create and offer sign-up discount coupons"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:329
+msgid "Customizable countdown sales banner"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:331
+msgid "Import and export coupons"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:332
+msgid "Coupon embeds"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:333
+msgid "Allow coupon combinations"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:339
+msgid "URL Coupons for WooCommerce"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:342
+msgid "Generate custom coupon URLs"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:343
+msgid "Set up a redirect page"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:344
+msgid "Automatically add products"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:345
+msgid "Create QR code coupons"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:351
+msgid "Privacy compliance"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:352
+msgid ""
+"Get Help with Ensuring Compliance to Major Privacy Laws for Your WordPress "
+"Website - GDPR, CCPA, LGPD, CNIL, and More."
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:358
+msgid "GDPR Cookie Consent Plugin (CCPA Ready)"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:361
+msgid "Assits in GDPR (RGPD, DSVGO), LGPD, CNIL, POPIA, and CCPA"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:362
+msgid "Create a cookie consent banner"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:363
+msgid "Scan and list cookies"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:364
+msgid "Automatically block cookies/script"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:365
+msgid "Customize cookie banner"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:366
+msgid "Create cookie policy"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:367
+msgid "User consent logging"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:368
+msgid "Explicit/Implicit consent"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:369
+msgid "Location based exclusion for banner"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:370
+msgid "Granular consent based on cookie categories"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:376
+msgid ""
+"Accessibility Tool Kit: WP Accessibility for WCAG, Section 508, ADA, EAA "
+"Compliance"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:379
+msgid "Build an accessible WordPress site that works for everyone"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:380
+msgid "Scan for accessibility issues"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:381
+msgid "Get fix recommendations"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:382
+msgid "Ensure WCAG compliance"
+msgstr ""
+
+#: admin/views/premium_extension_listing.php:383
+msgid "Inclusive web design made simple"
+msgstr ""
+
+#: admin/views/premium_extension_page.php:81
+msgid "You are covered by our 30-Day Money Back Guarantee"
+msgstr ""
+
+#: admin/views/premium_extension_page.php:91
+msgid "Supported by a team with 99% Customer Satisfaction Score"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:10 admin/views/wt_sdd_free_pro.php:10
+msgid "Supported documents"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:41
+msgid "Automatically create invoice based on order status"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:54
+msgid "Attach document to order email"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:85
+msgid "Custom invoice date"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:88 admin/views/wt_ipc_free_pro.php:98
+msgid "Use order date"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:92 admin/views/wt_ipc_free_pro.php:102
+msgid "Use invoice created date"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:108
+msgid "Show print invoice button to customers"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:139
+msgid "Show print packing slip button to customers"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:162
+msgid "Use order number as document number"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:185
+msgid "Use custom number series to number documents"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:208
+msgid "Change document number format & length"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:254 admin/views/wt_pi_free_pro.php:122
+#: admin/views/wt_pl_free_pro.php:94 admin/views/wt_sdd_free_pro.php:80
+msgid "Sort order items in product table"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:316
+msgid "Display options for bundled products"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:339
+msgid "Generate invoices for old orders"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:352
+#: public/modules/invoice/views/general.php:285
+msgid "Generate invoices for free orders"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:365
+msgid "Option to include/exclude tax to Invoice"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:378
+msgid ""
+"Separate tax column in the product table for multiple tax options in invoices"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:391
+msgid "Customizable tax items, tax fields (SSN, VAT, etc.)"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:422
+msgid "Display free line items on invoice"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:435
+msgid "Customize invoice PDF name format"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:448
+msgid "Add a payment link to invoice"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:461
+msgid "Show Pay Later option at checkout"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:474
+msgid "Customize Pay Later option display"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:482 admin/views/wt_ipc_free_pro.php:496
+msgid "Description"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:486 admin/views/wt_ipc_free_pro.php:500
+msgid "Instruction"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:505 admin/views/wt_sdd_free_pro.php:144
+msgid "Add order meta fields"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:513
+msgid "(But customer notes can be added)"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:536 admin/views/wt_pi_free_pro.php:164
+#: admin/views/wt_sdd_free_pro.php:176
+msgid "Add product meta fields"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:567 admin/views/wt_pi_free_pro.php:178
+#: admin/views/wt_sdd_free_pro.php:200
+#: public/modules/deliverynote/views/general.php:113
+#: public/modules/dispatchlabel/views/general.php:97
+msgid "Add product attributes"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:598
+#: public/modules/invoice/views/general.php:250
+msgid "Custom logo for invoice"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:611
+msgid "Add product images to packing slips"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:624
+msgid "Custom footer"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:647 admin/views/wt_pi_free_pro.php:262
+#: admin/views/wt_pl_free_pro.php:150 admin/views/wt_sdd_free_pro.php:288
+msgid "Document customizer"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:651 admin/views/wt_sdd_free_pro.php:292
+msgid "(Visual editor)"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:665 admin/views/wt_sdd_free_pro.php:306
+msgid "(Visual and code editor)"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:678
+msgid "Pre-built layouts for documents"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:709
+msgid "Save document layout as template"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:740
+msgid "Add additional data to invoice layout"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:744 admin/views/wt_ipc_free_pro.php:786
+msgid "Total tax"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:748 admin/views/wt_ipc_free_pro.php:790
+msgid "Tracking number"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:760 admin/views/wt_ipc_free_pro.php:802
+msgid "Cart discount"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:764 admin/views/wt_ipc_free_pro.php:806
+msgid "Order discount"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:772 admin/views/wt_ipc_free_pro.php:814
+#: public/modules/invoice/invoice.php:1324
+msgid "Coupon info"
+msgstr ""
+
+#: admin/views/wt_ipc_free_pro.php:827 admin/views/wt_pi_free_pro.php:276
+#: admin/views/wt_pl_free_pro.php:164 admin/views/wt_sdd_free_pro.php:428
+msgid "WPML compatibility"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:6 admin/views/wt_pro_addons_list.php:69
+msgid "WooCommerce Proforma Invoices plugin"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:10
+msgid "Create proforma invoice automatically for selected order statuses"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:24
+msgid "Attach invoice PDF to order emails"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:38
+#: public/modules/invoice/views/general.php:181
+msgid "Show print invoice button for customers"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:70
+msgid "Based on order number"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:74
+msgid "Custom number series"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:80
+msgid ""
+"Separate tax column in product table for multiple tax options in proforma "
+"invoices"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:94
+msgid "Use custom number format & length"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:108
+msgid "Group products by 'Category'"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:136
+msgid "Show variation data of products"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:150
+msgid "Add order meta fields "
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:192
+msgid "Add custom footer"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:220
+msgid "Attach transport terms"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:234
+msgid "Attach sales terms"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:248
+msgid "Multiple pre-built layouts"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:296
+msgid "Generate address labels"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:310
+msgid "Supported address types"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:319
+msgid "Shipping address"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:323
+msgid "Billing address"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:327
+msgid "From address"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:331
+msgid "Return address"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:337
+msgid "Multiple address label layouts"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:351
+msgid "Customize layout properties"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:365
+msgid "WPML compatibilityCustomize label sizes"
+msgstr ""
+
+#: admin/views/wt_pi_free_pro.php:379
+msgid "Bulk print shipping labels"
+msgstr ""
+
+#: admin/views/wt_pl_free_pro.php:6
+msgid "WooCommerce Pick lists plugin"
+msgstr ""
+
+#: admin/views/wt_pl_free_pro.php:10
+msgid "Generate picklists"
+msgstr ""
+
+#: admin/views/wt_pl_free_pro.php:52
+msgid "Group products by ‘Order’"
+msgstr ""
+
+#: admin/views/wt_pl_free_pro.php:80
+msgid "Exclude virtual items from picklists"
+msgstr ""
+
+#: admin/views/wt_pl_free_pro.php:108
+msgid "Product meta fields"
+msgstr ""
+
+#: admin/views/wt_pl_free_pro.php:122
+msgid "Product attributes"
+msgstr ""
+
+#: admin/views/wt_pl_free_pro.php:136
+msgid "Pre-built layouts"
+msgstr ""
+
+#: admin/views/wt_pro_addons_list.php:94
+msgid "Generate Shipping Address labels"
+msgstr ""
+
+#: admin/views/wt_pro_addons_list.php:95
+msgid "Generate Billing Address labels"
+msgstr ""
+
+#: admin/views/wt_pro_addons_list.php:96
+msgid "Generate From Address labels"
+msgstr ""
+
+#: admin/views/wt_pro_addons_list.php:97
+msgid "Generate Return Address labels"
+msgstr ""
+
+#: admin/views/wt_pro_addons_list.php:100
+msgid "Built-in label templates"
+msgstr ""
+
+#: admin/views/wt_pro_addons_list.php:102
+msgid "Customize layout elements & properties"
+msgstr ""
+
+#: admin/views/wt_pro_addons_list.php:117
+msgid ""
+"Compatible with WooCommerce PDF Invoice, Packing Slip & Credit Note (Pro)"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:42
+#: public/modules/shippinglabel/views/general.php:26
+msgid "Shipping label size"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:46 admin/views/wt_sdd_free_pro.php:56
+msgid "Full page"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:50 admin/views/wt_sdd_free_pro.php:60
+msgid "Custom"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:66
+msgid "Add multiple shipping labels in one page"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:224
+msgid "Add print document button to selected order emails"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:256
+msgid "Pre-built layout for documents"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:320
+msgid "Add custom fields to shipping label layout"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:324 admin/views/wt_sdd_free_pro.php:334
+msgid "Company logo"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:328 admin/views/wt_sdd_free_pro.php:338
+msgid "Return policy"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:344
+msgid "Include product image in delivery note"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:358
+#: public/modules/deliverynote/views/general.php:39
+#: public/modules/dispatchlabel/views/general.php:25
+#: public/modules/packinglist/views/general.php:40
+msgid "Add customer note"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:382
+#: public/modules/deliverynote/views/general.php:54
+#: public/modules/dispatchlabel/views/general.php:40
+#: public/modules/packinglist/views/general.php:55
+msgid "Add footer"
+msgstr ""
+
+#: admin/views/wt_sdd_free_pro.php:414
+msgid ""
+"Separate tax column in product table for multiple tax options in dispatch "
+"labels"
+msgstr ""
+
+#: common/class-wt-pklist-common.php:663
+msgid "Admin email"
+msgstr ""
+
+#: common/class-wt-pklist-common.php:666
+msgid "Manual email"
+msgstr ""
+
+#: common/class-wt-pklist-common.php:678
+msgid "Admin email (Renewal order)"
+msgstr ""
+
+#: common/class-wt-pklist-common.php:679
+msgid "Manual email (Renewal order)"
+msgstr ""
+
+#: common/class-wt-pklist-common.php:680
+msgid "Order on-hold (Renewal order)"
+msgstr ""
+
+#: common/class-wt-pklist-common.php:681
+msgid "Order processing (Renewal order)"
+msgstr ""
+
+#: common/class-wt-pklist-common.php:682
+msgid "Order completed (Renewal order)"
+msgstr ""
+
+#: includes/admin/class-wf-woocommerce-packing-list-admin_notices.php:29
+msgid "Invoice Generation In Progress"
+msgstr ""
+
+#: includes/admin/class-wf-woocommerce-packing-list-admin_notices.php:30
+msgid ""
+"Invoice numbers are getting generated in the background. This process may "
+"take a little while, so please be patient."
+msgstr ""
+
+#: includes/admin/class-wf-woocommerce-packing-list-admin_notices.php:31
+msgid "View progress"
+msgstr ""
+
+#. translators: 1$s: HTML bold opening tag, 2$s: HTML bold closing tag, 3$s: HTML bold opening tag, 4$s: Plugin title, 5$s: HTML bold closing tag, 6$s: HTML line break
+#: includes/class-wf-woocommerce-packing-list-review_request.php:62
+#, php-format
+msgid ""
+"Hey, we at %1$s WebToffee %2$s would like to thank you for using %3$s %4$s "
+"%5$s. %6$s Less than a minute of your time will motivate us to keep doing "
+"what we do. We would really appreciate if you could take a moment to drop a "
+"quick review that motivate us to keep going."
+msgstr ""
+
+#. translators: 1$s: Star emoji, 2$s: HTML span opening tag, 3$s: HTML span closing tag, 4$s: HTML span opening tag, 5$s: HTML span closing tag
+#: includes/class-wf-woocommerce-packing-list-review_request.php:64
+#, php-format
+msgid ""
+"%1$s  %2$s  Loving %3$s  WooCommerce PDF Invoices, Packing Slips, Delivery "
+"Notes and Shipping Labels plugin? %4$s  Share Your Feedback! %5$s"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:67
+msgid "Remind me later"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:68
+msgid "Not interested"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:69
+msgid "Review now"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:70
+msgid "You deserve it"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:71
+msgid "Nope, maybe later"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:72
+msgid "I already did"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:80
+msgid "Knock, Knock!"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:81
+msgid "You`ve just created"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:83
+msgid "commercial documents using"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:84
+msgid ""
+"Woocommerce PDF invoices, packing slips, delivery notes, and shipping labels"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:85
+msgid ""
+"That's awesome! We'd love it if you take a moment to share what you think "
+"and help spread the word."
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:87
+msgid "Rate us now"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:190
+msgid "there"
+msgstr ""
+
+#. translators: 1$s: User name in bold HTML, 2$s: HTML line break, 3$s: HTML bold opening tag, 4$s: HTML bold closing tag, 5$s: HTML bold opening tag, 6$s: HTML bold closing tag, 7$s: Double HTML line break, 8$s: HTML bold opening tag, 9$s: HTML bold closing tag, 10$s: Double HTML line break, 11$s: HTML line break with bold opening tag, 12$s: HTML bold closing tag
+#: includes/class-wf-woocommerce-packing-list-review_request.php:192
+#, php-format
+msgid ""
+"Hi  %1$s, %2$s We're thrilled to see you making great use of our WooCommerce "
+"PDF Invoices, Packing Slips, Delivery Notes and Shipping Labels plugin! It's "
+"our mission to make %3$s invoicing as seamless %4$s and %5$s efficient %6$s "
+"as possible for you. %7$s If you found the plugin helpful, please leave us a "
+"quick %8$s 5-star review. %9$s It would mean the world to us. %10$s Warm "
+"regards, %11$s Team WebToffee %12$s"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:428
+msgid "Did you know?"
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:429
+msgid ""
+"You can now bulk export PDF invoices, packing slips, and credit notes of "
+"WooCommerce orders with custom filters."
+msgstr ""
+
+#: includes/class-wf-woocommerce-packing-list-review_request.php:433
+msgid "Checkout"
+msgstr ""
+
+#. translators: 1$s: Active plugin name, 2$s: Current plugin name
+#: print-invoices-packing-slip-labels-for-woocommerce.php:51
+#, php-format
+msgid ""
+"The plugins %1$s and %2$s cannot be active in your store at the same time. "
+"Kindly deactivate one of these prior to activating the other."
+msgstr ""
+
+#: print-invoices-packing-slip-labels-for-woocommerce.php:51
+msgid "Go to plugins page"
+msgstr ""
+
+#. translators: 1$s: Plugin name, 2$s: Plugin name, 3$s: WooCommerce link opening tag, 4$s: WooCommerce link closing tag
+#: print-invoices-packing-slip-labels-for-woocommerce.php:213
+#, php-format
+msgid ""
+"%1$s %2$s is enabled but not effective. It requires %3$s WooCommerce %4$s in "
+"order to work."
+msgstr ""
+
+#: public/modules/deliverynote/data/data.templates.php:5
+msgid "Classic"
+msgstr ""
+
+#: public/modules/deliverynote/data/data.tooltip.php:3
+#: public/modules/packinglist/data/data.tooltip.php:3
+msgid "Adds product image to the line items in the product table"
+msgstr ""
+
+#: public/modules/deliverynote/data/data.tooltip.php:4
+msgid "Adds customer note to the delivery note"
+msgstr ""
+
+#: public/modules/deliverynote/data/data.tooltip.php:5
+msgid "Adds Footer to the delivery note"
+msgstr ""
+
+#: public/modules/deliverynote/deliverynote.php:217
+#: public/modules/deliverynote/deliverynote.php:236
+#: public/modules/deliverynote/deliverynote.php:246
+#: public/modules/deliverynote/deliverynote.php:247
+msgid "Print Delivery note"
+msgstr ""
+
+#: public/modules/deliverynote/deliverynote.php:230
+msgid "Print/Download Delivery note"
+msgstr ""
+
+#: public/modules/deliverynote/deliverynote.php:235
+#: public/modules/deliverynote/deliverynote.php:389
+#: public/modules/dispatchlabel/dispatchlabel.php:227
+#: public/modules/dispatchlabel/dispatchlabel.php:368
+#: public/modules/invoice/invoice.php:1518
+#: public/modules/invoice/invoice.php:2073
+#: public/modules/packinglist/packinglist.php:245
+#: public/modules/packinglist/packinglist.php:418
+#: public/modules/shippinglabel/shippinglabel.php:380
+#: public/modules/shippinglabel/shippinglabel.php:599
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:360
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:436
+msgid "Print"
+msgstr ""
+
+#: public/modules/deliverynote/deliverynote.php:319
+msgid "Unable to print Delivery note. Please check the items in the order."
+msgstr ""
+
+#: public/modules/deliverynote/views/admin-settings.php:12
+#: public/modules/dispatchlabel/views/admin-settings.php:11
+#: public/modules/packinglist/views/admin-settings.php:12
+msgid "Crown"
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:8
+msgid "Your current delivery note."
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:9
+msgid "How your delivery note will appear to customers."
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:14
+msgid "Delivery note Preview"
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:28
+msgid "Pre-built templates"
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:29
+msgid "Sort and group products by category"
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:30
+msgid "Show product variations, attributes, SKUs, return policy and footer"
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:31
+msgid "Add order meta, product meta, and customer notes"
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:55
+#: public/modules/dispatchlabel/views/customize_pro.php:56
+#: public/modules/packinglist/views/customize_pro.php:55
+msgid "Unlock full customization"
+msgstr ""
+
+#: public/modules/deliverynote/views/customize_pro.php:56
+msgid "Give your delivery team and customers the right details at a glance."
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:12
+msgid "Configure the general settings required for the delivery note."
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:24
+#: public/modules/packinglist/views/general.php:25
+msgid "Include product image"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:107
+msgid "Multiple templates to personalize the document"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:108
+msgid "Add a print delivery note button to the order email"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:109
+#: public/modules/dispatchlabel/views/general.php:99
+#: public/modules/packinglist/views/general.php:112
+msgid "Sort order items in the product table"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:110
+#: public/modules/invoice/views/invoice-admin-settings.php:24
+#: public/modules/packinglist/views/general.php:111
+msgid "Group products by category"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:111
+#: public/modules/dispatchlabel/views/general.php:98
+#: public/modules/invoice/views/invoice-admin-settings.php:26
+#: public/modules/packinglist/views/general.php:113
+msgid "Show variation data for variable products"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:112
+msgid "Add product & order meta fields"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:114
+msgid "Generate shipping labels and dispatch labels"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:134
+#: public/modules/dispatchlabel/views/general.php:119
+#: public/modules/invoice/views/invoice-admin-settings.php:71
+#: public/modules/packinglist/views/general.php:137
+#: public/modules/shippinglabel/views/admin-settings.php:88
+msgid "Get advanced features for your"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:140
+#: public/modules/dispatchlabel/views/general.php:125
+#: public/modules/shippinglabel/views/admin-settings.php:94
+msgid "Shipping labels, Dispatch labels and Delivery notes"
+msgstr ""
+
+#: public/modules/deliverynote/views/general.php:160
+#: public/modules/dispatchlabel/views/general.php:145
+#: public/modules/invoice/views/invoice-admin-settings.php:97
+#: public/modules/packinglist/views/general.php:163
+#: public/modules/shippinglabel/views/admin-settings.php:114
+msgid "View add-on"
+msgstr ""
+
+#: public/modules/dispatchlabel/data/data.templates.php:5
+msgid "Dispatch Label 1"
+msgstr ""
+
+#: public/modules/dispatchlabel/data/data.tooltip.php:3
+msgid "Adds customer note in the dispatch label"
+msgstr ""
+
+#: public/modules/dispatchlabel/data/data.tooltip.php:4
+msgid "Adds footer in dispatch label"
+msgstr ""
+
+#: public/modules/dispatchlabel/dispatchlabel.php:198
+#: public/modules/dispatchlabel/dispatchlabel.php:228
+#: public/modules/dispatchlabel/dispatchlabel.php:238
+#: public/modules/dispatchlabel/dispatchlabel.php:239
+msgid "Print Dispatch Label"
+msgstr ""
+
+#: public/modules/dispatchlabel/dispatchlabel.php:221
+msgid "Dispatch Label"
+msgstr ""
+
+#: public/modules/dispatchlabel/dispatchlabel.php:222
+msgid "Print/Download Dispatch Label"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:8
+msgid "Your current dispatch label."
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:9
+msgid "How your dispatch label will appear to customers."
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:14
+msgid "Dispatch Label Preview"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:28
+msgid "Sort and group items in the product table"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:29
+msgid "Display product variations, SKUs, and meta details"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:30
+msgid ""
+"Add additional product meta, order meta, product attributes & custom notes"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:31
+msgid "Customize document layout and add footer section"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:32
+msgid "Add print button to order emails for faster access"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/customize_pro.php:57
+msgid "Handle order fulfillment with more control and precision."
+msgstr ""
+
+#: public/modules/dispatchlabel/views/general.php:13
+msgid "Configure the general settings required for the dispatch label."
+msgstr ""
+
+#: public/modules/dispatchlabel/views/general.php:93
+#: public/modules/shippinglabel/views/admin-settings.php:60
+msgid "Multiple templates to personalize the label"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/general.php:94
+#: public/modules/shippinglabel/views/admin-settings.php:61
+msgid "Add a print label button to the order email"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/general.php:95
+#: public/modules/invoice/views/invoice-admin-settings.php:23
+msgid "Show different taxes in separate columns"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/general.php:96
+msgid "Add order & product meta fields"
+msgstr ""
+
+#: public/modules/dispatchlabel/views/general.php:100
+msgid "Generate shipping labels and delivery notes"
+msgstr ""
+
+#: public/modules/invoice/data/data.templates-prev-version.php:5
+#: public/modules/packinglist/data/data.templates.php:5
+msgid "Basic - 1"
+msgstr ""
+
+#: public/modules/invoice/data/data.templates.php:5
+msgid "Basic - 0"
+msgstr ""
+
+#: public/modules/invoice/data/data.tooltip.php:3
+msgid ""
+"Admins and customers both can leverage this feature wherever applicable. "
+"Disabling will remove all the provisions. Yet, the invoices are customizable."
+msgstr ""
+
+#: public/modules/invoice/data/data.tooltip.php:4
+msgid ""
+"The date is displayed on the invoice. It can be either the order creation "
+"date or the invoiced date."
+msgstr ""
+
+#: public/modules/invoice/data/data.tooltip.php:5
+msgid "Allows customers to print the invoice from the specified pages."
+msgstr ""
+
+#: public/modules/invoice/invoice.php:150
+msgid "Print invoice"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:151
+msgid "Download invoice"
+msgstr ""
+
+#. translators: 1$s: HTML link opening tag, 2$s: HTML link closing tag
+#: public/modules/invoice/invoice.php:336
+#, php-format
+msgid ""
+"You can control the visibility of the seal according to order status via "
+"filters. See filter documentation %1$s here. %2$s"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:338
+msgid "This feature might not work in mPDF."
+msgstr ""
+
+#: public/modules/invoice/invoice.php:356
+msgid "Width"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:364
+msgid "Height"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:388
+msgid "Border width"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:396
+msgid "Line height"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:404
+msgid "Opacity"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:425
+msgid "Border radius"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:433
+msgid "From left"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:441
+msgid "From top"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:449
+msgid "Angle"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:456
+msgid "Color"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1280
+msgid "Pro Add-on"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1284
+msgid "Document title"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1285
+msgid "Company Logo / Name"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1287
+#: public/modules/invoice/invoice.php:1556
+msgid "Invoice Number"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1288
+#: public/modules/shippinglabel/shippinglabel.php:169
+msgid "Order Number"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1289
+msgid "Invoice Date"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1290
+#: public/modules/shippinglabel/shippinglabel.php:170
+msgid "Order Date"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1292
+#: public/modules/shippinglabel/shippinglabel.php:167
+msgid "From Address"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1293
+msgid "Billing Address"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1294
+msgid "Shipping Address"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1295
+#: public/modules/shippinglabel/shippinglabel.php:173
+msgid "Email Field"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1296
+#: public/modules/shippinglabel/shippinglabel.php:174
+msgid "Tel Field"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1298
+#: public/modules/shippinglabel/shippinglabel.php:176
+msgid "SSN number"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1299
+#: public/modules/shippinglabel/shippinglabel.php:175
+msgid "VAT number"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1301
+msgid "Payment received stamp"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1306
+#: public/modules/shippinglabel/shippinglabel.php:179
+msgid "Barcode"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1309
+msgid "QR code"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1311
+msgid "QR Code"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1317
+#: public/modules/shippinglabel/shippinglabel.php:180
+msgid "Tracking Number"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1464
+msgid "Print Invoices"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1465
+msgid "Download Invoices"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1504
+#: public/modules/invoice/invoice.php:1541
+msgid "Print Invoice"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1512
+#: public/modules/invoice/invoice.php:1542
+msgid "Download Invoice"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1519
+#: public/modules/packinglist/packinglist.php:252
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:368
+msgid "Download"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1532
+msgid "Print/Download Invoice"
+msgstr ""
+
+#: public/modules/invoice/invoice.php:1803
+msgid "Customizer module is not active."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:41
+msgid "Subscribe to our newsletter for exclusive offers & updates"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:48
+#: public/modules/invoice/views/general.php:71
+msgid "Subscribe"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:49
+msgid "indicates required"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:50
+msgid "Enter your email address"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:57
+#, php-format
+msgid ""
+"I consent to receive newsletters and exclusive offers from WebToffee and "
+"agree to the %1$sPrivacy Policy%2$s."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:88
+msgid "Configure the general settings required for the invoice."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:109
+msgid "Enable to print, download, and mail invoices."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:111
+msgid "Enable Invoice"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:134
+#: public/modules/invoice/views/qrcode_promote.php:38
+msgid "Invoice date"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:140
+#: public/modules/invoice/views/qrcode_promote.php:39
+msgid "Order date"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:141
+msgid "Invoiced date"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:151
+msgid "Automate invoice creation"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:158
+#: public/modules/ubl/invoice/views/settings.php:98
+msgid "Choose order status"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:159
+msgid "Automatically creates invoices for selected order statuses."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:166
+msgid "Attach invoice PDF to selected WooCommerce emails."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:173
+msgid "Choose email classes"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:174
+msgid ""
+"Select email types corresponding to the order statuses under Automate "
+"invoice creation option. If none are selected, invoices must be generated "
+"manually to be attached to emails."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:206
+#: public/modules/invoice/views/qrcode_promote.php:32
+#: public/modules/invoice/views/qrcode_promote.php:36
+msgid "Invoice number"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:225
+msgid "Invoice details"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:232
+msgid "Order meta fields"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:236
+msgid ""
+"Select/add order meta to display additional information related to the order "
+"on the invoice."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:241
+msgid "Product metadata"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:245
+msgid ""
+"Select/add product meta to display additional information related to the "
+"product on the invoice."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:253
+msgid ""
+"If left blank, default to the logo from General settings. Ensure to select "
+"company logo from ‘Invoice > Customize > Company Logo’ to reflect on the "
+"invoice. Recommended size is 150×50px."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:274
+msgid "Generate invoices for existing orders"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:278
+msgid ""
+"Enable to create invoice for orders generated before plugin installation"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:289
+msgid "Enable to create invoices for free orders"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:296
+msgid "Display free line items in the invoice"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:300
+msgid "Include free(priced as 0) line items in the invoice"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:303
+msgid "Enable to create invoices for free orders."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:309
+msgid "PDF name format"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:314
+msgid "[prefix][order_no]"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:315
+msgid "[prefix][invoice_no]"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:319
+msgid ""
+"Select a name format for PDF invoice that includes invoice/order number."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:325
+msgid "Custom PDF name prefix"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:327
+msgid ""
+"Input a custom prefix for ‘PDF name format’ that will appear at the "
+"beginning of the name. Defaulted to ‘Invoice_’."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:333
+msgid "Use latest settings for invoice"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:340
+msgid ""
+"Enable to apply the most recent settings to previous order invoices. This "
+"will match the previous invoices with the upcoming invoices.Changing the "
+"company address, name or any other settings in the future may overwrite "
+"previously created invoices with the most up-to-date information."
+msgstr ""
+
+#: public/modules/invoice/views/general.php:368
+msgid "Date formats"
+msgstr ""
+
+#: public/modules/invoice/views/general.php:375
+msgid "Output"
+msgstr ""
+
+#: public/modules/invoice/views/invoice-admin-settings.php:19
+msgid "Multiple premium invoice templates to choose from"
+msgstr ""
+
+#: public/modules/invoice/views/invoice-admin-settings.php:20
+msgid "Add custom data like product meta, order meta, attributes etc"
+msgstr ""
+
+#: public/modules/invoice/views/invoice-admin-settings.php:21
+msgid "Enable customers to Pay Later at checkout"
+msgstr ""
+
+#: public/modules/invoice/views/invoice-admin-settings.php:22
+msgid "Collect payments with a payment link on the invoice"
+msgstr ""
+
+#: public/modules/invoice/views/invoice-admin-settings.php:25
+msgid "Sort order items in the product table "
+msgstr ""
+
+#: public/modules/invoice/views/invoice-admin-settings.php:27
+#: public/modules/packinglist/views/general.php:114
+msgid "Multiple display formats for bundled products"
+msgstr ""
+
+#: public/modules/invoice/views/invoice-admin-settings.php:28
+msgid "Generate packing slips and credit notes"
+msgstr ""
+
+#: public/modules/invoice/views/invoice-admin-settings.php:77
+#: public/modules/packinglist/views/general.php:143
+msgid "Invoices, Packing slips and Credit notes"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:26
+msgid "To help you comply with invoice mandates that require QR Codes"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:28
+msgid ""
+"Assign QR code to all of invoices generated for the orders in your store"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:29
+msgid "Assign different types of info in your QR code, including:"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:31
+msgid "Order number (default)"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:34
+msgid "Custom details, as below:"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:40
+msgid "Seller tax ID"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:41
+msgid "Buyer name"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:42
+msgid "Seller name"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:43
+msgid "Invoice total"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:44
+msgid "Invoice total tax"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:49
+msgid ""
+"Compatible with WooCommerce PDF Invoice, Packing Slips, Delivery Notes, and "
+"Shipping Label (Free and Pro versions)"
+msgstr ""
+
+#: public/modules/invoice/views/qrcode_promote.php:51
+msgid "Get Plugin"
+msgstr ""
+
+#: public/modules/packinglist/data/data.tooltip.php:4
+msgid "Adds customer note to the packing slip"
+msgstr ""
+
+#: public/modules/packinglist/data/data.tooltip.php:5
+msgid "Adds Footer to the packing slip"
+msgstr ""
+
+#: public/modules/packinglist/packinglist.php:224
+#: public/modules/packinglist/packinglist.php:246
+#: public/modules/packinglist/packinglist.php:263
+#: public/modules/packinglist/packinglist.php:264
+msgid "Print Packing slip"
+msgstr ""
+
+#: public/modules/packinglist/packinglist.php:240
+msgid "Print/Download Packing slip"
+msgstr ""
+
+#: public/modules/packinglist/packinglist.php:253
+#: public/modules/packinglist/packinglist.php:270
+#: public/modules/packinglist/packinglist.php:271
+msgid "Download Packing slip"
+msgstr ""
+
+#: public/modules/packinglist/packinglist.php:348
+msgid "Unable to print packling slip. Please check the items in the order."
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:8
+msgid "Your current packing slip."
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:9
+msgid "How your packing slip will appear to customers."
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:14
+msgid "Packing Slip Preview"
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:28
+msgid "Professional templates for packing slip"
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:29
+msgid ""
+"Show or hide fields like billing address, weight, product image, and more"
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:30
+msgid ""
+"Add extra details such as product meta, order info, or custom attributes"
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:31
+msgid "Group and sort products in the table using flexible conditions"
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:56
+msgid ""
+"Create fully personalized packing slips that fit your brand — with Premium."
+msgstr ""
+
+#: public/modules/packinglist/views/customize_pro.php:70
+msgid "Plus, many more customization options"
+msgstr ""
+
+#: public/modules/packinglist/views/general.php:12
+msgid "Configure the general settings required for the packing slip."
+msgstr ""
+
+#: public/modules/packinglist/views/general.php:108
+msgid "Automatically attach packing slip with order email"
+msgstr ""
+
+#: public/modules/packinglist/views/general.php:109
+msgid "Built-in templates to personalize packing slip"
+msgstr ""
+
+#: public/modules/packinglist/views/general.php:110
+msgid "Add a print packing slip button to My account page"
+msgstr ""
+
+#: public/modules/packinglist/views/general.php:115
+msgid "Add custom footers to packing slips"
+msgstr ""
+
+#: public/modules/packinglist/views/general.php:116
+msgid "Add additional order & product meta fields"
+msgstr ""
+
+#: public/modules/packinglist/views/general.php:117
+msgid "Add additional product attributes"
+msgstr ""
+
+#: public/modules/packinglist/views/general.php:118
+msgid "Generate invoices and credits notes"
+msgstr ""
+
+#: public/modules/shippinglabel/data/data.templates.php:5
+msgid "Shipping Label 1"
+msgstr ""
+
+#: public/modules/shippinglabel/data/data.tooltip.php:3
+msgid "Adds footer to the  Shipping label"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:126
+msgid "Address font size"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:168
+msgid "To Address"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:171
+msgid "Weight"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:172
+msgid "Shipping Method"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:181
+msgid "Package Number"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:182
+msgid "Box name"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:183
+msgid "No of Items"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:184
+msgid "Fragile"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:185
+msgid "This way up"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:186
+msgid "Keep dry"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:188
+msgid "Return Policy"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:355
+#: public/modules/shippinglabel/shippinglabel.php:373
+#: public/modules/shippinglabel/shippinglabel.php:381
+#: public/modules/shippinglabel/shippinglabel.php:391
+#: public/modules/shippinglabel/shippinglabel.php:392
+msgid "Print Shipping Label"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:372
+msgid "Shipping Label"
+msgstr ""
+
+#: public/modules/shippinglabel/shippinglabel.php:524
+msgid "Unable to print shipping label. Please check the items in the order."
+msgstr ""
+
+#: public/modules/shippinglabel/views/admin-settings.php:62
+msgid "Generate custom-sized shipping labels"
+msgstr ""
+
+#: public/modules/shippinglabel/views/admin-settings.php:63
+msgid "Fit multiple shipping labels on a single page"
+msgstr ""
+
+#: public/modules/shippinglabel/views/admin-settings.php:64
+msgid "Add company logo & return policy to label"
+msgstr ""
+
+#: public/modules/shippinglabel/views/admin-settings.php:65
+msgid "Add notes like fragile, keep dry, etc."
+msgstr ""
+
+#: public/modules/shippinglabel/views/admin-settings.php:66
+msgid "Add order meta fields to shipping labels"
+msgstr ""
+
+#: public/modules/shippinglabel/views/admin-settings.php:67
+msgid "Include the package number & box names on the label"
+msgstr ""
+
+#: public/modules/shippinglabel/views/admin-settings.php:68
+msgid "Display the total number of items on label"
+msgstr ""
+
+#: public/modules/shippinglabel/views/admin-settings.php:69
+msgid "Generate dispatch labels and delivery notes"
+msgstr ""
+
+#: public/modules/shippinglabel/views/general.php:12
+msgid "Configure the general settings required for the shipping label."
+msgstr ""
+
+#: public/modules/shippinglabel/views/general.php:31
+msgid "Full Page"
+msgstr ""
+
+#: public/modules/shippinglabel/views/general.php:32
+msgid "Custom (Pro version)"
+msgstr ""
+
+#: public/modules/shippinglabel/views/general.php:36
+msgid ""
+"Set the  Size of the Shipping label to be either full page or custom size."
+msgstr ""
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:80
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:376
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:399
+msgid "UBL Invoice"
+msgstr ""
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:161
+msgid "UBL (Beta)"
+msgstr ""
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:193
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:211
+msgid "Default"
+msgstr ""
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:357
+msgid "Print UBL Invoice"
+msgstr ""
+
+#: public/modules/ubl/invoice/class-wt-pklist-pdf-ubl-invoice.php:365
+msgid "Download UBL Invoice"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:13
+msgid "Standard"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:62
+msgid "Enable to print, download and attach UBL (XML) invoices"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:64
+msgid "Enable UBL Invoice"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:72
+msgid "Select UBL format"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:77
+msgid "PEPPOL"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:78
+msgid "Austrian"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:79
+msgid "Italia"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:80
+msgid "Netherlands"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:81
+msgid "Spanish"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:82
+msgid "Romania"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:91
+msgid "Select email(s) to attach UBL invoice"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:99
+msgid ""
+"Select email classes to send UBL invoice as attachment. This option depends "
+"on the order statuses selected under the `Automate invoice creation` "
+"(Invoice/Packing > Invoice >General) setting. Ensure that the selected email "
+"classes match the order statuses for the invoice to be sent correctly."
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:127
+msgid "Tax classification"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:129
+msgid ""
+"Map your WooCommerce tax classes to the appropriate UBL tax categories and "
+"schemes"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:162
+msgid "Country&nbsp;code"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:163
+msgid "State code"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:164
+msgid "Postcode / ZIP"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:166
+msgid "Rate&nbsp;%"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:169
+msgid "Tax Scheme"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:171
+#: public/modules/ubl/invoice/views/settings.php:179
+msgid "Learn more"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:177
+msgid "Tax Category"
+msgstr ""
+
+#: public/modules/ubl/invoice/views/settings.php:228
+msgid "No taxes found for this class."
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:19
+msgid "Standard rate"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:20
+msgid "Lower rate"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:21
+msgid "Zero rated goods"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:22
+msgid "Mixed tax rate"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:23
+msgid "Exempt for resale"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:24
+msgid "Value Added Tax (VAT) not now due for payment"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:25
+msgid "Value Added Tax (VAT) due from a previous invoice"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:26
+msgid "Transferred (VAT)"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:27
+msgid "Duty paid by supplier"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:28
+msgid "Exempt from tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:29
+msgid "Free export item, tax not charged"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:30
+msgid "Higher rate"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-category.php:31
+msgid "Services outside scope of tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:19
+msgid "Value added tax (VAT)"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:20
+msgid "Goods and services tax (GST)"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:21
+msgid "Petroleum tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:22
+msgid "Provisional countervailing duty cash"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:23
+msgid "Provisional countervailing duty bond"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:24
+msgid "Tobacco tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:25
+msgid "Energy fee"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:26
+msgid "Coffee tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:27
+msgid "Harmonised sales tax, Canadian"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:28
+msgid "Quebec sales tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:29
+msgid "Canadian provincial sales tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:30
+msgid "Tax on replacement part"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:31
+msgid "Mineral oil tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:32
+msgid "Special tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:33
+msgid "Anti-dumping duty"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:34
+msgid "Stamp duty (Imposta di Bollo)"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:35
+msgid "Agricultural levy"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:36
+msgid "Car tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:37
+msgid "Paper consortium tax (Italy)"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:38
+msgid "Commodity specific tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:39
+msgid "Customs duty"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:40
+msgid "Countervailing duty"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:41
+msgid "Environmental tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:42
+msgid "Excise duty"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:43
+msgid "Agricultural export rebate"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:44
+msgid "Federal excise tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:46
+msgid "General construction tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:47
+msgid "Illuminants tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:48
+msgid "Import tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:49
+msgid "Individual tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:50
+msgid "Business license fee"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:51
+msgid "Local construction tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:52
+msgid "Light dues payable"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:53
+msgid "Local sales tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:54
+msgid "Lust tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:55
+msgid "Monetary compensatory amount"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:56
+msgid "Miscellaneous cash deposit"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:57
+msgid "Other taxes"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:58
+msgid "Provisional duty bond"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:59
+msgid "Provisional duty cash"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:60
+msgid "Preference duty"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:61
+msgid "Special construction tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:62
+msgid "Shifted social securities"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:63
+msgid "State/provincial sales tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:64
+msgid "Suspended duty"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:65
+msgid "Surtax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:66
+msgid "Shifted wage tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:67
+msgid "Alcohol mark tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:69
+msgid "Turnover tax"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:70
+msgid "Tonnage taxes"
+msgstr ""
+
+#: public/modules/ubl/lib/class-wt-pklist-pdf-ubl-tax-schema.php:71
+msgid "Valuation deposit"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid ""
+"WebToffee WooCommerce PDF Invoices, Packing Slips, Delivery Notes and "
+"Shipping Labels"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid ""
+"https://www.webtoffee.com/product/woocommerce-pdf-invoices-packing-slips/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Prints Packing List,Invoice,Delivery Note and Shipping Label."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "WebToffee"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://www.webtoffee.com/"
+msgstr ""

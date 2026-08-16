@@ -1,0 +1,2480 @@
+# Copyright (C) 2024 Wpbingo   
+# This file is distributed under the same license as the Wpbingo    package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Wpbingo   \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: inc/admin/theme-options.php:474
+msgid "404"
+msgstr ""
+
+#: inc/admin/theme-options.php:481
+msgid "Oops! That page can't be found."
+msgstr ""
+
+#: inc/admin/theme-options.php:488
+msgid "We're really sorry but we can't seem to find the page you were looking for."
+msgstr ""
+
+#: 404.php:32
+msgid "Back The Homepage"
+msgstr ""
+
+#: breadcrumb.php:16
+msgid "Home"
+msgstr ""
+
+#: breadcrumb.php:97
+msgid "Search results for : "
+msgstr ""
+
+#: breadcrumb.php:40
+msgid "Archive by date "
+msgstr ""
+
+#: breadcrumb.php:44
+msgid "Archive by month "
+msgstr ""
+
+#: breadcrumb.php:47
+msgid "Archive by year "
+msgstr ""
+
+#: breadcrumb.php:100
+msgid "Archive by tag "
+msgstr ""
+
+#: breadcrumb.php:105
+msgid " Articles posted by "
+msgstr ""
+
+#: breadcrumb.php:108
+msgid "You got it "
+msgstr ""
+
+#: breadcrumb.php:108
+msgid " Error 404 not Found "
+msgstr ""
+
+#: inc/admin/theme-options.php:1487
+msgid "Blog"
+msgstr ""
+
+#: templates/content/content-modern.php:81
+msgid " Comment"
+msgstr ""
+
+#: templates/content/content-modern.php:86
+msgid " Comments"
+msgstr ""
+
+#: comments.php:21
+msgid "Comment navigation"
+msgstr ""
+
+#: comments.php:22
+msgid "Older Comments"
+msgstr ""
+
+#: comments.php:23
+msgid "Newer Comments"
+msgstr ""
+
+#: comments.php:27
+msgid "Comments are closed."
+msgstr ""
+
+#: comments.php:35
+msgid "Your Name *"
+msgstr ""
+
+#: comments.php:39
+msgid "Your Email *"
+msgstr ""
+
+#: comments.php:43
+msgid "Website"
+msgstr ""
+
+#: comments.php:47
+msgid "Comment"
+msgstr ""
+
+#: comments.php:55
+msgid "Logged in as"
+msgstr ""
+
+#: comments.php:55
+msgid "Log out of this account"
+msgstr ""
+
+#: comments.php:55
+msgid "Log out?"
+msgstr ""
+
+#: comments.php:62
+msgid "You must be"
+msgstr ""
+
+#: comments.php:62
+msgid "logged in"
+msgstr ""
+
+#: comments.php:62
+msgid "to post a comment."
+msgstr ""
+
+#: comments.php:66
+msgid "Your email address will not be published."
+msgstr ""
+
+#: templates/content-single/content-sticky_title.php:50
+msgid "Pages:"
+msgstr ""
+
+#: content-portfolio.php:42
+msgid "Date"
+msgstr ""
+
+#: content-portfolio.php:47
+msgid "Categories"
+msgstr ""
+
+#: content-portfolio.php:59
+msgid "share"
+msgstr ""
+
+#: footer.php:22
+msgid "what are you looking for?"
+msgstr ""
+
+#: footer.php:23
+msgid "close"
+msgstr ""
+
+#: no-results.php:4
+msgid "Sorry, but nothing matched your search terms. Please try again with some different keywords."
+msgstr ""
+
+#: inc/woocommerce.php:496
+msgid "No Result"
+msgstr ""
+
+#: search-form.php:19
+msgid "Search product..."
+msgstr ""
+
+#: inc/woocommerce.php:540
+msgid "search"
+msgstr ""
+
+#: dokan/store-header.php:11
+msgid "Store Open"
+msgstr ""
+
+#: dokan/store-header.php:12
+msgid "Store Closed"
+msgstr ""
+
+#: dokan/store.php:36
+msgid "No products were found of this vendor!"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:300
+msgid "Install Required Plugins"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:301
+msgid "Install Plugins"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:303
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:305
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:306
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:307
+msgid "This theme requires the following plugin: %1$s."
+msgid_plural "This theme requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:313
+msgid "This theme recommends the following plugin: %1$s."
+msgid_plural "This theme recommends the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:319
+msgid "The following plugin needs to be updated to its latest version to ensure maximum compatibility with this theme: %1$s."
+msgid_plural "The following plugins need to be updated to their latest version to ensure maximum compatibility with this theme: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:325
+msgid "There is an update available for: %1$s."
+msgid_plural "There are updates available for the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:331
+msgid "The following required plugin is currently inactive: %1$s."
+msgid_plural "The following required plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:337
+msgid "The following recommended plugin is currently inactive: %1$s."
+msgid_plural "The following recommended plugins are currently inactive: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:343
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:348
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:353
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:358
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3201
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2843
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2664
+msgid "The following plugin was activated successfully:"
+msgid_plural "The following plugins were activated successfully:"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:363
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:365
+msgid "Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:367
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:368
+msgid "Dismiss this notice"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:369
+msgid "There are one or more required or recommended plugins to install, update or activate."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:370
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:548
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:549
+msgid "Update Required"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:654
+msgid "Set the parent_slug config variable instead."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:908
+msgid "The remote plugin package does not contain a folder with the desired slug and renaming did not work."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:911
+msgid "Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:911
+msgid "The remote plugin package consists of more than one file, but the files are not packaged in a folder."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2661
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:1836
+msgid "TGMPA v%s"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2090
+msgid "Required"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2092
+msgid "Recommended"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2106
+msgid "WordPress Repository"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2109
+msgid "External Source"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2112
+msgid "Pre-Packaged"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2127
+msgid "Not Installed"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2130
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2132
+msgid "Active"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2136
+msgid "Required Update not Available"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2138
+msgid "Requires Update"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2140
+msgid "Update recommended"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2147
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2186
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:2190
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:2194
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:2198
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/class-tgm-plugin-activation.php:2272
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2278
+msgid "Installed version:"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2285
+msgid "Minimum required version:"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2295
+msgid "Available version:"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2316
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2329
+msgid "Plugin"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2330
+msgid "Source"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2331
+msgid "Type"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2334
+msgid "Version"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2335
+msgid "Status"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2378
+msgid "Install %2$s"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2382
+msgid "Update %2$s"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2386
+msgid "Activate %2$s"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2449
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2478
+msgid "Install"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2483
+msgid "Update"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2486
+msgid "Activate"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2511
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2513
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2546
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2548
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2629
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2650
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:2842
+msgid "Plugin activation failed."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3128
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3131
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3133
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3136
+msgid "The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3138
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3139
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3141
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3144
+msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3146
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3147
+msgid "All installations have been completed."
+msgstr ""
+
+#: inc/class-tgm-plugin-activation.php:3149
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: inc/function.php:61
+msgid "Image Newletter"
+msgstr ""
+
+#: inc/woocommerce.php:542
+msgid "Search..."
+msgstr ""
+
+#: inc/function.php:161
+msgid "Search"
+msgstr ""
+
+#: inc/function.php:186
+msgctxt "breadcrumb"
+msgid "Home"
+msgstr ""
+
+#: inc/function.php:255
+msgid "Please assign a menu to the Main Menu in Appearance > Menus"
+msgstr ""
+
+#: inc/function.php:358
+msgid "Read more"
+msgstr ""
+
+#: templates/headers/header-6.php:111
+msgid "Close"
+msgstr ""
+
+#: inc/function.php:449
+msgid "Vertical"
+msgstr ""
+
+#: inc/function.php:465
+msgid "All Departments"
+msgstr ""
+
+#: inc/function.php:504
+msgid "Copyright 2021 "
+msgstr ""
+
+#: inc/function.php:505
+msgid "econis"
+msgstr ""
+
+#: inc/function.php:506
+msgid ". All Rights Reserved."
+msgstr ""
+
+#: inc/function.php:564
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: inc/function.php:570
+msgid "Edit"
+msgstr ""
+
+#: inc/function.php:713
+msgid "Menu"
+msgstr ""
+
+#: templates/headers/header-8.php:72
+msgid "My Account"
+msgstr ""
+
+#: templates/headers/header-8.php:74
+msgid "Login / Sign up"
+msgstr ""
+
+#: inc/woocommerce.php:411
+msgid "Compare"
+msgstr ""
+
+#: inc/function.php:854
+msgid "Sign in"
+msgstr ""
+
+#: inc/function.php:855
+msgid "Create An Account"
+msgstr ""
+
+#: inc/function.php:860
+msgid "Uesrname or email"
+msgstr ""
+
+#: inc/function.php:861
+msgid "Your name"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:78
+msgid "Password"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:43
+msgid "Remember me"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:46
+msgid "Lost your password?"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:51
+msgid "Login"
+msgstr ""
+
+#: inc/loader.php:55
+msgid "Sidebar Blog"
+msgstr ""
+
+#: inc/loader.php:57
+msgid "Add widgets here to appear in your sidebar blog."
+msgstr ""
+
+#: inc/loader.php:64
+msgid "Header Top Link"
+msgstr ""
+
+#: inc/loader.php:66
+msgid "Main sidebar that appears on the top."
+msgstr ""
+
+#: inc/loader.php:73
+msgid "Sidebar Shop"
+msgstr ""
+
+#: inc/loader.php:75
+msgid "Add widgets here to appear in your sidebar shop."
+msgstr ""
+
+#: inc/loader.php:82
+msgid "Sidebar Single Product"
+msgstr ""
+
+#: inc/loader.php:84
+msgid "Add widgets here to appear in your sidebar single shop."
+msgstr ""
+
+#: inc/loader.php:91
+msgid "Sidebar Vendor"
+msgstr ""
+
+#: inc/loader.php:93
+msgid "Add widgets here to appear in your sidebar vendor."
+msgstr ""
+
+#: inc/loader.php:100
+msgid "Newsletter Popup"
+msgstr ""
+
+#: inc/loader.php:102
+msgid "Add widgets here to appear in your newsletter popup."
+msgstr ""
+
+#: inc/loader.php:112
+msgctxt "Poppins font: on or off"
+msgid "on"
+msgstr ""
+
+#: inc/menus.php:15
+msgid "Main Menu"
+msgstr ""
+
+#: inc/admin/theme-options.php:139
+msgid "Vertical Menu"
+msgstr ""
+
+#: inc/menus.php:17
+msgid "Topbar Menu"
+msgstr ""
+
+#: inc/plugin-requirement.php:7
+msgid "Woocommerce"
+msgstr ""
+
+#: inc/plugin-requirement.php:12
+msgid "Elementor"
+msgstr ""
+
+#: inc/plugin-requirement.php:17
+msgid "Revolution Slider"
+msgstr ""
+
+#: inc/plugin-requirement.php:23
+msgid "Wpbingo Core"
+msgstr ""
+
+#: inc/plugin-requirement.php:29
+msgid "Redux Framework"
+msgstr ""
+
+#: inc/plugin-requirement.php:34
+msgid "Contact Form 7"
+msgstr ""
+
+#: inc/plugin-requirement.php:39
+msgid "WPC Smart Wishlist for WooCommerce"
+msgstr ""
+
+#: inc/plugin-requirement.php:44
+msgid "WooCommerce Variation Swatches"
+msgstr ""
+
+#: inc/plugin-requirement.php:49
+msgid "WPC Smart Compare for WooCommerce"
+msgstr ""
+
+#: inc/plugin-requirement.php:54
+msgid "Dokan"
+msgstr ""
+
+#: woocommerce/loop/pagination.php:47
+msgid "Previous"
+msgstr ""
+
+#: woocommerce/loop/pagination.php:48
+msgid "Next"
+msgstr ""
+
+#: inc/template-tags.php:35
+msgid "Posts navigation"
+msgstr ""
+
+#: inc/template-tags.php:107
+msgid ", "
+msgstr ""
+
+#: inc/template-tags.php:110
+msgstr ""
+
+#: templates/content/content-standar.php:72
+msgid "Featured"
+msgstr ""
+
+#: inc/template-tags.php:189
+msgid "Edit <span class=\"screen-reader-text\">%s</span>"
+msgstr ""
+
+#: inc/template-tags.php:295
+msgid "Galleries"
+msgstr ""
+
+#: inc/template-tags.php:297
+msgid "Images"
+msgstr ""
+
+#: inc/template-tags.php:299
+msgid "Videos"
+msgstr ""
+
+#: inc/template-tags.php:301
+msgid "Quotes"
+msgstr ""
+
+#: inc/template-tags.php:303
+msgid "Audios"
+msgstr ""
+
+#: inc/template-tags.php:305
+msgid "Posts by \" "
+msgstr ""
+
+#: inc/template-tags.php:305
+msgid " \" "
+msgstr ""
+
+#: inc/template-tags.php:307
+msgid "Shop"
+msgstr ""
+
+#: inc/template-tags.php:311
+msgid "Search for: %s"
+msgstr ""
+
+#: inc/admin/theme-options.php:467
+msgid "404 Error"
+msgstr ""
+
+#: inc/template-tags.php:315
+msgid "Knowledge Base"
+msgstr ""
+
+#: inc/template-tags.php:317
+msgid "Posts"
+msgstr ""
+
+#: inc/woocommerce.php:159
+msgid "Out stock"
+msgstr ""
+
+#: inc/woocommerce.php:171
+msgid "Brand : "
+msgstr ""
+
+#: inc/woocommerce.php:191
+msgid "Sold By :"
+msgstr ""
+
+#: inc/woocommerce.php:200
+msgid "Buy Now"
+msgstr ""
+
+#: inc/woocommerce.php:228
+msgid "HungRy Up !"
+msgstr ""
+
+#: inc/woocommerce.php:229
+msgid "Offer end in :"
+msgstr ""
+
+#: inc/woocommerce.php:231
+msgid "Days"
+msgstr ""
+
+#: inc/woocommerce.php:231
+msgid "Hours"
+msgstr ""
+
+#: inc/woocommerce.php:231
+msgid "Mins"
+msgstr ""
+
+#: inc/woocommerce.php:231
+msgid "Secs"
+msgstr ""
+
+#: inc/woocommerce.php:259
+msgid "select option"
+msgstr ""
+
+#: inc/woocommerce.php:278
+msgid "days"
+msgstr ""
+
+#: inc/woocommerce.php:279
+msgid "hours"
+msgstr ""
+
+#: inc/woocommerce.php:280
+msgid "mins"
+msgstr ""
+
+#: inc/woocommerce.php:281
+msgid "secs"
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/grouped.php:40
+msgid "No thumb"
+msgstr ""
+
+#: inc/woocommerce.php:362
+msgid "Quick View"
+msgstr ""
+
+#: inc/woocommerce.php:399
+msgid "Wishlist"
+msgstr ""
+
+#: inc/woocommerce.php:422
+msgid "Share : "
+msgstr ""
+
+#: inc/admin/theme-options.php:653
+msgid "Show"
+msgstr ""
+
+#: inc/woocommerce.php:499
+msgid "Category"
+msgstr ""
+
+#: inc/woocommerce.php:502
+msgid "Browse Category"
+msgstr ""
+
+#: woocommerce/minicart-ajax.php:16
+msgid "View your shopping cart"
+msgstr ""
+
+#: inc/woocommerce.php:652
+msgid "Video"
+msgstr ""
+
+#: inc/woocommerce.php:672
+msgid "YouTube video player"
+msgstr ""
+
+#: inc/woocommerce.php:741
+msgid "Shipping & Return"
+msgstr ""
+
+#: inc/woocommerce.php:759
+msgid "360 Degree"
+msgstr ""
+
+#: inc/woocommerce.php:798
+msgid "Close (Esc)"
+msgstr ""
+
+#: inc/woocommerce.php:799
+msgid "Toggle fullscreen"
+msgstr ""
+
+#: inc/woocommerce.php:811
+msgid "Previous (arrow left)"
+msgstr ""
+
+#: inc/woocommerce.php:812
+msgid "Next (arrow right)"
+msgstr ""
+
+#: woocommerce/archive-product.php:42
+msgid "banner category"
+msgstr ""
+
+#: woocommerce/content-categories-bestseller.php:40
+msgid "Best Seller Items "
+msgstr ""
+
+#: woocommerce/content-categories-featured.php:45
+msgid "Featured Items "
+msgstr ""
+
+#: woocommerce/content-categories-top.php:40
+msgid "View more"
+msgstr ""
+
+#: woocommerce/content-short-product.php:243
+msgid "Out Of Stock"
+msgstr ""
+
+#: woocommerce/minicart-ajax.php:9
+msgid "Product was added to cart successfully!"
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:24
+msgid "Shopping Cart"
+msgstr ""
+
+#. translators: 1: reviews count 2: product name
+#: woocommerce/single-product-reviews.php:31
+msgid "%1$s review for %2$s"
+msgid_plural "%1$s reviews for %2$s"
+msgstr[0] ""
+msgstr[1] ""
+
+#: woocommerce/single-product-reviews.php:33
+msgid "Reviews"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:50
+msgid "There are no reviews yet."
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:59
+msgid "Average Rating"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:63
+msgid " Review"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:73
+msgid "Star"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:90
+msgid "Add a review"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:91
+msgid "Leave a Reply to %s"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:97
+msgid "Name *"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:99
+msgid "Email *"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:101
+msgid "Submit"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:109
+msgid "Your rating"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:110
+msgid "Rate&hellip;"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:111
+msgid "Perfect"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:112
+msgid "Good"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:113
+msgid "Average"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:114
+msgid "Not that bad"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:115
+msgid "Very poor"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:118
+msgid "Your Reviews *"
+msgstr ""
+
+#: woocommerce/single-product-reviews.php:125
+msgid "Only logged in customers who have purchased this product may leave a review."
+msgstr ""
+
+#: dokan/widgets/widget-content-product.php:49
+msgid "No products found"
+msgstr ""
+
+#: inc/admin/functions.php:33
+msgid "Without Sidebar"
+msgstr ""
+
+#: inc/admin/functions.php:34
+msgid "Left Sidebar"
+msgstr ""
+
+#: inc/admin/functions.php:35
+msgid "Right Sidebar"
+msgstr ""
+
+#: inc/admin/theme-options.php:660
+msgid "Banner Effect"
+msgstr ""
+
+#: inc/admin/theme-options.php:1525
+msgid "Grid"
+msgstr ""
+
+#: inc/admin/functions.php:87
+msgid "Short"
+msgstr ""
+
+#: inc/admin/theme-options.php:1524
+msgid "List"
+msgstr ""
+
+#: inc/admin/theme-options.php:61
+msgid "General"
+msgstr ""
+
+#: inc/admin/theme-options.php:70
+msgid "Layout"
+msgstr ""
+
+#: inc/admin/theme-options.php:75
+msgid "Background Image"
+msgstr ""
+
+#: inc/admin/theme-options.php:82
+msgid "Show Newletter Form"
+msgstr ""
+
+#: inc/admin/theme-options.php:654
+msgid "Hide"
+msgstr ""
+
+#: inc/admin/theme-options.php:90
+msgid "Popup Newletter Image"
+msgstr ""
+
+#: inc/admin/theme-options.php:101
+msgid "Back to top"
+msgstr ""
+
+#: inc/admin/theme-options.php:109
+msgid "Direction"
+msgstr ""
+
+#: inc/admin/theme-options.php:110
+msgid "Left to Right"
+msgstr ""
+
+#: inc/admin/theme-options.php:110
+msgid "Right to Left"
+msgstr ""
+
+#: inc/admin/theme-options.php:120
+msgid "Logo & Icons"
+msgstr ""
+
+#: inc/admin/theme-options.php:127
+msgid "Logo"
+msgstr ""
+
+#: inc/admin/theme-options.php:128
+msgid "Upload Logo image default here."
+msgstr ""
+
+#: inc/admin/theme-options.php:144
+msgid "Max number on screen >= 1530px"
+msgstr ""
+
+#: inc/admin/theme-options.php:150
+msgid "Max number on on screen >= 1200px"
+msgstr ""
+
+#: inc/admin/theme-options.php:156
+msgid "Max number on on screen >= 991px"
+msgstr ""
+
+#: inc/admin/theme-options.php:166
+msgid "Header"
+msgstr ""
+
+#: inc/admin/theme-options.php:172
+msgid "Header Type"
+msgstr ""
+
+#: inc/admin/theme-options.php:179
+msgid "Show Header Top"
+msgstr ""
+
+#: inc/admin/theme-options.php:1656
+msgid "Yes"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:62
+msgid "No"
+msgstr ""
+
+#: inc/admin/theme-options.php:187
+msgid "Show Search Form"
+msgstr ""
+
+#: inc/admin/theme-options.php:195
+msgid "Show Ajax Search"
+msgstr ""
+
+#: inc/admin/theme-options.php:203
+msgid "Limit Of Result Search"
+msgstr ""
+
+#: inc/admin/theme-options.php:210
+msgid "Show Categories"
+msgstr ""
+
+#: inc/admin/theme-options.php:1116
+msgid "Show Wishlist"
+msgstr ""
+
+#: inc/admin/theme-options.php:227
+msgid "Show Campbar"
+msgstr ""
+
+#: inc/admin/theme-options.php:235
+msgid "Link Campbar"
+msgstr ""
+
+#: inc/admin/theme-options.php:242
+msgid "Content Campbar"
+msgstr ""
+
+#: inc/admin/theme-options.php:243
+msgid "20% OFF EVERYTHING – USE CODE:FLASH20 – ENDS SUNDAY"
+msgstr ""
+
+#: inc/admin/theme-options.php:249
+msgid "Image Campbar"
+msgstr ""
+
+#: inc/admin/theme-options.php:261
+msgid "Color Campbar"
+msgstr ""
+
+#: inc/admin/theme-options.php:262
+msgid "Select a color for Campbar."
+msgstr ""
+
+#: inc/admin/theme-options.php:270
+msgid "Show Menu Top"
+msgstr ""
+
+#: inc/admin/theme-options.php:1124
+msgid "Show Compare"
+msgstr ""
+
+#: inc/admin/theme-options.php:286
+msgid "Show Mini Cart"
+msgstr ""
+
+#: inc/admin/theme-options.php:294
+msgid "Cart Layout"
+msgstr ""
+
+#: inc/admin/theme-options.php:295
+msgid "Dropdown"
+msgstr ""
+
+#: inc/admin/theme-options.php:296
+msgid "Popup"
+msgstr ""
+
+#: inc/admin/theme-options.php:303
+msgid "Cart Style"
+msgstr ""
+
+#: inc/admin/theme-options.php:304
+msgid "Dark"
+msgstr ""
+
+#: inc/admin/theme-options.php:305
+msgid "Light"
+msgstr ""
+
+#: inc/admin/theme-options.php:312
+msgid "Enable Sticky Header"
+msgstr ""
+
+#: inc/admin/theme-options.php:320
+msgid "Header Email"
+msgstr ""
+
+#: inc/admin/theme-options.php:326
+msgid "Address"
+msgstr ""
+
+#: inc/admin/theme-options.php:327
+msgid "Find Store"
+msgstr ""
+
+#: inc/admin/theme-options.php:332
+msgid "Link Address"
+msgstr ""
+
+#: inc/admin/theme-options.php:338
+msgid "Phone"
+msgstr ""
+
+#: inc/admin/theme-options.php:344
+msgid "Ship"
+msgstr ""
+
+#: inc/admin/theme-options.php:355
+msgid "Footer"
+msgstr ""
+
+#: inc/admin/theme-options.php:360
+msgid "Footer Style"
+msgstr ""
+
+#: inc/admin/theme-options.php:361
+msgid "Select Footer Style"
+msgstr ""
+
+#: inc/admin/theme-options.php:378
+msgid "Copyright"
+msgstr ""
+
+#: inc/admin/theme-options.php:384
+msgid "Show Payments Logos"
+msgstr ""
+
+#: inc/admin/theme-options.php:394
+msgid "Payments Image"
+msgstr ""
+
+#: inc/admin/theme-options.php:403
+msgid "Payments Image Alt"
+msgstr ""
+
+#: inc/admin/theme-options.php:410
+msgid "Payments Link URL"
+msgstr ""
+
+#: inc/admin/theme-options.php:421
+msgid "Page Title"
+msgstr ""
+
+#: inc/admin/theme-options.php:426
+msgid "Show Background Breadcrumb"
+msgstr ""
+
+#: inc/admin/theme-options.php:434
+msgid "Show Page Title"
+msgstr ""
+
+#: inc/admin/theme-options.php:445
+msgid "Background"
+msgstr ""
+
+#: inc/admin/theme-options.php:454
+msgid "Show Breadcrumb"
+msgstr ""
+
+#: inc/admin/theme-options.php:486
+msgid "Content Page 404"
+msgstr ""
+
+#: inc/admin/theme-options.php:495
+msgid "Input a block slug name"
+msgstr ""
+
+#: inc/admin/theme-options.php:493
+msgid "Button Page 404"
+msgstr ""
+
+#: inc/admin/theme-options.php:504
+msgid "Social Share"
+msgstr ""
+
+#: inc/admin/theme-options.php:509
+msgid "Show Social Links"
+msgstr ""
+
+#: inc/admin/theme-options.php:510
+msgid "Show social links in post and product, page, portfolio, etc."
+msgstr ""
+
+#: inc/admin/theme-options.php:518
+msgid "Enable Facebook Share"
+msgstr ""
+
+#: inc/admin/theme-options.php:526
+msgid "Enable Twitter Share"
+msgstr ""
+
+#: inc/admin/theme-options.php:534
+msgid "Enable LinkedIn Share"
+msgstr ""
+
+#: inc/admin/theme-options.php:542
+msgid "Enable Pinterest Share"
+msgstr ""
+
+#: inc/admin/theme-options.php:553
+msgid "Socials Link"
+msgstr ""
+
+#: inc/admin/theme-options.php:558
+msgid "Enable Socials link"
+msgstr ""
+
+#: inc/admin/theme-options.php:566
+msgid "Enable Target Socials Link"
+msgstr ""
+
+#: inc/admin/theme-options.php:574
+msgid "Enter Facebook link"
+msgstr ""
+
+#: inc/admin/theme-options.php:580
+msgid "Enter Twitter link"
+msgstr ""
+
+#: inc/admin/theme-options.php:586
+msgid "Enter LinkedIn link"
+msgstr ""
+
+#: inc/admin/theme-options.php:592
+msgid "Enter Youtube link"
+msgstr ""
+
+#: inc/admin/theme-options.php:598
+msgid "Enter Pinterest link"
+msgstr ""
+
+#: inc/admin/theme-options.php:604
+msgid "Enter Instagram link"
+msgstr ""
+
+#: inc/admin/theme-options.php:610
+msgid "Enter Tiktok link"
+msgstr ""
+
+#: inc/admin/theme-options.php:620
+msgid "Styling"
+msgstr ""
+
+#: inc/admin/theme-options.php:629
+msgid "Color & Effect"
+msgstr ""
+
+#: inc/admin/theme-options.php:634
+msgid "Compile Css"
+msgstr ""
+
+#: inc/admin/theme-options.php:642
+msgid "Main Theme Color"
+msgstr ""
+
+#: inc/admin/theme-options.php:643
+msgid "Select a main color for your site."
+msgstr ""
+
+#: inc/admin/theme-options.php:651
+msgid "Loading Overlay"
+msgstr ""
+
+#: inc/admin/theme-options.php:671
+msgid "Typography"
+msgstr ""
+
+#: inc/admin/theme-options.php:676
+msgid "Custom Font"
+msgstr ""
+
+#: inc/admin/theme-options.php:684
+msgid "Select Google Font Character Sets"
+msgstr ""
+
+#: inc/admin/theme-options.php:693
+msgid "Google Font Character Sets"
+msgstr ""
+
+#: inc/admin/theme-options.php:711
+msgid "Body Font"
+msgstr ""
+
+#: inc/admin/theme-options.php:731
+msgid "H1 Font"
+msgstr ""
+
+#: inc/admin/theme-options.php:751
+msgid "H2 Font"
+msgstr ""
+
+#: inc/admin/theme-options.php:771
+msgid "H3 Font"
+msgstr ""
+
+#: inc/admin/theme-options.php:791
+msgid "H4 Font"
+msgstr ""
+
+#: inc/admin/theme-options.php:811
+msgid "H5 Font"
+msgstr ""
+
+#: inc/admin/theme-options.php:831
+msgid "H6 Font"
+msgstr ""
+
+#: inc/admin/theme-options.php:855
+msgid "Ecommerce"
+msgstr ""
+
+#: inc/admin/theme-options.php:863
+msgid "Product Archives"
+msgstr ""
+
+#: inc/admin/theme-options.php:867
+msgid "Shop Paging"
+msgstr ""
+
+#: inc/admin/theme-options.php:870
+msgid "Pagination"
+msgstr ""
+
+#: inc/admin/theme-options.php:871
+msgid "Infinity"
+msgstr ""
+
+#: inc/admin/theme-options.php:872
+msgid "Load More"
+msgstr ""
+
+#: inc/admin/theme-options.php:878
+msgid "Show Background Shop"
+msgstr ""
+
+#: inc/admin/theme-options.php:888
+msgid "Show Categories Top"
+msgstr ""
+
+#: inc/admin/theme-options.php:898
+msgid "Limit Categories Top"
+msgstr ""
+
+#: inc/admin/theme-options.php:905
+msgid "Limit Children Categories Top"
+msgstr ""
+
+#: inc/admin/theme-options.php:912
+msgid "Style Layout Shop"
+msgstr ""
+
+#: inc/admin/theme-options.php:915
+msgid "Style 1"
+msgstr ""
+
+#: inc/admin/theme-options.php:916
+msgid "Style 2"
+msgstr ""
+
+#: inc/admin/theme-options.php:917
+msgid "Style 3"
+msgstr ""
+
+#: inc/admin/theme-options.php:918
+msgid "Style 4"
+msgstr ""
+
+#: inc/admin/theme-options.php:919
+msgid "Style 5"
+msgstr ""
+
+#: inc/admin/theme-options.php:920
+msgid "Style 6"
+msgstr ""
+
+#: inc/admin/theme-options.php:921
+msgid "Style 7"
+msgstr ""
+
+#: inc/admin/theme-options.php:928
+msgid "Show Bestseller on Page Category"
+msgstr ""
+
+#: inc/admin/theme-options.php:939
+msgid "Shop product Bestseller"
+msgstr ""
+
+#: inc/admin/theme-options.php:946
+msgid "Show Featured on Page Category"
+msgstr ""
+
+#: inc/admin/theme-options.php:957
+msgid "Shop product Featured"
+msgstr ""
+
+#: inc/admin/theme-options.php:964
+msgid "Show Banner Category"
+msgstr ""
+
+#: inc/admin/theme-options.php:975
+msgid "Banner Shop"
+msgstr ""
+
+#: inc/admin/theme-options.php:987
+msgid "Url Banner Shop"
+msgstr ""
+
+#: inc/admin/theme-options.php:994
+msgid "Subtitle Banner Shop"
+msgstr ""
+
+#: inc/admin/theme-options.php:995
+msgid "All Fruits Products"
+msgstr ""
+
+#: inc/admin/theme-options.php:1001
+msgid "Title Banner Shop"
+msgstr ""
+
+#: inc/admin/theme-options.php:1002
+msgid "Natural, Raw & Organic Protein Powders "
+msgstr ""
+
+#: inc/admin/theme-options.php:1008
+msgid "Description Banner Shop"
+msgstr ""
+
+#: inc/admin/theme-options.php:1009
+msgid "30% OFF"
+msgstr ""
+
+#: inc/admin/theme-options.php:1015
+msgid "Button Banner Shop"
+msgstr ""
+
+#: inc/admin/theme-options.php:1016
+msgid "Shop now"
+msgstr ""
+
+#: inc/admin/theme-options.php:1022
+msgid "View Mode"
+msgstr ""
+
+#: inc/admin/theme-options.php:1029
+msgid "Product Listing column Desktop"
+msgstr ""
+
+#: inc/admin/theme-options.php:1544
+msgid "Select number of column on Desktop Screen"
+msgstr ""
+
+#: inc/admin/theme-options.php:1041
+msgid "Product Listing column Medium Desktop"
+msgstr ""
+
+#: inc/admin/theme-options.php:1558
+msgid "Select number of column on Medium Desktop Screen"
+msgstr ""
+
+#: inc/admin/theme-options.php:1053
+msgid "Product Listing column Ipad Screen"
+msgstr ""
+
+#: inc/admin/theme-options.php:1572
+msgid "Select number of column on Ipad Screen"
+msgstr ""
+
+#: inc/admin/theme-options.php:1065
+msgid "Product Listing column Mobile Screen"
+msgstr ""
+
+#: inc/admin/theme-options.php:1072
+msgid "Select number of column on Mobile Screen"
+msgstr ""
+
+#: inc/admin/theme-options.php:1077
+msgid "Show Rating in Woocommerce Products Widget"
+msgstr ""
+
+#: inc/admin/theme-options.php:1085
+msgid "Show Category"
+msgstr ""
+
+#: inc/admin/theme-options.php:1093
+msgid "Shop pages show at product"
+msgstr ""
+
+#: inc/admin/theme-options.php:1095
+msgid "Type Count Product Per Shop Page"
+msgstr ""
+
+#: inc/admin/theme-options.php:1100
+msgid "Enable Image Hover Effect"
+msgstr ""
+
+#: inc/admin/theme-options.php:1108
+msgid "Enable Hover Effect"
+msgstr ""
+
+#: inc/admin/theme-options.php:1132
+msgid "Show Quick View"
+msgstr ""
+
+#: inc/admin/theme-options.php:1141
+msgid "\"Quick View\" Text"
+msgstr ""
+
+#: inc/admin/theme-options.php:1147
+msgid "Show Product Countdown"
+msgstr ""
+
+#: inc/admin/theme-options.php:1154
+msgid "Checkout Page Style"
+msgstr ""
+
+#: inc/admin/theme-options.php:1168
+msgid "Single Product"
+msgstr ""
+
+#: inc/admin/theme-options.php:1173
+msgid "Layout Single Product"
+msgstr ""
+
+#: inc/admin/theme-options.php:1175
+msgid "Default"
+msgstr ""
+
+#: inc/admin/theme-options.php:1176
+msgid "Box"
+msgstr ""
+
+#: inc/admin/theme-options.php:1627
+msgid "Sidebar"
+msgstr ""
+
+#: inc/admin/theme-options.php:1184
+msgid "Show \"Out of stock\" Status"
+msgstr ""
+
+#: inc/admin/theme-options.php:1192
+msgid "Show Sticky Cart Product"
+msgstr ""
+
+#: inc/admin/theme-options.php:1200
+msgid "Show Brands"
+msgstr ""
+
+#: inc/admin/theme-options.php:1208
+msgid "Show CountDown"
+msgstr ""
+
+#: inc/admin/theme-options.php:1216
+msgid "Show Button Buy Now"
+msgstr ""
+
+#: inc/admin/theme-options.php:1224
+msgid "Show Short Description"
+msgstr ""
+
+#: inc/admin/theme-options.php:1232
+msgid "Show Related Product"
+msgstr ""
+
+#: inc/admin/theme-options.php:1241
+msgid "Related Product Count"
+msgstr ""
+
+#: inc/admin/theme-options.php:1248
+msgid "Related Product Columns"
+msgstr ""
+
+#: inc/admin/theme-options.php:1255
+msgid "Show Upsell Products"
+msgstr ""
+
+#: inc/admin/theme-options.php:1264
+msgid "Upsell Products Count"
+msgstr ""
+
+#: inc/admin/theme-options.php:1271
+msgid "Upsell Product Columns"
+msgstr ""
+
+#: inc/admin/theme-options.php:1278
+msgid "Show Crooss Sells Products"
+msgstr ""
+
+#: inc/admin/theme-options.php:1287
+msgid "Crooss Sells Products Count"
+msgstr ""
+
+#: inc/admin/theme-options.php:1294
+msgid "Crooss Sells Product Columns"
+msgstr ""
+
+#: inc/admin/theme-options.php:1301
+msgid "Show \"Hot\" Label"
+msgstr ""
+
+#: inc/admin/theme-options.php:1302
+msgid "Will be show in the featured product."
+msgstr ""
+
+#: inc/admin/theme-options.php:1311
+msgid "\"Hot\" Text"
+msgstr ""
+
+#: inc/admin/theme-options.php:1317
+msgid "Show \"Sale\" Label"
+msgstr ""
+
+#: inc/admin/theme-options.php:1326
+msgid "Show Sale Price Percentage"
+msgstr ""
+
+#: inc/admin/theme-options.php:1334
+msgid "Show Social Share Links"
+msgstr ""
+
+#: inc/admin/theme-options.php:1342
+msgid "Description Style"
+msgstr ""
+
+#: inc/admin/theme-options.php:1344
+msgid "Full Content"
+msgstr ""
+
+#: inc/admin/theme-options.php:1345
+msgid "Tab"
+msgstr ""
+
+#: inc/admin/theme-options.php:1355
+msgid "Image Product"
+msgstr ""
+
+#: inc/admin/theme-options.php:1360
+msgid "Show Thumbnails"
+msgstr ""
+
+#: inc/admin/theme-options.php:1368
+msgid "Layouts Product"
+msgstr ""
+
+#: inc/admin/theme-options.php:1369
+msgid "Zoom"
+msgstr ""
+
+#: inc/admin/theme-options.php:1370
+msgid "Scroll"
+msgstr ""
+
+#: inc/admin/theme-options.php:1371
+msgid "Special"
+msgstr ""
+
+#: inc/admin/theme-options.php:1378
+msgid "Position Thumbnails"
+msgstr ""
+
+#: inc/admin/theme-options.php:1379
+msgid "Left"
+msgstr ""
+
+#: inc/admin/theme-options.php:1380
+msgid "Right"
+msgstr ""
+
+#: inc/admin/theme-options.php:1381
+msgid "Bottom"
+msgstr ""
+
+#: inc/admin/theme-options.php:1382
+msgid "Outsite"
+msgstr ""
+
+#: inc/admin/theme-options.php:1389
+msgid "Thumbnails Count"
+msgstr ""
+
+#: inc/admin/theme-options.php:1403
+msgid "Video Style"
+msgstr ""
+
+#: inc/admin/theme-options.php:1413
+msgid "Zoom Type"
+msgstr ""
+
+#: inc/admin/theme-options.php:1415
+msgid "Inner"
+msgstr ""
+
+#: inc/admin/theme-options.php:1416
+msgid "Window"
+msgstr ""
+
+#: inc/admin/theme-options.php:1417
+msgid "Lens"
+msgstr ""
+
+#: inc/admin/theme-options.php:1425
+msgid "Scroll Zoom"
+msgstr ""
+
+#: inc/admin/theme-options.php:1434
+msgid "Border Size"
+msgstr ""
+
+#: inc/admin/theme-options.php:1441
+msgid "Border Color"
+msgstr ""
+
+#: inc/admin/theme-options.php:1449
+msgid "Lens Size"
+msgstr ""
+
+#: inc/admin/theme-options.php:1457
+msgid "Lens Shape"
+msgstr ""
+
+#: inc/admin/theme-options.php:1458
+msgid "Round"
+msgstr ""
+
+#: inc/admin/theme-options.php:1458
+msgid "Square"
+msgstr ""
+
+#: inc/admin/theme-options.php:1466
+msgid "Contain Lens Zoom"
+msgstr ""
+
+#: inc/admin/theme-options.php:1476
+msgid "Lens Border"
+msgstr ""
+
+#: inc/admin/theme-options.php:1495
+msgid "Blog & Post Archives"
+msgstr ""
+
+#: inc/admin/theme-options.php:1500
+msgid "Show Post Format"
+msgstr ""
+
+#: inc/admin/theme-options.php:1508
+msgid "\"HOT\" Text"
+msgstr ""
+
+#: inc/admin/theme-options.php:1509
+msgid "Hot post label"
+msgstr ""
+
+#: inc/admin/theme-options.php:1625
+msgid "Page Layout"
+msgstr ""
+
+#: inc/admin/theme-options.php:1522
+msgid "Layout Blog"
+msgstr ""
+
+#: inc/admin/theme-options.php:1526
+msgid "Modern"
+msgstr ""
+
+#: inc/admin/theme-options.php:1527
+msgid "Standar"
+msgstr ""
+
+#: inc/admin/theme-options.php:1530
+msgid "Select style layout blog"
+msgstr ""
+
+#: inc/admin/theme-options.php:1535
+msgid "Blog Listing column Desktop"
+msgstr ""
+
+#: inc/admin/theme-options.php:1549
+msgid "Blog Listing column Medium Desktop"
+msgstr ""
+
+#: inc/admin/theme-options.php:1563
+msgid "Blog Listing column Ipad Screen"
+msgstr ""
+
+#: inc/admin/theme-options.php:1577
+msgid "Show Author"
+msgstr ""
+
+#: inc/admin/theme-options.php:1585
+msgid "Show Count Comments"
+msgstr ""
+
+#: inc/admin/theme-options.php:1593
+msgid "Show Excerpt"
+msgstr ""
+
+#: inc/admin/theme-options.php:1602
+msgid "List Excerpt Length"
+msgstr ""
+
+#: inc/admin/theme-options.php:1611
+msgid "The number of words"
+msgstr ""
+
+#: inc/admin/theme-options.php:1610
+msgid "Grid Excerpt Length"
+msgstr ""
+
+#: inc/admin/theme-options.php:1620
+msgid "Single Post"
+msgstr ""
+
+#: inc/admin/theme-options.php:1628
+msgid "One Column"
+msgstr ""
+
+#: inc/admin/theme-options.php:1629
+msgid "Prallax Image"
+msgstr ""
+
+#: inc/admin/theme-options.php:1630
+msgid "Simple Title"
+msgstr ""
+
+#: inc/admin/theme-options.php:1631
+msgid "Sticky Title"
+msgstr ""
+
+#: inc/admin/theme-options.php:1638
+msgid "Show Title"
+msgstr ""
+
+#: inc/admin/theme-options.php:1646
+msgid "Show Author Info"
+msgstr ""
+
+#: inc/admin/theme-options.php:1654
+msgid "Show Comments"
+msgstr ""
+
+#: inc/admin/theme-options.php:1663
+msgid "Demo Importer"
+msgstr ""
+
+#: inc/admin/theme-options.php:1691
+msgid "Theme Options"
+msgstr ""
+
+#: inc/admin/theme-options.php:1686
+msgid "Theme Version: "
+msgstr ""
+
+#: inc/megamenu/megamenu.php:46
+msgid "Mega Menu Options"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:49
+msgid "Enable Mega Menu"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:59
+msgid "Select Sub Megamenu"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:76
+msgid "Full Width Mega Menu"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:85
+msgid "Custom Menu Options"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:88
+msgid "Visible only when logged in"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:97
+msgid "Visible only when logged out"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:106
+msgid "New Badge"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:115
+msgid "Sale Badge"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:126
+msgid "Menu Icon (Icon Mind / Font Awesome)"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:134
+msgid "Menu Thumbnail"
+msgstr ""
+
+#: inc/megamenu/megamenu.php:141
+msgid "Browse"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:266
+msgid "Remove"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:55
+msgid "Menu Image"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:58
+msgid "New"
+msgstr ""
+
+#: woocommerce/single-product/sale-flash.php:22
+msgid "Hot"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:160
+msgid "Move up"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:175
+msgid "Move down"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:180
+msgid "Edit Menu Item"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:188
+msgid "URL"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:197
+msgid "Navigation Label"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:205
+msgid "Title Attribute"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:216
+msgid "Open link in a new window/tab"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:221
+msgid "CSS Classes (optional)"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:229
+msgid "Link Relationship (XFN)"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:237
+msgid "Description"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:242
+msgid "The description will be displayed in the menu if the current theme supports it."
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:252
+msgid "Original: %s"
+msgstr ""
+
+#: inc/megamenu/mega_menu_custom_walker.php:272
+msgid "Cancel"
+msgstr ""
+
+#: templates/content/content-modern.php:72
+msgid "By : "
+msgstr ""
+
+#: templates/content/content-list.php:37
+msgid "Continue reading"
+msgstr ""
+
+#: templates/content/content-none.php:6
+msgid "No posts were found matching your selection."
+msgstr ""
+
+#: templates/content/content-standar.php:88
+msgid "  Comment"
+msgstr ""
+
+#: templates/content/content-standar.php:93
+msgid "  Comments"
+msgstr ""
+
+#: templates/content-single/content-sticky_title.php:63
+msgctxt "list item separator"
+msgstr ""
+
+#: templates/content-single/content-sticky_title.php:65
+msgid "Tags :"
+msgstr ""
+
+#: templates/content-single/content-sticky_title.php:72
+msgid "Share :"
+msgstr ""
+
+#: templates/headers/header-6.php:110
+msgid "Other"
+msgstr ""
+
+#: templates/headers/header-6.php:73
+msgid "CALL US FREE "
+msgstr ""
+
+#. translators: $s shipping destination.
+#: woocommerce/cart/cart-shipping.php:51
+msgid "Shipping to %s."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:52
+msgid "Change address"
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:54
+msgid "Shipping options will be updated during checkout."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:62
+msgid "Shipping costs are calculated during checkout."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:64
+msgid "Enter your address to view shipping options."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:67
+msgid "There are no shipping options available. Please ensure that your address has been entered correctly, or contact us if you need any help."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:70
+msgid "No shipping options were found for %s."
+msgstr ""
+
+#: woocommerce/cart/cart-shipping.php:71
+msgid "Enter a different address"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:25
+msgid "Cart totals"
+msgstr ""
+
+#: woocommerce/checkout/review-order.php:55
+msgid "Subtotal"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:53
+msgid "Shipping"
+msgstr ""
+
+#: woocommerce/cart/cart-totals.php:72
+msgid "(estimated for %s)"
+msgstr ""
+
+#: woocommerce/checkout/review-order.php:102
+msgid "Total"
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:26
+msgid "Checkout"
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:28
+msgid "Order Tracking"
+msgstr ""
+
+#: woocommerce/checkout/review-order.php:21
+msgid "Product"
+msgstr ""
+
+#: woocommerce/cart/cart.php:90
+msgid "Price"
+msgstr ""
+
+#: woocommerce/cart/cart.php:96
+msgid "Quantity"
+msgstr ""
+
+#: woocommerce/cart/cart.php:84
+msgid "Available on backorder"
+msgstr ""
+
+#: woocommerce/cart/cart.php:128
+msgid "Remove this item"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:135
+msgid "Coupon code"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:136
+msgid "Apply coupon"
+msgstr ""
+
+#: woocommerce/cart/cart.php:151
+msgid "Continue Shopping"
+msgstr ""
+
+#: woocommerce/cart/cart.php:152
+msgid "Update cart"
+msgstr ""
+
+#: woocommerce/cart/cross-sells.php:39
+msgid "You may be interested in..."
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:50
+msgid "Remove %s from cart"
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:73
+msgid "Qty:"
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:81
+msgid "No products in the cart."
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:82
+msgid "GO TO SHOP"
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:89
+msgid "Total: "
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:93
+msgid "View cart"
+msgstr ""
+
+#: woocommerce/cart/mini-cart.php:94
+msgid "Check out"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:24
+msgid "You must be logged in to checkout."
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:99
+msgid "Returning customer?"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:99
+msgid "Click here to login"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:102
+msgid "If you have shopped with us before, please enter your details below. If you are a new customer, please proceed to the Billing section."
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:105
+msgid "Username or email *"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:108
+msgid "Password *"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:128
+msgid "Have a coupon?"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:128
+msgid "Click here to enter your code"
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:133
+msgid "If you have a coupon code, please apply it below."
+msgstr ""
+
+#: woocommerce/checkout/form-checkout.php:148
+msgid "Back to Cart"
+msgstr ""
+
+#: woocommerce/checkout/review-order.php:40
+msgid "QTY : "
+msgstr ""
+
+#: woocommerce/loop/no-products-found.php:21
+msgid "No products were found matching your selection."
+msgstr ""
+
+#: woocommerce/loop/orderby.php:26
+msgid "Default sorting"
+msgstr ""
+
+#: woocommerce/loop/pagination.php:29
+msgid "Load more"
+msgstr ""
+
+#: woocommerce/loop/result-count.php:33
+msgid "Showing the single result"
+msgstr ""
+
+#: woocommerce/loop/result-count.php:35
+msgid "Showing all %d results"
+msgstr ""
+
+#: woocommerce/loop/result-count.php:37
+msgctxt "%1$d = first, %2$d = last, %3$d = total"
+msgid "Showing %1$d&ndash;%2$d of %3$d item(s)"
+msgstr ""
+
+#: woocommerce/loop/woocommerce-found-posts.php:6
+msgid "There are "
+msgstr ""
+
+#: woocommerce/loop/woocommerce-found-posts.php:6
+msgid " products"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:32
+msgid "Username or email address"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:88
+msgid "Register"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:68
+msgid "Username"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:73
+msgid "Email address"
+msgstr ""
+
+#: woocommerce/myaccount/form-login.php:83
+msgid "Anti-spam"
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:34
+msgid "To track your order please enter your Order ID in the box below and press the \"Track\" button. This was given to you on your receipt and in the confirmation email you should have received."
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:36
+msgid "Order ID"
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:36
+msgid "Found in your order confirmation email."
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:37
+msgid "Billing email"
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:37
+msgid "Email you used during checkout."
+msgstr ""
+
+#: woocommerce/order/form-tracking.php:40
+msgid "Track"
+msgstr ""
+
+#: woocommerce/single-product/related.php:42
+msgid "Related Products"
+msgstr ""
+
+#: woocommerce/single-product/sale-flash.php:23
+msgid "Sale"
+msgstr ""
+
+#: woocommerce/single-product/up-sells.php:42
+msgid "You may also like&hellip;"
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/variable.php:26
+msgid "This product is currently out of stock and unavailable."
+msgstr ""
+
+#: woocommerce/single-product/add-to-cart/variable.php:37
+msgid "Clear"
+msgstr ""
+
+#: woocommerce/single-product/thumbnails-image/quickview.php:43
+msgid "Awaiting product image"
+msgstr ""
+
+#: woocommerce/single-product/content-image/special.php:51
+msgid "Gallery"
+msgstr ""

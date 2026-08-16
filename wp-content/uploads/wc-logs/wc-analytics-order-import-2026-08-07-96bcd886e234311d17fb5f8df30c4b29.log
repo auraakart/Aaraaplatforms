@@ -1,0 +1,37 @@
+2026-08-07T06:58:04+00:00 INFO Starting batch import. Cursor: 2026-08-06 18:35:49 (ID: 77647), batch size: 100
+2026-08-07T06:58:04+00:00 INFO Batch import completed. Processed: 14/14 orders in 0.20 seconds. Cursor: 2026-08-07 05:45:44 (ID: 77658)
+2026-08-07T18:58:14+00:00 INFO Starting batch import. Cursor: 2026-08-07 05:45:44 (ID: 77658), batch size: 100
+2026-08-07T18:58:16+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.19 seconds. Cursor: 2026-08-07 10:53:08 (ID: 77239)
+2026-08-07T18:58:16+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T18:58:35+00:00 INFO Starting batch import. Cursor: 2026-08-07 10:53:08 (ID: 77239), batch size: 100
+2026-08-07T18:58:36+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.19 seconds. Cursor: 2026-08-07 10:53:17 (ID: 77340)
+2026-08-07T18:58:36+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T18:59:37+00:00 INFO Starting batch import. Cursor: 2026-08-07 10:53:17 (ID: 77340), batch size: 100
+2026-08-07T18:59:39+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.18 seconds. Cursor: 2026-08-07 10:53:25 (ID: 77442)
+2026-08-07T18:59:39+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:00:17+00:00 INFO Starting batch import. Cursor: 2026-08-07 10:53:25 (ID: 77442), batch size: 100
+2026-08-07T19:00:18+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.33 seconds. Cursor: 2026-08-07 10:53:33 (ID: 77546)
+2026-08-07T19:00:18+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:01:18+00:00 INFO Starting batch import. Cursor: 2026-08-07 10:53:33 (ID: 77546), batch size: 100
+2026-08-07T19:01:19+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.07 seconds. Cursor: 2026-08-07 10:53:41 (ID: 77646)
+2026-08-07T19:01:19+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:01:38+00:00 INFO Starting batch import. Cursor: 2026-08-07 10:53:41 (ID: 77646), batch size: 100
+2026-08-07T19:01:39+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.89 seconds. Cursor: 2026-08-07 16:26:55 (ID: 77760)
+2026-08-07T19:01:39+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:02:37+00:00 INFO Starting batch import. Cursor: 2026-08-07 16:26:55 (ID: 77760), batch size: 100
+2026-08-07T19:02:38+00:00 INFO Batch import completed. Processed: 100/100 orders in 0.87 seconds. Cursor: 2026-08-07 16:38:58 (ID: 77860)
+2026-08-07T19:02:38+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:03:26+00:00 INFO Starting batch import. Cursor: 2026-08-07 16:38:58 (ID: 77860), batch size: 100
+2026-08-07T19:03:30+00:00 INFO Batch import completed. Processed: 100/100 orders in 3.11 seconds. Cursor: 2026-08-07 16:55:23 (ID: 77960)
+2026-08-07T19:03:30+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:04:32+00:00 INFO Starting batch import. Cursor: 2026-08-07 16:55:23 (ID: 77960), batch size: 100
+2026-08-07T19:04:33+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.47 seconds. Cursor: 2026-08-07 17:10:10 (ID: 78060)
+2026-08-07T19:04:33+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:04:39+00:00 INFO Starting batch import. Cursor: 2026-08-07 17:10:10 (ID: 78060), batch size: 100
+2026-08-07T19:04:41+00:00 INFO Batch import completed. Processed: 100/100 orders in 1.27 seconds. Cursor: 2026-08-07 17:24:28 (ID: 78160)
+2026-08-07T19:04:41+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:06:02+00:00 INFO Starting batch import. Cursor: 2026-08-07 17:24:28 (ID: 78160), batch size: 100
+2026-08-07T19:06:05+00:00 INFO Batch import completed. Processed: 100/100 orders in 3.18 seconds. Cursor: 2026-08-07 17:42:34 (ID: 78260)
+2026-08-07T19:06:05+00:00 INFO Full batch processed, scheduling next batch
+2026-08-07T19:06:36+00:00 INFO Starting batch import. Cursor: 2026-08-07 17:42:34 (ID: 78260), batch size: 100
+2026-08-07T19:06:37+00:00 INFO Batch import completed. Processed: 58/58 orders in 1.20 seconds. Cursor: 2026-08-07 18:45:17 (ID: 77684)

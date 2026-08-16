@@ -1,0 +1,77 @@
+/*------------------------------------------------------------------
+[Table of contents]
+
+1. Utilities
+2. Font
+3. Base
+4. Layout
+5. Page
+6. Post
+7. Slideshow
+8. Form
+9. Responsive
+10. Widget
+-------------------------------------------------------------------*/
+
+@import "vars/vars-global";
+@import "vars/variables";
+@import "vars/template-vars";
+
+/* 1. Utilities */
+@import "bootstrap/mixins";
+@import "mixins/mixins";
+@import "mixins/template";
+@import "rtl/rtl";
+
+/* 2. Header */
+@import "themes/header";
+ 
+/* 3. Base */
+@import "themes/base";
+
+/* 3. Fonts */
+@import "themes/fonts";
+
+/* 4. Form */
+@import "themes/form";
+
+/* 5. Layout */
+@import "themes/layout";
+
+/* 6. Layout */
+@import "themes/pages";
+
+/* 7. Post */
+@import "themes/post";
+
+@import "themes/widgets-layout";
+
+/* 8. Widget */
+@import "themes/widgets";
+
+@import "themes/shortcodes";
+
+@import "themes/garenal";
+
+@import "themes/menu";
+
+@import "themes/utilities";
+
+@import "themes/elementor";
+
+/* 9. Slideshow */
+@import "themes/slider";
+
+@import "themes/effect";
+
+// Woocommerce
+@import "vars/woocommerce-vars";
+@import "themes/woocommerce-general";
+@import "themes/effect";
+@import "bootstrap/buttons";
+@import "themes/woocommerce-page";
+@import "themes/woocommerce-product";
+@import "themes/woocommerce-widgets";
+@import "themes/woocommerce-responsive"; 
+/* 10. Responsive */
+@import "themes/responsive";

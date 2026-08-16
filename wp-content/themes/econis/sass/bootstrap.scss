@@ -1,0 +1,24 @@
+/*!
+ * Bootstrap v4.0.0 (https://getbootstrap.com)
+ * Copyright 2011-2018 The Bootstrap Authors
+ * Copyright 2011-2018 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+// Core variables and mixins
+@import "vars/vars-global";
+@import "vars/variables";
+@import "vars/template-vars";
+@import "bootstrap/mixins";
+@import "mixins/mixins";
+@import "mixins/template";
+@import "rtl/rtl";
+@import "bootstrap/mixins";
+@import "bootstrap/reboot";
+@import "bootstrap/type";
+@import "bootstrap/grid";
+@import "bootstrap/tables";
+@import "bootstrap/forms";
+@import "bootstrap/transitions";
+@import "bootstrap/dropdown";
+@import "bootstrap/buttons";
+@import "bootstrap/utilities";

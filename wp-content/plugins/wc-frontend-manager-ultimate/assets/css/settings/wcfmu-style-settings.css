@@ -1,0 +1,17 @@
+#wcfm_settings_form_chatbox_expander #wcfm_chatbox_setting_fbc_firebase_method {
+    margin-left: 0;
+    padding: 0;
+    box-shadow: none;
+}
+
+#wcfm_settings_form_chatbox_expander #wcfm_chatbox_setting_fbc_admin_service_account_status {
+    width: 60%;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 640px) {
+    #wcfm_settings_form_chatbox_expander #wcfm_chatbox_setting_fbc_admin_service_account_status {
+        width: 100% !important;
+    }
+}

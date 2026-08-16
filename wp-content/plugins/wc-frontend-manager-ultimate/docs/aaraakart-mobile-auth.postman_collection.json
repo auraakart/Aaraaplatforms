@@ -1,0 +1,730 @@
+{
+  "info": {
+    "name": "Aaraakart Mobile Auth API",
+    "_postman_id": "aaraakart-mobile-auth-v1",
+    "description": "Mobile OTP authentication endpoints for Aaraakart.\n\n**Base URL:** `https://aaraakart.com/wp-json/aaraakart/v1`\n\n**Test flow:**\n1. Run **Send OTP** — the `otp` variable is auto-captured from `debug_otp` (only when WP_DEBUG=true on server)\n2. Run **Login** or **Register** — the `otp` variable fills automatically\n3. Run **Get Profile** — JWT is used from the `token` variable\n\nIf WP_DEBUG is off, copy the OTP from the SMS/log and set the `otp` collection variable manually.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://aaraakart.com/wp-json/aaraakart/v1",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "",
+      "type": "string",
+      "description": "JWT Bearer token — auto-filled after login or register"
+    },
+    {
+      "key": "phone",
+      "value": "+919876543210",
+      "type": "string",
+      "description": "Test phone number in E.164 format"
+    },
+    {
+      "key": "otp",
+      "value": "",
+      "type": "string",
+      "description": "OTP received via SMS — auto-filled from debug_otp when WP_DEBUG is true, otherwise set manually"
+    },
+    {
+      "key": "vendor_id",
+      "value": "0",
+      "type": "string",
+      "description": "Vendor user ID (0 = use global settings)"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Send OTP",
+      "item": [
+        {
+          "name": "Send OTP — Custom SMS (Login)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"action\": \"login\",\n    \"vendor_id\": {{vendor_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/otp/send",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "otp", "send"]
+            },
+            "description": "Request an OTP for login via Custom SMS gateway.\n\nThe `otp` collection variable is **auto-captured** from `debug_otp` in the response when `WP_DEBUG=true` on the server. After this runs, just execute the Login request — no manual copy needed.\n\nIf `WP_DEBUG` is off (production), copy the OTP from the SMS received and set the `otp` collection variable manually."
+          },
+          "response": [
+            {
+              "name": "200 OK — OTP Sent (WP_DEBUG on)",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"success\": true,\n    \"expires_in\": 300,\n    \"mode\": \"custom_sms\",\n    \"sent\": true,\n    \"debug_otp\": \"482916\"\n}"
+            },
+            {
+              "name": "200 OK — OTP Sent (WP_DEBUG off)",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"success\": true,\n    \"expires_in\": 300,\n    \"mode\": \"custom_sms\",\n    \"sent\": true\n}"
+            },
+            {
+              "name": "429 — Rate Limit Exceeded",
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"rate_limit_exceeded\",\n    \"message\": \"Too many OTP requests. Please wait 10 minutes.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    pm.test('success is true', function () {",
+                  "        pm.expect(json.success).to.be.true;",
+                  "    });",
+                  "    // Auto-capture OTP when WP_DEBUG=true (debug_otp in response)",
+                  "    if (json.debug_otp) {",
+                  "        pm.collectionVariables.set('otp', json.debug_otp);",
+                  "        console.log('OTP auto-captured: ' + json.debug_otp + ' → saved to {{otp}} variable');",
+                  "    } else {",
+                  "        console.warn('WP_DEBUG is off — copy OTP from SMS and set the otp collection variable manually.');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Send OTP — Custom SMS (Register)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"action\": \"register\",\n    \"vendor_id\": {{vendor_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/otp/send",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "otp", "send"]
+            },
+            "description": "Request an OTP for new customer registration.\n\nThe `action` field is stored with the OTP to prevent a register OTP from being used on the login endpoint.\n\nThe OTP is auto-captured into the `otp` collection variable when WP_DEBUG=true."
+          },
+          "response": [
+            {
+              "name": "200 OK — OTP Sent",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"success\": true,\n    \"expires_in\": 300,\n    \"mode\": \"custom_sms\",\n    \"sent\": false,\n    \"debug_otp\": \"739201\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.debug_otp) {",
+                  "        pm.collectionVariables.set('otp', json.debug_otp);",
+                  "        console.log('OTP auto-captured: ' + json.debug_otp);",
+                  "    } else {",
+                  "        console.warn('Set the otp collection variable manually from the SMS received.');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Send OTP — Firebase mode",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"action\": \"login\",\n    \"vendor_id\": {{vendor_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/otp/send",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "otp", "send"]
+            },
+            "description": "When the vendor/global provider is set to `firebase`, the server returns the Firebase Web API Key instead of sending an SMS. The client uses this key to initiate the Firebase Phone Auth SDK flow.\n\nExpected response:\n```json\n{\n  \"success\": true,\n  \"mode\": \"firebase\",\n  \"firebase_api_key\": \"AIzaSy...\"\n}\n```"
+          },
+          "response": [
+            {
+              "name": "200 OK — Firebase mode",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"success\": true,\n    \"mode\": \"firebase\",\n    \"firebase_api_key\": \"AIzaSyXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (pm.response.json().mode === 'firebase') {",
+                  "    pm.test('firebase_api_key returned', function () {",
+                  "        pm.expect(pm.response.json()).to.have.property('firebase_api_key');",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2. Login",
+      "item": [
+        {
+          "name": "Login — Custom SMS OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"otp\": \"{{otp}}\",\n    \"vendor_id\": {{vendor_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Login with a phone number and OTP received via SMS.\n\nReplace `ENTER_OTP_HERE` with the OTP sent to the phone.\n\nOn success, the JWT `token` is automatically saved to the `token` collection variable."
+          },
+          "response": [
+            {
+              "name": "200 OK — Login Success",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2FhcmFha2FydC5jb20iLCJpYXQiOjE3MjA3MDAwMDAsIm5iZiI6MTcyMDcwMDAwMCwiZXhwIjoxNzIwNzg2NDAwLCJkYXRhIjp7InVzZXIiOnsiaWQiOjQyfX19.SIGNATURE\",\n    \"user_id\": 42,\n    \"email\": \"ravi@example.com\",\n    \"first_name\": \"Ravi\",\n    \"last_name\": \"Kumar\",\n    \"phone\": \"+919876543210\"\n}"
+            },
+            {
+              "name": "400 — Invalid OTP",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"invalid_otp\",\n    \"message\": \"OTP is incorrect, expired, or already used.\"\n}"
+            },
+            {
+              "name": "401 — Phone Not Registered",
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"needs_registration\",\n    \"message\": \"No account found for this phone number.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    pm.test('Token returned', function () {",
+                  "        pm.expect(json).to.have.property('token');",
+                  "    });",
+                  "    pm.test('user_id present', function () {",
+                  "        pm.expect(json).to.have.property('user_id');",
+                  "    });",
+                  "    // Auto-save JWT for subsequent requests",
+                  "    if (json.token) {",
+                  "        pm.collectionVariables.set('token', json.token);",
+                  "        console.log('JWT saved to collection variable: token');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Login — Firebase idToken",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"firebase_id_token\": \"PASTE_FIREBASE_ID_TOKEN_HERE\",\n    \"vendor_id\": {{vendor_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Login using a Firebase Phone Auth `idToken`.\n\nObtain the `idToken` from the Firebase client SDK after the phone OTP is verified client-side. Paste it into `firebase_id_token`.\n\nThe server verifies the token via Firebase Identity Toolkit API using the configured API key."
+          },
+          "response": [
+            {
+              "name": "200 OK — Login Success",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n    \"user_id\": 42,\n    \"email\": \"ravi@example.com\",\n    \"first_name\": \"Ravi\",\n    \"last_name\": \"Kumar\",\n    \"phone\": \"+919876543210\"\n}"
+            },
+            {
+              "name": "400 — Invalid Firebase Token",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"invalid_firebase_token\",\n    \"message\": \"Firebase token could not be verified.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.token) {",
+                  "        pm.collectionVariables.set('token', json.token);",
+                  "        console.log('JWT saved to collection variable: token');",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3. Register",
+      "item": [
+        {
+          "name": "Register — Custom SMS OTP",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"otp\": \"{{otp}}\",\n    \"first_name\": \"Test\",\n    \"last_name\": \"User\",\n    \"email\": \"testuser@example.com\",\n    \"vendor_id\": {{vendor_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Register a new WooCommerce customer.\n\nBoth the phone number and email must not already exist in the system.\n\nOn success:\n- Creates a WP user (`wc_create_new_customer`)\n- Saves `billing_phone`, `billing_first_name`, `billing_last_name`, `xoo_ml_phone_no` user_meta\n- Returns a signed JWT"
+          },
+          "response": [
+            {
+              "name": "200 OK — Registered",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n    \"user_id\": 99,\n    \"email\": \"ravi@example.com\",\n    \"first_name\": \"Ravi\",\n    \"last_name\": \"Kumar\",\n    \"phone\": \"+919876543210\"\n}"
+            },
+            {
+              "name": "400 — Phone Already Registered",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"phone_already_registered\",\n    \"message\": \"This phone number is already registered. Please login instead.\"\n}"
+            },
+            {
+              "name": "400 — Email Already Registered",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"email_already_registered\",\n    \"message\": \"This email address is already registered.\"\n}"
+            },
+            {
+              "name": "400 — Invalid OTP",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"invalid_otp\",\n    \"message\": \"OTP is incorrect, expired, or already used.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    pm.test('Token returned', function () {",
+                  "        pm.expect(json).to.have.property('token');",
+                  "    });",
+                  "    pm.test('user_id present', function () {",
+                  "        pm.expect(json).to.have.property('user_id');",
+                  "    });",
+                  "    pm.test('phone in response', function () {",
+                  "        pm.expect(json).to.have.property('phone');",
+                  "    });",
+                  "    if (json.token) {",
+                  "        pm.collectionVariables.set('token', json.token);",
+                  "        console.log('JWT saved — user_id: ' + json.user_id);",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Register — Firebase idToken",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"firebase_id_token\": \"PASTE_FIREBASE_ID_TOKEN_HERE\",\n    \"first_name\": \"Ravi\",\n    \"last_name\": \"Kumar\",\n    \"email\": \"ravi@example.com\",\n    \"vendor_id\": {{vendor_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/register",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "register"]
+            },
+            "description": "Register using a Firebase Phone Auth `idToken` instead of an SMS OTP. The server verifies the Firebase token to confirm phone ownership before creating the account."
+          },
+          "response": [
+            {
+              "name": "200 OK — Registered",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9...\",\n    \"user_id\": 99,\n    \"email\": \"ravi@example.com\",\n    \"first_name\": \"Ravi\",\n    \"last_name\": \"Kumar\",\n    \"phone\": \"+919876543210\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    if (json.token) {",
+                  "        pm.collectionVariables.set('token', json.token);",
+                  "    }",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "4. Get Profile (auth/me)",
+      "item": [
+        {
+          "name": "Get Profile — JWT Bearer",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "description": "Auto-filled from the `token` collection variable set by login/register"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "me"]
+            },
+            "description": "Retrieve the authenticated customer's profile.\n\nThe `Authorization` header is auto-populated from the `token` collection variable. Run a Login or Register request first to fill it.\n\nToken TTL is 24 hours — a 401 means the token has expired; run login again."
+          },
+          "response": [
+            {
+              "name": "200 OK — Profile",
+              "status": "OK",
+              "code": 200,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"user_id\": 42,\n    \"email\": \"ravi@example.com\",\n    \"first_name\": \"Ravi\",\n    \"last_name\": \"Kumar\",\n    \"phone\": \"+919876543210\",\n    \"roles\": [\"customer\"]\n}"
+            },
+            {
+              "name": "401 — Unauthorized (expired/missing token)",
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"unauthorized\",\n    \"message\": \"Invalid or expired token.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "if (pm.response.code === 200) {",
+                  "    var json = pm.response.json();",
+                  "    pm.test('user_id present', function () {",
+                  "        pm.expect(json).to.have.property('user_id');",
+                  "    });",
+                  "    pm.test('roles present', function () {",
+                  "        pm.expect(json).to.have.property('roles');",
+                  "        pm.expect(json.roles).to.be.an('array');",
+                  "    });",
+                  "    pm.test('phone present', function () {",
+                  "        pm.expect(json).to.have.property('phone');",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "5. Rate Limit Tests",
+      "item": [
+        {
+          "name": "Rate Limit — Trigger 429",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"action\": \"login\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/otp/send",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "otp", "send"]
+            },
+            "description": "Send this request more than 3 times within 10 minutes to trigger a 429 rate limit response.\n\nUse Postman's **Collection Runner** or the **Send** button repeatedly to test."
+          },
+          "response": [
+            {
+              "name": "429 — Rate Limit Hit",
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"rate_limit_exceeded\",\n    \"message\": \"Too many OTP requests. Please wait 10 minutes.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "// This request is expected to eventually return 429",
+                  "var code = pm.response.code;",
+                  "pm.test('Response is 200 or 429', function () {",
+                  "    pm.expect([200, 429]).to.include(code);",
+                  "});",
+                  "if (code === 429) {",
+                  "    console.log('Rate limit triggered as expected.');",
+                  "    pm.test('Error code is rate_limit_exceeded', function () {",
+                  "        pm.expect(pm.response.json().code).to.eql('rate_limit_exceeded');",
+                  "    });",
+                  "}"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "6. Validation Tests",
+      "item": [
+        {
+          "name": "Invalid Phone Format",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"9876543210\",\n    \"action\": \"login\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/otp/send",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "otp", "send"]
+            },
+            "description": "Phone number without country code prefix (missing `+91`). Should return 400 `invalid_phone`."
+          },
+          "response": [
+            {
+              "name": "400 — Invalid Phone",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"invalid_phone\",\n    \"message\": \"Please provide a valid phone number in E.164 format (e.g. +919876543210).\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Error code is invalid_phone', function () {",
+                  "    pm.expect(pm.response.json().code).to.eql('invalid_phone');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Wrong OTP on Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"phone\": \"{{phone}}\",\n    \"otp\": \"000000\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{base_url}}/auth/login",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "login"]
+            },
+            "description": "Attempt login with a deliberately wrong OTP `000000`. Should return 400 `invalid_otp`."
+          },
+          "response": [
+            {
+              "name": "400 — Invalid OTP",
+              "status": "Bad Request",
+              "code": 400,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"invalid_otp\",\n    \"message\": \"OTP is incorrect, expired, or already used.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 400', function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "pm.test('Error code is invalid_otp', function () {",
+                  "    pm.expect(pm.response.json().code).to.eql('invalid_otp');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Access /me Without Token",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/auth/me",
+              "host": ["{{base_url}}"],
+              "path": ["auth", "me"]
+            },
+            "description": "Call /auth/me without any Authorization header. Should return 401 `unauthorized`."
+          },
+          "response": [
+            {
+              "name": "401 — Unauthorized",
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [{ "key": "Content-Type", "value": "application/json" }],
+              "body": "{\n    \"code\": \"unauthorized\",\n    \"message\": \"Invalid or expired token.\"\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Status is 401', function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});",
+                  "pm.test('Error code is unauthorized', function () {",
+                  "    pm.expect(pm.response.json().code).to.eql('unauthorized');",
+                  "});"
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

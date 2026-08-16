@@ -1,0 +1,835 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: WooCommerce Frontend Manager - Delivery\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-19 09:33+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.2.0; wp-5.0.3"
+
+#: core/license/classes/class-wcfmd-update.php:523
+#, php-format
+msgid ""
+"%s has not been activated. Go to the settings page and enter the license key "
+"and license email to activate %s."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:375 core/class-wcfmd-frontend.php:684
+#: views/wcfmd-view-delivery-boy-assign.php:19
+msgid "-Select Delivery Boy-"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:343 helpers/wcfmd-core-functions.php:397
+#: helpers/wcfmd-core-functions.php:451
+msgid "10 hours"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:335 helpers/wcfmd-core-functions.php:443
+msgid "10 minutes"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:344 helpers/wcfmd-core-functions.php:398
+#: helpers/wcfmd-core-functions.php:452
+msgid "12 hours"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:345 helpers/wcfmd-core-functions.php:399
+#: helpers/wcfmd-core-functions.php:453
+msgid "15 hours"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:336 helpers/wcfmd-core-functions.php:444
+msgid "15 minutes"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:347 helpers/wcfmd-core-functions.php:401
+msgid "2 days"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:339 helpers/wcfmd-core-functions.php:393
+#: helpers/wcfmd-core-functions.php:447
+msgid "2 hours"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:346 helpers/wcfmd-core-functions.php:400
+#: helpers/wcfmd-core-functions.php:454
+msgid "24 hours"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:348 helpers/wcfmd-core-functions.php:402
+msgid "3 days"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:340 helpers/wcfmd-core-functions.php:394
+#: helpers/wcfmd-core-functions.php:448
+msgid "3 hours"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:337 helpers/wcfmd-core-functions.php:391
+#: helpers/wcfmd-core-functions.php:445
+msgid "30 minutes"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:349 helpers/wcfmd-core-functions.php:403
+msgid "4 days"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:350 helpers/wcfmd-core-functions.php:404
+msgid "5 days"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:442
+msgid "5 minutes"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:351 helpers/wcfmd-core-functions.php:405
+msgid "6 days"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:341 helpers/wcfmd-core-functions.php:395
+#: helpers/wcfmd-core-functions.php:449
+msgid "6 hours"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:338 helpers/wcfmd-core-functions.php:392
+#: helpers/wcfmd-core-functions.php:446
+msgid "60 minutes"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:352 helpers/wcfmd-core-functions.php:406
+msgid "7 days"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:342 helpers/wcfmd-core-functions.php:396
+#: helpers/wcfmd-core-functions.php:450
+msgid "8 hours"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:525
+#, php-format
+msgid "<b>%s</b> assigned as Delivery Boy for order <b>%s</b> item <b>%s</b>."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:529
+#, php-format
+msgid "<b>%s</b> assigned as Delivery Boy for order <b>%s</b>."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:501 core/class-wcfmd-frontend.php:506
+#, php-format
+msgid ""
+"<b>%s</b> has assigned <b>%s</b> as Delivery Boy for order <b>%s</b> item <b>"
+"%s</b>."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:512 core/class-wcfmd-frontend.php:517
+#, php-format
+msgid "<b>%s</b> has assigned <b>%s</b> as Delivery Boy for order <b>%s</b>."
+msgstr ""
+
+#: core/license/admin/class-wcfm-license.php:79
+#, php-format
+msgid "<h2>%s License</h2>"
+msgstr ""
+
+#: core/license/admin/class-wcfm-license.php:86
+#, php-format
+msgid ""
+"<h4 style='border-bottom: 1px solid rgb(215, 211, 211);padding-bottom: 21px;"
+"'>%s</h4>"
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:493
+#, php-format
+msgid ""
+"A license key for %s could not be found. Maybe you forgot to enter a license "
+"key when setting up %s, or the key was deactivated in your account. You can "
+"reactivate or purchase a license key from your account <a href=\"%s\" "
+"target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: controllers/wcfmd-controller-delivery-boys-manage.php:132
+#, php-format
+msgid "A new delivery boy <b>%s</b> added to the store by <b>%s</b>"
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:478
+#, php-format
+msgid ""
+"A subscription for %s could not be found. You can purchase a subscription "
+"from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:124
+#: views/wcfmd-view-delivery-boys-stats.php:136
+#: views/wcfmd-view-delivery-boys.php:78 views/wcfmd-view-delivery-boys.php:87
+msgid "Actions"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:107
+msgid "Add Delivery Boy"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:119
+#: views/wcfmd-view-delivery-boys.php:42
+msgid "Add New Delivery Boy"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:85 core/class-wcfmd-delivery-time.php:229
+msgid "after order time"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:798
+msgid ""
+"Allowed dynamic variables are: {site_url}, {user_role}, {username}, "
+"{first_name}, {password}"
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:53
+msgid "API License email"
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:52
+msgid "API License Key"
+msgstr ""
+
+#: core/class-wcfmd-library.php:114
+msgid ""
+"Are you sure and want to mark this as 'Delivered'?\n"
+"You can't undo this action ..."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:627 core/class-wcfmd-frontend.php:664
+#: views/wcfmd-view-orders-details.php:97
+msgid "Assign Delivery Boy"
+msgstr ""
+
+#: views/wcfmd-view-orders-details.php:23
+msgid "Assign delivery boy to order item(s)"
+msgstr ""
+
+#: core/class-wcfmd-non-ajax.php:48
+msgid "Change Log"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:375
+msgid "Choose preferred delivery time"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:107
+#: core/class-wcfmd-delivery-time.php:112
+#: core/class-wcfmd-delivery-time.php:117
+#: core/class-wcfmd-delivery-time.php:122
+#: core/class-wcfmd-delivery-time.php:127
+#: core/class-wcfmd-delivery-time.php:132
+#: core/class-wcfmd-delivery-time.php:137
+#: core/class-wcfmd-delivery-time.php:249
+#: core/class-wcfmd-delivery-time.php:254
+#: core/class-wcfmd-delivery-time.php:259
+#: core/class-wcfmd-delivery-time.php:264
+#: core/class-wcfmd-delivery-time.php:269
+#: core/class-wcfmd-delivery-time.php:274
+#: core/class-wcfmd-delivery-time.php:279
+msgid "Closing"
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:294
+msgid "Connection failed to the License Key API server. Try again later."
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:121
+#: views/wcfmd-view-delivery-boys-stats.php:133
+msgid "Customer"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:100
+#: core/class-wcfmd-delivery-time.php:242
+msgid "Daily Basis Delivery Time Slots"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:73 core/class-wcfmd-delivery-time.php:206
+msgid "Date and Time"
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:57
+msgid "Deactivate API License Key"
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:57
+msgid "Deactivates an API License Key so it can be used on another blog."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:757
+#: controllers/wcfmd-controller-delivery-boys-manage.php:99
+msgid "Dear"
+msgstr ""
+
+#: controllers/wcfmd-controller-delivery-boys-stats.php:83
+#: controllers/wcfmd-controller-delivery-boys.php:111
+#: controllers/wcfmd-controller-delivery-boys.php:111
+#: controllers/wcfmd-controller-delivery-boys-itemized-stats.php:75
+#: views/wcfmd-view-delivery-boys-stats.php:83
+#: helpers/wcfmd-core-functions.php:211
+msgid "Delivered"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:96
+msgid "delivered"
+msgstr ""
+
+#: controllers/wcfmd-controller-delivery-boys-stats.php:254
+#: controllers/wcfmd-controller-delivery-boys-itemized-stats.php:233
+msgid "Delivered ON"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:169 core/class-wcfmd-frontend.php:243
+msgid "Deliveries"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:776 core/class-wcfmd-frontend.php:841
+#: views/wcfmd-view-orders-details.php:20
+msgid "Delivery"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:122
+#: views/wcfmd-view-delivery-boys-stats.php:134
+msgid "Delivery Address"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:385 core/class-wcfmd-frontend.php:702
+#: core/class-wcfmd-frontend.php:710
+#: controllers/wcfmd-controller-delivery-boys-manage.php:121
+#: views/wcfmd-view-delivery-boy-assign.php:37
+#: views/wcfmd-view-delivery-boys.php:74 views/wcfmd-view-delivery-boys.php:83
+#: helpers/class-wcfmd-install.php:88
+msgid "Delivery Boy"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:302 core/class-wcfmd-frontend.php:308
+msgid "Delivery Boy Assigned"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:177
+msgid "Delivery Boy Manage"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:322
+msgid "Delivery Boy Saving Failed."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:181
+msgid "Delivery Boy Stats"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:323
+msgid "Delivery Boy Successfully Saved."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:173
+msgid "Delivery Boys"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:303 core/class-wcfmd-frontend.php:309
+msgid "Delivery Complete"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:321
+msgid "Delivery Dashboard"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:846 core/class-wcfmd.php:170
+msgid "Delivery Person"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:231 views/wcfmd-view-delivery-boys.php:25
+msgid "Delivery Persons"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:781
+msgid "Delivery Settings"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:64
+#: views/wcfmd-view-delivery-boys-stats.php:73
+msgid "Delivery Stats"
+msgstr ""
+
+#: core/class-wcfmd-ajax.php:195 core/class-wcfmd-ajax.php:197
+msgid "Delivery status updated."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:852 core/class-wcfmd-delivery-time.php:482
+#: core/class-wcfmd-delivery-time.php:621
+#: core/class-wcfmd-delivery-time.php:637 core/class-wcfmd.php:171
+msgid "Delivery Time"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:78 core/class-wcfmd-delivery-time.php:220
+msgid "Delivery Time Setting"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:652
+msgid "Delivery Time(s)"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:212
+msgid "Delivery Times"
+msgstr ""
+
+#: controllers/wcfmd-controller-delivery-boys.php:116
+msgid "Details Stat"
+msgstr ""
+
+#: core/class-wcfmd-ajax.php:117
+msgid "Details successfully updated."
+msgstr ""
+
+#: core/class-wcfmd-ajax.php:119
+msgid "Details update failed."
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:508
+#, php-format
+msgid ""
+"Download permission for %s has been revoked possibly due to a license key or "
+"subscription expiring. You can reactivate or purchase a license key from "
+"your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:107
+msgid "Edit Delivery Boy"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:142
+msgid "Email"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:226
+msgid "Enable Delivery Time"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:144
+msgid "First Name"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:83 core/class-wcfmd-delivery-time.php:227
+msgid "Friday"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:125
+#: core/class-wcfmd-delivery-time.php:267
+msgid "Friday Time Slots"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:93
+msgid "Hide when local pickup is chosen"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://wclovers.com"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://wclovers.com/product/woocommerce-frontend-manager-delivery/"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:119
+#: views/wcfmd-view-delivery-boys-stats.php:131
+msgid "Item"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:145
+msgid "Last Name"
+msgstr ""
+
+#: core/class-wcfmd-non-ajax.php:31
+msgid "License"
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:51
+msgid "License Activation"
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:56
+msgid "License Deactivation"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:763
+#: controllers/wcfmd-controller-delivery-boys-manage.php:105
+msgid "Login"
+msgstr ""
+
+#: controllers/wcfmd-controller-delivery-boys.php:117
+msgid "Manage Delivery Boy"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:100
+#: views/wcfmd-view-delivery-boys-manage.php:116
+#: views/wcfmd-view-delivery-boys.php:32
+msgid "Manage Delivery Boys"
+msgstr ""
+
+#. Description of the plugin
+msgid ""
+"Manage your own shipment with your own delivery persons. Easily and Smoothly."
+msgstr ""
+
+#: controllers/wcfmd-controller-delivery-boys-stats.php:252
+#: controllers/wcfmd-controller-delivery-boys-itemized-stats.php:231
+msgid "Mark Delivered"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:83 core/class-wcfmd-delivery-time.php:227
+msgid "Monday"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:105
+#: core/class-wcfmd-delivery-time.php:247
+msgid "Monday Time Slots"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys.php:76 views/wcfmd-view-delivery-boys.php:85
+msgid "Name"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:798
+msgid "New account mail body"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:797
+msgid "New account mail subject"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:301
+msgid "New Delivery Boy"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:73 core/class-wcfmd-delivery-time.php:206
+msgid "Only Date"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:73 core/class-wcfmd-delivery-time.php:206
+msgid "Only Time"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:106
+#: core/class-wcfmd-delivery-time.php:111
+#: core/class-wcfmd-delivery-time.php:116
+#: core/class-wcfmd-delivery-time.php:121
+#: core/class-wcfmd-delivery-time.php:126
+#: core/class-wcfmd-delivery-time.php:131
+#: core/class-wcfmd-delivery-time.php:136
+#: core/class-wcfmd-delivery-time.php:248
+#: core/class-wcfmd-delivery-time.php:253
+#: core/class-wcfmd-delivery-time.php:258
+#: core/class-wcfmd-delivery-time.php:263
+#: core/class-wcfmd-delivery-time.php:268
+#: core/class-wcfmd-delivery-time.php:273
+#: core/class-wcfmd-delivery-time.php:278
+msgid "Opening"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:118
+#: views/wcfmd-view-delivery-boys-stats.php:130
+msgid "Order"
+msgstr ""
+
+#: core/class-wcfmd-ajax.php:169 core/class-wcfmd-ajax.php:178
+#, php-format
+msgid "Order <b>%s</b> delivered by <b>%s</b>."
+msgstr ""
+
+#: core/class-wcfmd-ajax.php:154 core/class-wcfmd-ajax.php:163
+#, php-format
+msgid "Order <b>%s</b> item <b>%s</b> delivered by <b>%s</b>."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:765
+#: controllers/wcfmd-controller-delivery-boys-manage.php:107
+msgid "Password"
+msgstr ""
+
+#: controllers/wcfmd-controller-delivery-boys-stats.php:81
+#: controllers/wcfmd-controller-delivery-boys.php:112
+#: controllers/wcfmd-controller-delivery-boys.php:112
+#: controllers/wcfmd-controller-delivery-boys-itemized-stats.php:73
+#: helpers/wcfmd-core-functions.php:209
+msgid "Pending"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:105
+msgid "pending"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:143
+msgid "Phone"
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:319
+msgid "Please insert Delivery Boy Email before submit."
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:318
+msgid "Please insert Delivery Boy Username before submit."
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:257
+msgid "Please insert your license email."
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:247
+msgid "Please insert your license key."
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:286
+msgid "Plugin activated. "
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:359
+msgid "Plugin license deactivated."
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:83 core/class-wcfmd-delivery-time.php:227
+msgid "Saturday"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:130
+#: core/class-wcfmd-delivery-time.php:272
+msgid "Saturday Time Slots"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:87 core/class-wcfmd-delivery-time.php:231
+msgid "schedule times"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:85 core/class-wcfmd-delivery-time.php:229
+msgid ""
+"Set this to show first time slot available for delivery. E.g. if you set "
+"this `30 minutes` then customers will have first time slot after `30 "
+"minutes` from current time."
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:87 core/class-wcfmd-delivery-time.php:231
+msgid ""
+"Set this to show maximum time slots available for delivery. E.g. if you set "
+"this `2 days` then customers will able to choose time slots upto `2 days "
+"from start time`."
+msgstr ""
+
+#: core/class-wcfmd-non-ajax.php:31
+msgid "Set WCFMd License"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:83 core/class-wcfmd-delivery-time.php:227
+msgid "Set Week Day OFF"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:87 core/class-wcfmd-delivery-time.php:231
+msgid "Show upto"
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:761
+#: controllers/wcfmd-controller-delivery-boys-manage.php:103
+msgid "Site"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:91 core/class-wcfmd-delivery-time.php:235
+msgid "Slots Display Format"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:89 core/class-wcfmd-delivery-time.php:233
+msgid "Slots Duration"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:85 core/class-wcfmd-delivery-time.php:229
+msgid "Start From"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys.php:77 views/wcfmd-view-delivery-boys.php:86
+msgid "Stats"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:117
+#: views/wcfmd-view-delivery-boys-stats.php:129
+msgid "Status"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-stats.php:120
+#: views/wcfmd-view-delivery-boys-stats.php:132
+msgid "Store"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:83 core/class-wcfmd-delivery-time.php:227
+msgid "Sunday"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:135
+#: core/class-wcfmd-delivery-time.php:277
+msgid "Sunday Time Slots"
+msgstr ""
+
+#: core/license/admin/class-wcfmd-settings-license.php:383
+msgid ""
+"The license could not be deactivated. Use the License Deactivation tab to "
+"manually deactivate the license before activating a new license."
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:373
+#, php-format
+msgid ""
+"The license key for %s has expired. You can reactivate or purchase a license "
+"key from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:403
+#, php-format
+msgid ""
+"The subscription for %s has been cancelled. You can renew the subscription "
+"from your account <a href=\"%s\" target=\"_blank\">dashboard</a>. A new "
+"license key will be emailed to you after your order has been completed."
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:463
+#, php-format
+msgid ""
+"The subscription for %s has been placed in the trash and will be deleted "
+"soon. You can purchase a new subscription from your account <a href=\"%s\" "
+"target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:433
+#, php-format
+msgid ""
+"The subscription for %s has been suspended. You can reactivate the "
+"subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>"
+"."
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:418
+#, php-format
+msgid ""
+"The subscription for %s has expired. You can reactivate the subscription "
+"from your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:388
+#, php-format
+msgid ""
+"The subscription for %s is on-hold. You can reactivate the subscription from "
+"your account <a href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:448
+#, php-format
+msgid ""
+"The subscription for %s is still pending. You can check on the status of the "
+"subscription from your account <a href=\"%s\" target=\"_blank\">dashboard</a>"
+"."
+msgstr ""
+
+#: core/class-wcfmd-license.php:300
+#, php-format
+msgid ""
+"The WCFM - Delivery License Key has not been activated, so the plugin is "
+"inactive! %sClick here%s to activate the license key and the plugin."
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:321
+msgid "This Email already exists."
+msgstr ""
+
+#: helpers/wcfmd-core-functions.php:320
+msgid "This Username already exists."
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:83 core/class-wcfmd-delivery-time.php:227
+msgid "Thursday"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:120
+#: core/class-wcfmd-delivery-time.php:262
+msgid "Thursday Time Slots"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:83 core/class-wcfmd-delivery-time.php:227
+msgid "Tuesday"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:110
+#: core/class-wcfmd-delivery-time.php:252
+msgid "Tuesday Time Slots"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:137
+#: views/wcfmd-view-delivery-boys-manage.php:139
+msgid "Username"
+msgstr ""
+
+#: core/class-wcfmd-non-ajax.php:48
+msgid "View WCFMd Change Log"
+msgstr ""
+
+#. Author of the plugin
+msgid "WC Lovers"
+msgstr ""
+
+#. Name of the plugin
+msgid "WCFM - WooCommerce Frontend Manager - Delivery"
+msgstr ""
+
+#: core/class-wcfmd-license.php:163
+msgid "WCFM Delivery"
+msgstr ""
+
+#: core/license/admin/class-wcfm-license.php:16
+#: core/license/admin/class-wcfm-license.php:17
+msgid "WCFM License"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:83 core/class-wcfmd-delivery-time.php:227
+msgid "Wednesday"
+msgstr ""
+
+#: core/class-wcfmd-delivery-time.php:115
+#: core/class-wcfmd-delivery-time.php:257
+msgid "Wednesday Time Slots"
+msgstr ""
+
+#: views/wcfmd-view-delivery-boys-manage.php:112
+#: views/wcfmd-view-delivery-boys.php:37
+msgid "WP Admin View"
+msgstr ""
+
+#: core/license/classes/class-wcfmd-update.php:538
+#, php-format
+msgid ""
+"You changed the subscription for %s, so you will need to enter your new API "
+"License Key in the settings page. The License Key should have arrived in "
+"your email inbox, if not you can get it by logging into your account <a "
+"href=\"%s\" target=\"_blank\">dashboard</a>."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:537
+#, php-format
+msgid "You have assigned to order <b>%s</b> item <b>%s</b>."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:543
+#, php-format
+msgid "You have assigned to order <b>%s</b>."
+msgstr ""
+
+#: core/class-wcfmd-frontend.php:759
+#: controllers/wcfmd-controller-delivery-boys-manage.php:101
+msgid ""
+"Your account has been created as {user_role}. Follow the bellow details to "
+"log into the system"
+msgstr ""

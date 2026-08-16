@@ -1,0 +1,2 @@
+2026-07-25T06:15:45+00:00 CRITICAL WPO\IPS\Documents\SequentialNumberStore::store_name_exists: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'IF' at line 1
+Query: DESCRIBE IF;

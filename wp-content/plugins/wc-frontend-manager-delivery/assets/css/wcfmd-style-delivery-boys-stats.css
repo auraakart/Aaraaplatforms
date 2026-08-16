@@ -1,0 +1,174 @@
+.wcfm_dashboard_stats_block .fa-ambulance {
+	background: #17a2b8 !important;
+}
+
+.wcfm_dashboard_stats_block .fa-shipping-fast {
+	background: #f86c6b !important;
+}
+
+.order_items { display: none; }
+.order_items_visible { display: table; width: 100%; }
+.show_order_items { color: #D15600; }
+
+.order-status {
+  font-size: 20px;	
+}
+
+.wcfm_store_location i {
+	color: #20c997;
+}
+
+.wcfm_store_location a {
+	color: #ffc107;
+}
+
+.wcfm_customer_location a {
+	color: #20c997;
+}
+
+.dataTables_scrollFootInner .wcfm_delivery_stats_filter_wrap { display: none !important; }
+
+/* ─── Status Filter Tabs ─────────────────────────────── */
+.wcfmd-status-filter {
+	display: flex;
+	gap: 8px;
+	padding: 14px 0 12px;
+	flex-wrap: wrap;
+	position: relative;
+	z-index: 99;
+}
+.wcfmd-filter-tab {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 9px 20px;
+	border: 2px solid #d0d7e4;
+	border-radius: 30px;
+	background: #fff;
+	color: #374151;
+	font-size: 13px;
+	font-weight: 600;
+	cursor: pointer !important;
+	pointer-events: auto !important;
+	transition: border-color .2s, background .2s, color .2s;
+	white-space: nowrap;
+	line-height: 1;
+	position: relative;
+	z-index: 99;
+}
+.wcfmd-filter-tab i { font-size: 13px; }
+.wcfmd-filter-tab:hover { border-color: #1e3a8a; color: #1e3a8a; }
+.wcfmd-filter-tab.wcfmd-tab-active {
+	background: #1e3a8a;
+	border-color: #1e3a8a;
+	color: #fff;
+}
+
+/* ─── Delivery Action Button ─────────────────────────── */
+.wcfm_order_mark_delivered {
+	display: inline-block;
+	padding: 5px;
+}
+.wcfm_order_mark_delivered .wcfmfa {
+	font-size: 20px !important;
+	color: #16a34a;
+}
+
+/* ─── Mobile Overrides ───────────────────────────────── */
+@media (max-width: 768px) {
+	/* Filter tabs */
+	.wcfmd-status-filter { gap: 6px; padding: 10px 0 8px; }
+	.wcfmd-filter-tab { padding: 8px 14px; font-size: 12px; }
+
+	/* DataTable container — prevent horizontal page overflow */
+	#wcfm_delivery_boy_stats_listing_expander { overflow-x: hidden; }
+	.wcfm-container { padding: 0 4px; }
+
+	/* ── Column 1: DataTable expand button + status icon ── */
+	/* Keep expand control and status icon side by side, not stacked */
+	table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child,
+	table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child {
+		padding-left: 30px !important;
+		padding-right: 4px !important;
+		white-space: nowrap;
+		position: relative !important;
+	}
+	/* DataTable + expand icon — proper circle, centered */
+	table.dataTable.dtr-inline.collapsed > tbody > tr > td:first-child::before,
+	table.dataTable.dtr-inline.collapsed > tbody > tr > th:first-child::before {
+		width: 20px !important;
+		height: 20px !important;
+		min-width: 20px !important;
+		line-height: 18px !important;
+		font-size: 14px !important;
+		font-weight: 700 !important;
+		text-align: center !important;
+		border-radius: 50% !important;
+		position: absolute !important;
+		top: 50% !important;
+		left: 4px !important;
+		margin-top: -10px !important;
+		margin-right: 0 !important;
+		box-sizing: border-box !important;
+	}
+	/* Status icon — smaller on mobile */
+	#wcfm_delivery_boy_stats .order-status {
+		font-size: 15px !important;
+		vertical-align: middle;
+	}
+
+	/* ── Actions column: compact icon-only button ── */
+	.wcfm_order_mark_delivered {
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 36px !important;
+		height: 36px !important;
+		min-width: 36px !important;
+		min-height: 36px !important;
+		max-width: 36px !important;
+		max-height: 36px !important;
+		background: #16a34a !important;
+		border-radius: 50% !important;
+		text-decoration: none !important;
+		padding: 0 !important;
+		box-sizing: border-box !important;
+		line-height: 36px !important;
+	}
+	.wcfm_order_mark_delivered .wcfmfa {
+		color: #fff !important;
+		font-size: 18px !important;
+		line-height: 1 !important;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+	}
+	/* No text label on mobile — icon only */
+	.wcfm_order_mark_delivered::after { display: none !important; }
+
+	/* Stat blocks — center and wrap nicely */
+	.wcfm_dashboard_stats { flex-wrap: wrap; justify-content: center; }
+	.wcfm_dashboard_stats_block { margin: 4px !important; }
+}
+
+@media (max-width: 480px) {
+	/* Full-width tabs on very small screens */
+	.wcfmd-status-filter { flex-direction: row; }
+	.wcfmd-filter-tab { flex: 1; justify-content: center; padding: 9px 8px; }
+
+	/* Tighter stat blocks */
+	.wcfm_dashboard_stats_block { min-width: calc(50% - 12px) !important; }
+}
+
+table.dataTable.display tr td:nth-child(2), 
+table.dataTable.display tr td:nth-child(3),
+table.dataTable.display tr td:nth-child(4),
+table.dataTable.display tr td:nth-child(5),
+table.dataTable.display tr td:nth-child(7),
+table.dataTable.display tr th:nth-child(2),
+table.dataTable.display tr th:nth-child(3),
+table.dataTable.display tr th:nth-child(4),
+table.dataTable.display tr th:nth-child(5),
+table.dataTable.display tr th:nth-child(7) {
+	text-align: center;
+}

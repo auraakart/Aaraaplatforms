@@ -1,0 +1,59 @@
+2026-07-31T00:19:01+00:00 WARNING Email "customer_failed_order" for order #59429 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"customer_failed_order","status":"failed","recipient":"Aswick","order":59429}
+2026-07-31T00:19:31+00:00 WARNING Email "failed_order" for order #59429 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"failed_order","status":"failed","recipient":"superadmin","order":59429}
+2026-07-31T00:19:50+00:00 WARNING Email "new_order" for order #59430 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"new_order","status":"failed","recipient":"superadmin","order":59430}
+2026-07-31T00:20:20+00:00 WARNING Email "customer_processing_order" for order #59430 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"customer_processing_order","status":"failed","recipient":"Aswick","order":59430}
+2026-07-31T00:22:53+00:00 WARNING Email "customer_failed_order" for order #59431 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"customer_failed_order","status":"failed","recipient":"Aswick","order":59431}
+2026-07-31T00:23:23+00:00 WARNING Email "failed_order" for order #59431 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"failed_order","status":"failed","recipient":"superadmin","order":59431}
+2026-07-31T00:23:39+00:00 WARNING Email "new_order" for order #59432 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"new_order","status":"failed","recipient":"superadmin","order":59432}
+2026-07-31T00:24:09+00:00 WARNING Email "customer_processing_order" for order #59432 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"customer_processing_order","status":"failed","recipient":"Aswick","order":59432}
+2026-07-31T08:59:01+00:00 WARNING Email "new_order" for order #59468 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"new_order","status":"failed","recipient":"superadmin","order":59468}
+2026-07-31T08:59:31+00:00 WARNING Email "customer_processing_order" for order #59468 failed to send: SMTP Error: Could not connect to SMTP host. Failed to connect to server CONTEXT: {"email_type":"customer_processing_order","status":"failed","recipient":"My Smart Host","order":59468}
+2026-07-31T09:26:19+00:00 WARNING Email "new_order" for order #59475 failed to send: Could not instantiate mail function. CONTEXT: {"email_type":"new_order","status":"failed","recipient":"superadmin","order":59475}
+2026-07-31T09:26:19+00:00 WARNING Email "customer_processing_order" for order #59475 failed to send: Could not instantiate mail function. CONTEXT: {"email_type":"customer_processing_order","status":"failed","recipient":"My Smart Host","order":59475}
+2026-07-31T11:14:02+00:00 INFO Email "customer_invoice" for order #59046 sent CONTEXT: {"email_type":"customer_invoice","status":"sent","recipient":"Test Sibi","order":59046}
+2026-07-31T12:40:14+00:00 INFO Email "admin_payment_gateway_enabled" sent CONTEXT: {"email_type":"admin_payment_gateway_enabled","status":"sent","recipient":"superadmin","WC_Gateway_COD":null}
+2026-07-31T12:56:12+00:00 INFO Email "new_order" for order #59514 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59514}
+2026-07-31T12:56:16+00:00 INFO Email "customer_processing_order" for order #59514 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Test Sibi","order":59514}
+2026-07-31T13:50:27+00:00 INFO Email "new_order" for order #59534 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59534}
+2026-07-31T13:50:31+00:00 INFO Email "customer_processing_order" for order #59534 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Test Sibi","order":59534}
+2026-07-31T14:10:34+00:00 INFO Email "customer_note" for order #59540 sent CONTEXT: {"email_type":"customer_note","status":"sent","recipient":"guest","order":59540}
+2026-07-31T14:10:42+00:00 INFO Email "customer_note" for order #59540 sent CONTEXT: {"email_type":"customer_note","status":"sent","recipient":"guest","order":59540}
+2026-07-31T14:10:54+00:00 INFO Email "new_order" for order #59540 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59540}
+2026-07-31T14:10:59+00:00 INFO Email "customer_processing_order" for order #59540 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"guest","order":59540}
+2026-07-31T14:16:55+00:00 INFO Email "customer_completed_order" for order #59540 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"guest","order":59540}
+2026-07-31T14:21:46+00:00 INFO Email "customer_completed_order" for order #59366 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"superadmin","order":59366}
+2026-07-31T14:27:43+00:00 INFO Email "new_order" for order #59548 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59548}
+2026-07-31T14:27:48+00:00 INFO Email "customer_processing_order" for order #59548 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Sidharth test","order":59548}
+2026-07-31T14:36:45+00:00 INFO Email "customer_note" for order #59551 sent CONTEXT: {"email_type":"customer_note","status":"sent","recipient":"My Smart Host","order":59551}
+2026-07-31T14:37:49+00:00 INFO Email "new_order" for order #59551 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59551}
+2026-07-31T14:37:54+00:00 INFO Email "customer_processing_order" for order #59551 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"My Smart Host","order":59551}
+2026-07-31T14:50:24+00:00 INFO Email "new_order" for order #59552 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59552}
+2026-07-31T14:50:29+00:00 INFO Email "customer_processing_order" for order #59552 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Test Sibi","order":59552}
+2026-07-31T14:53:54+00:00 INFO Email "customer_note" for order #59553 sent CONTEXT: {"email_type":"customer_note","status":"sent","recipient":"My Smart Host","order":59553}
+2026-07-31T14:53:56+00:00 INFO Email "customer_completed_order" for order #59552 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Test Sibi","order":59552}
+2026-07-31T14:55:07+00:00 INFO Email "new_order" for order #59553 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59553}
+2026-07-31T14:55:11+00:00 INFO Email "customer_processing_order" for order #59553 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"My Smart Host","order":59553}
+2026-07-31T14:55:40+00:00 INFO Email "customer_completed_order" for order #59553 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"My Smart Host","order":59553}
+2026-07-31T15:07:06+00:00 INFO Email "customer_new_account" for user #1537 sent CONTEXT: {"email_type":"customer_new_account","status":"sent","recipient":"msh_noreply","user":1537}
+2026-07-31T15:24:22+00:00 INFO Email "new_order" for order #59559 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59559}
+2026-07-31T15:24:27+00:00 INFO Email "customer_processing_order" for order #59559 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"msh_noreply","order":59559}
+2026-07-31T15:52:24+00:00 INFO Email "new_order" for order #59562 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59562}
+2026-07-31T15:52:28+00:00 INFO Email "customer_processing_order" for order #59562 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"superadmin","order":59562}
+2026-07-31T16:03:16+00:00 INFO Email "new_order" for order #59563 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59563}
+2026-07-31T16:03:20+00:00 INFO Email "customer_processing_order" for order #59563 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Test Sibi","order":59563}
+2026-07-31T16:25:22+00:00 INFO Email "new_order" for order #59567 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59567}
+2026-07-31T16:25:27+00:00 INFO Email "customer_processing_order" for order #59567 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Haresh","order":59567}
+2026-07-31T16:31:05+00:00 INFO Email "new_order" for order #59569 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59569}
+2026-07-31T16:31:10+00:00 INFO Email "customer_processing_order" for order #59569 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Sidharth test","order":59569}
+2026-07-31T17:17:20+00:00 INFO Email "customer_completed_order" for order #59566 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Test Sibi","order":59566}
+2026-07-31T17:17:24+00:00 INFO Email "new_order" for order #59566 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59566}
+2026-07-31T17:31:53+00:00 INFO Email "customer_completed_order" for order #59566 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Test Sibi","order":59566}
+2026-07-31T17:35:05+00:00 INFO Email "customer_completed_order" for order #59566 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Test Sibi","order":59566}
+2026-07-31T17:35:36+00:00 INFO Email "customer_completed_order" for order #59569 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Sidharth test","order":59569}
+2026-07-31T17:35:40+00:00 INFO Email "customer_completed_order" for order #59567 sent CONTEXT: {"email_type":"customer_completed_order","status":"sent","recipient":"Haresh","order":59567}
+2026-07-31T17:51:21+00:00 INFO Email "customer_reset_password" for user #1533 sent CONTEXT: {"email_type":"customer_reset_password","status":"sent","recipient":"Sidharth test","user":1533}
+2026-07-31T20:17:35+00:00 INFO Email "cancelled_subscription" for order #59586 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59586}
+2026-07-31T20:27:35+00:00 INFO Email "cancelled_subscription" for order #59594 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59594}
+2026-07-31T20:31:01+00:00 INFO Email "cancelled_subscription" for order #59597 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59597}
+2026-07-31T21:56:35+00:00 INFO Email "customer_new_account" for user #1538 sent CONTEXT: {"email_type":"customer_new_account","status":"sent","recipient":"Sidharthan","user":1538}
+2026-07-31T21:58:39+00:00 INFO Email "cancelled_subscription" for order #59603 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59603}

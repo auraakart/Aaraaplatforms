@@ -1,0 +1,60 @@
+/*
+*  Shortcode
+*/
+.grid-system{
+    .cell {
+        border: 1px solid $border-color;
+        background: darken($border-color, .2);
+        text-align: $align-center;
+        @include rtl-margin(0, 0px, $padding-lg-vertical, 0);
+        @include rtl-padding($padding-base-vertical+2, 0, $padding-base-vertical+2, 0);
+    }
+    > div{
+            @include rtl-padding(0, 5px, 0, 5px);
+    }
+}
+
+// Shortcode table
+// -------------------------------------------
+.features-btn{
+    .table > thead > tr > th,
+    .table > thead > tr > td,
+    .table > tbody > tr > th,
+    .table > tbody > tr > td,
+    .table > tfoot > tr > th,
+    .table > tfoot > tr > td{
+        vertical-align: middle;
+    }
+}
+
+// Shortcode form
+// -------------------------------------------
+.icon{
+    .input-group-addon{
+        background: $white;
+        .fa,.icon{
+            color: $black;
+        }
+    }
+}
+
+
+// Shortcode icon
+// -------------------------------------------
+.icons-examples{
+    padding-bottom: $theme-padding;
+    min-height: 130px;
+    .fa{
+        @include font-size(font-size,24px);
+        line-height: 40px;
+        @include size(40px,40px);
+        @include rtl-text-align-center;
+    }
+}
+
+.shortcode_sourcecode{
+    margin: 10px 0;
+    code{
+        white-space: normal;
+    }
+}

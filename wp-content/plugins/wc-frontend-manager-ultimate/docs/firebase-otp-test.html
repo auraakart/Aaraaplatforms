@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Firebase OTP Test — Aaraakart Dev</title>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0F172A;
+      --surface:   #1E293B;
+      --border:    #334155;
+      --text:      #F1F5F9;
+      --muted:     #94A3B8;
+      --accent:    #0EA5E9;
+      --accent-dk: #0284C7;
+      --success:   #10B981;
+      --error:     #EF4444;
+      --warn:      #F59E0B;
+      --radius:    10px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 16px 80px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #1E3A5F;
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-bottom: 14px;
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: .9rem;
+      margin-bottom: 32px;
+      line-height: 1.5;
+    }
+
+    /* Steps */
+    .steps {
+      display: flex;
+      gap: 0;
+      margin-bottom: 28px;
+    }
+
+    .step-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .step-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      width: 100%;
+      height: 2px;
+      background: var(--border);
+      z-index: 0;
+    }
+
+    .step-item.done:not(:last-child)::after { background: var(--success); }
+    .step-item.active:not(:last-child)::after { background: var(--border); }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--bg);
+      position: relative;
+      z-index: 1;
+      transition: all .25s;
+    }
+
+    .step-item.active .step-num {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .step-item.done .step-num {
+      border-color: var(--success);
+      background: var(--success);
+      color: #fff;
+    }
+
+    .step-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    .step-item.active .step-label { color: var(--text); }
+    .step-item.done .step-label { color: var(--success); }
+
+    /* Card */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+    }
+
+    .card-title {
+      font-size: .85rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="tel"] {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-size: .95rem;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color .2s;
+      font-family: inherit;
+    }
+
+    input:focus { border-color: var(--accent); }
+
+    .hint {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: 5px;
+    }
+
+    .field { margin-bottom: 18px; }
+
+    #recaptcha-container {
+      margin: 18px 0;
+      min-height: 78px;
+    }
+
+    #recaptcha-container > div { border-radius: 8px; overflow: hidden; }
+
+    button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: .95rem;
+      font-weight: 600;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: background .2s, opacity .2s;
+      font-family: inherit;
+    }
+
+    button:hover { background: var(--accent-dk); }
+    button:disabled { opacity: .5; cursor: not-allowed; }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255,255,255,.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin .6s linear infinite;
+      display: none;
+    }
+
+    button.loading .spinner { display: block; }
+    button.loading .btn-text { opacity: 0.6; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Alert */
+    .alert {
+      border-radius: 8px;
+      padding: 12px 16px;
+      font-size: .85rem;
+      margin-bottom: 18px;
+      display: none;
+      line-height: 1.5;
+    }
+
+    .alert.show { display: block; }
+    .alert.error   { background: rgba(239,68,68,.12);  border: 1px solid rgba(239,68,68,.3);  color: #FCA5A5; }
+    .alert.success { background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.3); color: #6EE7B7; }
+    .alert.warn    { background: rgba(245,158,11,.12); border: 1px solid rgba(245,158,11,.3); color: #FCD34D; }
+
+    /* Token box */
+    .token-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px;
+      font-family: 'Menlo', 'Consolas', monospace;
+      font-size: .78rem;
+      color: var(--accent);
+      word-break: break-all;
+      line-height: 1.6;
+      max-height: 120px;
+      overflow-y: auto;
+      margin-bottom: 12px;
+    }
+
+    .copy-btn {
+      background: #1E3A5F;
+      font-size: .82rem;
+      padding: 9px 16px;
+    }
+
+    .copy-btn:hover { background: #1E4976; }
+
+    .copy-btn.copied {
+      background: rgba(16,185,129,.2);
+      color: #6EE7B7;
+    }
+
+    /* Postman guide */
+    .postman-guide {
+      margin-top: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .postman-guide summary {
+      padding: 14px 18px;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+      color: var(--muted);
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .postman-guide summary::before {
+      content: '▶';
+      font-size: 10px;
+      transition: transform .2s;
+    }
+
+    .postman-guide[open] summary::before { transform: rotate(90deg); }
+
+    .guide-body {
+      padding: 0 18px 18px;
+      font-size: .83rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .guide-body code {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      padding: 2px 6px;
+      font-family: 'Menlo', 'Consolas', monospace;
+      font-size: .8rem;
+      color: var(--accent);
+    }
+
+    .guide-body pre {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin: 10px 0;
+      overflow-x: auto;
+      font-family: 'Menlo', 'Consolas', monospace;
+      font-size: .78rem;
+      color: #E2E8F0;
+      line-height: 1.6;
+    }
+
+    .section-hidden { display: none; }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 22px 0;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <div class="badge">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+    Developer Tool
+  </div>
+  <h1>Firebase OTP Test</h1>
+  <p class="subtitle">Trigger a real Firebase SMS OTP, then copy the <code style="background:#1E293B;padding:2px 6px;border-radius:4px;font-size:.85em;color:#0EA5E9">idToken</code> to use in Postman.</p>
+
+  <!-- Progress steps -->
+  <div class="steps">
+    <div class="step-item active" id="step-1">
+      <div class="step-num">1</div>
+      <div class="step-label">Phone</div>
+    </div>
+    <div class="step-item" id="step-2">
+      <div class="step-num">2</div>
+      <div class="step-label">OTP</div>
+    </div>
+    <div class="step-item" id="step-3">
+      <div class="step-num">3</div>
+      <div class="step-label">Token</div>
+    </div>
+  </div>
+
+  <!-- STEP 1: Phone -->
+  <div id="section-phone" class="card">
+    <div class="card-title">Step 1 — Enter Phone Number</div>
+
+    <div id="alert-phone" class="alert"></div>
+
+    <div class="field">
+      <label for="phone-input">Phone Number (E.164 format)</label>
+      <input type="tel" id="phone-input" placeholder="+919876543210" value="+91" />
+      <div class="hint">Include country code. Example: +919876543210</div>
+    </div>
+
+    <div id="recaptcha-container"></div>
+
+    <button id="send-btn" onclick="sendOTP()">
+      <div class="spinner"></div>
+      <span class="btn-text">Send OTP via Firebase</span>
+    </button>
+  </div>
+
+  <!-- STEP 2: OTP -->
+  <div id="section-otp" class="card section-hidden">
+    <div class="card-title">Step 2 — Enter OTP</div>
+
+    <div id="alert-otp" class="alert show warn">
+      OTP sent to <strong id="phone-display"></strong>. Check your SMS.
+    </div>
+
+    <div class="field">
+      <label for="otp-input">6-digit OTP</label>
+      <input type="text" id="otp-input" placeholder="123456" maxlength="6"
+             inputmode="numeric" autocomplete="one-time-code"
+             oninput="this.value = this.value.replace(/\D/g,'')"
+             onkeydown="if(event.key==='Enter') verifyOTP()" />
+    </div>
+
+    <button id="verify-btn" onclick="verifyOTP()">
+      <div class="spinner"></div>
+      <span class="btn-text">Verify OTP</span>
+    </button>
+
+    <hr class="divider" />
+
+    <button onclick="resendOTP()" style="background:#1E293B;color:#94A3B8;font-size:.82rem;padding:9px">
+      Resend OTP
+    </button>
+  </div>
+
+  <!-- STEP 3: Token -->
+  <div id="section-token" class="card section-hidden">
+    <div class="card-title">Step 3 — Copy idToken to Postman</div>
+
+    <div class="alert show success" id="alert-token">
+      ✅ Phone verified! Copy the idToken below.
+    </div>
+
+    <label>Firebase idToken</label>
+    <div class="token-box" id="token-display"></div>
+
+    <button class="copy-btn" id="copy-btn" onclick="copyToken()">
+      <span>Copy idToken</span>
+    </button>
+
+    <hr class="divider" />
+
+    <div style="font-size:.82rem;color:var(--muted);line-height:1.6">
+      <strong style="color:var(--text)">User info</strong><br />
+      Phone: <span id="info-phone" style="color:var(--accent)"></span><br />
+      UID: <span id="info-uid" style="color:var(--accent)"></span>
+    </div>
+  </div>
+
+  <!-- Postman guide -->
+  <details class="postman-guide" style="margin-top:20px">
+    <summary>How to use idToken in Postman</summary>
+    <div class="guide-body">
+      <p><strong style="color:var(--text)">Login endpoint</strong></p>
+      <pre>POST https://aaraakart.com/wp-json/aaraakart/v1/auth/login
+Content-Type: application/json
+
+{
+  "phone": "+919876543210",
+  "firebase_id_token": "PASTE_ID_TOKEN_HERE"
+}</pre>
+
+      <p><strong style="color:var(--text)">Register endpoint</strong></p>
+      <pre>POST https://aaraakart.com/wp-json/aaraakart/v1/auth/register
+Content-Type: application/json
+
+{
+  "phone": "+919876543210",
+  "firebase_id_token": "PASTE_ID_TOKEN_HERE",
+  "first_name": "Ravi",
+  "last_name": "Kumar",
+  "email": "ravi@example.com"
+}</pre>
+
+      <p>The response will contain a <code>token</code> (JWT). Use it as:</p>
+      <pre>GET https://aaraakart.com/wp-json/aaraakart/v1/auth/me
+Authorization: Bearer JWT_TOKEN_HERE</pre>
+
+      <p style="margin-top:10px">⚠️ idToken expires in <strong>1 hour</strong>. Run this page again to get a fresh one if it expires.</p>
+    </div>
+  </details>
+
+</div>
+
+<script>
+  // ── Firebase init ──────────────────────────────────────────────────────────
+  const firebaseConfig = {
+    apiKey:            "AIzaSyDtHnlzBG-alCReTq5_D_jv3YE04o92b0Y",
+    authDomain:        "the-farmer-village---login.firebaseapp.com",
+    databaseURL:       "https://the-farmer-village---login-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId:         "the-farmer-village---login",
+    storageBucket:     "the-farmer-village---login.firebasestorage.app",
+    messagingSenderId: "653382699997",
+    appId:             "1:653382699997:web:d6b0da090864e80bee0434",
+    measurementId:     "G-J0FJVQXNJJ"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  let confirmationResult = null;
+  let recaptchaVerifier  = null;
+  let currentIdToken     = null;
+
+  // ── reCAPTCHA ─────────────────────────────────────────────────────────────
+  function initRecaptcha() {
+    if (recaptchaVerifier) { recaptchaVerifier.clear(); }
+    recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container', {
+      size: 'normal',
+      callback: () => {
+        document.getElementById('send-btn').disabled = false;
+      },
+      'expired-callback': () => {
+        document.getElementById('send-btn').disabled = true;
+        showAlert('alert-phone', 'warn', 'reCAPTCHA expired — please solve it again.');
+      }
+    });
+    document.getElementById('send-btn').disabled = true;
+    recaptchaVerifier.render().catch(err => {
+      showAlert('alert-phone', 'error', 'reCAPTCHA failed to load: ' + err.message);
+    });
+  }
+
+  // ── Step 1: Send OTP ──────────────────────────────────────────────────────
+  async function sendOTP() {
+    const phone = document.getElementById('phone-input').value.trim();
+    if (!phone.match(/^\+[1-9]\d{7,14}$/)) {
+      showAlert('alert-phone', 'error', 'Enter a valid phone in E.164 format, e.g. +919876543210');
+      return;
+    }
+    setLoading('send-btn', true);
+    hideAlert('alert-phone');
+
+    try {
+      confirmationResult = await auth.signInWithPhoneNumber(phone, recaptchaVerifier);
+      document.getElementById('phone-display').textContent = phone;
+      setStep(2);
+      document.getElementById('otp-input').focus();
+    } catch (err) {
+      setLoading('send-btn', false);
+      showAlert('alert-phone', 'error', friendlyError(err));
+      // Reset reCAPTCHA on error
+      recaptchaVerifier.clear();
+      initRecaptcha();
+    }
+  }
+
+  // ── Step 2: Verify OTP ────────────────────────────────────────────────────
+  async function verifyOTP() {
+    const otp = document.getElementById('otp-input').value.trim();
+    if (otp.length < 4) {
+      showAlert('alert-otp', 'error', 'Enter the OTP you received.');
+      return;
+    }
+    setLoading('verify-btn', true);
+    hideAlert('alert-otp');
+
+    try {
+      const result  = await confirmationResult.confirm(otp);
+      const idToken = await result.user.getIdToken();
+      currentIdToken = idToken;
+
+      document.getElementById('token-display').textContent = idToken;
+      document.getElementById('info-phone').textContent    = result.user.phoneNumber;
+      document.getElementById('info-uid').textContent      = result.user.uid;
+
+      setStep(3);
+    } catch (err) {
+      setLoading('verify-btn', false);
+      showAlert('alert-otp', 'error', friendlyError(err));
+    }
+  }
+
+  // ── Resend ────────────────────────────────────────────────────────────────
+  function resendOTP() {
+    setStep(1);
+    setTimeout(initRecaptcha, 100);
+  }
+
+  // ── Copy token ────────────────────────────────────────────────────────────
+  function copyToken() {
+    if (!currentIdToken) return;
+    navigator.clipboard.writeText(currentIdToken).then(() => {
+      const btn = document.getElementById('copy-btn');
+      btn.classList.add('copied');
+      btn.querySelector('span').textContent = '✓ Copied!';
+      setTimeout(() => {
+        btn.classList.remove('copied');
+        btn.querySelector('span').textContent = 'Copy idToken';
+      }, 2000);
+    });
+  }
+
+  // ── UI helpers ────────────────────────────────────────────────────────────
+  function setStep(n) {
+    document.getElementById('section-phone').classList.toggle('section-hidden', n !== 1);
+    document.getElementById('section-otp').classList.toggle('section-hidden', n !== 2);
+    document.getElementById('section-token').classList.toggle('section-hidden', n !== 3);
+
+    [1, 2, 3].forEach(i => {
+      const el = document.getElementById('step-' + i);
+      el.className = 'step-item' + (i < n ? ' done' : i === n ? ' active' : '');
+    });
+
+    if (n === 1) setLoading('send-btn', false);
+    if (n === 2) setLoading('verify-btn', false);
+  }
+
+  function setLoading(btnId, on) {
+    const btn = document.getElementById(btnId);
+    btn.classList.toggle('loading', on);
+    btn.disabled = on;
+  }
+
+  function showAlert(id, type, msg) {
+    const el = document.getElementById(id);
+    el.className = 'alert show ' + type;
+    el.innerHTML = msg;
+  }
+
+  function hideAlert(id) {
+    document.getElementById(id).className = 'alert';
+  }
+
+  function friendlyError(err) {
+    const map = {
+      'auth/invalid-phone-number':       'Invalid phone number format. Use E.164 e.g. +919876543210',
+      'auth/too-many-requests':          'Too many attempts. Wait a few minutes and try again.',
+      'auth/invalid-verification-code':  'Wrong OTP. Check the SMS and try again.',
+      'auth/code-expired':               'OTP expired. Click Resend to get a new one.',
+      'auth/captcha-check-failed':       'reCAPTCHA failed. Refresh and try again.',
+      'auth/missing-phone-number':       'Phone number is required.',
+      'auth/quota-exceeded':             'Firebase SMS quota exceeded. Check your Firebase billing.',
+    };
+    return map[err.code] || (err.message || 'Something went wrong. Check console for details.');
+  }
+
+  // ── Boot ─────────────────────────────────────────────────────────────────
+  window.addEventListener('load', initRecaptcha);
+</script>
+</body>
+</html>

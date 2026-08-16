@@ -1,0 +1,10 @@
+2026-07-20T20:05:37+00:00 CRITICAL Unable to create folder /home/u293817202/domains/aaraakart.com/public_html/wp-content/uploads/wpo_wcpdf/attachments/
+2026-07-20T20:07:07+00:00 INFO Template setting migrated from /home/u293817202/domains/aaraakart.com/public_html/wp-content/plugins/woocommerce-pdf-invoices-packing-slips/templates/Simple to default/Simple
+2026-07-20T20:07:10+00:00 CRITICAL WPO\IPS\Documents\SequentialNumberStore::store_name_exists: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'IF' at line 1
+Query: DESCRIBE IF;
+2026-07-20T20:07:10+00:00 CRITICAL WPO\IPS\Documents\SequentialNumberStore::init: Table 'u293817202_madm_aaraakart.wp_wcpdf_invoice_number' doesn't exist
+Query: DESCRIBE wp_wcpdf_invoice_number;
+2026-07-20T20:18:34+00:00 CRITICAL WPO\IPS\Documents\SequentialNumberStore::store_name_exists: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'IF' at line 1
+Query: DESCRIBE IF;
+2026-07-20T20:18:34+00:00 CRITICAL WPO\IPS\Documents\SequentialNumberStore::store_name_exists: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'IF' at line 1
+Query: DESCRIBE IF;

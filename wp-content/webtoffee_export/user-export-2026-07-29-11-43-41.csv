@@ -1,0 +1,2 @@
+﻿user_nicename,user_email,first_name,last_name,user_status,roles,orders,billing_first_name,billing_last_name,billing_company,billing_email,billing_phone,billing_address_1,billing_address_2,billing_postcode,billing_city,billing_state,billing_country
+test-sibi,sibisondev@gmail.com,"Test Sibi",,0,customer,8,"Test Sibi",,,,9787172146,"12, Kamarajapuram,",Chennai,,,TN,IN

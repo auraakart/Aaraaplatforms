@@ -1,0 +1,21 @@
+2026-08-08T18:02:22+00:00 WARNING Email "customer_new_account" for user #3 failed to send: Could not instantiate mail function. CONTEXT: {"email_type":"customer_new_account","status":"failed","recipient":"karthikonline","user":3}
+2026-08-08T18:27:22+00:00 NOTICE Email "customer_note" for order #78942 not sent: email type is disabled CONTEXT: {"email_type":"customer_note","status":"disabled","recipient":"venkateshsuba","order":78942}
+2026-08-08T18:39:05+00:00 INFO Email "cancelled_order" for order #78560 sent CONTEXT: {"email_type":"cancelled_order","status":"sent","recipient":"Admin_Madrasmilk","order":78560}
+2026-08-08T18:39:05+00:00 NOTICE Email "customer_cancelled_order" for order #78560 not sent: email type is disabled CONTEXT: {"email_type":"customer_cancelled_order","status":"disabled","recipient":"karthikonline","order":78560}
+2026-08-08T19:53:58+00:00 INFO Email "wps_wswp_wallet_credit" for user #1533 sent CONTEXT: {"email_type":"wps_wswp_wallet_credit","status":"sent","recipient":"Sidharth test","user":1533}
+2026-08-08T19:55:23+00:00 NOTICE Email "customer_note" for order #78944 not sent: email type is disabled CONTEXT: {"email_type":"customer_note","status":"disabled","recipient":"guest","order":78944}
+2026-08-08T19:55:28+00:00 NOTICE Email "customer_note" for order #78944 not sent: email type is disabled CONTEXT: {"email_type":"customer_note","status":"disabled","recipient":"guest","order":78944}
+2026-08-08T19:56:54+00:00 INFO Email "new_order" for order #78944 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"Admin_Madrasmilk","order":78944}
+2026-08-08T19:56:58+00:00 INFO Email "customer_processing_order" for order #78944 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Gurumurthy K","order":78944}
+2026-08-08T20:03:26+00:00 INFO Email "cancelled_subscription" for order #58973 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":58973}
+2026-08-08T20:03:31+00:00 INFO Email "cancelled_subscription" for order #59367 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":59367}
+2026-08-08T20:03:35+00:00 INFO Email "cancelled_subscription" for order #59515 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":59515}
+2026-08-08T20:03:40+00:00 INFO Email "cancelled_subscription" for order #59535 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":59535}
+2026-08-08T20:03:45+00:00 INFO Email "cancelled_subscription" for order #59564 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":59564}
+2026-08-08T20:03:49+00:00 INFO Email "cancelled_subscription" for order #77649 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":77649}
+2026-08-08T20:05:30+00:00 INFO Email "cancelled_subscription" for order #59007 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":59007}
+2026-08-08T20:05:34+00:00 INFO Email "cancelled_subscription" for order #78321 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":78321}
+2026-08-08T20:05:38+00:00 INFO Email "cancelled_subscription" for order #78333 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":78333}
+2026-08-08T20:05:43+00:00 INFO Email "cancelled_subscription" for order #78336 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":78336}
+2026-08-08T20:06:48+00:00 INFO Email "cancelled_subscription" for order #77694 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":77694}
+2026-08-08T22:12:15+00:00 INFO Email "cancelled_subscription" for order #58531 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"Admin_Madrasmilk","order":58531}

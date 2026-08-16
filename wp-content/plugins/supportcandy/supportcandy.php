@@ -1,0 +1,195 @@
+<?php // phpcs:ignore
+/**
+ * Plugin Name: SupportCandy
+ * Plugin URI: https://supportcandy.net/
+ * Description: Easy & Powerful support ticket system for WordPress
+ * Version: 3.5.1
+ * Author: SupportCandy
+ * Author URI: https://wordpress.org/plugins/supportcandy/
+ * Requires at least: 5.6
+ * Requires PHP: 7.4
+ * Tested up to: 7.0
+ * Text Domain: supportcandy
+ * Domain Path: /i18n
+ * License: GPLv3 or later
+ * License URI: https://www.gnu.org/licenses/gpl-3.0.html
+ */
+
+if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING ) {
+	return;
+}
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly!
+}
+
+if ( ! class_exists( 'PSM_Support_Candy' ) ) :
+
+	final class PSM_Support_Candy {
+
+		/**
+		 * Plugin version
+		 *
+		 * @var string
+		 */
+		public static $version = '3.5.1';
+
+		/**
+		 * Database version
+		 *
+		 * @var string
+		 */
+		public static $db_version = '3.0';
+
+		/**
+		 * Constructor for main class
+		 */
+		public static function init() {
+
+			self::define_constants();
+			self::load_files();
+		}
+
+		/**
+		 * Defines global constants that can be availabel anywhere in WordPress
+		 *
+		 * @return void
+		 */
+		public static function define_constants() {
+
+			self::define( 'WPSC_STORE_URL', 'https://supportcandy.net' );
+			self::define( 'WPSC_PLUGIN_FILE', __FILE__ );
+			self::define( 'WPSC_ABSPATH', __DIR__ . '/' );
+			self::define( 'WPSC_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+			self::define( 'WPSC_PLUGIN_BASENAME', plugin_basename( __FILE__ ) );
+			self::define( 'WPSC_VERSION', self::$version );
+			self::define( 'WPSC_DB_VERSION', self::$db_version );
+		}
+
+		/**
+		 * Load all classes
+		 *
+		 * @return void
+		 */
+		private static function load_files() {
+
+			// Load installation.
+			include_once WPSC_ABSPATH . 'class-wpsc-installation.php';
+			include_once WPSC_ABSPATH . 'global-functions.php';
+
+			// Return if installation is in progress.
+			if ( defined( 'WPSC_INSTALLING' ) ) {
+				return;
+			}
+
+			// Database upgrade functionality.
+			if ( defined( 'WPSC_DB_UPGRADING' ) ) {
+
+				include_once WPSC_ABSPATH . 'includes/class-wpsc-sc-upgrade.php';
+
+				switch ( WPSC_Installation::$current_db_version ) {
+
+					case '1.0':
+						include_once WPSC_ABSPATH . 'upgrade/class-wpsc-upgrade-db-v1.php';
+						break;
+
+					case '2.0':
+						include_once WPSC_ABSPATH . 'upgrade/class-wpsc-upgrade-db-v2.php';
+						break;
+				}
+
+				// do not load further files.
+				return;
+			}
+
+			$advanced = get_option( 'wpsc-ms-advanced-settings' );
+
+			// Load common classes.
+			foreach ( glob( WPSC_ABSPATH . 'includes/*.php' ) as $filename ) {
+				include_once $filename;
+			}
+
+			// Load custom field types.
+			foreach ( glob( WPSC_ABSPATH . 'includes/custom-field-types/*.php' ) as $filename ) {
+				include_once $filename;
+			}
+
+			// Load models.
+			foreach ( glob( WPSC_ABSPATH . 'includes/models/*.php' ) as $filename ) {
+				include_once $filename;
+			}
+
+			// Load rest api classes.
+			if ( $advanced['rest-api'] ) {
+				foreach ( glob( WPSC_ABSPATH . 'includes/rest-api/*.php' ) as $filename ) {
+					include_once $filename;
+				}
+			}
+
+			// Load framework.
+			if ( ! ( defined( 'DOING_AJAX' ) || defined( 'DOING_CRON' ) ) ) {
+				foreach ( glob( WPSC_ABSPATH . 'framework/*.php' ) as $filename ) {
+					include_once $filename;
+				}
+			}
+
+			// Load classes that is related to admin section.
+			foreach ( glob( WPSC_ABSPATH . 'includes/admin/*.php' ) as $filename ) {
+				include_once $filename;
+			}
+
+			// Load classes that is related to frontend section.
+			foreach ( glob( WPSC_ABSPATH . 'includes/frontend/*.php' ) as $filename ) {
+				include_once $filename;
+			}
+
+			// load deactivation feedback class.
+			self::init_deactivation_feedback();
+		}
+
+		/**
+		 * Define constants
+		 *
+		 * @param string $name - name of global constant.
+		 * @param string $value - value of constant.
+		 * @return void
+		 */
+		private static function define( $name, $value ) {
+
+			if ( ! defined( $name ) ) {
+				define( $name, $value );
+			}
+		}
+
+
+
+		/**
+		 * Initialize deactivation feedback system.
+		 *
+		 * @return void
+		 */
+		public static function init_deactivation_feedback() {
+			require_once WPSC_ABSPATH . 'deactivation-feedback/class-psm-dfr.php';
+			PSM_DFR::init(
+				array(
+					'plugin_file'    => plugin_basename( __FILE__ ),
+					'plugin_name'    => 'SupportCandy',
+					'plugin_version' => WPSC_VERSION,
+					'endpoint'       => 'https://feedback.psmplugins.com/wp-json/psm/v1/feedback',
+					'api_key'        => 'b8p-MO>d}!aq<bY6nx]mRG~&ndXO=3jwIi{iX<YAt2#Z!>n-[.Q9](OZ--}#@C|',
+					'reasons'        => array(
+						'too_complex'       => 'Too complicated to set up',
+						'testing'           => 'Just testing / comparing plugins',
+						'found_alternative' => 'Found a better plugin',
+						'missing_features'  => 'Missing a feature I need',
+						'bugs_errors'       => 'Bugs or errors',
+						'temporary'         => 'Temporary deactivation',
+						'other'             => 'Other',
+					),
+				)
+			);
+		}
+	}
+endif;
+
+PSM_Support_Candy::init();

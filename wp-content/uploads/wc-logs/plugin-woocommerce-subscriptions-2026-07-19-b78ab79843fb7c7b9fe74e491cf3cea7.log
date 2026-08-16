@@ -1,0 +1,12 @@
+2026-07-19T09:46:43+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for switch orders
+2026-07-19T09:46:43+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for renewal orders
+2026-07-19T09:46:43+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for resubscribe orders
+2026-07-19T09:46:43+00:00 WARNING WC_Subscriptions_Tracker::get_initial_order_count_and_total() returned 0 count and total
+2026-07-19T10:30:06+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for switch orders
+2026-07-19T10:30:06+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for renewal orders
+2026-07-19T10:30:06+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for resubscribe orders
+2026-07-19T10:30:06+00:00 WARNING WC_Subscriptions_Tracker::get_initial_order_count_and_total() returned 0 count and total
+2026-07-19T10:30:09+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for switch orders
+2026-07-19T10:30:09+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for renewal orders
+2026-07-19T10:30:09+00:00 WARNING WC_Subscriptions_Tracker::get_order_count_and_total_by_meta_key() returned 0 count and total for resubscribe orders
+2026-07-19T10:30:09+00:00 WARNING WC_Subscriptions_Tracker::get_initial_order_count_and_total() returned 0 count and total

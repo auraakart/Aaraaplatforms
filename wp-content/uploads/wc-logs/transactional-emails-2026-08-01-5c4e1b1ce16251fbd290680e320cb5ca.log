@@ -1,0 +1,47 @@
+2026-08-01T04:12:49+00:00 INFO Email "new_order" for order #59606 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59606}
+2026-08-01T04:12:53+00:00 INFO Email "customer_processing_order" for order #59606 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"My Smart Host","order":59606}
+2026-08-01T08:02:32+00:00 INFO Email "cancelled_subscription" for order #59605 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59605}
+2026-08-01T08:02:36+00:00 INFO Email "cancelled_subscription" for order #59543 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59543}
+2026-08-01T08:02:41+00:00 INFO Email "cancelled_subscription" for order #59474 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59474}
+2026-08-01T08:02:46+00:00 INFO Email "cancelled_subscription" for order #59238 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59238}
+2026-08-01T08:02:50+00:00 INFO Email "cancelled_subscription" for order #59128 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59128}
+2026-08-01T08:02:55+00:00 INFO Email "cancelled_subscription" for order #59599 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59599}
+2026-08-01T08:03:00+00:00 INFO Email "cancelled_subscription" for order #59199 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59199}
+2026-08-01T08:03:05+00:00 INFO Email "cancelled_subscription" for order #59197 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59197}
+2026-08-01T08:03:09+00:00 INFO Email "cancelled_subscription" for order #59195 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59195}
+2026-08-01T08:03:15+00:00 INFO Email "cancelled_subscription" for order #59191 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59191}
+2026-08-01T08:03:20+00:00 INFO Email "cancelled_subscription" for order #59189 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59189}
+2026-08-01T08:03:26+00:00 INFO Email "cancelled_subscription" for order #59187 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59187}
+2026-08-01T08:03:30+00:00 INFO Email "cancelled_subscription" for order #59185 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59185}
+2026-08-01T08:03:35+00:00 INFO Email "cancelled_subscription" for order #59183 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59183}
+2026-08-01T08:03:40+00:00 INFO Email "cancelled_subscription" for order #59181 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59181}
+2026-08-01T08:03:44+00:00 INFO Email "cancelled_subscription" for order #59179 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59179}
+2026-08-01T08:03:49+00:00 INFO Email "cancelled_subscription" for order #59177 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59177}
+2026-08-01T08:03:54+00:00 INFO Email "cancelled_subscription" for order #59175 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59175}
+2026-08-01T08:03:58+00:00 INFO Email "cancelled_subscription" for order #59131 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59131}
+2026-08-01T08:04:02+00:00 INFO Email "cancelled_subscription" for order #59109 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59109}
+2026-08-01T08:04:07+00:00 INFO Email "cancelled_subscription" for order #59107 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59107}
+2026-08-01T08:04:12+00:00 INFO Email "cancelled_subscription" for order #59105 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59105}
+2026-08-01T08:04:16+00:00 INFO Email "cancelled_subscription" for order #59088 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59088}
+2026-08-01T08:04:18+00:00 INFO Email "customer_new_account" for user #1539 sent CONTEXT: {"email_type":"customer_new_account","status":"sent","recipient":"S3 Kumar","user":1539}
+2026-08-01T08:04:21+00:00 INFO Email "cancelled_subscription" for order #59081 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59081}
+2026-08-01T08:04:26+00:00 INFO Email "cancelled_subscription" for order #59077 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59077}
+2026-08-01T08:04:31+00:00 INFO Email "cancelled_subscription" for order #59062 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59062}
+2026-08-01T08:04:36+00:00 INFO Email "cancelled_subscription" for order #59047 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59047}
+2026-08-01T08:04:41+00:00 INFO Email "cancelled_subscription" for order #59008 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59008}
+2026-08-01T08:04:46+00:00 INFO Email "cancelled_subscription" for order #59006 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59006}
+2026-08-01T08:07:00+00:00 INFO Email "customer_new_account" for user #1540 sent CONTEXT: {"email_type":"customer_new_account","status":"sent","recipient":"Aswick","user":1540}
+2026-08-01T08:08:03+00:00 INFO Email "cancelled_subscription" for order #59608 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59608}
+2026-08-01T08:09:02+00:00 INFO Email "cancelled_subscription" for order #59610 sent CONTEXT: {"email_type":"cancelled_subscription","status":"sent","recipient":"superadmin","order":59610}
+2026-08-01T09:49:38+00:00 INFO Email "new_order" for order #59611 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59611}
+2026-08-01T09:49:42+00:00 INFO Email "customer_processing_order" for order #59611 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"S3 Kumar","order":59611}
+2026-08-01T11:53:06+00:00 INFO Email "new_order" for order #59612 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59612}
+2026-08-01T11:53:10+00:00 INFO Email "customer_processing_order" for order #59612 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"S3 Kumar","order":59612}
+2026-08-01T11:54:51+00:00 INFO Email "new_order" for order #59613 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59613}
+2026-08-01T11:54:55+00:00 INFO Email "customer_processing_order" for order #59613 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"S3 Kumar","order":59613}
+2026-08-01T12:23:24+00:00 INFO Email "wps_wswp_wallet_credit" for user #1539 sent CONTEXT: {"email_type":"wps_wswp_wallet_credit","status":"sent","recipient":"S3 Kumar","user":1539}
+2026-08-01T12:25:14+00:00 INFO Email "wps_wswp_wallet_credit" for user #1539 sent CONTEXT: {"email_type":"wps_wswp_wallet_credit","status":"sent","recipient":"S3 Kumar","user":1539}
+2026-08-01T12:36:11+00:00 INFO Email "new_order" for order #59616 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59616}
+2026-08-01T12:36:15+00:00 INFO Email "customer_processing_order" for order #59616 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"S3 Kumar","order":59616}
+2026-08-01T16:00:43+00:00 INFO Email "new_order" for order #59622 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59622}
+2026-08-01T16:00:47+00:00 INFO Email "customer_processing_order" for order #59622 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"S3 Kumar","order":59622}

@@ -1,0 +1,56 @@
+/* Promo banners — Orders page (Milestone & Loyalty) and Settings Shipping tab */
+
+.wt-pklist-promo-banner {
+	background: #fff;
+	border-left: 4px solid #F0AD00;
+	padding: 16px 16px 16px 20px;
+	position: relative;
+	margin-bottom: 12px;
+}
+
+.wt-pklist-promo-dismiss {
+	position: absolute;
+	top: 12px;
+	right: 12px;
+	background: none;
+	border: none;
+	cursor: pointer;
+	font-size: 18px;
+	line-height: 1;
+	color: #555;
+	padding: 0 4px;
+}
+
+.wt-pklist-promo-dismiss:hover {
+	color: #000;
+}
+
+.wt-pklist-promo-title {
+	font-weight: 700;
+	font-size: 14px;
+	margin: 4px 0 6px;
+	padding-right: 24px;
+}
+
+.wt-pklist-promo-body {
+	color: #555;
+	margin: 8px 0 12px;
+	font-size: 13px;
+	line-height: 1.5;
+}
+
+.wt-pklist-promo-btn.button-primary {
+	display: inline-block;
+	text-decoration: none;
+	margin-top: 12px;
+	margin-bottom: 10px;
+}
+
+#wt-pklist-shipping-promo {
+	border-left-color: #007CBA;
+}
+
+#wt-pklist-shipping-promo .wt-pklist-promo-title {
+	font-weight: 500;
+	font-size: 16px;
+}

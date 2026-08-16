@@ -1,0 +1,86 @@
+/* Revolution Slider ---------------------------------------------------------*/
+.elementor-widget-slider_revolution{
+	.slider-2{
+		@include border-radius(20px);
+	}
+	.slider-3{
+		rs-slide{
+			@include border-radius(20px);
+		}
+	}
+	.slider-5{
+		@include border-radius(20px);
+	}
+	.slider-7{
+		@include border-radius(20px 20px 200px 200px);
+		@media (max-width:$screen-sm-max){
+			@include border-radius(20px 20px 100px 100px);
+		}
+		@media (max-width:$screen-xs){
+			@include border-radius(20px 20px 50px 50px);
+		}
+	}
+}
+.btn-slider{
+	font-family:$font-family-three !important;
+	&:after{
+		content:"\e904";
+		font-family:icomoon;
+		display:inline-block;
+		font-size:13px;
+		@include rtl-margin-left(3px);
+		position:relative;
+		line-height:1;
+		top:1px;
+		@include transition(all 0.2s ease);
+	}
+	@media (max-width:$screen-sm-max){
+		font-size:14px !important;
+		line-height:40px !important;
+	}
+	@media (max-width:$screen-xs){
+		font-size:14px !important;
+		line-height:30px !important;
+	}
+}
+.rating-slider{
+	i{
+		margin-left:5px;
+		&:first-child{
+			margin-left:0;
+		}
+	}
+}
+.font-slider-regular{
+	font-family:$font-family-base !important;
+}
+.font-slider-bold{
+	font-family: "Modica Bold"!important;
+}
+.font-slider-medium{
+	font-family: "Modica Medium"!important;
+}
+.font-slider-semibold{
+	font-family: "Modica SemiBold"!important;
+}
+.btn-slider2{
+	&:after{
+		content:"\e90b";
+		font-family:icomoon;
+		display:inline-block;
+		@include square(20px);
+		background:$theme-color;
+		@include border-radius(50%);
+		color:$white;
+		line-height:20px;
+		text-align:center;
+		font-size:7px;
+		position:relative;
+		@include rtl-margin-left(3px);
+		@include rtl-right(-2px);
+		top:-1px;
+		@include transition(all 0.2s ease);
+	}
+	font-size:12px !important;
+	line-height:35px !important;
+}

@@ -1,0 +1,3 @@
+2026-08-04T07:56:31+00:00 INFO Test email "customer_processing_order" for order #0 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"guest","order":0,"is_test":true}
+2026-08-04T07:58:05+00:00 INFO Test email "new_order" for order #0 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"guest","order":0,"is_test":true}
+2026-08-04T07:59:28+00:00 INFO Test email "new_order" for order #0 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"guest","order":0,"is_test":true}

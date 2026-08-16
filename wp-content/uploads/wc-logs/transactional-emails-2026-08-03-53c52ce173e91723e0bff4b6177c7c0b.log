@@ -1,0 +1,8 @@
+2026-08-03T09:57:27+00:00 INFO Test email "wps_wswp_wallet_credit_transfer" for order #0 sent CONTEXT: {"email_type":"wps_wswp_wallet_credit_transfer","status":"sent","recipient":"Sidharthan","order":0,"is_test":true}
+2026-08-03T15:25:41+00:00 INFO Email "wps_wswp_wallet_credit" for user #1533 sent CONTEXT: {"email_type":"wps_wswp_wallet_credit","status":"sent","recipient":"Sidharth test","user":1533}
+2026-08-03T18:59:51+00:00 INFO Email "new_order" for order #59662 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59662}
+2026-08-03T18:59:55+00:00 INFO Email "customer_processing_order" for order #59662 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Test Sibi","order":59662}
+2026-08-03T19:24:13+00:00 INFO Email "new_order" for order #59663 sent CONTEXT: {"email_type":"new_order","status":"sent","recipient":"superadmin","order":59663}
+2026-08-03T19:24:17+00:00 INFO Email "customer_processing_order" for order #59663 sent CONTEXT: {"email_type":"customer_processing_order","status":"sent","recipient":"Test Sibi","order":59663}
+2026-08-03T19:26:08+00:00 NOTICE Email "customer_completed_order" for order #59663 not sent: email type is disabled CONTEXT: {"email_type":"customer_completed_order","status":"disabled","recipient":"Test Sibi","order":59663}
+2026-08-03T19:26:14+00:00 INFO Email "wps_wswp_wallet_credit" for user #1505 sent CONTEXT: {"email_type":"wps_wswp_wallet_credit","status":"sent","recipient":"Test Sibi","user":1505}
