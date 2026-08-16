@@ -487,6 +487,15 @@ class Subscription_API {
 			return $this->unavailable();
 		}
 		try {
+			$sub_id      = absint( $request->get_param( 'id' ) );
+			$raw_dates   = $request->get_param( 'pause_dates' );
+			$dates       = self::parse_pause_dates( $raw_dates );
+			$subscription = function_exists( 'wcs_get_subscription' ) ? wcs_get_subscription( $sub_id ) : false;
+
+			if ( $subscription && ! empty( $dates ) && class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+				Subscription_Delivery::apply_pause( $subscription, $dates, 'customer' );
+			}
+
 			$response = $handler->rest_pause_subscription( $request );
 		} catch ( \Exception $e ) {
 			return new \WP_Error( 'pause_failed', $e->getMessage(), array( 'status' => 409 ) );
@@ -495,7 +504,6 @@ class Subscription_API {
 		// Persist the pause type and echo it back on a successful pause.
 		$pause_type = self::sanitize_pause_type( $request->get_param( 'pause_type' ) );
 		if ( $response instanceof \WP_REST_Response && $response->get_status() >= 200 && $response->get_status() < 300 ) {
-			$sub_id = absint( $request->get_param( 'id' ) );
 			if ( $sub_id ) {
 				update_post_meta( $sub_id, self::META_PAUSE_TYPE, $pause_type );
 			}

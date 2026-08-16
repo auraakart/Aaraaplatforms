@@ -60,6 +60,11 @@ class Subscription_Delivery {
 		add_action( 'wp_ajax_aaraa_sub_next_payment', array( $this, 'ajax_next_payment' ) );
 		add_action( 'wp_ajax_aaraa_sub_pause', array( $this, 'ajax_pause' ) );
 		add_action( 'wp_ajax_aaraa_sub_resume', array( $this, 'ajax_resume' ) );
+
+		add_action( 'aaraa_daily_auto_resume_check', array( $this, 'run_daily_auto_resume_check' ) );
+		if ( ! wp_next_scheduled( 'aaraa_daily_auto_resume_check' ) ) {
+			wp_schedule_event( time(), 'hourly', 'aaraa_daily_auto_resume_check' );
+		}
 	}
 
 	/* --------------------------------------------------------------------- *
@@ -723,11 +728,31 @@ class Subscription_Delivery {
 			return new \WP_Error( 'no_dates', __( 'No dates to pause.', 'aaraa-white-label-admin' ) );
 		}
 		$sub_id = $subscription->get_id();
-		$dates  = array_values( $dates );
-		$resume = gmdate( 'Y-m-d', strtotime( end( $dates ) . ' +1 day' ) );
+
+		// Issue #4: Merge newly posted dates with any existing future pause dates
+		$existing_raw = get_post_meta( $sub_id, self::META_PAUSE, true );
+		$existing     = class_exists( __NAMESPACE__ . '\\Subscription_API' )
+			? Subscription_API::parse_pause_dates( $existing_raw )
+			: array();
+		$today        = current_time( 'Y-m-d' );
+		$future_exist = array_filter( $existing, static function( $d ) use ( $today ) {
+			return $d >= $today;
+		} );
+		$all_dates    = array_values( array_unique( array_merge( $future_exist, $dates ) ) );
+		sort( $all_dates );
+		$dates        = $all_dates;
+		$resume       = gmdate( 'Y-m-d', strtotime( end( $dates ) . ' +1 day' ) );
 
 		update_post_meta( $sub_id, self::META_PAUSE, wp_json_encode( $dates ) );
 		update_post_meta( $sub_id, self::META_RESUME, $resume );
+
+		// Issue #3: Explicitly transition status to 'pause' if today falls within pause dates
+		if ( in_array( $today, $dates, true ) && ! $subscription->has_status( 'pause' ) ) {
+			$subscription->update_status( 'pause', __( 'Subscription paused via pause schedule.', 'aaraa-white-label-admin' ) );
+		}
+
+		// Issue #6: If an order was already generated for any of the paused dates, refund to wallet & mark order refunded
+		self::refund_pre_generated_orders_for_paused_dates( $subscription, $dates, $source );
 
 		// Delegate to WCFM Ultimate's date-scoped engine so the subscription is
 		// paused only on the chosen dates (delivering on any gap days) and the
@@ -740,7 +765,9 @@ class Subscription_Delivery {
 				$WCFMu->wcfmu_wcsubscriptions->sync_pause_status( $sub_id );
 			} else {
 				// Fallback (WCFMu engine unavailable): pause now + single resume cron.
-				$subscription->update_status( 'pause' );
+				if ( in_array( $today, $dates, true ) && ! $subscription->has_status( 'pause' ) ) {
+					$subscription->update_status( 'pause' );
+				}
 				wp_clear_scheduled_hook( self::CRON_RESUME, array( $sub_id ) );
 				wp_schedule_single_event( strtotime( $resume . ' 00:01:00 UTC' ), self::CRON_RESUME, array( $sub_id ) );
 			}
@@ -988,7 +1015,216 @@ class Subscription_Delivery {
 			)
 		);
 
+		// Issue #5: Ensure renewal order for tomorrow's delivery is generated immediately if resuming for tomorrow
+		self::maybe_generate_resume_renewal_order( $subscription );
+
 		return $message;
+	}
+
+	/**
+	 * Refund pre-generated orders when customer pauses for their scheduled dates. (Issue #6)
+	 *
+	 * @param \WC_Subscription $subscription Subscription.
+	 * @param string[]         $dates        Paused Y-m-d dates.
+	 * @param string           $source       Source ('admin' | 'customer').
+	 * @return void
+	 */
+	private static function refund_pre_generated_orders_for_paused_dates( $subscription, array $dates, $source = 'admin' ) {
+		if ( empty( $dates ) ) {
+			return;
+		}
+
+		$related_orders = $subscription->get_related_orders();
+		if ( empty( $related_orders ) ) {
+			return;
+		}
+
+		$user_id = $subscription->get_user_id();
+		if ( ! $user_id ) {
+			return;
+		}
+
+		$decimals = function_exists( 'wc_get_price_decimals' ) ? wc_get_price_decimals() : 2;
+
+		foreach ( $related_orders as $order_id ) {
+			$order = wc_get_order( $order_id );
+			if ( ! $order || $order->get_id() === $subscription->get_parent_id() ) {
+				continue;
+			}
+
+			if ( ! $order->has_status( array( 'processing', 'pending', 'on-hold' ) ) ) {
+				continue;
+			}
+
+			$created_date  = $order->get_date_created() ? $order->get_date_created()->date( 'Y-m-d' ) : '';
+			$delivery_date = (string) $order->get_meta( '_delivery_date' );
+			if ( '' === $delivery_date ) {
+				$delivery_date = $created_date;
+			}
+
+			if ( in_array( $delivery_date, $dates, true ) || in_array( $created_date, $dates, true ) ) {
+				$amount = round( (float) $order->get_total(), $decimals );
+				if ( $amount > 0 && class_exists( __NAMESPACE__ . '\\Customers_Admin' ) ) {
+					$balance     = Customers_Admin::get_wallet_balance( $user_id );
+					$new_balance = round( $balance + $amount, $decimals );
+					Customers_Admin::set_wallet_balance( $user_id, $new_balance );
+
+					global $wpdb;
+					if ( Customers_Admin::wallet_table_exists() ) {
+						$table = $wpdb->prefix . 'wps_wsfw_wallet_transaction';
+						$data  = array(
+							'user_id'            => (int) $user_id,
+							'amount'             => (float) $amount,
+							'currency'           => function_exists( 'get_woocommerce_currency' ) ? get_woocommerce_currency() : '',
+							'transaction_type'   => sprintf( __( 'Wallet refund for paused order #%s', 'aaraa-white-label-admin' ), $order->get_order_number() ),
+							'transaction_type_1' => 'credit',
+							'payment_method'     => __( 'Subscription pause refund', 'aaraa-white-label-admin' ),
+							'transaction_id'     => (string) $order->get_id(),
+							'note'               => sprintf( __( 'Customer paused subscription for %s', 'aaraa-white-label-admin' ), $delivery_date ),
+							'date'               => gmdate( 'Y-m-d H:i:s' ),
+						);
+						$format = array( '%d', '%f', '%s', '%s', '%s', '%s', '%s', '%s', '%s' );
+						if ( Customers_Admin::has_created_by_column() ) {
+							$data['created_by'] = (int) $user_id;
+							$format[]           = '%d';
+						}
+						$wpdb->insert( $table, $data, $format );
+					}
+
+					$note = sprintf(
+						__( 'Order refunded (%1$s credited back to wallet) because customer paused subscription for %2$s.', 'aaraa-white-label-admin' ),
+						self::money( $amount ),
+						$delivery_date
+					);
+					$order->update_status( 'refunded', $note );
+				} else {
+					$order->update_status( 'cancelled', __( 'Order cancelled because customer paused subscription.', 'aaraa-white-label-admin' ) );
+				}
+			}
+		}
+	}
+
+	/**
+	 * When a subscription is resumed today for tomorrow's delivery, generate the renewal order
+	 * immediately so it appears on tonight's 11:59 PM delivery report. (Issue #5)
+	 *
+	 * @param \WC_Subscription $subscription Subscription.
+	 * @return void
+	 */
+	public static function maybe_generate_resume_renewal_order( $subscription ) {
+		if ( ! is_a( $subscription, 'WC_Subscription' ) || ! $subscription->has_status( 'active' ) ) {
+			return;
+		}
+
+		$today    = current_time( 'Y-m-d' );
+		$tomorrow = gmdate( 'Y-m-d', strtotime( $today . ' +1 day' ) );
+
+		if ( ! self::is_delivery_day_for_subscription( $subscription, $tomorrow ) && ! self::is_delivery_day_for_subscription( $subscription, $today ) ) {
+			return;
+		}
+
+		$target_delivery_date = self::is_delivery_day_for_subscription( $subscription, $tomorrow ) ? $tomorrow : $today;
+
+		$related_orders = $subscription->get_related_orders();
+		foreach ( $related_orders as $order_id ) {
+			$order = wc_get_order( $order_id );
+			if ( ! $order || $order->get_id() === $subscription->get_parent_id() ) {
+				continue;
+			}
+			if ( $order->has_status( array( 'processing', 'completed', 'pending', 'on-hold' ) ) ) {
+				$c_date = $order->get_date_created() ? $order->get_date_created()->date( 'Y-m-d' ) : '';
+				$d_date = (string) $order->get_meta( '_delivery_date' );
+				if ( $c_date === $target_delivery_date || $d_date === $target_delivery_date ) {
+					return;
+				}
+			}
+		}
+
+		if ( function_exists( 'wcs_create_renewal_order' ) ) {
+			try {
+				$renewal_order = wcs_create_renewal_order( $subscription );
+				if ( is_a( $renewal_order, 'WC_Order' ) ) {
+					$renewal_order->update_meta_data( '_delivery_date', $target_delivery_date );
+					$renewal_order->save();
+
+					if ( class_exists( __NAMESPACE__ . '\\Renewal_Wallet' ) ) {
+						$rw = new Renewal_Wallet();
+						$rw->debit_on_renewal( $renewal_order, $subscription );
+					}
+
+					$subscription->add_order_note(
+						sprintf(
+							__( 'Renewal order #%1$s generated for resumed delivery on %2$s.', 'aaraa-white-label-admin' ),
+							$renewal_order->get_order_number(),
+							$target_delivery_date
+						)
+					);
+				}
+			} catch ( \Throwable $e ) {
+				// Silently log or handle exception
+			}
+		}
+	}
+
+	/**
+	 * Check if a date (Y-m-d) is a scheduled delivery day for a subscription.
+	 *
+	 * @param \WC_Subscription $subscription Subscription.
+	 * @param string           $date_ymd     Y-m-d date.
+	 * @return bool
+	 */
+	public static function is_delivery_day_for_subscription( $subscription, $date_ymd ) {
+		$sub_id   = $subscription->get_id();
+		$schedule = (string) get_post_meta( $sub_id, self::META_SCHEDULE, true );
+		if ( '' === $schedule ) {
+			return true;
+		}
+
+		$weekday = (int) gmdate( 'w', strtotime( $date_ymd ) );
+
+		if ( 'daily' === $schedule || 'alternate' === $schedule ) {
+			return true;
+		} elseif ( 'weekend' === $schedule ) {
+			return ( 0 === $weekday || 6 === $weekday );
+		} elseif ( 'custom' === $schedule ) {
+			$days = get_post_meta( $sub_id, self::META_DAYS, true );
+			$days = is_array( $days ) ? array_map( 'absint', $days ) : array();
+			return in_array( $weekday, $days, true );
+		}
+
+		return true;
+	}
+
+	/**
+	 * Auto-resume check cron callback. (Issue #5)
+	 *
+	 * @return void
+	 */
+	public function run_daily_auto_resume_check() {
+		if ( ! function_exists( 'wcs_get_subscriptions' ) ) {
+			return;
+		}
+
+		$today = current_time( 'Y-m-d' );
+
+		$paused_subs = wcs_get_subscriptions( array(
+			'subscription_status'    => array( 'pause', 'wc-pause' ),
+			'subscriptions_per_page' => 100,
+		) );
+
+		foreach ( $paused_subs as $subscription ) {
+			$sub_id      = $subscription->get_id();
+			$pause_dates = self::saved_pause_dates( $sub_id );
+			$resume_date = (string) get_post_meta( $sub_id, self::META_RESUME, true );
+
+			$future_dates = array_filter( $pause_dates, static function( $d ) use ( $today ) {
+				return $d >= $today;
+			} );
+
+			if ( empty( $future_dates ) || ( $resume_date && $resume_date <= $today ) ) {
+				self::resume_subscription( $subscription, 'system' );
+			}
+		}
 	}
 
 	/* --------------------------------------------------------------------- *

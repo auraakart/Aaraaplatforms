@@ -47,6 +47,7 @@ class Subscription_Status {
 		add_filter( 'wcs_subscription_statuses', array( $this, 'add_status' ) );
 		add_filter( 'woocommerce_subscriptions_registered_statuses', array( $this, 'register_status' ) );
 		add_filter( 'woocommerce_can_subscription_be_updated_to_pause', array( $this, 'allow_pause' ), 10, 2 );
+		add_filter( 'woocommerce_can_subscription_be_updated_to_wc-pause', array( $this, 'allow_pause' ), 10, 2 );
 		add_filter( 'woocommerce_can_subscription_be_updated_to_active', array( $this, 'allow_resume' ), 10, 2 );
 		add_filter( 'woocommerce_can_subscription_be_updated_to_on-hold', array( $this, 'allow_resume' ), 10, 2 );
 	}

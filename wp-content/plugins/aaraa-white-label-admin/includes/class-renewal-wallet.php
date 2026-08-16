@@ -112,7 +112,27 @@ class Renewal_Wallet {
 
 		// Mark the renewal paid so WooCommerce Subscriptions keeps the
 		// subscription active and schedules the next payment.
-		$renewal_order->payment_complete();
+		// Cap HTTP API timeouts (e.g. WhatsApp/Firebase notifications) to 5 seconds
+		// during renewal payment processing to prevent ActionScheduler 300s timeouts.
+		$cap_timeout = static function() { return 5; };
+		add_filter( 'aaraa_whatsapp_api_timeout', $cap_timeout );
+		add_filter( 'http_request_timeout', $cap_timeout );
+
+		try {
+			$renewal_order->payment_complete();
+
+			// Ensure subscription status is set to active upon successful wallet payment
+			if ( is_a( $subscription, 'WC_Subscription' ) && $subscription->has_status( array( 'on-hold', 'pending' ) ) ) {
+				$subscription->update_status( 'active', __( 'Subscription activated after successful wallet payment.', 'aaraa-white-label-admin' ) );
+			}
+		} catch ( \Throwable $e ) {
+			if ( ! $renewal_order->has_status( array( 'processing', 'completed' ) ) ) {
+				$renewal_order->update_status( 'processing', __( 'Wallet debited for renewal.', 'aaraa-white-label-admin' ) );
+			}
+		} finally {
+			remove_filter( 'aaraa_whatsapp_api_timeout', $cap_timeout );
+			remove_filter( 'http_request_timeout', $cap_timeout );
+		}
 
 		return $renewal_order;
 	}
