@@ -62,17 +62,9 @@ class Subscription_Pause_Report {
 			return array();
 		}
 
-		global $wpdb;
-
-		// Candidate subscriptions: those whose pause-dates meta contains the date.
-		// The LIKE is a coarse filter; membership is verified precisely below.
-		$ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->prepare(
-				"SELECT post_id FROM {$wpdb->postmeta}
-				 WHERE meta_key = '_wcfmu_pause_dates' AND meta_value LIKE %s",
-				'%' . $wpdb->esc_like( $date ) . '%'
-			)
-		);
+		// Candidate subscriptions from live meta AND historical order notes, so
+		// past pause dates (pruned from meta on resume) are still reported.
+		$ids = Pause_History::candidates_for_pause( $date );
 		if ( empty( $ids ) ) {
 			return array();
 		}
@@ -84,11 +76,8 @@ class Subscription_Pause_Report {
 		foreach ( $ids as $sub_id ) {
 			$sub_id = (int) $sub_id;
 
-			// Verify the date is truly one of the chosen pause dates.
-			$dates = class_exists( __NAMESPACE__ . '\\Subscription_API' )
-				? Subscription_API::parse_pause_dates( get_post_meta( $sub_id, '_wcfmu_pause_dates', true ) )
-				: array();
-			if ( ! in_array( $date, $dates, true ) ) {
+			// Verify the date is truly one of the pause dates (meta or notes).
+			if ( ! in_array( $date, Pause_History::pause_dates_for( $sub_id ), true ) ) {
 				continue;
 			}
 

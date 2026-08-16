@@ -63,20 +63,9 @@ class Subscription_Resume_Report {
 			return array();
 		}
 
-		// The pause day that precedes this resume day.
-		$prev = gmdate( 'Y-m-d', strtotime( $date . ' -1 day' ) );
-
-		global $wpdb;
-
-		// Candidate subscriptions: those whose pause-dates meta contains the day
-		// BEFORE the resume date. Membership is verified precisely below.
-		$ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->prepare(
-				"SELECT post_id FROM {$wpdb->postmeta}
-				 WHERE meta_key = '_wcfmu_pause_dates' AND meta_value LIKE %s",
-				'%' . $wpdb->esc_like( $prev ) . '%'
-			)
-		);
+		// Candidate subscriptions from live meta AND historical order notes, so
+		// past resume dates (pruned from meta on resume) are still reported.
+		$ids = Pause_History::candidates_for_resume( $date );
 		if ( empty( $ids ) ) {
 			return array();
 		}
@@ -88,12 +77,8 @@ class Subscription_Resume_Report {
 		foreach ( $ids as $sub_id ) {
 			$sub_id = (int) $sub_id;
 
-			// Verify: the previous day is a pause date and this date is not — i.e.
-			// a pause block ends the day before, so delivery resumes on $date.
-			$dates = class_exists( __NAMESPACE__ . '\\Subscription_API' )
-				? Subscription_API::parse_pause_dates( get_post_meta( $sub_id, '_wcfmu_pause_dates', true ) )
-				: array();
-			if ( ! in_array( $prev, $dates, true ) || in_array( $date, $dates, true ) ) {
+			// Verify the date is truly a resume day for this sub (meta or notes).
+			if ( ! in_array( $date, Pause_History::resume_dates_for( $sub_id ), true ) ) {
 				continue;
 			}
 
