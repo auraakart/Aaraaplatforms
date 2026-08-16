@@ -82,6 +82,25 @@ class Renewal_Wallet {
 
 		$balance = Customers_Admin::get_wallet_balance( $user_id );
 
+		// Check if target delivery date (or tomorrow) is paused by customer (Scenario 1)
+		$sub_id        = $subscription->get_id();
+		$today         = current_time( 'Y-m-d' );
+		$tomorrow      = gmdate( 'Y-m-d', strtotime( $today . ' +1 day' ) );
+		$delivery_date = (string) $renewal_order->get_meta( '_delivery_date' );
+		if ( '' === $delivery_date ) {
+			$delivery_date = $tomorrow;
+		}
+
+		$pause_dates = class_exists( __NAMESPACE__ . '\\Subscription_API' )
+			? Subscription_API::parse_pause_dates( get_post_meta( $sub_id, '_wcfmu_pause_dates', true ) )
+			: array();
+
+		if ( in_array( $delivery_date, $pause_dates, true ) || in_array( $tomorrow, $pause_dates, true ) ) {
+			$renewal_order->update_meta_data( self::DONE_META, 'paused_skipped' );
+			$renewal_order->update_status( 'cancelled', sprintf( __( 'Renewal order skipped — delivery date %s is paused by customer.', 'aaraa-white-label-admin' ), $delivery_date ) );
+			return $renewal_order;
+		}
+
 		// Insufficient balance → don't touch the wallet; hold the subscription.
 		if ( $balance + 0.00001 < $amount ) {
 			$renewal_order->update_meta_data( self::DONE_META, 'insufficient' );
