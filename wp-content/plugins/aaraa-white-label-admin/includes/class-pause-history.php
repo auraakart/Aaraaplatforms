@@ -33,10 +33,11 @@ class Pause_History {
 	private static $note_cache = array();
 
 	/**
-	 * The pause-schedule order notes for a subscription (those with a resumes block).
+	 * The pause-schedule order notes for a subscription (those with a resumes
+	 * block), each as an object with the note text and its GMT timestamp.
 	 *
 	 * @param int $sub_id Subscription id.
-	 * @return string[]
+	 * @return array<int,object{content:string,ts:int}>
 	 */
 	private static function notes_for( $sub_id ) {
 		$sub_id = (int) $sub_id;
@@ -44,16 +45,23 @@ class Pause_History {
 			return self::$note_cache[ $sub_id ];
 		}
 		global $wpdb;
-		$rows = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+		$rows = $wpdb->get_results( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->prepare(
-				"SELECT comment_content FROM {$wpdb->comments}
+				"SELECT comment_content AS content, comment_date_gmt AS dt FROM {$wpdb->comments}
 				 WHERE comment_type = 'order_note' AND comment_post_ID = %d AND comment_content LIKE %s",
 				$sub_id,
 				'%(resumes %'
 			)
 		);
-		self::$note_cache[ $sub_id ] = (array) $rows;
-		return self::$note_cache[ $sub_id ];
+		$out = array();
+		foreach ( (array) $rows as $r ) {
+			$out[] = (object) array(
+				'content' => (string) $r->content,
+				'ts'      => $r->dt ? (int) strtotime( $r->dt . ' UTC' ) : 0,
+			);
+		}
+		self::$note_cache[ $sub_id ] = $out;
+		return $out;
 	}
 
 	/**
@@ -124,8 +132,8 @@ class Pause_History {
 		foreach ( self::meta_pause_dates( $sub_id ) as $d ) {
 			$set[ $d ] = 1;
 		}
-		foreach ( self::notes_for( $sub_id ) as $content ) {
-			foreach ( self::parse_pairs( $content ) as $p ) {
+		foreach ( self::notes_for( $sub_id ) as $note ) {
+			foreach ( self::parse_pairs( $note->content ) as $p ) {
 				foreach ( self::expand_range( $p['pause'] ) as $d ) {
 					$set[ $d ] = 1;
 				}
@@ -157,12 +165,52 @@ class Pause_History {
 		if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $resume_meta ) ) {
 			$set[ $resume_meta ] = 1;
 		}
-		foreach ( self::notes_for( $sub_id ) as $content ) {
-			foreach ( self::parse_pairs( $content ) as $p ) {
+		foreach ( self::notes_for( $sub_id ) as $note ) {
+			foreach ( self::parse_pairs( $note->content ) as $p ) {
 				$set[ $p['resume'] ] = 1;
 			}
 		}
 		return array_keys( $set );
+	}
+
+	/**
+	 * When the pause covering $date was actioned (max order-note GMT timestamp
+	 * whose block includes $date). 0 when unknown.
+	 *
+	 * @param int    $sub_id Subscription id.
+	 * @param string $date   Y-m-d.
+	 * @return int
+	 */
+	public static function pause_action_time( $sub_id, $date ) {
+		$best = 0;
+		foreach ( self::notes_for( $sub_id ) as $note ) {
+			foreach ( self::parse_pairs( $note->content ) as $p ) {
+				if ( in_array( $date, self::expand_range( $p['pause'] ), true ) && $note->ts > $best ) {
+					$best = $note->ts;
+				}
+			}
+		}
+		return $best;
+	}
+
+	/**
+	 * When the resume on $date was actioned (max order-note GMT timestamp whose
+	 * resume equals $date). 0 when unknown.
+	 *
+	 * @param int    $sub_id Subscription id.
+	 * @param string $date   Y-m-d.
+	 * @return int
+	 */
+	public static function resume_action_time( $sub_id, $date ) {
+		$best = 0;
+		foreach ( self::notes_for( $sub_id ) as $note ) {
+			foreach ( self::parse_pairs( $note->content ) as $p ) {
+				if ( $p['resume'] === $date && $note->ts > $best ) {
+					$best = $note->ts;
+				}
+			}
+		}
+		return $best;
 	}
 
 	/**

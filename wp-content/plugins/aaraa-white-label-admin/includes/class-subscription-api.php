@@ -45,6 +45,31 @@ class Subscription_API {
 	}
 
 	/**
+	 * Whether a pause_dates value carries no usable dates.
+	 *
+	 * Handles the three accepted shapes: array of dates, single date string, or
+	 * a { start, end } range object.
+	 *
+	 * @param mixed $raw Raw pause_dates value.
+	 * @return bool True when there are no dates to pause on.
+	 */
+	public static function pause_dates_empty( $raw ) {
+		if ( empty( $raw ) ) {
+			return true;
+		}
+		if ( is_array( $raw ) ) {
+			$non_empty = array_filter(
+				$raw,
+				static function ( $d ) {
+					return '' !== trim( (string) $d );
+				}
+			);
+			return 0 === count( $non_empty );
+		}
+		return '' === trim( (string) $raw );
+	}
+
+	/**
 	 * The stored pause type for a subscription (default 'temporary').
 	 *
 	 * @param int $sub_id Subscription id.
@@ -53,6 +78,88 @@ class Subscription_API {
 	public static function get_pause_type( $sub_id ) {
 		$stored = (string) get_post_meta( (int) $sub_id, self::META_PAUSE_TYPE, true );
 		return ( 'permanent' === $stored ) ? 'permanent' : 'temporary';
+	}
+
+	/**
+	 * Expand a request pause_dates value into a flat list of Y-m-d dates.
+	 *
+	 * Accepts the three shapes: single date string, array of dates, or a
+	 * { start, end } range object.
+	 *
+	 * @param mixed $raw Raw pause_dates value.
+	 * @return string[]
+	 */
+	public static function extract_pause_dates( $raw ) {
+		$out = array();
+		if ( is_string( $raw ) ) {
+			$d = trim( $raw );
+			if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $d ) ) {
+				$out[] = $d;
+			}
+		} elseif ( is_array( $raw ) ) {
+			if ( isset( $raw['start'], $raw['end'] ) ) {
+				$cur   = strtotime( (string) $raw['start'] . ' UTC' );
+				$fin   = strtotime( (string) $raw['end'] . ' UTC' );
+				$guard = 0;
+				while ( $cur && $fin && $cur <= $fin && $guard++ < 400 ) {
+					$out[] = gmdate( 'Y-m-d', $cur );
+					$cur  += DAY_IN_SECONDS;
+				}
+			} else {
+				foreach ( $raw as $d ) {
+					$d = trim( (string) $d );
+					if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $d ) ) {
+						$out[] = $d;
+					}
+				}
+			}
+		}
+		return array_values( array_unique( $out ) );
+	}
+
+	/**
+	 * Pause cutoff check.
+	 *
+	 * A date can be paused only while its renewal has not yet been generated. The
+	 * renewal for date D fires at the subscription's next-payment time on D, so
+	 * the cutoff for D = D at the time-of-day of `next_payment` (site/IST). Once
+	 * that moment has passed, pausing D is refused ("contact support").
+	 *
+	 * Future dates always pass (their cutoff is still ahead); only today's date
+	 * can be past cutoff.
+	 *
+	 * @param \WC_Subscription|null $subscription Subscription.
+	 * @param string[]              $dates        Requested pause dates (Y-m-d).
+	 * @return \WP_Error|null WP_Error when a date is past its cutoff, else null.
+	 */
+	public static function pause_cutoff_error( $subscription, array $dates ) {
+		if ( ! $subscription || empty( $dates ) ) {
+			return null;
+		}
+
+		$np_ts   = (int) $subscription->get_time( 'next_payment', 'gmt' );
+		$np_time = $np_ts ? wp_date( 'H:i:s', $np_ts ) : '23:59:59'; // renewal time-of-day (IST)
+		$today   = wp_date( 'Y-m-d' ); // site/IST today
+		$now     = time();
+
+		foreach ( $dates as $d ) {
+			if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $d ) || $d < $today ) {
+				continue; // past dates are discarded by the pause engine anyway
+			}
+			$cutoff = strtotime( $d . ' ' . $np_time . ' +0530' ); // IST → epoch
+			if ( $cutoff && $now >= $cutoff ) {
+				return new \WP_Error(
+					'pause_cutoff_passed',
+					sprintf(
+						/* translators: %s: the pause date (Y-m-d). */
+						__( "You can't pause for %s — the cutoff time has passed. Please contact the support team.", 'aaraa-white-label-admin' ),
+						$d
+					),
+					array( 'status' => 409 )
+				);
+			}
+		}
+		return null;
 	}
 
 	/**
@@ -285,12 +392,16 @@ class Subscription_API {
 				'permission_callback' => '__return_true',
 				'args'                => array(
 					'subscription_id' => array( 'required' => true, 'type' => 'integer' ),
-					'pause_dates'     => array( 'required' => true ),
+					// Optional so a permanent (indefinite) pause can be sent with no
+					// dates; a temporary pause with no dates still fails clearly below.
+					'pause_dates'     => array( 'required' => false, 'default' => array() ),
 					'customer_id'     => array( 'required' => true, 'type' => 'integer' ),
+					// Free string (no enum) so an empty value doesn't 400; it is
+					// normalised to temporary|permanent in the handler, and empty
+					// pause_dates always force 'permanent'.
 					'pause_type'      => array(
 						'required' => false,
 						'type'     => 'string',
-						'enum'     => array( 'temporary', 'permanent' ),
 						'default'  => 'temporary',
 					),
 				),
@@ -486,6 +597,27 @@ class Subscription_API {
 		if ( ! $handler ) {
 			return $this->unavailable();
 		}
+
+		// Branch on pause type / dates:
+		//  - permanent           → indefinite pause (status = pause), no auto-resume.
+		//  - empty dates (temp)  → resume: clear all pause dates + cron, then wallet
+		//                          decides active (>= total) vs on-hold.
+		//  - otherwise           → normal date-scoped temporary pause (WCFM handler).
+		$pause_type = self::sanitize_pause_type( $request->get_param( 'pause_type' ) );
+		if ( 'permanent' === $pause_type ) {
+			return $this->permanent_pause( $request );
+		}
+		if ( self::pause_dates_empty( $request->get_param( 'pause_dates' ) ) ) {
+			return $this->resume_empty_dates( $request );
+		}
+
+		// Cutoff: a date can't be paused once its renewal time has passed.
+		$sub        = function_exists( 'wcs_get_subscription' ) ? wcs_get_subscription( absint( $request->get_param( 'id' ) ) ) : null;
+		$cutoff_err = self::pause_cutoff_error( $sub, self::extract_pause_dates( $request->get_param( 'pause_dates' ) ) );
+		if ( is_wp_error( $cutoff_err ) ) {
+			return $cutoff_err;
+		}
+
 		try {
 			$response = $handler->rest_pause_subscription( $request );
 		} catch ( \Exception $e ) {
@@ -493,7 +625,6 @@ class Subscription_API {
 		}
 
 		// Persist the pause type and echo it back on a successful pause.
-		$pause_type = self::sanitize_pause_type( $request->get_param( 'pause_type' ) );
 		if ( $response instanceof \WP_REST_Response && $response->get_status() >= 200 && $response->get_status() < 300 ) {
 			$sub_id = absint( $request->get_param( 'id' ) );
 			if ( $sub_id ) {
@@ -507,6 +638,137 @@ class Subscription_API {
 		}
 
 		return $response;
+	}
+
+	/**
+	 * Empty pause_dates on a (non-permanent) pause call = RESUME.
+	 *
+	 * Removes every pause date and its cron, then resumes: the subscription goes
+	 * ACTIVE when the wallet balance covers the subscription total, otherwise
+	 * ON-HOLD. Reuses WCFM's own auto-resume routine (wallet check + status +
+	 * note); the pause meta is cleared first so nothing is retained.
+	 *
+	 * @param \WP_REST_Request $request The request (id already normalised, owner checked).
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	private function resume_empty_dates( \WP_REST_Request $request ) {
+		$sub_id       = absint( $request->get_param( 'id' ) );
+		$customer_id  = (int) $request->get_param( 'customer_id' );
+		$subscription = function_exists( 'wcs_get_subscription' ) ? wcs_get_subscription( $sub_id ) : null;
+
+		if ( ! $subscription ) {
+			return new \WP_Error( 'not_found', __( 'Subscription not found.', 'aaraa-white-label-admin' ), array( 'status' => 404 ) );
+		}
+
+		$status = str_replace( 'wc-', '', $subscription->get_status() );
+		if ( in_array( $status, array( 'cancelled', 'expired' ), true ) ) {
+			return new \WP_Error( 'resume_failed', __( 'Cannot resume a cancelled or expired subscription.', 'aaraa-white-label-admin' ), array( 'status' => 409 ) );
+		}
+
+		// Remove ALL pause dates + their cron, and drop the pause-type marker.
+		wp_clear_scheduled_hook( 'wcfmu_begin_pause_subscription', array( $sub_id ) );
+		wp_clear_scheduled_hook( 'wcfmu_auto_resume_subscription', array( $sub_id ) );
+		wp_clear_scheduled_hook( 'wcfmu_sync_pause_subscription', array( $sub_id ) );
+		delete_post_meta( $sub_id, '_wcfmu_pause_dates' );
+		delete_post_meta( $sub_id, '_wcfmu_pause_resume' );
+		delete_post_meta( $sub_id, self::META_PAUSE_TYPE );
+
+		// Resume: wallet >= total → active, else on-hold.
+		$result = array();
+		if ( class_exists( '\\WCFMu_WCSubscriptions' ) ) {
+			$engine = new \WCFMu_WCSubscriptions();
+			$result = (array) $engine->auto_resume_subscription( $sub_id );
+		} else {
+			// Fallback: same wallet rule as WCFM's auto-resume.
+			$wallet     = (float) get_user_meta( $subscription->get_user_id(), 'wps_wallet', true );
+			$total      = (float) $subscription->get_total();
+			$new_status = ( $total > 0 && $wallet >= $total ) ? 'active' : 'on-hold';
+			$subscription->add_order_note(
+				sprintf(
+					/* translators: %d: customer id. */
+					__( 'Resumed via API (customer #%d) — pause dates cleared.', 'aaraa-white-label-admin' ),
+					$customer_id
+				)
+			);
+			$subscription->update_status( $new_status );
+			$result = array( 'status' => $new_status );
+		}
+
+		$fresh      = wcs_get_subscription( $sub_id );
+		$new_status = $fresh ? str_replace( 'wc-', '', $fresh->get_status() ) : ( isset( $result['status'] ) ? $result['status'] : '' );
+
+		return new \WP_REST_Response(
+			array(
+				'id'          => $sub_id,
+				'status'      => $new_status,
+				'is_paused'   => false,
+				'pause_dates' => array(),
+				'resume_date' => null,
+				'pause_type'  => 'temporary',
+				'message'     => isset( $result['message'] ) ? $result['message'] : '',
+			),
+			200
+		);
+	}
+
+	/**
+	 * Permanent (indefinite) pause: set the subscription to `pause` now, with no
+	 * pause dates and no auto-resume. It stays paused until resumed manually.
+	 *
+	 * Any previously scheduled date-based pauses are overridden (their cron
+	 * events and pause meta are cleared).
+	 *
+	 * @param \WP_REST_Request $request The request (id already normalised, owner checked).
+	 * @return \WP_REST_Response|\WP_Error
+	 */
+	private function permanent_pause( \WP_REST_Request $request ) {
+		$sub_id       = absint( $request->get_param( 'id' ) );
+		$customer_id  = (int) $request->get_param( 'customer_id' );
+		$subscription = function_exists( 'wcs_get_subscription' ) ? wcs_get_subscription( $sub_id ) : null;
+
+		if ( ! $subscription ) {
+			return new \WP_Error( 'not_found', __( 'Subscription not found.', 'aaraa-white-label-admin' ), array( 'status' => 404 ) );
+		}
+
+		$status = str_replace( 'wc-', '', $subscription->get_status() );
+		if ( in_array( $status, array( 'cancelled', 'expired' ), true ) ) {
+			return new \WP_Error( 'pause_failed', __( 'Cannot pause a cancelled or expired subscription.', 'aaraa-white-label-admin' ), array( 'status' => 409 ) );
+		}
+
+		// Override any scheduled date-based pause: clear its cron events and meta so
+		// nothing auto-resumes this subscription.
+		wp_clear_scheduled_hook( 'wcfmu_begin_pause_subscription', array( $sub_id ) );
+		wp_clear_scheduled_hook( 'wcfmu_auto_resume_subscription', array( $sub_id ) );
+		wp_clear_scheduled_hook( 'wcfmu_sync_pause_subscription', array( $sub_id ) );
+		delete_post_meta( $sub_id, '_wcfmu_pause_dates' );
+		delete_post_meta( $sub_id, '_wcfmu_pause_resume' );
+
+		update_post_meta( $sub_id, self::META_PAUSE_TYPE, 'permanent' );
+
+		if ( 'pause' !== $status ) {
+			$subscription->update_status( 'pause' );
+		}
+
+		$subscription->add_order_note(
+			sprintf(
+				/* translators: %d: customer id. */
+				__( 'Paused permanently via API (customer #%d) — indefinite, no auto-resume.', 'aaraa-white-label-admin' ),
+				$customer_id
+			)
+		);
+
+		return new \WP_REST_Response(
+			array(
+				'id'           => $sub_id,
+				'status'       => 'pause',
+				'is_paused'    => true,
+				'pause_dates'  => array(),
+				'pause_starts' => null,
+				'resume_date'  => null,
+				'pause_type'   => 'permanent',
+			),
+			200
+		);
 	}
 
 	/**
@@ -526,10 +788,21 @@ class Subscription_API {
 			return $this->unavailable();
 		}
 		try {
-			return $handler->rest_resume_subscription( $request );
+			$response = $handler->rest_resume_subscription( $request );
 		} catch ( \Exception $e ) {
 			return new \WP_Error( 'resume_failed', $e->getMessage(), array( 'status' => 409 ) );
 		}
+
+		// A resumed subscription is no longer permanently paused — clear the type
+		// so reads default back to 'temporary'.
+		if ( $response instanceof \WP_REST_Response && $response->get_status() >= 200 && $response->get_status() < 300 ) {
+			$sub_id = absint( $request->get_param( 'id' ) );
+			if ( $sub_id ) {
+				delete_post_meta( $sub_id, self::META_PAUSE_TYPE );
+			}
+		}
+
+		return $response;
 	}
 
 	/**

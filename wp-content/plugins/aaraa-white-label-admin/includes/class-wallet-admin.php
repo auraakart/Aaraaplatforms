@@ -863,11 +863,28 @@ class Wallet_Admin {
 	 * @return void
 	 */
 	private function render_transaction_search( $search, $per_page ) {
+		// Preserve the active sort when changing entries-per-page or searching.
+		$orderby = isset( $_GET['orderby'] ) ? sanitize_key( wp_unslash( $_GET['orderby'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$order   = isset( $_GET['order'] ) ? sanitize_key( wp_unslash( $_GET['order'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 		?>
 		<form method="get" class="aaraa-wallet__search" style="margin:0 0 12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
 			<input type="hidden" name="page" value="<?php echo esc_attr( self::PAGE ); ?>" />
 			<input type="hidden" name="tab" value="transactions" />
-			<input type="hidden" name="per_page" value="<?php echo esc_attr( $per_page ); ?>" />
+			<?php if ( '' !== $orderby ) : ?>
+				<input type="hidden" name="orderby" value="<?php echo esc_attr( $orderby ); ?>" />
+			<?php endif; ?>
+			<?php if ( '' !== $order ) : ?>
+				<input type="hidden" name="order" value="<?php echo esc_attr( $order ); ?>" />
+			<?php endif; ?>
+			<label class="aaraa-wallet__show" style="display:flex;gap:6px;align-items:center;">
+				<?php esc_html_e( 'Show', 'aaraa-white-label-admin' ); ?>
+				<select name="per_page" onchange="this.form.submit()">
+					<?php foreach ( array( 25, 50, 100, 200, 500 ) as $opt ) : ?>
+						<option value="<?php echo esc_attr( $opt ); ?>" <?php selected( $per_page, $opt ); ?>><?php echo esc_html( $opt ); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<?php esc_html_e( 'entries', 'aaraa-white-label-admin' ); ?>
+			</label>
 			<input type="search" name="s" value="<?php echo esc_attr( $search ); ?>" class="regular-text" style="min-width:320px;" placeholder="<?php esc_attr_e( 'Search customer id, name, email or mobile', 'aaraa-white-label-admin' ); ?>" />
 			<button type="submit" class="button"><?php esc_html_e( 'Search', 'aaraa-white-label-admin' ); ?></button>
 			<?php if ( '' !== $search ) : ?>

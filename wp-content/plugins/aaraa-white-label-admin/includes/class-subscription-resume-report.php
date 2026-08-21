@@ -120,18 +120,39 @@ class Subscription_Resume_Report {
 				'customer' => $name,
 				'mobile'   => $mobile,
 				'products' => implode( ', ', $products ),
+				'status'   => $sub->get_status(),
+				'ts'       => Pause_History::resume_action_time( $sub_id, $date ),
 			);
 		}
 
-		// Newest subscription first.
+		// Most recently resumed first (by when the resume was set), then newest sub.
 		usort(
 			$rows,
 			static function ( $a, $b ) {
+				if ( $a['ts'] !== $b['ts'] ) {
+					return $b['ts'] <=> $a['ts'];
+				}
 				return (int) $b['id'] - (int) $a['id'];
 			}
 		);
 
 		return $rows;
+	}
+
+	/**
+	 * Human-readable subscription status label.
+	 *
+	 * @param string $status Status key (no wc- prefix).
+	 * @return string
+	 */
+	private function status_label( $status ) {
+		if ( function_exists( 'wcs_get_subscription_statuses' ) ) {
+			$all = wcs_get_subscription_statuses();
+			if ( isset( $all[ 'wc-' . $status ] ) ) {
+				return $all[ 'wc-' . $status ];
+			}
+		}
+		return ucwords( str_replace( '-', ' ', (string) $status ) );
 	}
 
 	/**
@@ -196,6 +217,7 @@ class Subscription_Resume_Report {
 						<th><?php esc_html_e( 'Customer Name', 'aaraa-white-label-admin' ); ?></th>
 						<th><?php esc_html_e( 'Mobile', 'aaraa-white-label-admin' ); ?></th>
 						<th><?php esc_html_e( 'Products × Qty', 'aaraa-white-label-admin' ); ?></th>
+						<th><?php esc_html_e( 'Status', 'aaraa-white-label-admin' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -206,11 +228,12 @@ class Subscription_Resume_Report {
 								<td><?php echo $row['customer'] ? esc_html( $row['customer'] ) : '&mdash;'; ?></td>
 								<td><?php echo $row['mobile'] ? esc_html( $row['mobile'] ) : '&mdash;'; ?></td>
 								<td><?php echo $row['products'] ? esc_html( $row['products'] ) : '&mdash;'; ?></td>
+								<td><?php echo esc_html( $this->status_label( $row['status'] ) ); ?></td>
 							</tr>
 						<?php endforeach; ?>
 					<?php else : ?>
 						<tr>
-							<td colspan="4"><?php esc_html_e( 'No subscriptions resume on this date.', 'aaraa-white-label-admin' ); ?></td>
+							<td colspan="5"><?php esc_html_e( 'No subscriptions resume on this date.', 'aaraa-white-label-admin' ); ?></td>
 						</tr>
 					<?php endif; ?>
 				</tbody>

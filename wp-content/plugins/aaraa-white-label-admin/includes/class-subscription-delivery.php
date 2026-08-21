@@ -459,6 +459,38 @@ class Subscription_Delivery {
 					<span class="spinner aaraa-subdel__spinner" style="float:none;margin:0 0 0 6px;"></span>
 				</p>
 
+				<?php
+				// Upcoming pause dates only (today onward) — past dates are kept in
+				// the meta for history but aren't "scheduled" any more.
+				$scheduled = array_values(
+					array_filter(
+						$this->saved_pause_dates( $sub_id ),
+						static function ( $d ) use ( $today ) {
+							return preg_match( '/^\d{4}-\d{2}-\d{2}$/', (string) $d ) && $d >= $today;
+						}
+					)
+				);
+				sort( $scheduled );
+				?>
+				<?php if ( $scheduled ) : ?>
+					<div class="aaraa-subdel__saved">
+						<strong>
+							<?php
+							printf(
+								/* translators: %d: number of scheduled pause dates */
+								esc_html__( 'Scheduled pause dates (%d)', 'aaraa-white-label-admin' ),
+								count( $scheduled )
+							);
+							?>
+						</strong>
+						<ul>
+							<?php foreach ( $scheduled as $d ) : ?>
+								<li><?php echo esc_html( $d ); ?></li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+				<?php endif; ?>
+
 			<?php endif; ?>
 
 			<p class="aaraa-subdel__msg" id="aaraa_sub_pause_msg" role="status" aria-live="polite"></p>
@@ -484,6 +516,10 @@ class Subscription_Delivery {
 			.aaraa-subdel__chips li { display: inline-flex; align-items: center; gap: 5px; margin: 0 5px 5px 0; padding: 3px 6px; background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 3px; font-size: 12px; }
 			.aaraa-subdel__chips button { border: 0; background: none; cursor: pointer; color: #B91C1C; font-size: 14px; line-height: 1; padding: 0; }
 			.aaraa-subdel__warn { color: #B45309; }
+			.aaraa-subdel__saved { margin: 10px 0 0; padding: 8px 10px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 4px; }
+			.aaraa-subdel__saved strong { display: block; font-size: 12px; margin-bottom: 4px; color: #166534; }
+			.aaraa-subdel__saved ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 5px; }
+			.aaraa-subdel__saved li { padding: 2px 7px; background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 3px; font-size: 12px; }
 		</style>
 		<?php
 	}
@@ -722,6 +758,15 @@ class Subscription_Delivery {
 		if ( empty( $dates ) ) {
 			return new \WP_Error( 'no_dates', __( 'No dates to pause.', 'aaraa-white-label-admin' ) );
 		}
+
+		// Cutoff: refuse a date whose renewal time has already passed.
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_API' ) ) {
+			$cutoff_err = Subscription_API::pause_cutoff_error( $subscription, $dates );
+			if ( is_wp_error( $cutoff_err ) ) {
+				return $cutoff_err;
+			}
+		}
+
 		$sub_id = $subscription->get_id();
 		$dates  = array_values( $dates );
 		$resume = gmdate( 'Y-m-d', strtotime( end( $dates ) . ' +1 day' ) );

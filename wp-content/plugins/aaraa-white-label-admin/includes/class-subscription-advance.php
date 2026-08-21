@@ -105,7 +105,7 @@ class Subscription_Advance {
 		// Wallet: record the advance charged on the first order at creation, then
 		// credit it to the customer's wallet when that order is completed.
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'stamp_advance_on_checkout' ), 20, 2 );
-		add_action( 'woocommerce_order_status_completed', array( $this, 'credit_advance_on_complete' ), 20, 2 );
+		add_action( 'woocommerce_order_status_processing', array( $this, 'credit_advance_on_complete' ), 20, 2 );
 	}
 
 	/* --------------------------------------------------------------------- *

@@ -99,6 +99,8 @@ final class Plugin {
 		$this->modules['subadv']   = new Subscription_Advance();
 		$this->modules['subrenew'] = new Subscription_Renewal();
 		$this->modules['renwallet'] = new Renewal_Wallet();
+		$this->modules['renschedguard'] = new Renewal_Schedule_Guard();
+		$this->modules['renpauseguard'] = new Renewal_Pause_Guard();
 		$this->modules['subapi']   = new Subscription_API();
 		$this->modules['custdel']  = new Customer_Delivery();
 		$this->modules['report']   = new Delivery_Report();

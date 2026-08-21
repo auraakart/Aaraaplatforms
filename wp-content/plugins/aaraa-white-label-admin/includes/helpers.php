@@ -219,33 +219,19 @@ function aaraa_asset_ver( $relative ) {
  * @return void
  */
 function aaraa_retain_future_pause_dates( $sub_id ) {
-	$sub_id = (int) $sub_id;
-	$raw    = get_post_meta( $sub_id, '_wcfmu_pause_dates', true );
-	if ( empty( $raw ) ) {
-		return;
-	}
-
-	if ( is_array( $raw ) ) {
-		$list = $raw;
-	} else {
-		$decoded = json_decode( (string) $raw, true );
-		$list    = is_array( $decoded ) ? $decoded : explode( ',', (string) $raw );
-	}
-
-	$today  = current_time( 'Y-m-d' );
-	$future = array();
-	foreach ( $list as $d ) {
-		$d = trim( (string) $d );
-		if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $d ) && $d > $today ) {
-			$future[] = $d;
-		}
-	}
-	$future = array_values( array_unique( $future ) );
-	sort( $future );
-
-	if ( empty( $future ) ) {
-		delete_post_meta( $sub_id, '_wcfmu_pause_dates' );
-	} else {
-		update_post_meta( $sub_id, '_wcfmu_pause_dates', wp_json_encode( $future ) );
-	}
+	/*
+	 * Deliberately a no-op on `_wcfmu_pause_dates`.
+	 *
+	 * Ending a pause (resume / window-passed / renewal skip) must NOT delete or
+	 * prune the subscription's pause dates — they have to persist for the pause /
+	 * resume reports, the renewal-skip guard and the panel's "Scheduled pause
+	 * dates" list. The callers still delete `_wcfmu_pause_resume` separately,
+	 * which is what stops the reconciler from re-scanning a finished window, so
+	 * keeping the dates here has no side effect on status handling.
+	 *
+	 * The old behaviour dropped today + past dates (and deleted the meta when no
+	 * strictly-future date remained), which is exactly what wiped a pause after a
+	 * renewal ran or the next payment was updated. We keep every date instead.
+	 */
+	unset( $sub_id );
 }

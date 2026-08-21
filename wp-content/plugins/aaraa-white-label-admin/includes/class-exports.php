@@ -178,7 +178,7 @@ class Exports {
 		$out = $this->open_csv( ( $is_sub ? 'subscriptions-' : 'orders-' ) . gmdate( 'Ymd-His' ) . '.csv' );
 
 		if ( $is_sub ) {
-			fputcsv( $out, array( 'Subscription', 'Status', 'Customer', 'Mobile', 'Email', 'Recurring Total', 'Start Date', 'Next Payment', 'Delivery Slot', 'Delivery Hub', 'Delivery Boy', 'Items' ) );
+			fputcsv( $out, array( 'Subscription', 'Status', 'Customer', 'Mobile', 'Email', 'Recurring Total', 'Start Date', 'Next Payment', 'Delivery Schedule', 'Pause Dates', 'Delivery Slot', 'Delivery Hub', 'Delivery Boy', 'Items' ) );
 		} else {
 			fputcsv( $out, array( 'Order', 'Date', 'Status', 'Customer', 'Mobile', 'Email', 'Total', 'Payment Method', 'Delivery Slot', 'Delivery Hub', 'Delivery Boy', 'Items', 'Billing Address', 'Shipping Address' ) );
 		}
@@ -228,6 +228,8 @@ class Exports {
 							$order->get_total(),
 							method_exists( $order, 'get_date' ) ? $order->get_date( 'start', 'site' ) : '',
 							method_exists( $order, 'get_date' ) ? $order->get_date( 'next_payment', 'site' ) : '',
+							$this->delivery_schedule_label( $order ),
+							$this->pause_dates_list( $order ),
 							$slot_name,
 							$hub_name,
 							$boy_name,
@@ -459,5 +461,61 @@ class Exports {
 		}
 		$p = explode( '-', $value );
 		return checkdate( (int) $p[1], (int) $p[2], (int) $p[0] ) ? $value : '';
+	}
+
+	/**
+	 * Readable delivery-schedule label for a subscription (type + custom days).
+	 *
+	 * @param \WC_Abstract_Order $order Subscription object.
+	 * @return string e.g. "Custom Day (Tue, Wed)" or "Every Day".
+	 */
+	private function delivery_schedule_label( $order ) {
+		$type = (string) $order->get_meta( '_wcfm_delivery_schedule' );
+		if ( '' === $type ) {
+			return '';
+		}
+
+		$types = class_exists( __NAMESPACE__ . '\\Subscription_Delivery' )
+			? Subscription_Delivery::schedule_types()
+			: array();
+		$label = isset( $types[ $type ] ) ? $types[ $type ] : $type;
+
+		if ( 'custom' === $type ) {
+			$days = $order->get_meta( '_wcfm_delivery_days' );
+			$days = is_array( $days ) ? array_map( 'intval', $days ) : array();
+			if ( ! empty( $days ) && class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+				$names = array();
+				foreach ( Subscription_Delivery::weekdays() as $num => $name ) {
+					if ( in_array( $num, $days, true ) ) {
+						$names[] = $name;
+					}
+				}
+				if ( $names ) {
+					$label .= ' (' . implode( ', ', $names ) . ')';
+				}
+			}
+		}
+
+		return $label;
+	}
+
+	/**
+	 * Semicolon-separated list of a subscription's chosen pause dates.
+	 *
+	 * @param \WC_Abstract_Order $order Subscription object.
+	 * @return string e.g. "2026-08-21; 2026-08-25", or '' if none.
+	 */
+	private function pause_dates_list( $order ) {
+		$raw = $order->get_meta( '_wcfmu_pause_dates' );
+		if ( empty( $raw ) ) {
+			$raw = get_post_meta( $order->get_id(), '_wcfmu_pause_dates', true );
+		}
+		if ( empty( $raw ) ) {
+			return '';
+		}
+		$dates = class_exists( __NAMESPACE__ . '\\Subscription_API' )
+			? Subscription_API::parse_pause_dates( $raw )
+			: array();
+		return implode( '; ', $dates );
 	}
 }
