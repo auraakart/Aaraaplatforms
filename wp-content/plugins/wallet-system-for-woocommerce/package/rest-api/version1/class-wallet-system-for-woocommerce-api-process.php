@@ -216,8 +216,15 @@ if ( ! class_exists( 'Wallet_System_For_Woocommerce_Api_Process' ) ) {
 				$user = get_user_by( 'id', $user_id );
 				if ( $user ) {
 					global $wpdb;
-					$transactions = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'wps_wsfw_wallet_transaction WHERE user_id = %s ORDER BY Id', $user_id ) );
+					$transactions = $wpdb->get_results( $wpdb->prepare( 'SELECT * FROM ' . $wpdb->prefix . 'wps_wsfw_wallet_transaction WHERE user_id = %s ORDER BY Id DESC', $user_id ) );
 					if ( ! empty( $transactions ) && is_array( $transactions ) ) {
+						// The `date` column is stored in UTC (gmdate); return it in the
+						// site timezone (IST) so clients show local time.
+						foreach ( $transactions as $wps_txn ) {
+							if ( isset( $wps_txn->date ) && ! empty( $wps_txn->date ) ) {
+								$wps_txn->date = get_date_from_gmt( $wps_txn->date, 'Y-m-d H:i:s' );
+							}
+						}
 						$wps_wsfw_rest_response['data'] = $transactions;
 					} else {
 						$wps_wsfw_rest_response['data'] = array();
