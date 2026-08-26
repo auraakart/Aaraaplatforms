@@ -116,30 +116,27 @@ class Pause_History {
 	 * @return string[]
 	 */
 	private static function meta_pause_dates( $sub_id ) {
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+			return Subscription_Delivery::read_pause_dates( (int) $sub_id );
+		}
 		return class_exists( __NAMESPACE__ . '\\Subscription_API' )
 			? Subscription_API::parse_pause_dates( get_post_meta( (int) $sub_id, '_wcfmu_pause_dates', true ) )
 			: array();
 	}
 
 	/**
-	 * Every pause date (Y-m-d) for a subscription — live meta + historical notes.
+	 * The current pause dates (Y-m-d) for a subscription.
+	 *
+	 * Uses only the latest pause log — the durable plugin meta (`_aaraa_pause_dates`)
+	 * unioned with the live `_wcfmu_pause_dates` — NOT historical order notes. This
+	 * way a date that was removed from a pause (or superseded by a later edit) no
+	 * longer appears in the report, even though an older order note still mentions it.
 	 *
 	 * @param int $sub_id Subscription id.
 	 * @return string[]
 	 */
 	public static function pause_dates_for( $sub_id ) {
-		$set = array();
-		foreach ( self::meta_pause_dates( $sub_id ) as $d ) {
-			$set[ $d ] = 1;
-		}
-		foreach ( self::notes_for( $sub_id ) as $note ) {
-			foreach ( self::parse_pairs( $note->content ) as $p ) {
-				foreach ( self::expand_range( $p['pause'] ) as $d ) {
-					$set[ $d ] = 1;
-				}
-			}
-		}
-		return array_keys( $set );
+		return self::meta_pause_dates( $sub_id );
 	}
 
 	/**
@@ -165,11 +162,9 @@ class Pause_History {
 		if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $resume_meta ) ) {
 			$set[ $resume_meta ] = 1;
 		}
-		foreach ( self::notes_for( $sub_id ) as $note ) {
-			foreach ( self::parse_pairs( $note->content ) as $p ) {
-				$set[ $p['resume'] ] = 1;
-			}
-		}
+		// Latest log only: derived from current pause meta above — historical order
+		// notes are intentionally not merged in, so removed/superseded resume dates
+		// don't linger.
 		return array_keys( $set );
 	}
 
@@ -214,13 +209,24 @@ class Pause_History {
 	}
 
 	/**
-	 * Candidate subscription ids to test for a pause date (meta + notes).
+	 * Candidate subscription ids to test for a pause date.
+	 *
+	 * Sourced from the current pause meta only — the durable plugin key
+	 * (`_aaraa_pause_dates`) and the live `_wcfmu_pause_dates` — so removed /
+	 * superseded dates recorded only in old order notes are not picked up.
 	 *
 	 * @param string $date Y-m-d.
 	 * @return int[]
 	 */
 	public static function candidates_for_pause( $date ) {
 		global $wpdb;
+		$durable_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare(
+				"SELECT post_id FROM {$wpdb->postmeta}
+				 WHERE meta_key = '_aaraa_pause_dates' AND meta_value LIKE %s",
+				'%' . $wpdb->esc_like( $date ) . '%'
+			)
+		);
 		$meta_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->prepare(
 				"SELECT post_id FROM {$wpdb->postmeta}
@@ -228,19 +234,16 @@ class Pause_History {
 				'%' . $wpdb->esc_like( $date ) . '%'
 			)
 		);
-		$note_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->prepare(
-				"SELECT DISTINCT comment_post_ID FROM {$wpdb->comments}
-				 WHERE comment_type = 'order_note' AND comment_content LIKE %s AND comment_content LIKE %s",
-				'%' . $wpdb->esc_like( $date ) . '%',
-				'%(resumes %'
-			)
-		);
-		return self::merge_ids( $meta_ids, $note_ids );
+		return self::merge_ids( $durable_ids, $meta_ids );
 	}
 
 	/**
-	 * Candidate subscription ids to test for a resume date (meta + notes).
+	 * Candidate subscription ids to test for a resume date.
+	 *
+	 * Sourced from the current pause meta only — the durable plugin key
+	 * (`_aaraa_pause_dates`, previous day) plus the live `_wcfmu_pause_dates`
+	 * (previous day) and `_wcfmu_pause_resume` — so removed / superseded resume
+	 * dates that survive only in old order notes are not picked up.
 	 *
 	 * @param string $date Y-m-d (the resume day).
 	 * @return int[]
@@ -249,6 +252,13 @@ class Pause_History {
 		global $wpdb;
 		$prev = gmdate( 'Y-m-d', strtotime( $date . ' -1 day' ) );
 
+		$durable_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
+			$wpdb->prepare(
+				"SELECT post_id FROM {$wpdb->postmeta}
+				 WHERE meta_key = '_aaraa_pause_dates' AND meta_value LIKE %s",
+				'%' . $wpdb->esc_like( $prev ) . '%'
+			)
+		);
 		$meta_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
 			$wpdb->prepare(
 				"SELECT post_id FROM {$wpdb->postmeta}
@@ -263,14 +273,7 @@ class Pause_History {
 				$date
 			)
 		);
-		$note_ids = $wpdb->get_col( // phpcs:ignore WordPress.DB.DirectDatabaseQuery
-			$wpdb->prepare(
-				"SELECT DISTINCT comment_post_ID FROM {$wpdb->comments}
-				 WHERE comment_type = 'order_note' AND comment_content LIKE %s",
-				'%resumes ' . $wpdb->esc_like( $date ) . '%'
-			)
-		);
-		return self::merge_ids( $meta_ids, $resume_ids, $note_ids );
+		return self::merge_ids( $durable_ids, $meta_ids, $resume_ids );
 	}
 
 	/**

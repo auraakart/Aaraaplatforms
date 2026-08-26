@@ -606,6 +606,7 @@ class Wallet_Admin {
 			'billing_phone',
 			'mobile',
 			'shipping_phone',
+			'wps_wallet_id',
 		);
 	}
 
@@ -622,15 +623,17 @@ class Wallet_Admin {
 	private function search_user_ids( $term ) {
 		global $wpdb;
 		$like = '%' . $wpdb->esc_like( $term ) . '%';
+		$uid  = ctype_digit( trim( (string) $term ) ) ? (int) $term : 0; // exact user-ID match when numeric.
 		$keys = "'" . implode( "','", array_map( 'esc_sql', $this->search_meta_keys() ) ) . "'";
 		$sql  = "SELECT DISTINCT u.ID FROM {$wpdb->users} u
 			LEFT JOIN {$wpdb->usermeta} m ON m.user_id = u.ID AND m.meta_key IN ({$keys})
-			WHERE u.user_login LIKE %s
+			WHERE u.ID = %d
+				OR u.user_login LIKE %s
 				OR u.user_email LIKE %s
 				OR u.display_name LIKE %s
 				OR u.user_nicename LIKE %s
 				OR m.meta_value LIKE %s";
-		$ids = $wpdb->get_col( $wpdb->prepare( $sql, $like, $like, $like, $like, $like ) ); // phpcs:ignore WordPress.DB
+		$ids = $wpdb->get_col( $wpdb->prepare( $sql, $uid, $like, $like, $like, $like, $like ) ); // phpcs:ignore WordPress.DB
 		return array_map( 'intval', (array) $ids );
 	}
 
@@ -641,12 +644,13 @@ class Wallet_Admin {
 	 * the list is correct regardless of which one the site populated, and orders
 	 * numerically by balance.
 	 *
-	 * @param string $search   Search term.
-	 * @param int    $per_page Rows per page.
-	 * @param int    $paged    Page number.
+	 * @param string $search    Search term.
+	 * @param int    $per_page  Rows per page.
+	 * @param int    $paged     Page number.
+	 * @param string $order_sql Safe, whitelisted ORDER BY expression (no "ORDER BY").
 	 * @return array{0:array,1:int,2:int,3:int} rows, total, total_pages, paged.
 	 */
-	private function get_wallet_rows( $search, $per_page, $paged ) {
+	private function get_wallet_rows( $search, $per_page, $paged, $order_sql = '( balance + 0 ) DESC, u.ID ASC' ) {
 		global $wpdb;
 
 		$cap_key = $wpdb->get_blog_prefix() . 'capabilities';
@@ -671,6 +675,7 @@ class Wallet_Admin {
 			"FROM {$wpdb->users} u
 			LEFT JOIN {$wpdb->usermeta} mw ON mw.user_id = u.ID AND mw.meta_key = 'wps_wallet'
 			LEFT JOIN {$wpdb->usermeta} m2 ON m2.user_id = u.ID AND m2.meta_key = '_wps_amount'
+			LEFT JOIN {$wpdb->usermeta} wid ON wid.user_id = u.ID AND wid.meta_key = 'wps_wallet_id'
 			LEFT JOIN {$wpdb->usermeta} cap ON cap.user_id = u.ID AND cap.meta_key = %s
 			WHERE " . implode( ' AND ', $where ),
 			$cap_key
@@ -684,10 +689,11 @@ class Wallet_Admin {
 		$rows = $wpdb->get_results( // phpcs:ignore WordPress.DB
 			$wpdb->prepare(
 				"SELECT u.ID, u.display_name, u.user_email,
+					MAX( wid.meta_value ) AS wallet_id,
 					COALESCE( NULLIF( mw.meta_value, '' ), NULLIF( m2.meta_value, '' ), '0' ) AS balance
 				{$from}
 				GROUP BY u.ID
-				ORDER BY ( balance + 0 ) DESC, u.ID ASC
+				ORDER BY {$order_sql}
 				LIMIT %d OFFSET %d",
 				$per_page,
 				$offset
@@ -707,16 +713,39 @@ class Wallet_Admin {
 		$paged    = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1; // phpcs:ignore WordPress.Security.NonceVerification
 		$search   = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 
-		list( $users, $total, $pages, $paged ) = $this->get_wallet_rows( $search, $per_page, $paged );
+		// Sortable columns: request key => safe ORDER BY expression.
+		$columns = array(
+			'id'      => 'u.ID',
+			'wallet'  => 'wallet_id',
+			'name'    => 'u.display_name',
+			'email'   => 'u.user_email',
+			'balance' => '( balance + 0 )',
+		);
+		$orderby = isset( $_GET['orderby'] ) ? sanitize_key( wp_unslash( $_GET['orderby'] ) ) : 'balance'; // phpcs:ignore WordPress.Security.NonceVerification
+		if ( ! isset( $columns[ $orderby ] ) ) {
+			$orderby = 'balance';
+		}
+		$order     = ( isset( $_GET['order'] ) && 'asc' === strtolower( sanitize_key( wp_unslash( $_GET['order'] ) ) ) ) ? 'ASC' : 'DESC'; // phpcs:ignore WordPress.Security.NonceVerification
+		$order_sql = $columns[ $orderby ] . ' ' . $order . ', u.ID ' . $order;
+
+		list( $users, $total, $pages, $paged ) = $this->get_wallet_rows( $search, $per_page, $paged, $order_sql );
+
+		$sort = array(
+			'orderby' => $orderby,
+			'order'   => $order,
+			'base'    => array( 'tab' => 'list', 'per_page' => $per_page, 's' => $search ),
+		);
 		?>
 		<div class="aaraa-wallet__panel">
 			<form method="get" class="aaraa-wallet__toolbar">
 				<input type="hidden" name="page" value="<?php echo esc_attr( self::PAGE ); ?>" />
 				<input type="hidden" name="tab" value="list" />
+				<input type="hidden" name="orderby" value="<?php echo esc_attr( $orderby ); ?>" />
+				<input type="hidden" name="order" value="<?php echo esc_attr( strtolower( $order ) ); ?>" />
 				<label class="aaraa-wallet__show">
 					<?php esc_html_e( 'Show', 'aaraa-white-label-admin' ); ?>
 					<select name="per_page" onchange="this.form.submit()">
-						<?php foreach ( array( 10, 25, 50, 100 ) as $opt ) : ?>
+						<?php foreach ( array( 10, 25, 50, 100, 200, 500 ) as $opt ) : ?>
 							<option value="<?php echo esc_attr( $opt ); ?>" <?php selected( $per_page, $opt ); ?>><?php echo esc_html( $opt ); ?></option>
 						<?php endforeach; ?>
 					</select>
@@ -724,7 +753,7 @@ class Wallet_Admin {
 				</label>
 				<span class="aaraa-wallet__search">
 					<label><?php esc_html_e( 'Search:', 'aaraa-white-label-admin' ); ?>
-						<input type="search" name="s" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'Name, mobile or email', 'aaraa-white-label-admin' ); ?>" />
+						<input type="search" name="s" value="<?php echo esc_attr( $search ); ?>" placeholder="<?php esc_attr_e( 'User ID, wallet ID, name, mobile or email', 'aaraa-white-label-admin' ); ?>" />
 					</label>
 					<button type="submit" class="button"><?php esc_html_e( 'Search', 'aaraa-white-label-admin' ); ?></button>
 					<?php if ( '' !== $search ) : ?>
@@ -736,21 +765,28 @@ class Wallet_Admin {
 			<table class="widefat striped aaraa-wallet__table">
 				<thead>
 					<tr>
-						<th><?php esc_html_e( 'User ID', 'aaraa-white-label-admin' ); ?></th>
-						<th><?php esc_html_e( 'Name', 'aaraa-white-label-admin' ); ?></th>
-						<th><?php esc_html_e( 'Email', 'aaraa-white-label-admin' ); ?></th>
-						<th><?php esc_html_e( 'Wallet Balance', 'aaraa-white-label-admin' ); ?></th>
+						<?php
+						$this->sort_th( __( 'User ID', 'aaraa-white-label-admin' ), 'id', $sort );
+						$this->sort_th( __( 'Wallet ID', 'aaraa-white-label-admin' ), 'wallet', $sort );
+						$this->sort_th( __( 'Name', 'aaraa-white-label-admin' ), 'name', $sort );
+						$this->sort_th( __( 'Email', 'aaraa-white-label-admin' ), 'email', $sort );
+						$this->sort_th( __( 'Wallet Balance', 'aaraa-white-label-admin' ), 'balance', $sort );
+						?>
 						<th><?php esc_html_e( 'Actions', 'aaraa-white-label-admin' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php if ( empty( $users ) ) : ?>
-						<tr><td colspan="5"><?php esc_html_e( 'No wallets found.', 'aaraa-white-label-admin' ); ?></td></tr>
+						<tr><td colspan="6"><?php esc_html_e( 'No wallets found.', 'aaraa-white-label-admin' ); ?></td></tr>
 					<?php else : ?>
 						<?php foreach ( $users as $user ) : ?>
-							<?php $balance = (float) $user->balance; ?>
+							<?php
+							$balance   = (float) $user->balance;
+							$wallet_id = ! empty( $user->wallet_id ) ? $user->wallet_id : __( 'Not Generated', 'aaraa-white-label-admin' );
+							?>
 							<tr>
 								<td><?php echo esc_html( $user->ID ); ?></td>
+								<td><?php echo esc_html( $wallet_id ); ?></td>
 								<td><?php echo esc_html( $user->display_name ); ?></td>
 								<td><?php echo esc_html( $user->user_email ); ?></td>
 								<td class="aaraa-wallet__amt"><?php echo wp_kses_post( $this->money( $balance ) ); ?></td>
@@ -769,7 +805,7 @@ class Wallet_Admin {
 				</tbody>
 			</table>
 
-			<?php $this->pager( $paged, $pages, array( 'tab' => 'list', 'per_page' => $per_page, 's' => $search ), $total ); ?>
+			<?php $this->pager( $paged, $pages, array( 'tab' => 'list', 'per_page' => $per_page, 's' => $search, 'orderby' => $orderby, 'order' => strtolower( $order ) ), $total ); ?>
 		</div>
 		<?php
 	}
@@ -785,6 +821,8 @@ class Wallet_Admin {
 		$per_page = isset( $_GET['per_page'] ) ? max( 1, absint( $_GET['per_page'] ) ) : 25; // phpcs:ignore WordPress.Security.NonceVerification
 		$paged    = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1; // phpcs:ignore WordPress.Security.NonceVerification
 		$search   = isset( $_GET['s'] ) ? sanitize_text_field( wp_unslash( $_GET['s'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		$from     = $this->clean_date( isset( $_GET['from'] ) ? wp_unslash( $_GET['from'] ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
+		$to       = $this->clean_date( isset( $_GET['to'] ) ? wp_unslash( $_GET['to'] ) : '' ); // phpcs:ignore WordPress.Security.NonceVerification
 
 		if ( ! Customers_Admin::wallet_table_exists() ) {
 			echo '<div class="aaraa-wallet__panel"><p>' . esc_html__( 'The wallet plugin transaction table was not found.', 'aaraa-white-label-admin' ) . '</p></div>';
@@ -795,6 +833,7 @@ class Wallet_Admin {
 		// Sortable columns: request key => safe ORDER BY expression.
 		$columns = array(
 			'date'       => 't.date',
+			'user_id'    => 't.user_id',
 			'customer'   => 'u.display_name',
 			'type'       => 't.transaction_type_1',
 			'amount'     => 't.amount+0',
@@ -812,9 +851,11 @@ class Wallet_Admin {
 
 		$table = $this->table();
 
-		// Optional search across customer id, name, email and mobile.
-		$where   = '';
+		// Build WHERE from search AND an optional date range, combined with AND.
+		$clauses = array();
 		$args    = array();
+
+		// Optional search across customer id, wallet id, name, email and mobile.
 		if ( '' !== $search ) {
 			$like  = '%' . $wpdb->esc_like( $search ) . '%';
 			$conds = array( 'u.display_name LIKE %s', 'u.user_email LIKE %s' );
@@ -826,8 +867,27 @@ class Wallet_Admin {
 			}
 			$conds[] = "t.user_id IN ( SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key IN ( 'billing_phone', 'mobile', 'shipping_phone' ) AND meta_value LIKE %s )";
 			$args[]  = $like;
-			$where   = 'WHERE ( ' . implode( ' OR ', $conds ) . ' )';
+			// Wallet ID (wps_wallet_id) match.
+			$conds[] = "t.user_id IN ( SELECT user_id FROM {$wpdb->usermeta} WHERE meta_key = 'wps_wallet_id' AND meta_value LIKE %s )";
+			$args[]  = $like;
+			$clauses[] = '( ' . implode( ' OR ', $conds ) . ' )';
 		}
+
+		/*
+		 * Date range. The `date` column is stored in UTC (the wallet plugin writes
+		 * gmdate()), while the picker reflects the site timezone (IST). Convert the
+		 * chosen local day boundaries to UTC so the range matches what the admin sees.
+		 */
+		if ( '' !== $from ) {
+			$clauses[] = 't.date >= %s';
+			$args[]    = get_gmt_from_date( $from . ' 00:00:00' );
+		}
+		if ( '' !== $to ) {
+			$clauses[] = 't.date <= %s';
+			$args[]    = get_gmt_from_date( $to . ' 23:59:59' );
+		}
+
+		$where = $clauses ? ( 'WHERE ' . implode( ' AND ', $clauses ) ) : '';
 
 		$count_sql = "SELECT COUNT(*) FROM {$table} t LEFT JOIN {$wpdb->users} u ON t.user_id = u.ID {$where}";
 		$total     = (int) ( empty( $args )
@@ -841,7 +901,7 @@ class Wallet_Admin {
 		$list_sql = "SELECT t.*, u.display_name, u.user_email FROM {$table} t LEFT JOIN {$wpdb->users} u ON t.user_id = u.ID {$where} ORDER BY {$order_sql} LIMIT %d OFFSET %d";
 		$rows     = $wpdb->get_results( $wpdb->prepare( $list_sql, array_merge( $args, array( $per_page, $offset ) ) ) ); // phpcs:ignore WordPress.DB
 
-		$this->render_transaction_search( $search, $per_page );
+		$this->render_transaction_search( $search, $per_page, $from, $to );
 
 		$this->render_transaction_table(
 			(array) $rows,
@@ -849,20 +909,38 @@ class Wallet_Admin {
 			array(
 				'orderby' => $orderby,
 				'order'   => $order,
-				'base'    => array( 'tab' => 'transactions', 'per_page' => $per_page, 's' => $search ),
+				'base'    => array( 'tab' => 'transactions', 'per_page' => $per_page, 's' => $search, 'from' => $from, 'to' => $to ),
 			)
 		);
-		$this->pager( $paged, $pages, array( 'tab' => 'transactions', 'per_page' => $per_page, 's' => $search, 'orderby' => $orderby, 'order' => strtolower( $order ) ), $total );
+		$this->pager( $paged, $pages, array( 'tab' => 'transactions', 'per_page' => $per_page, 's' => $search, 'from' => $from, 'to' => $to, 'orderby' => $orderby, 'order' => strtolower( $order ) ), $total );
 	}
 
 	/**
-	 * Search box for the transactions tab (customer id, name, email or mobile).
+	 * Validate a Y-m-d date string, returning '' if it is not a real date.
+	 *
+	 * @param string $raw Raw input.
+	 * @return string Y-m-d or ''.
+	 */
+	private function clean_date( $raw ) {
+		$raw = trim( sanitize_text_field( (string) $raw ) );
+		if ( '' === $raw || ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $raw ) ) {
+			return '';
+		}
+		$parts = explode( '-', $raw );
+		return checkdate( (int) $parts[1], (int) $parts[2], (int) $parts[0] ) ? $raw : '';
+	}
+
+	/**
+	 * Search box for the transactions tab (customer id, name, email or mobile)
+	 * plus a From/To date range on the transaction date.
 	 *
 	 * @param string $search   Current search term.
 	 * @param int    $per_page Rows per page (preserved across searches).
+	 * @param string $from     From date (Y-m-d) or ''.
+	 * @param string $to       To date (Y-m-d) or ''.
 	 * @return void
 	 */
-	private function render_transaction_search( $search, $per_page ) {
+	private function render_transaction_search( $search, $per_page, $from = '', $to = '' ) {
 		// Preserve the active sort when changing entries-per-page or searching.
 		$orderby = isset( $_GET['orderby'] ) ? sanitize_key( wp_unslash( $_GET['orderby'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
 		$order   = isset( $_GET['order'] ) ? sanitize_key( wp_unslash( $_GET['order'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
@@ -885,9 +963,17 @@ class Wallet_Admin {
 				</select>
 				<?php esc_html_e( 'entries', 'aaraa-white-label-admin' ); ?>
 			</label>
-			<input type="search" name="s" value="<?php echo esc_attr( $search ); ?>" class="regular-text" style="min-width:320px;" placeholder="<?php esc_attr_e( 'Search customer id, name, email or mobile', 'aaraa-white-label-admin' ); ?>" />
+			<input type="search" name="s" value="<?php echo esc_attr( $search ); ?>" class="regular-text" style="min-width:280px;" placeholder="<?php esc_attr_e( 'Search user id, wallet id, name, email or mobile', 'aaraa-white-label-admin' ); ?>" />
+			<label class="aaraa-wallet__show" style="display:flex;gap:6px;align-items:center;">
+				<?php esc_html_e( 'From', 'aaraa-white-label-admin' ); ?>
+				<input type="date" name="from" value="<?php echo esc_attr( $from ); ?>" max="<?php echo esc_attr( $to ); ?>" />
+			</label>
+			<label class="aaraa-wallet__show" style="display:flex;gap:6px;align-items:center;">
+				<?php esc_html_e( 'To', 'aaraa-white-label-admin' ); ?>
+				<input type="date" name="to" value="<?php echo esc_attr( $to ); ?>" min="<?php echo esc_attr( $from ); ?>" />
+			</label>
 			<button type="submit" class="button"><?php esc_html_e( 'Search', 'aaraa-white-label-admin' ); ?></button>
-			<?php if ( '' !== $search ) : ?>
+			<?php if ( '' !== $search || '' !== $from || '' !== $to ) : ?>
 				<a class="button" href="<?php echo esc_url( $this->url( array( 'tab' => 'transactions', 'per_page' => $per_page ) ) ); ?>"><?php esc_html_e( 'Clear', 'aaraa-white-label-admin' ); ?></a>
 			<?php endif; ?>
 		</form>
@@ -949,6 +1035,7 @@ class Wallet_Admin {
 						<?php
 						$this->sort_th( __( 'Date', 'aaraa-white-label-admin' ), 'date', $sort );
 						if ( $with_user ) {
+							$this->sort_th( __( 'User ID', 'aaraa-white-label-admin' ), 'user_id', $sort );
 							$this->sort_th( __( 'Customer', 'aaraa-white-label-admin' ), 'customer', $sort );
 						}
 						$this->sort_th( __( 'Type', 'aaraa-white-label-admin' ), 'type', $sort );
@@ -961,7 +1048,7 @@ class Wallet_Admin {
 				</thead>
 				<tbody>
 					<?php if ( empty( $rows ) ) : ?>
-						<tr><td colspan="<?php echo $with_user ? 7 : 6; ?>"><?php esc_html_e( 'No transactions yet.', 'aaraa-white-label-admin' ); ?></td></tr>
+						<tr><td colspan="<?php echo $with_user ? 8 : 6; ?>"><?php esc_html_e( 'No transactions yet.', 'aaraa-white-label-admin' ); ?></td></tr>
 					<?php else : ?>
 						<?php foreach ( $rows as $row ) : ?>
 							<?php
@@ -974,6 +1061,7 @@ class Wallet_Admin {
 							<tr>
 								<td><?php echo esc_html( $date ); ?></td>
 								<?php if ( $with_user ) : ?>
+									<td><?php echo (int) $row->user_id; ?></td>
 									<td><?php echo esc_html( $row->display_name ? $row->display_name : ( '#' . (int) $row->user_id ) ); ?></td>
 								<?php endif; ?>
 								<td>

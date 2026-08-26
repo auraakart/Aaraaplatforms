@@ -115,28 +115,98 @@ class Subscription_Resume_Report {
 				$products[] = $item->get_name() . ' × ' . (int) $item->get_quantity();
 			}
 
+			$renewal = $this->last_renewal( $sub );
+
 			$rows[] = array(
-				'id'       => $sub_id,
-				'customer' => $name,
-				'mobile'   => $mobile,
-				'products' => implode( ', ', $products ),
-				'status'   => $sub->get_status(),
-				'ts'       => Pause_History::resume_action_time( $sub_id, $date ),
+				'id'             => $sub_id,
+				'customer'       => $name,
+				'mobile'         => $mobile,
+				'products'       => implode( ', ', $products ),
+				'status'         => $sub->get_status(),
+				'ts'             => Pause_History::resume_action_time( $sub_id, $date ),
+				'renewal_id'     => $renewal['id'],
+				'renewal_date'   => $renewal['date'],   // Y-m-d (site local) or ''.
+				'renewal_label'  => $renewal['label'],  // Pretty date+time or ''.
+				'renewal_ts'     => $renewal['ts'],     // Unix ts of last renewal (0 if none).
+				'renewal_status' => $renewal['status'], // Order status key (no wc- prefix).
 			);
 		}
 
-		// Most recently resumed first (by when the resume was set), then newest sub.
+		// Oldest renewal order date first; rows with no renewal fall to the bottom,
+		// then break ties by newest subscription.
 		usort(
 			$rows,
 			static function ( $a, $b ) {
-				if ( $a['ts'] !== $b['ts'] ) {
-					return $b['ts'] <=> $a['ts'];
+				$a_has = $a['renewal_ts'] > 0;
+				$b_has = $b['renewal_ts'] > 0;
+				if ( $a_has !== $b_has ) {
+					return $a_has ? -1 : 1; // rows with a renewal come before those without.
+				}
+				if ( $a['renewal_ts'] !== $b['renewal_ts'] ) {
+					return $a['renewal_ts'] <=> $b['renewal_ts']; // oldest first.
 				}
 				return (int) $b['id'] - (int) $a['id'];
 			}
 		);
 
 		return $rows;
+	}
+
+	/**
+	 * The most recent renewal order for a subscription.
+	 *
+	 * @param \WC_Subscription $sub Subscription object.
+	 * @return array{id:int,date:string,label:string,ts:int,status:string}
+	 */
+	private function last_renewal( $sub ) {
+		$empty = array(
+			'id'     => 0,
+			'date'   => '',
+			'label'  => '',
+			'ts'     => 0,
+			'status' => '',
+		);
+
+		if ( ! is_object( $sub ) || ! method_exists( $sub, 'get_related_orders' ) ) {
+			return $empty;
+		}
+
+		$ids = $sub->get_related_orders( 'ids', 'renewal' );
+		if ( empty( $ids ) ) {
+			return $empty;
+		}
+
+		// Pick the renewal with the newest creation date.
+		$best_id     = 0;
+		$best_ts     = 0;
+		$best_date   = null;
+		$best_status = '';
+		foreach ( (array) $ids as $oid ) {
+			$order = wc_get_order( (int) $oid );
+			if ( ! $order ) {
+				continue;
+			}
+			$created = $order->get_date_created();
+			$ts      = $created ? $created->getTimestamp() : 0;
+			if ( $ts >= $best_ts ) {
+				$best_ts     = $ts;
+				$best_id     = (int) $oid;
+				$best_date   = $created;
+				$best_status = $order->get_status();
+			}
+		}
+
+		if ( ! $best_id ) {
+			return $empty;
+		}
+
+		return array(
+			'id'     => $best_id,
+			'date'   => $best_date ? $best_date->date_i18n( 'Y-m-d' ) : '',
+			'label'  => $best_date ? $best_date->date_i18n( get_option( 'date_format' ) . ' ' . get_option( 'time_format' ) ) : '',
+			'ts'     => $best_ts,
+			'status' => $best_status,
+		);
 	}
 
 	/**
@@ -218,22 +288,39 @@ class Subscription_Resume_Report {
 						<th><?php esc_html_e( 'Mobile', 'aaraa-white-label-admin' ); ?></th>
 						<th><?php esc_html_e( 'Products × Qty', 'aaraa-white-label-admin' ); ?></th>
 						<th><?php esc_html_e( 'Status', 'aaraa-white-label-admin' ); ?></th>
+						<th><?php esc_html_e( 'Last Renewal Order ID', 'aaraa-white-label-admin' ); ?></th>
+						<th><?php esc_html_e( 'Last Renewal Order Date', 'aaraa-white-label-admin' ); ?></th>
+						<th><?php esc_html_e( 'Last Renewal Order Status', 'aaraa-white-label-admin' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php if ( $rows ) : ?>
-						<?php foreach ( $rows as $row ) : ?>
-							<tr>
+						<?php
+						$today_ymd = current_time( 'Y-m-d' );
+						foreach ( $rows as $row ) :
+							// Flag rows whose last renewal order date is NOT today.
+							$not_today = ( $row['renewal_date'] !== $today_ymd );
+							?>
+							<tr<?php echo $not_today ? ' style="background:#FDE2E1;"' : ''; ?>>
 								<td><a href="<?php echo esc_url( admin_url( 'post.php?post=' . $row['id'] . '&action=edit' ) ); ?>">#<?php echo (int) $row['id']; ?></a></td>
 								<td><?php echo $row['customer'] ? esc_html( $row['customer'] ) : '&mdash;'; ?></td>
 								<td><?php echo $row['mobile'] ? esc_html( $row['mobile'] ) : '&mdash;'; ?></td>
 								<td><?php echo $row['products'] ? esc_html( $row['products'] ) : '&mdash;'; ?></td>
 								<td><?php echo esc_html( $this->status_label( $row['status'] ) ); ?></td>
+								<td>
+									<?php if ( $row['renewal_id'] ) : ?>
+										<a href="<?php echo esc_url( admin_url( 'post.php?post=' . $row['renewal_id'] . '&action=edit' ) ); ?>">#<?php echo (int) $row['renewal_id']; ?></a>
+									<?php else : ?>
+										&mdash;
+									<?php endif; ?>
+								</td>
+								<td><?php echo $row['renewal_label'] ? esc_html( $row['renewal_label'] ) : '&mdash;'; ?></td>
+								<td><?php echo $row['renewal_status'] ? esc_html( wc_get_order_status_name( $row['renewal_status'] ) ) : '&mdash;'; ?></td>
 							</tr>
 						<?php endforeach; ?>
 					<?php else : ?>
 						<tr>
-							<td colspan="5"><?php esc_html_e( 'No subscriptions resume on this date.', 'aaraa-white-label-admin' ); ?></td>
+							<td colspan="8"><?php esc_html_e( 'No subscriptions resume on this date.', 'aaraa-white-label-admin' ); ?></td>
 						</tr>
 					<?php endif; ?>
 				</tbody>

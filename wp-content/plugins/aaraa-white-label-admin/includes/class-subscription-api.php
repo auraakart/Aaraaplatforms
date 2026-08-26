@@ -207,8 +207,10 @@ class Subscription_API {
 			return $response;
 		}
 
-		/* Pause data. */
-		$pause_dates = self::parse_pause_dates( get_post_meta( $sub_id, '_wcfmu_pause_dates', true ) );
+		/* Pause data (durable plugin key unioned with the legacy WCFMu key). */
+		$pause_dates = class_exists( __NAMESPACE__ . '\\Subscription_Delivery' )
+			? Subscription_Delivery::read_pause_dates( $sub_id )
+			: self::parse_pause_dates( get_post_meta( $sub_id, '_wcfmu_pause_dates', true ) );
 		$resume_date = (string) get_post_meta( $sub_id, '_wcfmu_pause_resume', true );
 
 		$status = isset( $response->data['status'] ) ? $response->data['status'] : '';
@@ -618,6 +620,17 @@ class Subscription_API {
 			return $cutoff_err;
 		}
 
+		// Snapshot today-or-future pause dates before the WCFMu handler applies the
+		// new ones, so the wallet reconciler can spot newly-paused deliveries (to
+		// refund) and un-paused deliveries (to create + charge) afterwards.
+		$reconcile_today = current_time( 'Y-m-d' );
+		$old_future      = array();
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+			$old_future = array_values( array_filter( Subscription_Delivery::read_pause_dates( absint( $request->get_param( 'id' ) ), $sub ), static function ( $d ) use ( $reconcile_today ) {
+				return $d >= $reconcile_today;
+			} ) );
+		}
+
 		try {
 			$response = $handler->rest_pause_subscription( $request );
 		} catch ( \Exception $e ) {
@@ -629,6 +642,54 @@ class Subscription_API {
 			$sub_id = absint( $request->get_param( 'id' ) );
 			if ( $sub_id ) {
 				update_post_meta( $sub_id, self::META_PAUSE_TYPE, $pause_type );
+				// Mirror the resulting pause dates into the durable, plugin-owned key,
+				// writing BOTH the CRUD object and post meta so an app-set pause
+				// survives WCFMu/WCS (and any HPOS re-sync) clearing it later.
+				if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+					$dates = self::parse_pause_dates( get_post_meta( $sub_id, '_wcfmu_pause_dates', true ) );
+					if ( ! $dates && $sub && method_exists( $sub, 'get_meta' ) ) {
+						$dates = self::parse_pause_dates( $sub->get_meta( '_wcfmu_pause_dates' ) );
+					}
+					if ( $dates ) {
+						$json = wp_json_encode( $dates );
+						if ( $sub && method_exists( $sub, 'update_meta_data' ) ) {
+							$sub->update_meta_data( Subscription_Delivery::META_PAUSE_DURABLE, $json );
+							$sub->update_meta_data( '_wcfmu_pause_dates', $json );
+							$sub->save();
+						}
+						update_post_meta( $sub_id, Subscription_Delivery::META_PAUSE_DURABLE, $json );
+						update_post_meta( $sub_id, '_wcfmu_pause_dates', $json );
+					}
+
+					// Reconcile wallet money with the calendar change (refund newly
+					// paused deliveries, create + charge un-paused ones). Same logic
+					// the web/admin path runs from apply_pause().
+					if ( class_exists( __NAMESPACE__ . '\\Renewal_Wallet' ) && $dates ) {
+						$new_future = array_values( array_filter( $dates, static function ( $d ) use ( $reconcile_today ) {
+							return $d >= $reconcile_today;
+						} ) );
+						$reconcile_sub = wcs_get_subscription( $sub_id );
+						if ( $reconcile_sub ) {
+							( new Renewal_Wallet() )->reconcile_pause_change( $reconcile_sub, $old_future, $new_future );
+						}
+					}
+				}
+
+				// Notify the customer across every enabled channel (SMS / Email /
+				// WhatsApp). The web/admin path fires this from apply_pause(); the
+				// API delegates to WCFMu, so fire it here for the app path.
+				if ( class_exists( __NAMESPACE__ . '\\Notifications_Admin' ) ) {
+					$notify_dates = self::parse_pause_dates( get_post_meta( $sub_id, '_wcfmu_pause_dates', true ) );
+					if ( ! $notify_dates && $sub && method_exists( $sub, 'get_meta' ) ) {
+						$notify_dates = self::parse_pause_dates( $sub->get_meta( '_wcfmu_pause_dates' ) );
+					}
+					$notify_sub = wcs_get_subscription( $sub_id );
+					if ( $notify_dates && $notify_sub ) {
+						sort( $notify_dates );
+						$resume = gmdate( 'Y-m-d', strtotime( end( $notify_dates ) . ' +1 day' ) );
+						Notifications_Admin::send_pause_notifications( $notify_sub, $notify_dates, $resume );
+					}
+				}
 			}
 			$data = $response->get_data();
 			if ( is_array( $data ) ) {
@@ -669,8 +730,21 @@ class Subscription_API {
 		wp_clear_scheduled_hook( 'wcfmu_begin_pause_subscription', array( $sub_id ) );
 		wp_clear_scheduled_hook( 'wcfmu_auto_resume_subscription', array( $sub_id ) );
 		wp_clear_scheduled_hook( 'wcfmu_sync_pause_subscription', array( $sub_id ) );
+		// Delete from BOTH stores (CRUD object + post meta) so an HPOS re-sync
+		// can't resurrect the cleared dates.
+		if ( $subscription && method_exists( $subscription, 'delete_meta_data' ) ) {
+			$subscription->delete_meta_data( '_wcfmu_pause_dates' );
+			$subscription->delete_meta_data( '_wcfmu_pause_resume' );
+			if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+				$subscription->delete_meta_data( Subscription_Delivery::META_PAUSE_DURABLE );
+			}
+			$subscription->save();
+		}
 		delete_post_meta( $sub_id, '_wcfmu_pause_dates' );
 		delete_post_meta( $sub_id, '_wcfmu_pause_resume' );
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+			delete_post_meta( $sub_id, Subscription_Delivery::META_PAUSE_DURABLE );
+		}
 		delete_post_meta( $sub_id, self::META_PAUSE_TYPE );
 
 		// Resume: wallet >= total → active, else on-hold.
@@ -740,8 +814,21 @@ class Subscription_API {
 		wp_clear_scheduled_hook( 'wcfmu_begin_pause_subscription', array( $sub_id ) );
 		wp_clear_scheduled_hook( 'wcfmu_auto_resume_subscription', array( $sub_id ) );
 		wp_clear_scheduled_hook( 'wcfmu_sync_pause_subscription', array( $sub_id ) );
+		// Delete from BOTH stores (CRUD object + post meta) so an HPOS re-sync
+		// can't resurrect the cleared dates.
+		if ( $subscription && method_exists( $subscription, 'delete_meta_data' ) ) {
+			$subscription->delete_meta_data( '_wcfmu_pause_dates' );
+			$subscription->delete_meta_data( '_wcfmu_pause_resume' );
+			if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+				$subscription->delete_meta_data( Subscription_Delivery::META_PAUSE_DURABLE );
+			}
+			$subscription->save();
+		}
 		delete_post_meta( $sub_id, '_wcfmu_pause_dates' );
 		delete_post_meta( $sub_id, '_wcfmu_pause_resume' );
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+			delete_post_meta( $sub_id, Subscription_Delivery::META_PAUSE_DURABLE );
+		}
 
 		update_post_meta( $sub_id, self::META_PAUSE_TYPE, 'permanent' );
 

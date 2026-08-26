@@ -237,11 +237,13 @@ class Renewal_Schedule_Guard {
 		$ok     = false;
 
 		do {
-			$new_ts += DAY_IN_SECONDS;
-			$day     = wp_date( 'Y-m-d', $new_ts );
+			$new_ts  += DAY_IN_SECONDS;
+			$day      = wp_date( 'Y-m-d', $new_ts );                     // candidate renewal day D.
+			$delivery = wp_date( 'Y-m-d', $new_ts + DAY_IN_SECONDS );    // its delivery day D+1.
 			$guard++;
+			// Prep is one day ahead, so the pause check is on the delivery day (D+1).
 			$is_pause = class_exists( __NAMESPACE__ . '\\Renewal_Pause_Guard' )
-				&& Renewal_Pause_Guard::is_pause_date( $sub_id, $day );
+				&& Renewal_Pause_Guard::is_pause_date( $sub_id, $delivery );
 			$ok = ( $new_ts > $now )
 				&& self::is_renewal_day( $sub_id, $day, $sub )
 				&& ! $is_pause;

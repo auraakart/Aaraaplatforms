@@ -180,7 +180,7 @@ class Exports {
 		if ( $is_sub ) {
 			fputcsv( $out, array( 'Subscription', 'Status', 'Customer', 'Mobile', 'Email', 'Recurring Total', 'Start Date', 'Next Payment', 'Delivery Schedule', 'Pause Dates', 'Delivery Slot', 'Delivery Hub', 'Delivery Boy', 'Items' ) );
 		} else {
-			fputcsv( $out, array( 'Order', 'Date', 'Status', 'Customer', 'Mobile', 'Email', 'Total', 'Payment Method', 'Delivery Slot', 'Delivery Hub', 'Delivery Boy', 'Items', 'Billing Address', 'Shipping Address' ) );
+			fputcsv( $out, array( 'Order', 'Subscription', 'Order Type', 'Date', 'Status', 'Customer', 'Mobile', 'Email', 'Total', 'Payment Method', 'Delivery Slot', 'Delivery Hub', 'Delivery Boy', 'Items', 'Billing Address', 'Shipping Address' ) );
 		}
 
 		$page = 1;
@@ -242,6 +242,8 @@ class Exports {
 						$out,
 						array(
 							$order->get_order_number(),
+							$this->subscription_ids_for( $order ),
+							$this->order_type_label( $order ),
 							$created ? $created->date( 'Y-m-d H:i' ) : '',
 							$order->get_status(),
 							$name,
@@ -500,12 +502,70 @@ class Exports {
 	}
 
 	/**
+	 * Semicolon-separated list of the subscription id(s) an order relates to.
+	 *
+	 * Covers the parent order that created a subscription and every renewal
+	 * order; a plain order returns ''.
+	 *
+	 * @param \WC_Abstract_Order $order Order.
+	 * @return string e.g. "58641", or '' when the order has no subscription.
+	 */
+	private function subscription_ids_for( $order ) {
+		if ( ! function_exists( 'wcs_get_subscriptions_for_order' ) ) {
+			return '';
+		}
+		$subs = wcs_get_subscriptions_for_order( $order, array( 'order_type' => 'any' ) );
+		if ( empty( $subs ) ) {
+			return '';
+		}
+		$ids = array();
+		foreach ( $subs as $sid => $sub ) {
+			$ids[] = ( is_object( $sub ) && method_exists( $sub, 'get_id' ) ) ? (int) $sub->get_id() : (int) $sid;
+		}
+		return implode( '; ', $ids );
+	}
+
+	/**
+	 * Human-readable order type: One time, Subscription parent, Subscription
+	 * renewal, or Wallet (a wallet recharge / top-up order).
+	 *
+	 * @param \WC_Abstract_Order $order Order.
+	 * @return string
+	 */
+	private function order_type_label( $order ) {
+		// Wallet recharge / top-up order — flagged by the wallet plugin, or an order
+		// whose line contains the configured rechargeable product.
+		if ( 'yes' === $order->get_meta( 'wps_wallet_recharge_order' ) ) {
+			return __( 'Wallet', 'aaraa-white-label-admin' );
+		}
+		$recharge_pid = (int) get_option( 'wps_wsfw_rechargeable_product_id', 0 );
+		if ( $recharge_pid ) {
+			foreach ( $order->get_items() as $item ) {
+				if ( method_exists( $item, 'get_product_id' ) && (int) $item->get_product_id() === $recharge_pid ) {
+					return __( 'Wallet', 'aaraa-white-label-admin' );
+				}
+			}
+		}
+
+		if ( function_exists( 'wcs_order_contains_renewal' ) && wcs_order_contains_renewal( $order ) ) {
+			return __( 'Subscription renewal', 'aaraa-white-label-admin' );
+		}
+		if ( function_exists( 'wcs_order_contains_subscription' ) && wcs_order_contains_subscription( $order, 'parent' ) ) {
+			return __( 'Subscription parent', 'aaraa-white-label-admin' );
+		}
+		return __( 'One time', 'aaraa-white-label-admin' );
+	}
+
+	/**
 	 * Semicolon-separated list of a subscription's chosen pause dates.
 	 *
 	 * @param \WC_Abstract_Order $order Subscription object.
 	 * @return string e.g. "2026-08-21; 2026-08-25", or '' if none.
 	 */
 	private function pause_dates_list( $order ) {
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+			return implode( '; ', Subscription_Delivery::read_pause_dates( $order->get_id() ) );
+		}
 		$raw = $order->get_meta( '_wcfmu_pause_dates' );
 		if ( empty( $raw ) ) {
 			$raw = get_post_meta( $order->get_id(), '_wcfmu_pause_dates', true );

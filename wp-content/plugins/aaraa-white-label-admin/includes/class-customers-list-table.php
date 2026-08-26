@@ -118,19 +118,34 @@ class Customers_List_Table extends \WP_List_Table {
 		global $wpdb;
 
 		$like = '%' . $wpdb->esc_like( $term ) . '%';
+		$uid  = ctype_digit( trim( (string) $term ) ) ? (int) $term : 0; // exact customer/user ID match when numeric.
 		$keys = "'" . implode( "','", array_map( 'esc_sql', self::search_meta_keys() ) ) . "'";
 
 		$sql = "SELECT DISTINCT u.ID FROM {$wpdb->users} u
 			LEFT JOIN {$wpdb->usermeta} m ON m.user_id = u.ID AND m.meta_key IN ({$keys})
-			WHERE u.user_login LIKE %s
+			WHERE u.ID = %d
+				OR u.user_login LIKE %s
 				OR u.user_email LIKE %s
 				OR u.display_name LIKE %s
 				OR u.user_nicename LIKE %s
 				OR m.meta_value LIKE %s";
 
-		$ids = $wpdb->get_col( $wpdb->prepare( $sql, $like, $like, $like, $like, $like ) ); // phpcs:ignore WordPress.DB
+		$ids = array_map( 'intval', (array) $wpdb->get_col( $wpdb->prepare( $sql, $uid, $like, $like, $like, $like, $like ) ) ); // phpcs:ignore WordPress.DB
 
-		return array_map( 'intval', (array) $ids );
+		// A numeric term may also be an order or subscription ID — include that
+		// order/subscription's customer. wc_get_order() returns both types and is
+		// HPOS-aware, returning false for an ID that is neither.
+		if ( $uid && function_exists( 'wc_get_order' ) ) {
+			$order = wc_get_order( $uid );
+			if ( $order && method_exists( $order, 'get_customer_id' ) ) {
+				$cust = (int) $order->get_customer_id();
+				if ( $cust ) {
+					$ids[] = $cust;
+				}
+			}
+		}
+
+		return array_values( array_unique( $ids ) );
 	}
 
 	/**

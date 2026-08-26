@@ -582,7 +582,7 @@ class Customers_Admin {
 			<form method="get">
 				<input type="hidden" name="page" value="<?php echo esc_attr( self::PAGE ); ?>" />
 				<?php
-				$table->search_box( __( 'Search name, email or mobile', 'aaraa-white-label-admin' ), 'aaraa-customer' );
+				$table->search_box( __( 'Search customer / order / subscription ID, name, email or mobile', 'aaraa-white-label-admin' ), 'aaraa-customer' );
 				$table->display();
 				?>
 			</form>

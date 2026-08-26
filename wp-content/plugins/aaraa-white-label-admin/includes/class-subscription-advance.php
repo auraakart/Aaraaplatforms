@@ -106,6 +106,80 @@ class Subscription_Advance {
 		// credit it to the customer's wallet when that order is completed.
 		add_action( 'woocommerce_checkout_create_order', array( $this, 'stamp_advance_on_checkout' ), 20, 2 );
 		add_action( 'woocommerce_order_status_processing', array( $this, 'credit_advance_on_complete' ), 20, 2 );
+
+		// The one-time advance belongs ONLY to the first order. WCS copies order
+		// meta parent -> subscription -> renewal, so strip the advance meta (and any
+		// copied "Advance" fee line) from every renewal at creation — before the
+		// wallet debit runs — so a renewal is always billed at the product amount.
+		add_filter( 'wcs_renewal_order_meta', array( $this, 'exclude_advance_meta_on_copy' ), 10, 1 );
+		add_filter( 'wcs_renewal_order_created', array( $this, 'strip_advance_from_renewal' ), 5, 2 );
+	}
+
+	/**
+	 * Drop the advance meta keys while WCS copies meta onto a renewal order, so the
+	 * one-time advance never lands on a renewal in the first place.
+	 *
+	 * @param array $order_meta Rows of { meta_key, meta_value } to copy.
+	 * @return array
+	 */
+	public function exclude_advance_meta_on_copy( $order_meta ) {
+		if ( ! is_array( $order_meta ) ) {
+			return $order_meta;
+		}
+		foreach ( $order_meta as $index => $meta ) {
+			$key = '';
+			if ( is_array( $meta ) && isset( $meta['meta_key'] ) ) {
+				$key = $meta['meta_key'];
+			} elseif ( is_object( $meta ) && isset( $meta->meta_key ) ) {
+				$key = $meta->meta_key;
+			}
+			if ( self::ORDER_ADVANCE_META === $key || self::CREDITED_META === $key ) {
+				unset( $order_meta[ $index ] );
+			}
+		}
+		return $order_meta;
+	}
+
+	/**
+	 * Strip the advance from a renewal order: remove any copied "Advance" fee line
+	 * and delete the advance meta, from both the CRUD object and post meta, then
+	 * recalculate so the renewal total is the product amount only.
+	 *
+	 * Runs early (priority 5) on wcs_renewal_order_created so the corrected total is
+	 * in place before the wallet debit (priority 30) reads it.
+	 *
+	 * @param \WC_Order        $renewal_order The renewal order.
+	 * @param \WC_Subscription $subscription  The subscription (unused).
+	 * @return \WC_Order
+	 */
+	public function strip_advance_from_renewal( $renewal_order, $subscription ) {
+		if ( ! is_a( $renewal_order, 'WC_Abstract_Order' ) ) {
+			return $renewal_order;
+		}
+
+		$removed       = false;
+		$advance_label = __( 'Advance', 'aaraa-white-label-admin' );
+		foreach ( $renewal_order->get_items( 'fee' ) as $item_id => $fee ) {
+			$name = trim( (string) $fee->get_name() );
+			if ( $advance_label === $name || 'advance' === strtolower( $name ) ) {
+				$renewal_order->remove_item( $item_id );
+				$removed = true;
+			}
+		}
+
+		$renewal_order->delete_meta_data( self::ORDER_ADVANCE_META );
+		$renewal_order->delete_meta_data( self::CREDITED_META );
+
+		if ( $removed ) {
+			$renewal_order->calculate_totals();
+		}
+		$renewal_order->save();
+
+		// Legacy post-meta layer (HPOS re-sync safety).
+		delete_post_meta( $renewal_order->get_id(), self::ORDER_ADVANCE_META );
+		delete_post_meta( $renewal_order->get_id(), self::CREDITED_META );
+
+		return $renewal_order;
 	}
 
 	/* --------------------------------------------------------------------- *
@@ -182,6 +256,11 @@ class Subscription_Advance {
 	public function credit_advance_on_complete( $order_id, $order = null ) {
 		$order = is_a( $order, 'WC_Order' ) ? $order : wc_get_order( $order_id );
 		if ( ! $order || 'shop_order' !== $order->get_type() ) {
+			return;
+		}
+		// Renewals never carry an advance — only the first order does. Guard here in
+		// case a copied fee line survives, so a renewal can never credit the wallet.
+		if ( function_exists( 'wcs_order_contains_renewal' ) && wcs_order_contains_renewal( $order ) ) {
 			return;
 		}
 		if ( 'yes' === $order->get_meta( self::CREDITED_META ) ) {

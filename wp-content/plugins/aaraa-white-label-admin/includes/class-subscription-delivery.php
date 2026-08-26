@@ -39,6 +39,23 @@ class Subscription_Delivery {
 	const META_PAUSE    = '_wcfmu_pause_dates';
 	const META_RESUME   = '_wcfmu_pause_resume';
 
+	/**
+	 * Durable, plugin-owned copy of the customer's chosen pause dates.
+	 *
+	 * WCFM Ultimate and WooCommerce Subscriptions both own and mutate
+	 * `_wcfmu_pause_dates` (create, reconcile, resume, plugin updates), which is
+	 * why that meta kept getting wiped on a renewal or status change. This key is
+	 * written only by our pause flow and deleted only by an explicit cancel /
+	 * resume, so the calendar and the renewal guard always have a source of truth
+	 * that no automatic path can lose.
+	 */
+	const META_PAUSE_DURABLE = '_aaraa_pause_dates';
+
+	/**
+	 * Option flag marking the one-time pause-meta heal complete.
+	 */
+	const HEAL_OPTION = 'aaraa_pause_heal_done';
+
 	const CRON_RESUME = 'wcfmu_auto_resume_subscription';
 
 	const NONCE = 'aaraa_subscription_delivery';
@@ -60,6 +77,78 @@ class Subscription_Delivery {
 		add_action( 'wp_ajax_aaraa_sub_next_payment', array( $this, 'ajax_next_payment' ) );
 		add_action( 'wp_ajax_aaraa_sub_pause', array( $this, 'ajax_pause' ) );
 		add_action( 'wp_ajax_aaraa_sub_resume', array( $this, 'ajax_resume' ) );
+		// One-time heal: copy legacy postmeta-only pause dates into the HPOS store.
+		add_action( 'admin_init', array( __CLASS__, 'heal_pause_meta' ) );
+	}
+
+	/**
+	 * Auto-heal: copy legacy pause dates (written to `wp_postmeta` only by older
+	 * builds / WCFMu / the app) into the HPOS CRUD store and the durable key, so a
+	 * subsequent $sub->save() can no longer wipe them.
+	 *
+	 * Runs on admin_init in small batches, each subscription flagged once so it is
+	 * never re-processed; when nothing is left it records completion and stops.
+	 * Safe and idempotent — it only ever writes dates that already exist.
+	 *
+	 * @return void
+	 */
+	public static function heal_pause_meta() {
+		if ( ! function_exists( 'wcs_get_subscription' ) ) {
+			return;
+		}
+		if ( 'done' === get_option( self::HEAL_OPTION ) ) {
+			return;
+		}
+		if ( get_transient( 'aaraa_pause_heal_lock' ) ) {
+			return;
+		}
+		set_transient( 'aaraa_pause_heal_lock', 1, 2 * MINUTE_IN_SECONDS );
+
+		global $wpdb;
+		// Subscriptions that still have pause dates in post meta and haven't been
+		// healed yet. LIMIT keeps each request cheap; we finish over several loads.
+		$ids = $wpdb->get_col(
+			$wpdb->prepare(
+				"SELECT DISTINCT p.post_id
+				 FROM {$wpdb->postmeta} p
+				 WHERE p.meta_key IN ( %s, %s )
+				   AND p.meta_value NOT IN ( '', '[]', 'null' )
+				   AND NOT EXISTS (
+				       SELECT 1 FROM {$wpdb->postmeta} f
+				       WHERE f.post_id = p.post_id AND f.meta_key = '_aaraa_pause_healed'
+				   )
+				 LIMIT 40",
+				self::META_PAUSE,
+				self::META_PAUSE_DURABLE
+			)
+		);
+
+		if ( empty( $ids ) ) {
+			update_option( self::HEAL_OPTION, 'done', false );
+			delete_transient( 'aaraa_pause_heal_lock' );
+			return;
+		}
+
+		foreach ( $ids as $id ) {
+			$id  = (int) $id;
+			$sub = wcs_get_subscription( $id );
+			if ( $sub ) {
+				$dates = self::read_pause_dates( $id, $sub );
+				if ( ! empty( $dates ) ) {
+					$json = wp_json_encode( array_values( $dates ) );
+					$sub->update_meta_data( self::META_PAUSE_DURABLE, $json );
+					$sub->update_meta_data( self::META_PAUSE, $json );
+					$sub->update_meta_data( '_aaraa_pause_healed', 1 );
+					$sub->save();
+					update_post_meta( $id, self::META_PAUSE_DURABLE, $json );
+					self::pause_log( sprintf( '%d: HEALED pause dates into CRUD store = [%s]', $id, implode( ',', $dates ) ) );
+				}
+			}
+			// Flag in post meta too (the query looks there) so it is skipped next run.
+			update_post_meta( $id, '_aaraa_pause_healed', 1 );
+		}
+
+		delete_transient( 'aaraa_pause_heal_lock' );
 	}
 
 	/* --------------------------------------------------------------------- *
@@ -223,12 +312,93 @@ class Subscription_Delivery {
 	 * @return string[]
 	 */
 	private function saved_pause_dates( $sub_id ) {
-		$raw = get_post_meta( $sub_id, self::META_PAUSE, true );
-		if ( ! $raw ) {
+		return self::read_pause_dates( $sub_id );
+	}
+
+	/**
+	 * All of a subscription's pause dates, from the durable plugin key unioned
+	 * with the legacy WCFMu key (so pauses set at checkout or via the API still
+	 * show even though they only wrote `_wcfmu_pause_dates`). This is the single
+	 * source of truth for the calendar, the renewal guard and the reports.
+	 *
+	 * @param int $sub_id Subscription id.
+	 * @return string[] Sorted, unique Y-m-d dates.
+	 */
+	public static function read_pause_dates( $sub_id, $sub = null ) {
+		// Union across BOTH stores: post meta AND the HPOS CRUD object. Under HPOS
+		// the two can briefly diverge, so reading both means a value in either one
+		// still shows — the calendar and guard never see an empty set spuriously.
+		$lists = array(
+			self::normalise_date_list( get_post_meta( $sub_id, self::META_PAUSE_DURABLE, true ) ),
+			self::normalise_date_list( get_post_meta( $sub_id, self::META_PAUSE, true ) ),
+		);
+
+		if ( ! $sub && function_exists( 'wcs_get_subscription' ) ) {
+			$sub = wcs_get_subscription( $sub_id );
+		}
+		if ( is_object( $sub ) && method_exists( $sub, 'get_meta' ) ) {
+			$lists[] = self::normalise_date_list( $sub->get_meta( self::META_PAUSE_DURABLE ) );
+			$lists[] = self::normalise_date_list( $sub->get_meta( self::META_PAUSE ) );
+		}
+
+		$dates = array_values( array_unique( call_user_func_array( 'array_merge', $lists ) ) );
+		sort( $dates );
+		return $dates;
+	}
+
+	/**
+	 * Append a diagnostic line to wp-content/aaraa-renewal-guard.log.
+	 * Temporary instrumentation to trace pause-date writes/deletes on live.
+	 *
+	 * @param string $message Log line.
+	 * @return void
+	 */
+	public static function pause_log( $message ) {
+		if ( ! defined( 'WP_CONTENT_DIR' ) ) {
+			return;
+		}
+		@file_put_contents( WP_CONTENT_DIR . '/aaraa-renewal-guard.log', '[' . gmdate( 'Y-m-d H:i:s' ) . " UTC] $message\n", FILE_APPEND ); // phpcs:ignore
+	}
+
+	/**
+	 * A short caller trace (function names) for diagnostics.
+	 *
+	 * @return string
+	 */
+	private static function caller() {
+		$trace = debug_backtrace( DEBUG_BACKTRACE_IGNORE_ARGS, 6 ); // phpcs:ignore
+		$out   = array();
+		foreach ( $trace as $frame ) {
+			$out[] = ( isset( $frame['class'] ) ? $frame['class'] . '::' : '' ) . ( isset( $frame['function'] ) ? $frame['function'] : '?' );
+		}
+		return implode( ' < ', $out );
+	}
+
+	/**
+	 * Coerce a stored value (JSON string, CSV string or array) to a clean Y-m-d
+	 * list. get_post_meta() auto-unserialises, so arrays arrive as arrays.
+	 *
+	 * @param mixed $raw Stored meta value.
+	 * @return string[]
+	 */
+	private static function normalise_date_list( $raw ) {
+		if ( empty( $raw ) ) {
 			return array();
 		}
-		$dates = json_decode( $raw, true );
-		return is_array( $dates ) ? $dates : array();
+		if ( is_array( $raw ) ) {
+			$list = $raw;
+		} else {
+			$decoded = json_decode( (string) $raw, true );
+			$list    = is_array( $decoded ) ? $decoded : explode( ',', (string) $raw );
+		}
+		$out = array();
+		foreach ( $list as $d ) {
+			$d = trim( (string) $d );
+			if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $d ) ) {
+				$out[] = $d;
+			}
+		}
+		return array_values( array_unique( $out ) );
 	}
 
 	/**
@@ -397,6 +567,15 @@ class Subscription_Delivery {
 						</span>
 					<?php endif; ?>
 				</p>
+				<?php if ( $pause_dates ) : ?>
+					<div
+						class="aaraa-cal"
+						data-min="<?php echo esc_attr( $today ); ?>"
+						data-today="<?php echo esc_attr( $today ); ?>"
+						data-selected="<?php echo esc_attr( wp_json_encode( array_values( $pause_dates ) ) ); ?>"
+						data-readonly="1"
+					></div>
+				<?php endif; ?>
 				<p>
 					<button type="button" class="button button-primary" id="aaraa_sub_resume">
 						<?php esc_html_e( 'Resume Now', 'aaraa-white-label-admin' ); ?>
@@ -415,42 +594,17 @@ class Subscription_Delivery {
 
 			<?php else : ?>
 
-				<?php // Same two modes as the WCFM Ultimate store-manager modal. ?>
-				<div class="aaraa-subdel__tabs">
-					<button type="button" class="aaraa-subdel__tab is-active" data-mode="dates">
-						<?php esc_html_e( 'Specific Dates', 'aaraa-white-label-admin' ); ?>
-					</button>
-					<button type="button" class="aaraa-subdel__tab" data-mode="range">
-						<?php esc_html_e( 'Date Range', 'aaraa-white-label-admin' ); ?>
-					</button>
-				</div>
-
-				<div class="aaraa-subdel__mode" data-mode="dates">
-					<p>
-						<label for="aaraa_pause_date"><strong><?php esc_html_e( 'Add a date', 'aaraa-white-label-admin' ); ?></strong></label>
-						<span class="aaraa-subdel__addrow">
-							<input type="date" id="aaraa_pause_date" min="<?php echo esc_attr( $today ); ?>" value="<?php echo esc_attr( $today ); ?>" />
-							<button type="button" class="button" id="aaraa_pause_add"><?php esc_html_e( 'Add', 'aaraa-white-label-admin' ); ?></button>
-						</span>
-					</p>
-					<ul class="aaraa-subdel__chips" id="aaraa_pause_chips"></ul>
-					<p class="description aaraa-subdel__empty" id="aaraa_pause_none">
-						<?php esc_html_e( 'No dates selected yet.', 'aaraa-white-label-admin' ); ?>
-					</p>
-					<p class="description aaraa-subdel__warn" id="aaraa_pause_gap" style="display:none;"></p>
-				</div>
-
-				<div class="aaraa-subdel__mode" data-mode="range" style="display:none;">
-					<p>
-						<label for="aaraa_sub_pause_from"><strong><?php esc_html_e( 'Pause from', 'aaraa-white-label-admin' ); ?></strong></label>
-						<input type="date" id="aaraa_sub_pause_from" min="<?php echo esc_attr( $today ); ?>" value="<?php echo esc_attr( $today ); ?>" style="width:100%" />
-					</p>
-					<p>
-						<label for="aaraa_sub_pause_to"><strong><?php esc_html_e( 'Pause to', 'aaraa-white-label-admin' ); ?></strong></label>
-						<input type="date" id="aaraa_sub_pause_to" min="<?php echo esc_attr( $today ); ?>" value="<?php echo esc_attr( $today ); ?>" style="width:100%" />
-						<span class="description"><?php esc_html_e( 'Inclusive. Deliveries restart the next day.', 'aaraa-white-label-admin' ); ?></span>
-					</p>
-				</div>
+				<?php $pause_dates = $this->saved_pause_dates( $sub_id ); ?>
+				<div
+					class="aaraa-cal"
+					id="aaraa_sub_cal"
+					data-min="<?php echo esc_attr( $today ); ?>"
+					data-today="<?php echo esc_attr( $today ); ?>"
+					data-selected="<?php echo esc_attr( wp_json_encode( array_values( $pause_dates ) ) ); ?>"
+					data-readonly="0"
+				></div>
+				<p class="description"><?php esc_html_e( 'Click a date to pause it (turns red). Click again to remove. Drag across days to select several.', 'aaraa-white-label-admin' ); ?></p>
+				<p class="description aaraa-subdel__warn" id="aaraa_pause_gap" style="display:none;"></p>
 
 				<p>
 					<button type="button" class="button button-primary" id="aaraa_sub_pause">
@@ -520,6 +674,28 @@ class Subscription_Delivery {
 			.aaraa-subdel__saved strong { display: block; font-size: 12px; margin-bottom: 4px; color: #166534; }
 			.aaraa-subdel__saved ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 5px; }
 			.aaraa-subdel__saved li { padding: 2px 7px; background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 3px; font-size: 12px; }
+
+			/* Pause calendar (shared markup). */
+			.aaraa-cal { border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px; margin: 4px 0 10px; max-width: 320px; user-select: none; -webkit-user-select: none; touch-action: none; }
+			.aaraa-cal__head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 8px; }
+			.aaraa-cal__title { font-weight: 700; font-size: 13px; color: #1e293b; }
+			.aaraa-cal__nav { border: 1px solid #cbd5e1; background: #fff; color: #1E3A8A; width: 26px; height: 26px; border-radius: 6px; cursor: pointer; font-size: 15px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
+			.aaraa-cal__nav:hover { background: #eff6ff; }
+			.aaraa-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+			.aaraa-cal__dow { text-align: center; font-size: 10px; font-weight: 600; color: #94a3b8; padding: 2px 0; }
+			.aaraa-cal__day { text-align: center; padding: 6px 0; border-radius: 6px; font-size: 12px; color: #1e293b; background: #f8fafc; cursor: pointer; border: 1px solid transparent; }
+			.aaraa-cal__day:hover { border-color: #bfdbfe; }
+			.aaraa-cal__day.is-empty { background: transparent; cursor: default; }
+			.aaraa-cal__day.is-empty:hover { border-color: transparent; }
+			.aaraa-cal__day.is-disabled { color: #cbd5e1; cursor: default; }
+			.aaraa-cal__day.is-disabled:hover { border-color: transparent; }
+			.aaraa-cal__day.is-today { font-weight: 700; box-shadow: inset 0 0 0 1px #1E3A8A; }
+			.aaraa-cal__day.is-sel { background: #dc2626; color: #fff; font-weight: 600; }
+			.aaraa-cal__day.is-sel:hover { border-color: #dc2626; }
+			.aaraa-cal__day.is-pastsel { background: #cbd5e1; color: #334155; cursor: default; font-weight: 600; text-decoration: line-through; box-shadow: inset 0 0 0 1px #94a3b8; }
+			.aaraa-cal__day.is-pastsel:hover { border-color: transparent; }
+			.aaraa-cal[data-readonly="1"] .aaraa-cal__day { cursor: default; }
+			.aaraa-cal[data-readonly="1"] .aaraa-cal__day:hover { border-color: transparent; }
 		</style>
 		<?php
 	}
@@ -768,11 +944,42 @@ class Subscription_Delivery {
 		}
 
 		$sub_id = $subscription->get_id();
+
+		// Snapshot the today-or-future pause dates BEFORE this change, so the wallet
+		// reconciler can tell which deliveries became newly paused (refund) vs
+		// un-paused (create + charge) once the new dates are in place.
+		$reconcile_today = current_time( 'Y-m-d' );
+		$old_future      = array_values( array_filter( self::read_pause_dates( $sub_id ), static function ( $d ) use ( $reconcile_today ) {
+			return $d >= $reconcile_today;
+		} ) );
+
 		$dates  = array_values( $dates );
 		$resume = gmdate( 'Y-m-d', strtotime( end( $dates ) . ' +1 day' ) );
 
+		// Preserve any already-elapsed pause dates (history for reports / calendar)
+		// and merge in the newly chosen future dates. Persist to BOTH the durable
+		// plugin key (never auto-cleared) and the WCFMu key (its engine + the app).
+		$today  = current_time( 'Y-m-d' );
+		$past   = array_filter( self::read_pause_dates( $sub_id ), static function ( $d ) use ( $today ) {
+			return $d < $today;
+		} );
+		$stored = array_values( array_unique( array_merge( $past, $dates ) ) );
+		sort( $stored );
+
+		// Write through BOTH the CRUD object (HPOS canonical store) AND post meta.
+		// Writing only post meta is unsafe under HPOS: the next $sub->save() (e.g.
+		// the renewal guard advancing next_payment) re-syncs post meta FROM the
+		// CRUD object, wiping any key the object doesn't carry — which is exactly
+		// how the pause dates kept disappearing after a renewal was skipped.
+		$subscription->update_meta_data( self::META_PAUSE_DURABLE, wp_json_encode( $stored ) );
+		$subscription->update_meta_data( self::META_PAUSE, wp_json_encode( $dates ) );
+		$subscription->update_meta_data( self::META_RESUME, $resume );
+		$subscription->save();
+
+		update_post_meta( $sub_id, self::META_PAUSE_DURABLE, wp_json_encode( $stored ) );
 		update_post_meta( $sub_id, self::META_PAUSE, wp_json_encode( $dates ) );
 		update_post_meta( $sub_id, self::META_RESUME, $resume );
+		self::pause_log( sprintf( '%d: apply_pause WROTE durable=[%s] wcfmu=[%s] (CRUD + post meta)', $sub_id, implode( ',', $stored ), implode( ',', $dates ) ) );
 
 		// Delegate to WCFM Ultimate's date-scoped engine so the subscription is
 		// paused only on the chosen dates (delivering on any gap days) and the
@@ -790,6 +997,7 @@ class Subscription_Delivery {
 				wp_schedule_single_event( strtotime( $resume . ' 00:01:00 UTC' ), self::CRON_RESUME, array( $sub_id ) );
 			}
 		} catch ( \Exception $e ) {
+			delete_post_meta( $sub_id, self::META_PAUSE_DURABLE );
 			delete_post_meta( $sub_id, self::META_PAUSE );
 			delete_post_meta( $sub_id, self::META_RESUME );
 			return new \WP_Error( 'pause_failed', $e->getMessage() );
@@ -807,6 +1015,22 @@ class Subscription_Delivery {
 				$via
 			)
 		);
+
+		// Reconcile wallet money with the calendar change: refund renewals whose
+		// delivery just got paused, create + charge renewals whose delivery just
+		// got un-paused. Runs after the new dates are persisted so the renewal
+		// guard sees the up-to-date set.
+		if ( class_exists( __NAMESPACE__ . '\\Renewal_Wallet' ) ) {
+			$new_future = array_values( array_filter( $dates, static function ( $d ) use ( $reconcile_today ) {
+				return $d >= $reconcile_today;
+			} ) );
+			( new Renewal_Wallet() )->reconcile_pause_change( $subscription, $old_future, $new_future );
+		}
+
+		// Notify the customer across every enabled channel (SMS / Email / WhatsApp).
+		if ( class_exists( __NAMESPACE__ . '\\Notifications_Admin' ) ) {
+			Notifications_Admin::send_pause_notifications( $subscription, $dates, $resume );
+		}
 
 		return array( 'resume' => $resume, 'count' => count( $dates ) );
 	}
@@ -984,7 +1208,20 @@ class Subscription_Delivery {
 	 * @return void
 	 */
 	public static function clear_pause_schedule( $sub_id ) {
-		// Explicit cancel of a scheduled pause — remove the dates outright.
+		// Explicit cancel of a scheduled pause — remove the dates outright, from
+		// BOTH the CRUD object and post meta (else the next save() re-syncs the
+		// deleted keys back from the HPOS store and the pause reappears).
+		self::pause_log( sprintf( '%d: clear_pause_schedule DELETING pause dates (backtrace: %s)', $sub_id, self::caller() ) );
+		if ( function_exists( 'wcs_get_subscription' ) ) {
+			$sub = wcs_get_subscription( $sub_id );
+			if ( $sub ) {
+				$sub->delete_meta_data( self::META_PAUSE_DURABLE );
+				$sub->delete_meta_data( self::META_PAUSE );
+				$sub->delete_meta_data( self::META_RESUME );
+				$sub->save();
+			}
+		}
+		delete_post_meta( $sub_id, self::META_PAUSE_DURABLE );
 		delete_post_meta( $sub_id, self::META_PAUSE );
 		delete_post_meta( $sub_id, self::META_RESUME );
 		wp_clear_scheduled_hook( self::CRON_RESUME, array( $sub_id ) );

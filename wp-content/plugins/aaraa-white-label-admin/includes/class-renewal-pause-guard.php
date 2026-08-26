@@ -46,6 +46,48 @@ class Renewal_Pause_Guard {
 	 */
 	public function init() {
 		add_action( 'woocommerce_scheduled_subscription_payment', array( $this, 'maybe_skip' ), -1000, 1 );
+		// Diagnostic: log every renewal order actually created, and by which path,
+		// so we can see any that bypass the scheduled-payment hook.
+		add_action( 'wcs_renewal_order_created', array( $this, 'log_renewal_created' ), -1000, 2 );
+		self::log( 'Renewal_Pause_Guard registered on woocommerce_scheduled_subscription_payment' );
+	}
+
+	/**
+	 * Diagnostic: record that a renewal order was created (any path).
+	 *
+	 * @param \WC_Order        $renewal_order Renewal order.
+	 * @param \WC_Subscription $subscription  Subscription.
+	 * @return \WC_Order
+	 */
+	public function log_renewal_created( $renewal_order, $subscription ) {
+		$sub_id = is_object( $subscription ) ? $subscription->get_id() : 0;
+		$np     = ( is_object( $subscription ) && method_exists( $subscription, 'get_time' ) )
+			? (int) $subscription->get_time( 'next_payment', 'gmt' )
+			: 0;
+		self::log(
+			sprintf(
+				'%d: RENEWAL ORDER CREATED #%s (current next_payment=%s)',
+				$sub_id,
+				is_object( $renewal_order ) ? $renewal_order->get_id() : '?',
+				$np ? wp_date( 'Y-m-d H:i', $np ) : 'n/a'
+			)
+		);
+		return $renewal_order;
+	}
+
+	/**
+	 * Append a line to the guard's diagnostic log (wp-content/aaraa-renewal-guard.log).
+	 * Temporary instrumentation to trace why a renewal was or wasn't skipped on live.
+	 *
+	 * @param string $message Log line.
+	 * @return void
+	 */
+	private static function log( $message ) {
+		if ( ! defined( 'WP_CONTENT_DIR' ) ) {
+			return;
+		}
+		$line = '[' . gmdate( 'Y-m-d H:i:s' ) . " UTC] $message\n";
+		@file_put_contents( WP_CONTENT_DIR . '/aaraa-renewal-guard.log', $line, FILE_APPEND ); // phpcs:ignore
 	}
 
 	/**
@@ -56,32 +98,57 @@ class Renewal_Pause_Guard {
 	 */
 	public function maybe_skip( $sub_id ) {
 		if ( ! function_exists( 'wcs_get_subscription' ) ) {
+			self::log( "$sub_id: wcs_get_subscription missing" );
 			return;
 		}
 		$sub = wcs_get_subscription( $sub_id );
 		if ( ! $sub ) {
+			self::log( "$sub_id: subscription not found" );
 			return;
 		}
 
 		$due_ts = (int) $sub->get_time( 'next_payment', 'gmt' );
 		if ( ! $due_ts ) {
+			self::log( "$sub_id: no next_payment timestamp" );
 			return;
 		}
 
-		// The calendar day being renewed, in the site timezone (IST).
-		$due_date = wp_date( 'Y-m-d', $due_ts );
-		if ( ! self::is_pause_date( $sub_id, $due_date ) ) {
-			return; // Not a pause day — let WCS renew as normal.
+		// The delivery person prepares one day ahead, so a renewal that runs on
+		// day D fulfils the delivery on D+1. The renewal must therefore be skipped
+		// when TOMORROW's delivery (D+1) is a paused date — not when D itself is.
+		$due_date      = wp_date( 'Y-m-d', $due_ts );                     // renewal day D.
+		$delivery_date = wp_date( 'Y-m-d', $due_ts + DAY_IN_SECONDS );    // delivery day D+1.
+		$all_pause     = class_exists( __NAMESPACE__ . '\\Subscription_Delivery' )
+			? Subscription_Delivery::read_pause_dates( (int) $sub_id )
+			: array();
+		self::log(
+			sprintf(
+				'%d: FIRE next_payment=%s (D=%s, delivery D+1=%s) pause_dates=[%s] durable=%s wcfmu=%s',
+				$sub_id,
+				wp_date( 'Y-m-d H:i', $due_ts ),
+				$due_date,
+				$delivery_date,
+				implode( ',', $all_pause ),
+				wp_json_encode( get_post_meta( (int) $sub_id, '_aaraa_pause_dates', true ) ),
+				wp_json_encode( get_post_meta( (int) $sub_id, '_wcfmu_pause_dates', true ) )
+			)
+		);
+		if ( ! self::is_pause_date( $sub_id, $delivery_date ) ) {
+			self::log( "$sub_id: delivery $delivery_date NOT paused → allowing renewal" );
+			return; // Tomorrow's delivery isn't paused — let WCS renew as normal.
 		}
+		self::log( "$sub_id: delivery $delivery_date IS paused → SKIPPING renewal" );
 
-		// Pause day: block this renewal and keep the schedule moving.
+		// Delivery is paused: block this renewal and push next_payment forward one
+		// day at a time (same time of day) until the delivery day is not paused.
 		$this->remove_wcs_renewal_handlers();
 		$this->advance_next_payment( $sub, $sub_id, $due_ts );
 
 		$sub->add_order_note(
 			sprintf(
-				/* translators: %s: paused date (Y-m-d). */
-				__( 'Renewal skipped — %s is a pause date (no renewal order created).', 'aaraa-white-label-admin' ),
+				/* translators: 1: paused delivery date (Y-m-d), 2: renewal day it would have run (Y-m-d). */
+				__( 'Renewal skipped — the %1$s delivery is paused, so the renewal due on %2$s was not created.', 'aaraa-white-label-admin' ),
+				$delivery_date,
 				$due_date
 			)
 		);
@@ -99,6 +166,11 @@ class Renewal_Pause_Guard {
 	 * @return bool
 	 */
 	public static function is_pause_date( $sub_id, $date ) {
+		// Read the durable, plugin-owned pause dates (unioned with the legacy WCFMu
+		// key) so a wiped `_wcfmu_pause_dates` never silently disables the guard.
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+			return in_array( $date, Subscription_Delivery::read_pause_dates( (int) $sub_id ), true );
+		}
 		$raw = get_post_meta( (int) $sub_id, '_wcfmu_pause_dates', true );
 		if ( empty( $raw ) ) {
 			return false;
@@ -147,29 +219,27 @@ class Renewal_Pause_Guard {
 	 * @return void
 	 */
 	private function advance_next_payment( $sub, $sub_id, $due_ts ) {
-		$interval = max( 1, (int) $sub->get_billing_interval() );
-		$period   = $sub->get_billing_period();
-		$period   = $period ? $period : 'day';
-		$now      = time();
-		$new_ts   = $due_ts;
-		$guard    = 0;
+		$now    = time();
+		$new_ts = $due_ts;
+		$guard  = 0;
 
+		// Move forward one calendar day at a time (keeping the same time of day)
+		// until the resulting renewal day D delivers (D+1) on a non-paused day that
+		// is also a valid delivery-schedule renewal day.
 		do {
-			$new_ts = function_exists( 'wcs_add_time' )
-				? (int) wcs_add_time( $interval, $period, $new_ts )
-				: $new_ts + DAY_IN_SECONDS;
-			$day = wp_date( 'Y-m-d', $new_ts );
+			$new_ts  += DAY_IN_SECONDS;
+			$day      = wp_date( 'Y-m-d', $new_ts );                     // candidate renewal day D.
+			$delivery = wp_date( 'Y-m-d', $new_ts + DAY_IN_SECONDS );    // its delivery day D+1.
 			$guard++;
-			// The landing day must also be a valid delivery-schedule renewal day,
-			// so the two guards agree on where billing resumes.
 			$not_renewal_day = class_exists( __NAMESPACE__ . '\\Renewal_Schedule_Guard' )
 				&& ! Renewal_Schedule_Guard::is_renewal_day( $sub_id, $day, $sub );
-		} while ( ( $new_ts <= $now || self::is_pause_date( $sub_id, $day ) || $not_renewal_day ) && $guard < 120 );
+		} while ( ( $new_ts <= $now || self::is_pause_date( $sub_id, $delivery ) || $not_renewal_day ) && $guard < 120 );
 
-		if ( $new_ts <= $now ) {
+		if ( $new_ts <= $now || $guard >= 120 ) {
 			return; // Couldn't find a valid future date — leave it for WCS/reconcile.
 		}
 
+		self::log( sprintf( '%d: advancing next_payment to %s', $sub_id, wp_date( 'Y-m-d H:i', $new_ts ) ) );
 		try {
 			$sub->update_dates( array( 'next_payment' => gmdate( 'Y-m-d H:i:s', $new_ts ) ), 'gmt' );
 			$sub->save();

@@ -206,12 +206,19 @@ class Notifications_Admin {
 			'password'   => '',
 			'from_email' => '',
 			'from_name'  => '',
+			'pause'      => array(
+				'enabled' => 0,
+				'subject' => 'Your Madras Milk delivery pause request',
+				'body'    => 'Dear {customer_name}, Your milk delivery pause request has been updated. Delivery will remain paused from {pause_dates} and resume on {resume_dates}. MADRAS MILK',
+			),
 		);
 		$saved = get_option( self::SMTP_OPTION, array() );
 		if ( ! is_array( $saved ) ) {
 			$saved = array();
 		}
-		return array_merge( $defaults, $saved );
+		$s          = array_merge( $defaults, $saved );
+		$s['pause'] = array_merge( $defaults['pause'], ( isset( $saved['pause'] ) && is_array( $saved['pause'] ) ) ? $saved['pause'] : array() );
+		return $s;
 	}
 
 	/**
@@ -304,6 +311,11 @@ class Notifications_Admin {
 			),
 			'order'        => array(),
 			'subscription' => array(),
+			'pause'        => array(
+				'enabled'     => 0,
+				'message'     => 'Dear {customer_name}, Your milk delivery pause request has been updated. Delivery will remain paused from {pause_dates} and resume on {resume_dates}. MADRAS MILK',
+				'template_id' => '',
+			),
 			'wallet'       => array(
 				'credit' => array(
 					'enabled'     => 0,
@@ -333,6 +345,7 @@ class Notifications_Admin {
 		$s['otp']   = array_merge( $defaults['otp'], ( isset( $saved['otp'] ) && is_array( $saved['otp'] ) ) ? $saved['otp'] : array() );
 		$s['order']        = ( isset( $saved['order'] ) && is_array( $saved['order'] ) ) ? $saved['order'] : array();
 		$s['subscription'] = ( isset( $saved['subscription'] ) && is_array( $saved['subscription'] ) ) ? $saved['subscription'] : array();
+		$s['pause']        = array_merge( $defaults['pause'], ( isset( $saved['pause'] ) && is_array( $saved['pause'] ) ) ? $saved['pause'] : array() );
 
 		// Wallet templates, each key merged over defaults so partial saves keep shape.
 		$saved_wallet   = ( isset( $saved['wallet'] ) && is_array( $saved['wallet'] ) ) ? $saved['wallet'] : array();
@@ -802,6 +815,125 @@ class Notifications_Admin {
 		}
 	}
 
+	/**
+	 * Fire the Pause Subscription notifications across all enabled channels
+	 * (SMS, Email, WhatsApp) when a pause is saved on the delivery calendar.
+	 *
+	 * Called from Subscription_Delivery::apply_pause() — the single funnel used by
+	 * both the admin panel and the customer frontend "Pause" button.
+	 *
+	 * @param \WC_Subscription $subscription Subscription.
+	 * @param string[]         $dates        Chosen pause (delivery) dates, Y-m-d.
+	 * @param string           $resume       Resume date Y-m-d (day after last), optional.
+	 * @return void
+	 */
+	public static function send_pause_notifications( $subscription, array $dates, $resume = '' ) {
+		if ( ! is_a( $subscription, 'WC_Subscription' ) || empty( $dates ) ) {
+			return;
+		}
+
+		sort( $dates );
+		$fmt = 'j-M'; // e.g. 24-Aug, 5-Sep.
+		if ( '' === (string) $resume ) {
+			$resume = gmdate( 'Y-m-d', strtotime( end( $dates ) . ' +1 day' ) );
+		}
+
+		$first = $subscription->get_billing_first_name();
+		$name  = trim( $first . ' ' . $subscription->get_billing_last_name() );
+		if ( '' === $name ) {
+			$user = $subscription->get_user();
+			$name = $user ? $user->display_name : '';
+		}
+
+		$tokens = array(
+			'{customer_name}'   => $name,
+			'{first_name}'      => $first,
+			'{pause_dates}'     => self::format_date_list( $dates, $fmt ),
+			'{resume_dates}'    => date_i18n( $fmt, strtotime( $resume ) ),
+			'{subscription_id}' => $subscription->get_id(),
+			'{site}'            => get_bloginfo( 'name' ),
+		);
+
+		// 1) SMS.
+		$s   = self::settings();
+		$sms = isset( $s['pause'] ) ? $s['pause'] : array();
+		if ( ! empty( $sms['enabled'] ) ) {
+			$phone = $subscription->get_billing_phone();
+			if ( $phone ) {
+				self::send_sms(
+					$phone,
+					self::render( $sms['message'], $tokens ),
+					isset( $sms['template_id'] ) ? $sms['template_id'] : '',
+					array( 'type' => 'pause', 'ref' => $subscription->get_id(), 'status' => 'pause' )
+				);
+			} else {
+				self::log(
+					array(
+						'type'     => 'pause',
+						'ref'      => $subscription->get_id(),
+						'status'   => 'pause',
+						'result'   => 'failed',
+						'response' => 'No billing phone number on the subscription',
+					)
+				);
+			}
+		}
+
+		// 2) Email.
+		$email = self::smtp_settings();
+		$ep    = isset( $email['pause'] ) ? $email['pause'] : array();
+		if ( ! empty( $ep['enabled'] ) ) {
+			$to = $subscription->get_billing_email();
+			if ( $to && is_email( $to ) ) {
+				wp_mail(
+					$to,
+					self::render( isset( $ep['subject'] ) ? $ep['subject'] : '', $tokens ),
+					self::render( isset( $ep['body'] ) ? $ep['body'] : '', $tokens )
+				);
+			}
+		}
+
+		// 3) WhatsApp — delegated (uses an approved Meta template + numbered params).
+		if ( class_exists( __NAMESPACE__ . '\\WhatsApp_Admin' ) && method_exists( __NAMESPACE__ . '\\WhatsApp_Admin', 'send_pause' ) ) {
+			WhatsApp_Admin::send_pause( $subscription, $tokens );
+		}
+	}
+
+	/**
+	 * Format a list of Y-m-d dates for a message: a contiguous run collapses to
+	 * "start to end", otherwise a comma-separated list — each in the site format.
+	 *
+	 * @param string[] $dates Y-m-d dates (any order).
+	 * @param string   $fmt   date_i18n format.
+	 * @return string
+	 */
+	private static function format_date_list( array $dates, $fmt ) {
+		$dates = array_values( array_unique( $dates ) );
+		sort( $dates );
+		$n = count( $dates );
+		if ( 0 === $n ) {
+			return '';
+		}
+
+		$contiguous = true;
+		for ( $i = 1; $i < $n; $i++ ) {
+			if ( strtotime( $dates[ $i ] ) !== strtotime( $dates[ $i - 1 ] . ' +1 day' ) ) {
+				$contiguous = false;
+				break;
+			}
+		}
+
+		if ( $contiguous && $n > 1 ) {
+			return date_i18n( $fmt, strtotime( $dates[0] ) ) . ' ' . __( 'to', 'aaraa-white-label-admin' ) . ' ' . date_i18n( $fmt, strtotime( end( $dates ) ) );
+		}
+
+		$out = array();
+		foreach ( $dates as $d ) {
+			$out[] = date_i18n( $fmt, strtotime( $d ) );
+		}
+		return implode( ', ', $out );
+	}
+
 	/* --------------------------------------------------------------------- *
 	 * Wallet triggers.
 	 * --------------------------------------------------------------------- */
@@ -989,6 +1121,11 @@ class Notifications_Admin {
 			),
 			'order'        => $this->sanitize_group( $in['order'] ?? array() ),
 			'subscription' => $this->sanitize_group( $in['subscription'] ?? array() ),
+			'pause'        => array(
+				'enabled'     => empty( $in['pause']['enabled'] ) ? 0 : 1,
+				'message'     => sanitize_textarea_field( $in['pause']['message'] ?? '' ),
+				'template_id' => sanitize_text_field( $in['pause']['template_id'] ?? '' ),
+			),
 			'wallet'       => array(
 				'credit' => array(
 					'enabled'     => empty( $in['wallet']['credit']['enabled'] ) ? 0 : 1,
@@ -1084,6 +1221,11 @@ class Notifications_Admin {
 			'password'   => (string) ( $in['password'] ?? '' ),
 			'from_email' => sanitize_email( $in['from_email'] ?? '' ),
 			'from_name'  => sanitize_text_field( $in['from_name'] ?? '' ),
+			'pause'      => array(
+				'enabled' => empty( $in['pause']['enabled'] ) ? 0 : 1,
+				'subject' => sanitize_text_field( $in['pause']['subject'] ?? '' ),
+				'body'    => sanitize_textarea_field( $in['pause']['body'] ?? '' ),
+			),
 		);
 
 		update_option( self::SMTP_OPTION, $settings );
@@ -1223,6 +1365,7 @@ class Notifications_Admin {
 					$s['subscription'],
 					'{subscription_id}, {status}, {customer_name}, {first_name}, {total}, {currency}, {site}'
 				);
+				$this->render_pause_template( $s['pause'] );
 				$this->render_wallet_templates( $s['wallet'] );
 				?>
 
@@ -1245,6 +1388,42 @@ class Notifications_Admin {
 			.aaraa-notify .aaraa-log-badge.is-sent { background: #e5f5ec; color: #1a7f45; }
 			.aaraa-notify .aaraa-log-badge.is-failed { background: #fbeaea; color: #b32d2e; }
 		</style>
+		<?php
+	}
+
+	/**
+	 * Render the Pause Subscription SMS template (fires when a customer/admin saves
+	 * a pause on the delivery calendar).
+	 *
+	 * @param array<string,mixed> $pause Saved pause template.
+	 * @return void
+	 */
+	private function render_pause_template( $pause ) {
+		?>
+		<h2 class="title"><?php esc_html_e( 'Pause Subscription Template', 'aaraa-white-label-admin' ); ?></h2>
+		<p class="aaraa-tpl-hint description">
+			<?php printf( esc_html__( 'Sent when a pause is saved on the delivery calendar. Available variables : %s', 'aaraa-white-label-admin' ), '{customer_name}, {first_name}, {pause_dates}, {resume_dates}, {subscription_id}, {site}' ); ?>
+		</p>
+		<table class="aaraa-tpl-table">
+			<thead>
+				<tr>
+					<th style="width:60px;"><?php esc_html_e( 'Enable', 'aaraa-white-label-admin' ); ?></th>
+					<th style="width:150px;"><?php esc_html_e( 'Event', 'aaraa-white-label-admin' ); ?></th>
+					<th><?php esc_html_e( 'Message', 'aaraa-white-label-admin' ); ?></th>
+					<th style="width:220px;"><?php esc_html_e( 'Template ID', 'aaraa-white-label-admin' ); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align:center;">
+						<input type="checkbox" name="pause[enabled]" value="1" <?php checked( ! empty( $pause['enabled'] ) ); ?> />
+					</td>
+					<td class="status-col"><?php esc_html_e( 'Pause Saved', 'aaraa-white-label-admin' ); ?><br /><code>pause</code></td>
+					<td><textarea name="pause[message]" rows="3"><?php echo esc_textarea( isset( $pause['message'] ) ? $pause['message'] : '' ); ?></textarea></td>
+					<td><input type="text" class="widefat" name="pause[template_id]" value="<?php echo esc_attr( isset( $pause['template_id'] ) ? $pause['template_id'] : '' ); ?>" /></td>
+				</tr>
+			</tbody>
+		</table>
 		<?php
 	}
 
@@ -1366,6 +1545,7 @@ class Notifications_Admin {
 			'otp'           => __( 'OTP', 'aaraa-white-label-admin' ),
 			'order'         => __( 'Order', 'aaraa-white-label-admin' ),
 			'subscription'  => __( 'Subscription', 'aaraa-white-label-admin' ),
+			'pause'         => __( 'Pause', 'aaraa-white-label-admin' ),
 			'wallet_credit' => __( 'Wallet Credit', 'aaraa-white-label-admin' ),
 			'wallet_debit'  => __( 'Wallet Debit', 'aaraa-white-label-admin' ),
 			'wallet_low'    => __( 'Wallet Low Balance', 'aaraa-white-label-admin' ),
@@ -1707,6 +1887,26 @@ class Notifications_Admin {
 					<tr>
 						<th scope="row"><label for="aaraa-smtp-test"><?php esc_html_e( 'Send Test Email To', 'aaraa-white-label-admin' ); ?></label></th>
 						<td><input name="test_email" id="aaraa-smtp-test" type="email" class="regular-text" placeholder="you@example.com" /> <span class="description"><?php esc_html_e( 'Optional — fill in to send a test on save.', 'aaraa-white-label-admin' ); ?></span></td>
+					</tr>
+				</table>
+
+				<?php $pause = $s['pause']; ?>
+				<h2 class="title"><?php esc_html_e( 'Pause Subscription Email', 'aaraa-white-label-admin' ); ?></h2>
+				<p class="description">
+					<?php printf( esc_html__( 'Emailed to the customer when a pause is saved on the delivery calendar. Available variables : %s', 'aaraa-white-label-admin' ), '{customer_name}, {first_name}, {pause_dates}, {resume_dates}, {subscription_id}, {site}' ); ?>
+				</p>
+				<table class="form-table" role="presentation">
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Status', 'aaraa-white-label-admin' ); ?></th>
+						<td><label><input type="checkbox" name="pause[enabled]" value="1" <?php checked( ! empty( $pause['enabled'] ) ); ?> /> <?php esc_html_e( 'Send pause email', 'aaraa-white-label-admin' ); ?></label></td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="aaraa-pause-subject"><?php esc_html_e( 'Subject', 'aaraa-white-label-admin' ); ?></label></th>
+						<td><input name="pause[subject]" id="aaraa-pause-subject" type="text" class="regular-text" value="<?php echo esc_attr( $pause['subject'] ); ?>" /></td>
+					</tr>
+					<tr>
+						<th scope="row"><label for="aaraa-pause-body"><?php esc_html_e( 'Message', 'aaraa-white-label-admin' ); ?></label></th>
+						<td><textarea name="pause[body]" id="aaraa-pause-body" rows="4" class="large-text"><?php echo esc_textarea( $pause['body'] ); ?></textarea></td>
 					</tr>
 				</table>
 

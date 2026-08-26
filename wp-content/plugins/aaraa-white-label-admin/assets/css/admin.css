@@ -867,8 +867,58 @@ body.index-php #aaraa_overview .inside {
 }
 .aaraa-wallet__pill.is-green { background: #DCFCE7; color: #166534; }
 .aaraa-wallet__pill.is-red   { background: #FEE2E2; color: #991B1B; }
-.aaraa-wallet__pager { margin-top: 12px; }
-.aaraa-wallet__pager .pagination-links { float: right; }
+.aaraa-wallet__pager {
+	margin-top: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+.aaraa-wallet__pager .displaying-num {
+	color: #64748B;
+	font-size: 13px;
+}
+.aaraa-wallet__pager .pagination-links {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	flex-wrap: wrap;
+}
+.aaraa-wallet__pager .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 32px;
+	height: 32px;
+	padding: 0 10px;
+	border: 1px solid #E2E8F0;
+	border-radius: 8px;
+	background: #fff;
+	color: #334155;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1;
+	text-decoration: none;
+	transition: background .15s, border-color .15s, color .15s;
+}
+.aaraa-wallet__pager a.page-numbers:hover {
+	background: #F1F5F9;
+	border-color: #CBD5E1;
+	color: #0F172A;
+}
+.aaraa-wallet__pager .page-numbers.current {
+	background: #14B8C4;
+	border-color: #14B8C4;
+	color: #fff;
+}
+.aaraa-wallet__pager .page-numbers.dots {
+	border-color: transparent;
+	background: transparent;
+	min-width: 0;
+	padding: 0 4px;
+	color: #94A3B8;
+}
 .aaraa-wallet__field {
 	display: flex;
 	flex-direction: column;

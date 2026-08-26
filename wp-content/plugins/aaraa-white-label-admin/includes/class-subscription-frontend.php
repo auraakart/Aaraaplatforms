@@ -121,6 +121,12 @@ class Subscription_Frontend {
 	 * @return string[]
 	 */
 	private function saved_pause_dates( $sub_id ) {
+		// Durable, plugin-owned pause dates (unioned with the legacy WCFMu key) so
+		// a wiped `_wcfmu_pause_dates` never blanks the customer's calendar.
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+			return Subscription_Delivery::read_pause_dates( $sub_id );
+		}
+
 		$raw = get_post_meta( $sub_id, Subscription_Delivery::META_PAUSE, true );
 
 		if ( '' === $raw || null === $raw || array() === $raw ) {
@@ -310,6 +316,16 @@ class Subscription_Frontend {
 					</strong>
 				</div>
 
+				<?php if ( ! empty( $pause_dates ) ) : ?>
+					<div
+						class="aaraa-cal"
+						data-min="<?php echo esc_attr( $today ); ?>"
+						data-today="<?php echo esc_attr( $today ); ?>"
+						data-selected="<?php echo esc_attr( wp_json_encode( array_values( $pause_dates ) ) ); ?>"
+						data-readonly="1"
+					></div>
+				<?php endif; ?>
+
 				<?php if ( ! empty( $blocks ) ) : ?>
 					<table class="aaraa-fsub__facts">
 						<thead>
@@ -369,33 +385,16 @@ class Subscription_Frontend {
 
 			<?php else : ?>
 
-				<div class="aaraa-fsub__tabs">
-					<button type="button" class="aaraa-fsub__tab is-active" data-mode="dates">
-						<?php esc_html_e( 'Specific Dates', 'aaraa-white-label-admin' ); ?>
-					</button>
-					<button type="button" class="aaraa-fsub__tab" data-mode="range">
-						<?php esc_html_e( 'Date Range', 'aaraa-white-label-admin' ); ?>
-					</button>
-				</div>
-
-				<div class="aaraa-fsub__mode" data-mode="dates">
-					<label class="aaraa-fsub__label" for="aaraa_fsub_date"><?php esc_html_e( 'Add a date', 'aaraa-white-label-admin' ); ?></label>
-					<div class="aaraa-fsub__addrow">
-						<input type="date" id="aaraa_fsub_date" min="<?php echo esc_attr( $today ); ?>" value="<?php echo esc_attr( $today ); ?>" />
-						<button type="button" class="button aaraa-fsub__btn aaraa-fsub__btn--add" id="aaraa_fsub_add"><?php esc_html_e( 'Add', 'aaraa-white-label-admin' ); ?></button>
-					</div>
-					<ul class="aaraa-fsub__chips" id="aaraa_fsub_chips"></ul>
-					<p class="aaraa-fsub__muted" id="aaraa_fsub_none"><?php esc_html_e( 'No dates selected yet.', 'aaraa-white-label-admin' ); ?></p>
-					<p class="aaraa-fsub__warn" id="aaraa_fsub_gap" style="display:none;"></p>
-				</div>
-
-				<div class="aaraa-fsub__mode" data-mode="range" style="display:none;">
-					<label class="aaraa-fsub__label" for="aaraa_fsub_from"><?php esc_html_e( 'Pause from', 'aaraa-white-label-admin' ); ?></label>
-					<input type="date" id="aaraa_fsub_from" class="aaraa-fsub__wide" min="<?php echo esc_attr( $today ); ?>" value="<?php echo esc_attr( $today ); ?>" />
-					<label class="aaraa-fsub__label" for="aaraa_fsub_to"><?php esc_html_e( 'Pause to', 'aaraa-white-label-admin' ); ?></label>
-					<input type="date" id="aaraa_fsub_to" class="aaraa-fsub__wide" min="<?php echo esc_attr( $today ); ?>" value="<?php echo esc_attr( $today ); ?>" />
-					<p class="aaraa-fsub__muted"><?php esc_html_e( 'Inclusive. Deliveries restart the next day.', 'aaraa-white-label-admin' ); ?></p>
-				</div>
+				<div
+					class="aaraa-cal"
+					id="aaraa_fsub_cal"
+					data-min="<?php echo esc_attr( $today ); ?>"
+					data-today="<?php echo esc_attr( $today ); ?>"
+					data-selected="[]"
+					data-readonly="0"
+				></div>
+				<p class="aaraa-fsub__muted"><?php esc_html_e( 'Tap a date to pause it (turns red). Tap it again to remove. Drag across days to select several.', 'aaraa-white-label-admin' ); ?></p>
+				<p class="aaraa-fsub__warn" id="aaraa_fsub_gap" style="display:none;"></p>
 
 				<p>
 					<button type="button" class="button aaraa-fsub__btn aaraa-fsub__btn--pause" id="aaraa_fsub_pause">
@@ -447,6 +446,29 @@ class Subscription_Frontend {
 			.aaraa-fsub__spinner { display: none; width: 16px; height: 16px; margin-left: 8px; vertical-align: middle; border: 2px solid #cbd5e1; border-top-color: #1e3a8a; border-radius: 50%; animation: aaraa-fsub-spin .7s linear infinite; }
 			.aaraa-fsub__spinner.is-active { display: inline-block; }
 			@keyframes aaraa-fsub-spin { to { transform: rotate(360deg); } }
+
+			/* Pause calendar (shared markup). */
+			.aaraa-cal { border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin: 0 0 12px; user-select: none; -webkit-user-select: none; touch-action: none; }
+			.aaraa-cal__head { display: flex; align-items: center; justify-content: space-between; margin: 0 0 8px; }
+			.aaraa-cal__title { font-weight: 700; font-size: 14px; color: #1e293b; }
+			.aaraa-cal__nav { border: 1px solid #cbd5e1; background: #fff; color: #1e3a8a; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; font-size: 16px; line-height: 1; display: inline-flex; align-items: center; justify-content: center; }
+			.aaraa-cal__nav:hover { background: #eff6ff; }
+			.aaraa-cal__nav[disabled] { opacity: .35; cursor: default; }
+			.aaraa-cal__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+			.aaraa-cal__dow { text-align: center; font-size: 11px; font-weight: 600; color: #94a3b8; padding: 2px 0; }
+			.aaraa-cal__day { text-align: center; padding: 8px 0; border-radius: 8px; font-size: 13px; color: #1e293b; background: #f8fafc; cursor: pointer; border: 1px solid transparent; }
+			.aaraa-cal__day:hover { border-color: #bfdbfe; }
+			.aaraa-cal__day.is-empty { background: transparent; cursor: default; }
+			.aaraa-cal__day.is-empty:hover { border-color: transparent; }
+			.aaraa-cal__day.is-disabled { color: #cbd5e1; background: #f8fafc; cursor: default; }
+			.aaraa-cal__day.is-disabled:hover { border-color: transparent; }
+			.aaraa-cal__day.is-today { font-weight: 700; box-shadow: inset 0 0 0 1px #1e3a8a; }
+			.aaraa-cal__day.is-sel { background: #dc2626; color: #fff; font-weight: 600; }
+			.aaraa-cal__day.is-sel:hover { border-color: #dc2626; }
+			.aaraa-cal__day.is-pastsel { background: #cbd5e1; color: #334155; cursor: default; font-weight: 600; text-decoration: line-through; box-shadow: inset 0 0 0 1px #94a3b8; }
+			.aaraa-cal__day.is-pastsel:hover { border-color: transparent; }
+			.aaraa-cal[data-readonly="1"] .aaraa-cal__day { cursor: default; }
+			.aaraa-cal[data-readonly="1"] .aaraa-cal__day:hover { border-color: transparent; }
 		</style>
 		<?php
 	}

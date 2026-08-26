@@ -53,6 +53,13 @@ class Roles {
 	private $report = null;
 
 	/**
+	 * Daily orders report controller (menu callback).
+	 *
+	 * @var Daily_Report|null
+	 */
+	private $dailyreport = null;
+
+	/**
 	 * Subscription pause report controller (menu callback).
 	 *
 	 * @var Subscription_Pause_Report|null
@@ -97,6 +104,7 @@ class Roles {
 		$this->wallet    = new Wallet_Admin();
 		$this->delivery  = new Delivery_Admin();
 		$this->report    = new Delivery_Report();
+		$this->dailyreport = new Daily_Report();
 		$this->pausereport = new Subscription_Pause_Report();
 		$this->resumereport = new Subscription_Resume_Report();
 		$this->applog       = new Application_Log();
@@ -472,6 +480,14 @@ class Roles {
 			'manage_woocommerce',
 			Delivery_Report::PAGE,
 			array( $this->report, 'render_page' )
+		);
+		add_submenu_page(
+			'aaraa-delivery',
+			__( 'Daily Reports', 'aaraa-white-label-admin' ),
+			__( 'Daily Reports', 'aaraa-white-label-admin' ),
+			'manage_woocommerce',
+			Daily_Report::PAGE,
+			array( $this->dailyreport, 'render_page' )
 		);
 		add_submenu_page(
 			'aaraa-delivery',

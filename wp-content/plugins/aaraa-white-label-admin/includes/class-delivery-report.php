@@ -70,6 +70,8 @@ class Delivery_Report {
 				'time'    => '06:00',
 				'email'   => get_option( 'admin_email' ),
 				'scope'   => 'today',
+				'fmt_pdf' => 1,
+				'fmt_csv' => 0,
 			)
 		);
 	}
@@ -433,12 +435,16 @@ class Delivery_Report {
 				$phone = (string) $order->get_meta( '_shipping_mobile_number' );
 			}
 
-			$cid = (int) $order->get_customer_id();
+			$cid     = (int) $order->get_customer_id();
+			$sub_id  = $this->subscription_id_for( $order );
 
 			foreach ( $order->get_items() as $item ) {
 				$rows[] = array(
 					'cid'      => $cid, // for sorting only; not a displayed column.
+					'boy_id'   => $boy_id, // for boy-wise grouping; not a displayed column.
 					'order'    => $order->get_order_number(),
+					'order_id' => $order->get_id(),
+					'subscription' => $sub_id ? '#' . $sub_id : '—',
 					'customer' => $name,
 					'mobile'   => $phone,
 					'address'  => $address,
@@ -550,9 +556,20 @@ class Delivery_Report {
 
 		// Download PDF (GET link).
 		// phpcs:ignore WordPress.Security.NonceVerification
-		if ( isset( $_GET['action'] ) && 'pdf' === sanitize_key( wp_unslash( $_GET['action'] ) ) ) {
+		$get_action = isset( $_GET['action'] ) ? sanitize_key( wp_unslash( $_GET['action'] ) ) : '';
+		if ( 'pdf' === $get_action ) {
 			check_admin_referer( 'aaraa_delivery_report_pdf' );
 			$this->stream_pdf();
+		}
+		// Download CSV (opens in Excel).
+		if ( 'csv' === $get_action ) {
+			check_admin_referer( 'aaraa_delivery_report_csv' );
+			$this->stream_csv();
+		}
+		// Download boy-wise (a ZIP of per-boy files + the common report).
+		if ( 'boywise' === $get_action ) {
+			check_admin_referer( 'aaraa_delivery_report_boywise' );
+			$this->stream_boywise();
 		}
 	}
 
@@ -581,6 +598,13 @@ class Delivery_Report {
 
 		$scope = isset( $_POST['schedule_scope'] ) ? sanitize_key( wp_unslash( $_POST['schedule_scope'] ) ) : 'today';
 
+		// At least one attachment format; default to PDF if neither is ticked.
+		$fmt_pdf = empty( $_POST['schedule_fmt_pdf'] ) ? 0 : 1;
+		$fmt_csv = empty( $_POST['schedule_fmt_csv'] ) ? 0 : 1;
+		if ( ! $fmt_pdf && ! $fmt_csv ) {
+			$fmt_pdf = 1;
+		}
+
 		update_option(
 			self::OPTION,
 			array(
@@ -588,6 +612,8 @@ class Delivery_Report {
 				'time'    => $time,
 				'email'   => implode( ', ', $valid ),
 				'scope'   => ( 'yesterday' === $scope ) ? 'yesterday' : 'today',
+				'fmt_pdf' => $fmt_pdf,
+				'fmt_csv' => $fmt_csv,
 			),
 			false
 		);
@@ -672,6 +698,91 @@ class Delivery_Report {
 	}
 
 	/**
+	 * Stream the combined report as a CSV download (opens in Excel).
+	 *
+	 * @return void
+	 */
+	private function stream_csv() {
+		$date = $this->date();
+		$rows = $this->get_rows( $date, $this->filters(), $this->search() );
+		$csv  = $this->report_csv( $rows, $date );
+
+		nocache_headers();
+		header( 'Content-Type: text/csv; charset=utf-8' );
+		header( 'Content-Disposition: attachment; filename="delivery-report-' . $date . '.csv"' );
+		header( 'Content-Length: ' . strlen( $csv ) );
+		echo $csv; // phpcs:ignore WordPress.Security.EscapeOutput
+		exit;
+	}
+
+	/**
+	 * Stream the boy-wise report: a ZIP containing one PDF per delivery boy plus
+	 * the common report. When ZipArchive is unavailable, fall back to a single
+	 * combined PDF (a page per delivery boy). HTML is used if no PDF engine loads.
+	 *
+	 * @return void
+	 */
+	private function stream_boywise() {
+		$date    = $this->date();
+		$filters = $this->filters();
+		$search  = $this->search();
+
+		nocache_headers();
+
+		$formats = $this->selected_formats();
+
+		if ( class_exists( '\ZipArchive' ) ) {
+			$docs = $this->build_documents( $date, $filters, $search, $formats );
+			$tmp  = wp_tempnam( 'delivery-report-boywise-' . $date . '.zip' );
+			$zip  = new \ZipArchive();
+			if ( is_string( $tmp ) && true === $zip->open( $tmp, \ZipArchive::CREATE | \ZipArchive::OVERWRITE ) ) {
+				foreach ( $docs as $doc ) {
+					$zip->addFromString( $doc['name'] . '.' . $doc['ext'], $doc['bytes'] );
+				}
+				$zip->close();
+				$bytes = (string) file_get_contents( $tmp ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+				wp_delete_file( $tmp );
+
+				header( 'Content-Type: application/zip' );
+				header( 'Content-Disposition: attachment; filename="delivery-report-' . $date . '-boywise.zip"' );
+				header( 'Content-Length: ' . strlen( $bytes ) );
+				echo $bytes; // phpcs:ignore WordPress.Security.EscapeOutput
+				exit;
+			}
+		}
+
+		// No ZipArchive — hand back one combined document instead. Prefer PDF when
+		// selected (a page per boy); otherwise a single combined CSV.
+		$name = 'delivery-report-' . $date . '-boywise';
+
+		if ( ! in_array( 'pdf', $formats, true ) && in_array( 'csv', $formats, true ) ) {
+			$rows = $this->get_rows( $date, $filters, $search );
+			$csv  = $this->report_csv( $rows, $date );
+			header( 'Content-Type: text/csv; charset=utf-8' );
+			header( 'Content-Disposition: attachment; filename="' . $name . '.csv"' );
+			header( 'Content-Length: ' . strlen( $csv ) );
+			echo $csv; // phpcs:ignore WordPress.Security.EscapeOutput
+			exit;
+		}
+
+		$html = $this->combined_html( $date, $filters, $search );
+		$pdf  = $this->pdf_bytes_from_html( $html );
+
+		if ( false === $pdf ) {
+			header( 'Content-Type: text/html; charset=utf-8' );
+			header( 'Content-Disposition: attachment; filename="' . $name . '.html"' );
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput
+			exit;
+		}
+
+		header( 'Content-Type: application/pdf' );
+		header( 'Content-Disposition: attachment; filename="' . $name . '.pdf"' );
+		header( 'Content-Length: ' . strlen( $pdf ) );
+		echo $pdf; // phpcs:ignore WordPress.Security.EscapeOutput
+		exit;
+	}
+
+	/**
 	 * Email the report as an attachment.
 	 *
 	 * @return void
@@ -713,33 +824,45 @@ class Delivery_Report {
 			return 'empty';
 		}
 
-		$pdf = $this->pdf_bytes( $date, $filters, $search );
-		$ext = ( false === $pdf ) ? 'html' : 'pdf';
-		$doc = ( false === $pdf ) ? $this->report_html( $rows, $date ) : $pdf;
-
-		// Write the attachment to the uploads dir, send, then clean up.
+		// Build the common report plus one document per delivery boy, in each
+		// configured format (PDF and/or CSV), and write each to the uploads dir so
+		// they can be attached as separate files.
+		$docs   = $this->build_documents( $date, $filters, $search, $this->selected_formats() );
 		$upload = wp_upload_dir();
-		$file   = trailingslashit( $upload['basedir'] ) . 'delivery-report-' . $date . '.' . $ext;
+		$dir    = trailingslashit( $upload['basedir'] );
+		$files  = array();
 
-		if ( false === file_put_contents( $file, $doc ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions
-			return 'writefail';
+		foreach ( $docs as $doc ) {
+			$file = $dir . $doc['name'] . '.' . $doc['ext'];
+			if ( false === file_put_contents( $file, $doc['bytes'] ) ) { // phpcs:ignore WordPress.WP.AlternativeFunctions
+				// Clean up anything already written before bailing.
+				foreach ( $files as $written ) {
+					wp_delete_file( $written );
+				}
+				return 'writefail';
+			}
+			$files[] = $file;
 		}
 
-		$subject = sprintf(
+		$boy_count = max( 0, count( $files ) - 1 ); // all docs minus the common report.
+		$subject   = sprintf(
 			/* translators: %s: report date */
 			__( 'Daily Delivery Report — %s', 'aaraa-white-label-admin' ),
 			$date
 		);
 		$body = sprintf(
-			/* translators: 1: date, 2: number of rows */
-			__( 'Attached is the delivery report for %1$s (%2$d items).', 'aaraa-white-label-admin' ),
+			/* translators: 1: date, 2: number of rows, 3: number of delivery boys */
+			__( 'Attached is the delivery report for %1$s (%2$d items): one common report plus a separate report for each of the %3$d delivery boys.', 'aaraa-white-label-admin' ),
 			$date,
-			count( $rows )
+			count( $rows ),
+			$boy_count
 		);
 
-		$sent = wp_mail( $recipients, $subject, $body, array( 'Content-Type: text/plain; charset=UTF-8' ), array( $file ) );
+		$sent = wp_mail( $recipients, $subject, $body, array( 'Content-Type: text/plain; charset=UTF-8' ), $files );
 
-		wp_delete_file( $file );
+		foreach ( $files as $file ) {
+			wp_delete_file( $file );
+		}
 
 		return $sent ? 'sent' : 'mailfail';
 	}
@@ -783,19 +906,44 @@ class Delivery_Report {
 	/**
 	 * The report table columns.
 	 *
+	 * @param bool $with_ids Whether to include Order ID / Subscription ID — only
+	 *                       the overall report does; the per-delivery-person
+	 *                       (boy-wise) sheets leave them off.
 	 * @return array<string, string>
 	 */
-	private function columns() {
-		return array(
-			'customer' => __( 'Customer Name', 'aaraa-white-label-admin' ),
-			'mobile'   => __( 'Mobile', 'aaraa-white-label-admin' ),
-			'address'  => __( 'Address', 'aaraa-white-label-admin' ),
-			'product'  => __( 'Product Name', 'aaraa-white-label-admin' ),
-			'qty'      => __( 'Quantity', 'aaraa-white-label-admin' ),
-			'slot'     => __( 'Delivery Slot', 'aaraa-white-label-admin' ),
-			'hub'      => __( 'Delivery Hub', 'aaraa-white-label-admin' ),
-			'boy'      => __( 'Delivery Boy', 'aaraa-white-label-admin' ),
-		);
+	private function columns( $with_ids = false ) {
+		$cols = array();
+		if ( $with_ids ) {
+			$cols['order_id']     = __( 'Order ID', 'aaraa-white-label-admin' );
+			$cols['subscription'] = __( 'Subscription ID', 'aaraa-white-label-admin' );
+		}
+		$cols['customer'] = __( 'Customer Name', 'aaraa-white-label-admin' );
+		$cols['mobile']   = __( 'Mobile', 'aaraa-white-label-admin' );
+		$cols['address']  = __( 'Address', 'aaraa-white-label-admin' );
+		$cols['product']  = __( 'Product Name', 'aaraa-white-label-admin' );
+		$cols['qty']      = __( 'Quantity', 'aaraa-white-label-admin' );
+		$cols['slot']     = __( 'Delivery Slot', 'aaraa-white-label-admin' );
+		$cols['hub']      = __( 'Delivery Hub', 'aaraa-white-label-admin' );
+		$cols['boy']      = __( 'Delivery Boy', 'aaraa-white-label-admin' );
+		return $cols;
+	}
+
+	/**
+	 * First related subscription id for an order (0 when none).
+	 *
+	 * @param \WC_Order $order Order.
+	 * @return int
+	 */
+	private function subscription_id_for( $order ) {
+		if ( ! function_exists( 'wcs_get_subscriptions_for_order' ) ) {
+			return 0;
+		}
+		$subs = wcs_get_subscriptions_for_order( $order, array( 'order_type' => 'any' ) );
+		if ( empty( $subs ) ) {
+			return 0;
+		}
+		$first = reset( $subs );
+		return ( is_object( $first ) && method_exists( $first, 'get_id' ) ) ? (int) $first->get_id() : (int) key( $subs );
 	}
 
 	/**
@@ -805,9 +953,16 @@ class Delivery_Report {
 	 * @param string $date Y-m-d.
 	 * @return string
 	 */
-	private function report_html( $rows, $date ) {
-		$cols = $this->columns();
+	private function report_html( $rows, $date, $boy_label = '' ) {
+		return $this->report_head() . $this->report_section( $rows, $date, $boy_label ) . '</body></html>';
+	}
 
+	/**
+	 * The shared document head + opening <body> (styles for PDF and HTML fallback).
+	 *
+	 * @return string
+	 */
+	private function report_head() {
 		$html  = '<html><head><meta charset="utf-8"><style>';
 		$html .= 'body{font-family:DejaVu Sans,Arial,sans-serif;font-size:10px;color:#0F172A;}';
 		$html .= 'h1{font-size:16px;margin:0 0 2px;}';
@@ -820,9 +975,32 @@ class Delivery_Report {
 		$html .= 'table.summary{width:45%;}';
 		$html .= 'table.summary td.qty,table.summary th.qty{text-align:right;width:110px;}';
 		$html .= 'tfoot td{font-weight:bold;background:#EEF2F6;}';
+		$html .= '.section{page-break-before:always;}';
 		$html .= '</style></head><body>';
-		$html .= '<h1>' . esc_html( get_bloginfo( 'name' ) ) . ' — ' . esc_html__( 'Daily Delivery Report', 'aaraa-white-label-admin' ) . '</h1>';
-		$html .= '<p class="sub">' . esc_html( $date ) . ' &middot; ' . esc_html( sprintf( _n( '%d item', '%d items', count( $rows ), 'aaraa-white-label-admin' ), count( $rows ) ) ) . '</p>';
+		return $html;
+	}
+
+	/**
+	 * One report section: heading, the line-item table and the order summary.
+	 * Used on its own (single PDF) and repeated (boy-wise combined PDF).
+	 *
+	 * @param array  $rows      Report rows.
+	 * @param string $date      Y-m-d.
+	 * @param string $boy_label Optional delivery-boy name for the heading.
+	 * @return string
+	 */
+	private function report_section( $rows, $date, $boy_label = '' ) {
+		// Overall report (no delivery-boy heading) carries the id columns; the
+		// per-delivery-person sections do not.
+		$cols = $this->columns( '' === $boy_label );
+
+		$title = get_bloginfo( 'name' ) . ' — ' . __( 'Daily Delivery Report', 'aaraa-white-label-admin' );
+		$html  = '<h1>' . esc_html( $title ) . '</h1>';
+		$sub   = esc_html( $date ) . ' &middot; ' . esc_html( sprintf( _n( '%d item', '%d items', count( $rows ), 'aaraa-white-label-admin' ), count( $rows ) ) );
+		if ( '' !== $boy_label ) {
+			$sub = '<strong>' . esc_html( sprintf( /* translators: %s: delivery boy name */ __( 'Delivery Boy: %s', 'aaraa-white-label-admin' ), $boy_label ) ) . '</strong> &middot; ' . $sub;
+		}
+		$html .= '<p class="sub">' . $sub . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput -- parts escaped above.
 		$html .= '<table><thead><tr>';
 		foreach ( $cols as $label ) {
 			$html .= '<th>' . esc_html( $label ) . '</th>';
@@ -863,6 +1041,209 @@ class Delivery_Report {
 			$html .= '</tr></tfoot></table>';
 		}
 
+		return $html;
+	}
+
+	/**
+	 * Group report rows by delivery boy, named boys A→Z then "Not assigned" last.
+	 *
+	 * @param array $rows Report rows (must include boy_id + boy).
+	 * @return array<int, array{boy_id:int,name:string,slug:string,rows:array}>
+	 */
+	private function group_rows_by_boy( $rows ) {
+		$groups = array();
+		foreach ( $rows as $row ) {
+			$bid = isset( $row['boy_id'] ) ? (int) $row['boy_id'] : 0;
+			if ( ! isset( $groups[ $bid ] ) ) {
+				$name = ( $bid && isset( $row['boy'] ) && '—' !== $row['boy'] )
+					? $row['boy']
+					: __( 'Not assigned', 'aaraa-white-label-admin' );
+				$groups[ $bid ] = array(
+					'boy_id' => $bid,
+					'name'   => $name,
+					'slug'   => $bid ? ( sanitize_title( $name ) . '-' . $bid ) : 'unassigned',
+					'rows'   => array(),
+				);
+			}
+			$groups[ $bid ]['rows'][] = $row;
+		}
+
+		uasort(
+			$groups,
+			static function ( $a, $b ) {
+				if ( 0 === $a['boy_id'] ) {
+					return 1; // unassigned last.
+				}
+				if ( 0 === $b['boy_id'] ) {
+					return -1;
+				}
+				return strcasecmp( $a['name'], $b['name'] );
+			}
+		);
+
+		return array_values( $groups );
+	}
+
+	/**
+	 * Build the set of documents for a date: one common report plus one per
+	 * delivery boy. Each entry is a ready-to-write file (PDF, or HTML when no PDF
+	 * engine is available).
+	 *
+	 * @param string $date    Y-m-d.
+	 * @param array  $filters Slot/hub/boy filters.
+	 * @param string $search  Free-text term.
+	 * @return array<int, array{name:string,ext:string,bytes:string}>
+	 */
+	private function build_documents( $date, $filters = array(), $search = '', $formats = null ) {
+		$formats = ( null === $formats ) ? array( 'pdf' ) : (array) $formats;
+		$rows    = $this->get_rows( $date, $filters, $search );
+		$groups  = $this->group_rows_by_boy( $rows );
+		$docs    = array();
+
+		foreach ( $formats as $fmt ) {
+			// Common report (everything).
+			$docs[] = $this->make_document( 'delivery-report-' . $date, $rows, $date, '', $fmt );
+
+			// One report per delivery boy — file name starts with the boy's name.
+			foreach ( $groups as $group ) {
+				$docs[] = $this->make_document(
+					$group['slug'] . '-delivery-report-' . $date,
+					$group['rows'],
+					$date,
+					$group['name'],
+					$fmt
+				);
+			}
+		}
+
+		return $docs;
+	}
+
+	/**
+	 * Render one report to a document array in the requested format. PDF falls
+	 * back to HTML when no PDF engine is available; CSV is always available.
+	 *
+	 * @param string $basename  File name without extension.
+	 * @param array  $rows      Report rows.
+	 * @param string $date      Y-m-d.
+	 * @param string $boy_label Optional delivery-boy name for the heading.
+	 * @param string $fmt       'pdf' | 'csv'.
+	 * @return array{name:string,ext:string,bytes:string}
+	 */
+	private function make_document( $basename, $rows, $date, $boy_label = '', $fmt = 'pdf' ) {
+		if ( 'csv' === $fmt ) {
+			return array( 'name' => $basename, 'ext' => 'csv', 'bytes' => $this->report_csv( $rows, $date, $boy_label ) );
+		}
+		$html = $this->report_html( $rows, $date, $boy_label );
+		$pdf  = $this->pdf_bytes_from_html( $html );
+		if ( false === $pdf ) {
+			return array( 'name' => $basename, 'ext' => 'html', 'bytes' => $html );
+		}
+		return array( 'name' => $basename, 'ext' => 'pdf', 'bytes' => $pdf );
+	}
+
+	/**
+	 * Render the report as CSV (opens directly in Excel). Includes a title row,
+	 * the line-item table and the order summary. A UTF-8 BOM is prepended so Excel
+	 * shows accented / non-ASCII names correctly.
+	 *
+	 * @param array  $rows      Report rows.
+	 * @param string $date      Y-m-d.
+	 * @param string $boy_label Optional delivery-boy name.
+	 * @return string CSV bytes.
+	 */
+	private function report_csv( $rows, $date, $boy_label = '' ) {
+		// Overall CSV carries the id columns; per-delivery-person CSVs do not.
+		$cols = $this->columns( '' === $boy_label );
+		$fh   = fopen( 'php://temp', 'r+' ); // phpcs:ignore WordPress.WP.AlternativeFunctions
+
+		$title = get_bloginfo( 'name' ) . ' - ' . __( 'Daily Delivery Report', 'aaraa-white-label-admin' ) . ' - ' . $date;
+		if ( '' !== $boy_label ) {
+			$title .= ' - ' . sprintf( /* translators: %s: delivery boy name */ __( 'Delivery Boy: %s', 'aaraa-white-label-admin' ), $boy_label );
+		}
+		fputcsv( $fh, array( $title ) );
+		fputcsv( $fh, array() );
+		fputcsv( $fh, array_values( $cols ) );
+
+		foreach ( $rows as $row ) {
+			$line = array();
+			foreach ( array_keys( $cols ) as $key ) {
+				$line[] = isset( $row[ $key ] ) ? $row[ $key ] : '';
+			}
+			fputcsv( $fh, $line );
+		}
+
+		$summary = $this->summary_rows( $rows );
+		if ( ! empty( $summary ) ) {
+			$total = 0.0;
+			fputcsv( $fh, array() );
+			fputcsv( $fh, array( __( 'Order Summary', 'aaraa-white-label-admin' ) ) );
+			fputcsv( $fh, array( __( 'Product Name', 'aaraa-white-label-admin' ), __( 'Total Quantity', 'aaraa-white-label-admin' ) ) );
+			foreach ( $summary as $product => $qty ) {
+				$total += $qty;
+				fputcsv( $fh, array( $product, $this->qty_label( $qty ) ) );
+			}
+			fputcsv( $fh, array( __( 'Total', 'aaraa-white-label-admin' ), $this->qty_label( $total ) ) );
+		}
+
+		rewind( $fh );
+		$csv = (string) stream_get_contents( $fh );
+		fclose( $fh );
+
+		return "\xEF\xBB\xBF" . $csv; // UTF-8 BOM for Excel.
+	}
+
+	/**
+	 * The formats selected for the automatic email / boy-wise ZIP, always at least
+	 * one (defaults to PDF).
+	 *
+	 * @return string[] Subset of ['pdf','csv'].
+	 */
+	private function selected_formats() {
+		$settings = self::settings();
+		$formats  = array();
+		if ( ! empty( $settings['fmt_pdf'] ) ) {
+			$formats[] = 'pdf';
+		}
+		if ( ! empty( $settings['fmt_csv'] ) ) {
+			$formats[] = 'csv';
+		}
+		return empty( $formats ) ? array( 'pdf' ) : $formats;
+	}
+
+	/**
+	 * Render report HTML to PDF bytes (landscape A4), or false if dompdf is absent.
+	 *
+	 * @param string $html Report HTML.
+	 * @return string|false
+	 */
+	private function pdf_bytes_from_html( $html ) {
+		$dompdf = $this->dompdf();
+		if ( ! $dompdf ) {
+			return false;
+		}
+		$dompdf->loadHtml( $html );
+		$dompdf->setPaper( 'A4', 'landscape' );
+		$dompdf->render();
+		return $dompdf->output();
+	}
+
+	/**
+	 * One combined document: the common report followed by a page per delivery
+	 * boy. Used for the boy-wise download when ZipArchive is unavailable.
+	 *
+	 * @param string $date    Y-m-d.
+	 * @param array  $filters Filters.
+	 * @param string $search  Search term.
+	 * @return string Combined HTML.
+	 */
+	private function combined_html( $date, $filters = array(), $search = '' ) {
+		$rows = $this->get_rows( $date, $filters, $search );
+		$html = $this->report_head();
+		$html .= $this->report_section( $rows, $date );
+		foreach ( $this->group_rows_by_boy( $rows ) as $group ) {
+			$html .= '<div class="section">' . $this->report_section( $group['rows'], $date, $group['name'] ) . '</div>';
+		}
 		$html .= '</body></html>';
 		return $html;
 	}
@@ -881,7 +1262,7 @@ class Delivery_Report {
 		$filters = $this->filters();
 		$search  = $this->search();
 		$rows    = $this->get_rows( $date, $filters, $search );
-		$cols    = $this->columns();
+		$cols    = $this->columns( true ); // On-screen overall report shows the id columns.
 		$base    = admin_url( 'admin.php' );
 
 		$slot_opts = $this->slot_map();
@@ -904,6 +1285,12 @@ class Delivery_Report {
 			<h1 class="aaraa-wallet__title"><?php esc_html_e( 'Daily Delivery Report', 'aaraa-white-label-admin' ); ?></h1>
 			<a class="button button-primary" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array_merge( array( 'page' => self::PAGE, 'action' => 'pdf', 'report_date' => $date ), $carry ), $base ), 'aaraa_delivery_report_pdf' ) ); ?>">
 				<?php esc_html_e( 'Download PDF', 'aaraa-white-label-admin' ); ?>
+			</a>
+			<a class="button" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array_merge( array( 'page' => self::PAGE, 'action' => 'csv', 'report_date' => $date ), $carry ), $base ), 'aaraa_delivery_report_csv' ) ); ?>">
+				<?php esc_html_e( 'Download CSV', 'aaraa-white-label-admin' ); ?>
+			</a>
+			<a class="button" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array_merge( array( 'page' => self::PAGE, 'action' => 'boywise', 'report_date' => $date ), $carry ), $base ), 'aaraa_delivery_report_boywise' ) ); ?>">
+				<?php esc_html_e( 'Download boy-wise (ZIP)', 'aaraa-white-label-admin' ); ?>
 			</a>
 		</div>
 		<?php
@@ -1075,7 +1462,7 @@ class Delivery_Report {
 		<div class="aaraa-wallet__panel" style="border-top:1px solid #E2E8F0;border-radius:10px;margin-top:18px;">
 			<h2 style="margin:0 0 4px;font-size:15px;"><?php esc_html_e( 'Automatic daily email', 'aaraa-white-label-admin' ); ?></h2>
 			<p class="description" style="margin:0 0 12px;">
-				<?php esc_html_e( 'Sends this report once a day, on its own, at the time below. Times are in your site timezone.', 'aaraa-white-label-admin' ); ?>
+				<?php esc_html_e( 'Sends this report once a day, on its own, at the time below — one common report plus a separate file for each delivery boy (in the formats ticked below), all attached to the same email. Times are in your site timezone.', 'aaraa-white-label-admin' ); ?>
 				<code><?php echo esc_html( wp_timezone_string() ); ?></code>
 			</p>
 
@@ -1098,6 +1485,20 @@ class Delivery_Report {
 						<th scope="row"><label for="aaraa_schedule_time"><?php esc_html_e( 'Send at', 'aaraa-white-label-admin' ); ?></label></th>
 						<td>
 							<input type="time" id="aaraa_schedule_time" name="schedule_time" value="<?php echo esc_attr( $settings['time'] ); ?>" required />
+						</td>
+					</tr>
+					<tr>
+						<th scope="row"><?php esc_html_e( 'Attach as', 'aaraa-white-label-admin' ); ?></th>
+						<td>
+							<label style="margin-right:16px;">
+								<input type="checkbox" name="schedule_fmt_pdf" value="1" <?php checked( ! empty( $settings['fmt_pdf'] ) ); ?> />
+								<?php esc_html_e( 'PDF', 'aaraa-white-label-admin' ); ?>
+							</label>
+							<label>
+								<input type="checkbox" name="schedule_fmt_csv" value="1" <?php checked( ! empty( $settings['fmt_csv'] ) ); ?> />
+								<?php esc_html_e( 'CSV / Excel', 'aaraa-white-label-admin' ); ?>
+							</label>
+							<p class="description"><?php esc_html_e( 'Tick both to attach every report in both formats. If neither is ticked, PDF is used.', 'aaraa-white-label-admin' ); ?></p>
 						</td>
 					</tr>
 					<tr>

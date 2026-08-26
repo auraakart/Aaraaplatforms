@@ -117,6 +117,7 @@ class WhatsApp_Admin {
 			'order'           => array(),
 			'subscription'    => array(),
 			'otp'             => $row,
+			'pause'           => $row,
 			'wallet'          => array(
 				'credit' => $row,
 				'debit'  => $row,
@@ -133,6 +134,7 @@ class WhatsApp_Admin {
 		$s['order']        = ( isset( $saved['order'] ) && is_array( $saved['order'] ) ) ? $saved['order'] : array();
 		$s['subscription'] = ( isset( $saved['subscription'] ) && is_array( $saved['subscription'] ) ) ? $saved['subscription'] : array();
 		$s['otp']          = array_merge( $defaults['otp'], ( isset( $saved['otp'] ) && is_array( $saved['otp'] ) ) ? $saved['otp'] : array() );
+		$s['pause']        = array_merge( $defaults['pause'], ( isset( $saved['pause'] ) && is_array( $saved['pause'] ) ) ? $saved['pause'] : array() );
 
 		$saved_wallet = ( isset( $saved['wallet'] ) && is_array( $saved['wallet'] ) ) ? $saved['wallet'] : array();
 		$s['wallet']  = array();
@@ -449,6 +451,60 @@ class WhatsApp_Admin {
 		if ( $sent ) {
 			$subscription->add_order_note( sprintf( 'WhatsApp sent for subscription status "%s".', $to ) );
 			self::notify_admins( $s, $tpl, $params, array( 'type' => 'subscription', 'ref' => $subscription->get_id(), 'status' => $to ), $buttons );
+		}
+	}
+
+	/**
+	 * Send the Pause Subscription WhatsApp template when enabled.
+	 *
+	 * Called from Notifications_Admin::send_pause_notifications(). The tokens are
+	 * pre-built there ({customer_name}, {pause_dates}, {resume_dates}, …); this
+	 * maps them onto the approved template's numbered params.
+	 *
+	 * @param \WC_Subscription     $subscription Subscription.
+	 * @param array<string,string> $tokens       {token} => value map.
+	 * @return void
+	 */
+	public static function send_pause( $subscription, $tokens ) {
+		$s = self::settings();
+		if ( empty( $s['enabled'] ) ) {
+			return;
+		}
+		$tpl = isset( $s['pause'] ) ? $s['pause'] : array();
+		if ( empty( $tpl['enabled'] ) || empty( $tpl['template'] ) ) {
+			return;
+		}
+		if ( ! is_a( $subscription, 'WC_Subscription' ) ) {
+			return;
+		}
+		$phone = $subscription->get_billing_phone();
+		if ( ! $phone ) {
+			self::log(
+				array(
+					'type'     => 'pause',
+					'ref'      => $subscription->get_id(),
+					'status'   => 'pause',
+					'template' => $tpl['template'],
+					'result'   => 'failed',
+					'response' => 'No billing phone number on the subscription',
+				)
+			);
+			return;
+		}
+
+		$params  = self::resolve_params( isset( $tpl['params'] ) ? $tpl['params'] : '', $tokens );
+		$buttons = self::resolve_buttons( isset( $tpl['buttons'] ) ? $tpl['buttons'] : '', $tokens );
+
+		$sent = self::send_template(
+			$phone,
+			$tpl['template'],
+			isset( $tpl['language'] ) ? $tpl['language'] : 'en',
+			$params,
+			array( 'type' => 'pause', 'ref' => $subscription->get_id(), 'status' => 'pause' ),
+			$buttons
+		);
+		if ( $sent ) {
+			self::notify_admins( $s, $tpl, $params, array( 'type' => 'pause', 'ref' => $subscription->get_id(), 'status' => 'pause' ), $buttons );
 		}
 	}
 
@@ -872,6 +928,7 @@ class WhatsApp_Admin {
 			$cur['order']        = $this->sanitize_group( $in['order'] ?? array() );
 			$cur['subscription'] = $this->sanitize_group( $in['subscription'] ?? array() );
 			$cur['otp']          = $this->sanitize_row( $in['otp'] ?? array() );
+			$cur['pause']        = $this->sanitize_row( $in['pause'] ?? array() );
 			$cur['wallet']       = array(
 				'credit' => $this->sanitize_row( $in['wallet']['credit'] ?? array() ),
 				'debit'  => $this->sanitize_row( $in['wallet']['debit'] ?? array() ),
@@ -2452,6 +2509,13 @@ class WhatsApp_Admin {
 			$this->render_config_card( 'otp', 'otp', 'otp', __( 'Login OTP', 'aaraa-white-label-admin' ), $s['otp'] );
 			echo '</div>';
 
+			// Pause Subscription.
+			echo '<h2 class="title">' . esc_html__( 'Pause Subscription Template', 'aaraa-white-label-admin' ) . '</h2>';
+			echo '<p class="description">' . esc_html__( 'Sent when a pause is saved on the delivery calendar. Map the approved template params to: {customer_name}, {first_name}, {pause_dates}, {resume_dates}, {subscription_id}, {site}.', 'aaraa-white-label-admin' ) . '</p>';
+			echo '<div class="wa-cfg-list">';
+			$this->render_config_card( 'pause', 'pause', 'pause', __( 'Pause saved', 'aaraa-white-label-admin' ), $s['pause'] );
+			echo '</div>';
+
 			// Wallet.
 			echo '<h2 class="title">' . esc_html__( 'Wallet Templates', 'aaraa-white-label-admin' ) . '</h2>';
 			echo '<div class="wa-cfg-list">';
@@ -2569,6 +2633,7 @@ class WhatsApp_Admin {
 			'order'         => __( 'Order', 'aaraa-white-label-admin' ),
 			'subscription'  => __( 'Subscription', 'aaraa-white-label-admin' ),
 			'otp'           => __( 'OTP', 'aaraa-white-label-admin' ),
+			'pause'         => __( 'Pause', 'aaraa-white-label-admin' ),
 			'wallet_credit' => __( 'Wallet credit', 'aaraa-white-label-admin' ),
 			'wallet_debit'  => __( 'Wallet debit', 'aaraa-white-label-admin' ),
 			'wallet_low'    => __( 'Wallet low balance', 'aaraa-white-label-admin' ),
