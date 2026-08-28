@@ -55,8 +55,10 @@ class Daily_Report {
 	 * @return array{rows:array<int,array<string,mixed>>,counts:array<string,int>}
 	 */
 	private function get_data( $date ) {
-		$rows          = array();
-		$status_counts = array(); // WooCommerce order status => count (real orders only).
+		$rows              = array();
+		$status_counts     = array(); // WooCommerce order status => count (real orders only).
+		$renewal_today_ids = array(); // sub_id => true for renewals created today.
+		$waiting_ids       = array(); // sub_id => true counted as waiting.
 		$counts        = array(
 			'total_orders' => 0,
 			'active_subs'  => 0,
@@ -100,10 +102,15 @@ class Daily_Report {
 			$st                   = $order->get_status();
 			$status_counts[ $st ] = ( $status_counts[ $st ] ?? 0 ) + 1;
 
+			$row_sub_id = ( 'one_time' === $type ) ? 0 : $this->subscription_id_for( $order );
+			if ( 'renewal' === $type && $row_sub_id ) {
+				$renewal_today_ids[ $row_sub_id ] = true;
+			}
+
 			$rows[] = array(
 				'type'    => $type,
 				'order_id' => $order->get_id(),
-				'sub_id'  => ( 'one_time' === $type ) ? 0 : $this->subscription_id_for( $order ),
+				'sub_id'  => $row_sub_id,
 				'customer' => $this->customer_name( $order ),
 				'mobile'  => $this->mobile( $order ),
 				'products' => $this->products( $order ),
@@ -113,51 +120,12 @@ class Daily_Report {
 			);
 		}
 
-		// ---- Renewals skipped on the selected day --------------------------
 		$delivery_date = gmdate( 'Y-m-d', strtotime( $date . ' +1 day' ) );
-		$skipped_ids   = class_exists( __NAMESPACE__ . '\\Pause_History' )
-			? Pause_History::candidates_for_pause( $delivery_date )
-			: array();
 
-		foreach ( (array) $skipped_ids as $sid ) {
-			$sid = (int) $sid;
-			if ( ! function_exists( 'wcs_get_subscription' ) ) {
-				break;
-			}
-			// Confirm the D+1 delivery is genuinely paused for this subscription.
-			$paused = class_exists( __NAMESPACE__ . '\\Pause_History' )
-				? Pause_History::pause_dates_for( $sid )
-				: array();
-			if ( ! in_array( $delivery_date, $paused, true ) ) {
-				continue;
-			}
-			$sub = wcs_get_subscription( $sid );
-			if ( ! $sub ) {
-				continue;
-			}
-			$status = $sub->get_status();
-			if ( in_array( $status, array( 'cancelled', 'expired' ), true ) ) {
-				continue; // A dead subscription has no renewal to skip.
-			}
-
-			++$counts['skipped'];
-
-			$rows[] = array(
-				'type'    => 'skipped',
-				'order_id' => 0,
-				'sub_id'  => $sid,
-				'customer' => $this->customer_name( $sub ),
-				'mobile'  => $this->mobile( $sub ),
-				'products' => $this->products( $sub ),
-				'amount'  => (float) $sub->get_total(),
-				'status'  => $status,
-				'time'    => 0,
-			);
-		}
-
-		// ---- Subscriptions due to renew today with no renewal yet ----------
+		// ---- Subscriptions due to renew today with no renewal yet (waiting) ----
 		foreach ( $this->get_waiting_subscriptions( $date, $delivery_date ) as $sub ) {
 			++$counts['waiting'];
+			$waiting_ids[ $sub->get_id() ] = true;
 			$rows[] = array(
 				'type'    => 'waiting',
 				'order_id' => 0,
@@ -171,8 +139,40 @@ class Daily_Report {
 			);
 		}
 
-		// ---- Active subscription count (store-wide) ------------------------
-		$counts['active_subs'] = $this->count_active_subscriptions();
+		// ---- Renewal Skipped: every ACTIVE subscription that neither renewed
+		// today nor is waiting. This makes the subscription buckets a clean
+		// partition of the active subscriptions, so the day's counts reconcile:
+		//   Active = (distinct active subs renewed) + Waiting + Skipped
+		// and, because the Subscription Renewal box counts renewal ORDERS (which
+		// include same-day duplicates):
+		//   Active = Subscription Renewal − Duplicate Renewal + Waiting + Skipped.
+		// A skipped sub is one whose renewal isn't due today for ANY reason — an
+		// every-2nd-day / alternate off day, a paused delivery, or simply not due.
+		$active_ids            = $this->get_active_subscription_ids();
+		$counts['active_subs'] = count( $active_ids );
+
+		foreach ( $active_ids as $sid ) {
+			$sid = (int) $sid;
+			if ( isset( $renewal_today_ids[ $sid ] ) || isset( $waiting_ids[ $sid ] ) ) {
+				continue; // Renewed today or waiting to renew — not skipped.
+			}
+			$sub = function_exists( 'wcs_get_subscription' ) ? wcs_get_subscription( $sid ) : null;
+			if ( ! $sub ) {
+				continue;
+			}
+			++$counts['skipped'];
+			$rows[] = array(
+				'type'    => 'skipped',
+				'order_id' => 0,
+				'sub_id'  => $sid,
+				'customer' => $this->customer_name( $sub ),
+				'mobile'  => $this->mobile( $sub ),
+				'products' => $this->products( $sub ),
+				'amount'  => (float) $sub->get_total(),
+				'status'  => $sub->get_status(),
+				'time'    => 0,
+			);
+		}
 
 		// Duplicate renewals: the same subscription with more than one renewal
 		// order on this day. The first is legitimate; each extra is a duplicate
@@ -217,6 +217,43 @@ class Daily_Report {
 		arsort( $status_counts );
 
 		return array( 'rows' => $rows, 'counts' => $counts, 'status_counts' => $status_counts );
+	}
+
+	/**
+	 * IDs of every active subscription, from the same source as the active-count
+	 * card so the two agree exactly.
+	 *
+	 * @return int[]
+	 */
+	private function get_active_subscription_ids() {
+		if ( post_type_exists( 'shop_subscription' ) ) {
+			$ids = get_posts(
+				array(
+					'post_type'        => 'shop_subscription',
+					'post_status'      => 'wc-active',
+					'fields'           => 'ids',
+					'numberposts'      => -1,
+					'no_found_rows'    => true,
+					'suppress_filters' => true,
+				)
+			);
+			if ( ! empty( $ids ) ) {
+				return array_map( 'intval', (array) $ids );
+			}
+		}
+
+		// HPOS fallback: subscriptions live in the orders table.
+		global $wpdb;
+		$table = $wpdb->prefix . 'wc_orders';
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) ) ) === $table ) { // phpcs:ignore WordPress.DB
+			return array_map(
+				'intval',
+				(array) $wpdb->get_col( // phpcs:ignore WordPress.DB
+					$wpdb->prepare( "SELECT id FROM {$table} WHERE type = %s AND status = %s", 'shop_subscription', 'wc-active' ) // phpcs:ignore WordPress.DB.PreparedSQL
+				)
+			);
+		}
+		return array();
 	}
 
 	/**

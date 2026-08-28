@@ -76,6 +76,7 @@ class Subscription_Delivery {
 		add_action( 'wp_ajax_aaraa_sub_schedule', array( $this, 'ajax_schedule' ) );
 		add_action( 'wp_ajax_aaraa_sub_next_payment', array( $this, 'ajax_next_payment' ) );
 		add_action( 'wp_ajax_aaraa_sub_pause', array( $this, 'ajax_pause' ) );
+		add_action( 'wp_ajax_aaraa_sub_remove_pause_date', array( $this, 'ajax_remove_pause_date' ) );
 		add_action( 'wp_ajax_aaraa_sub_resume', array( $this, 'ajax_resume' ) );
 		// One-time heal: copy legacy postmeta-only pause dates into the HPOS store.
 		add_action( 'admin_init', array( __CLASS__, 'heal_pause_meta' ) );
@@ -627,7 +628,7 @@ class Subscription_Delivery {
 				sort( $scheduled );
 				?>
 				<?php if ( $scheduled ) : ?>
-					<div class="aaraa-subdel__saved">
+					<div class="aaraa-subdel__saved" id="aaraa_sub_saved" data-sub="<?php echo (int) $sub_id; ?>" data-nonce="<?php echo esc_attr( wp_create_nonce( self::NONCE ) ); ?>">
 						<strong>
 							<?php
 							printf(
@@ -639,10 +640,85 @@ class Subscription_Delivery {
 						</strong>
 						<ul>
 							<?php foreach ( $scheduled as $d ) : ?>
-								<li><?php echo esc_html( $d ); ?></li>
+								<li>
+									<label class="aaraa-date-pick">
+										<input type="checkbox" class="aaraa-date-check" value="<?php echo esc_attr( $d ); ?>" />
+										<span><?php echo esc_html( $d ); ?></span>
+									</label>
+									<button type="button" class="aaraa-remove-date" data-date="<?php echo esc_attr( $d ); ?>" title="<?php esc_attr_e( 'Remove this date', 'aaraa-white-label-admin' ); ?>" aria-label="<?php echo esc_attr( sprintf( /* translators: %s: date */ __( 'Remove %s', 'aaraa-white-label-admin' ), $d ) ); ?>">&times;</button>
+								</li>
 							<?php endforeach; ?>
 						</ul>
+						<p class="aaraa-subdel__savedbar">
+							<label class="aaraa-date-pick"><input type="checkbox" id="aaraa_sub_check_all" /> <?php esc_html_e( 'Select all', 'aaraa-white-label-admin' ); ?></label>
+							<button type="button" class="button button-small" id="aaraa_sub_remove_selected"><?php esc_html_e( 'Remove selected', 'aaraa-white-label-admin' ); ?></button>
+							<span class="spinner aaraa-subdel__spinner" id="aaraa_sub_remove_spin" style="float:none;margin:0;"></span>
+						</p>
 					</div>
+					<script>
+					( function () {
+						var box = document.getElementById( 'aaraa_sub_saved' );
+						if ( ! box || box.dataset.bound ) { return; }
+						box.dataset.bound = '1';
+						var spin = document.getElementById( 'aaraa_sub_remove_spin' );
+						var ajax = ( window.ajaxurl || '<?php echo esc_js( admin_url( 'admin-ajax.php' ) ); ?>' );
+
+						function send( dates, disableEls ) {
+							if ( ! dates.length ) { window.alert( 'Select at least one date to remove.' ); return; }
+							if ( ! window.confirm( 'Remove pause date(s): ' + dates.join( ', ' ) + '?' ) ) { return; }
+							if ( spin ) { spin.classList.add( 'is-active' ); }
+							disableEls.forEach( function ( el ) { el.disabled = true; } );
+							var body = new URLSearchParams();
+							body.append( 'action', 'aaraa_sub_remove_pause_date' );
+							body.append( 'subscription_id', box.getAttribute( 'data-sub' ) );
+							body.append( 'dates', dates.join( ',' ) );
+							body.append( 'nonce', box.getAttribute( 'data-nonce' ) );
+							fetch( ajax, {
+								method: 'POST',
+								credentials: 'same-origin',
+								headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+								body: body.toString()
+							} ).then( function ( r ) { return r.json(); } ).then( function ( res ) {
+								if ( res && res.success ) {
+									window.location.reload();
+								} else {
+									if ( spin ) { spin.classList.remove( 'is-active' ); }
+									disableEls.forEach( function ( el ) { el.disabled = false; } );
+									window.alert( ( res && res.data && res.data.message ) || 'Could not remove the date(s).' );
+								}
+							} ).catch( function () {
+								if ( spin ) { spin.classList.remove( 'is-active' ); }
+								disableEls.forEach( function ( el ) { el.disabled = false; } );
+								window.alert( 'Request failed. Please try again.' );
+							} );
+						}
+
+						// Single remove (the × on a chip).
+						box.addEventListener( 'click', function ( e ) {
+							var btn = e.target.closest ? e.target.closest( '.aaraa-remove-date' ) : null;
+							if ( ! btn ) { return; }
+							send( [ btn.getAttribute( 'data-date' ) ], [ btn ] );
+						} );
+
+						// Select all.
+						var all = document.getElementById( 'aaraa_sub_check_all' );
+						if ( all ) {
+							all.addEventListener( 'change', function () {
+								box.querySelectorAll( '.aaraa-date-check' ).forEach( function ( c ) { c.checked = all.checked; } );
+							} );
+						}
+
+						// Remove selected.
+						var rmSel = document.getElementById( 'aaraa_sub_remove_selected' );
+						if ( rmSel ) {
+							rmSel.addEventListener( 'click', function () {
+								var dates = [];
+								box.querySelectorAll( '.aaraa-date-check:checked' ).forEach( function ( c ) { dates.push( c.value ); } );
+								send( dates, [ rmSel ] );
+							} );
+						}
+					} )();
+					</script>
 				<?php endif; ?>
 
 			<?php endif; ?>
@@ -673,7 +749,13 @@ class Subscription_Delivery {
 			.aaraa-subdel__saved { margin: 10px 0 0; padding: 8px 10px; background: #F0FDF4; border: 1px solid #BBF7D0; border-radius: 4px; }
 			.aaraa-subdel__saved strong { display: block; font-size: 12px; margin-bottom: 4px; color: #166534; }
 			.aaraa-subdel__saved ul { margin: 0; padding: 0; list-style: none; display: flex; flex-wrap: wrap; gap: 5px; }
-			.aaraa-subdel__saved li { padding: 2px 7px; background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 3px; font-size: 12px; }
+			.aaraa-subdel__saved li { display: inline-flex; align-items: center; gap: 5px; padding: 2px 4px 2px 7px; background: #DCFCE7; border: 1px solid #86EFAC; border-radius: 3px; font-size: 12px; }
+			.aaraa-subdel__saved li button.aaraa-remove-date { border: 0; background: none; cursor: pointer; color: #B91C1C; font-size: 15px; line-height: 1; padding: 0 2px; border-radius: 3px; }
+			.aaraa-subdel__saved li button.aaraa-remove-date:hover { background: #FEE2E2; }
+			.aaraa-subdel__saved li button.aaraa-remove-date[disabled] { opacity: .5; cursor: default; }
+			.aaraa-subdel__saved .aaraa-date-pick { display: inline-flex; align-items: center; gap: 5px; margin: 0; cursor: pointer; }
+			.aaraa-subdel__saved .aaraa-date-pick input { margin: 0; }
+			.aaraa-subdel__savedbar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin: 10px 0 0; font-size: 12px; }
 
 			/* Pause calendar (shared markup). */
 			.aaraa-cal { border: 1px solid #E2E8F0; border-radius: 8px; padding: 10px; margin: 4px 0 10px; max-width: 320px; user-select: none; -webkit-user-select: none; touch-action: none; }
@@ -912,6 +994,134 @@ class Subscription_Delivery {
 					__( 'Paused for %1$d day(s). Resumes %2$s.', 'aaraa-white-label-admin' ),
 					$result['count'],
 					$result['resume']
+				),
+				'reload'  => true,
+			)
+		);
+	}
+
+	/**
+	 * AJAX: remove ONE scheduled pause date.
+	 *
+	 * Re-applies the pause with the remaining future dates (so the wallet
+	 * reconciler handles the removed delivery exactly as an un-pause), or clears
+	 * the schedule and resumes when the removed date was the last one.
+	 *
+	 * @return void
+	 */
+	public function ajax_remove_pause_date() {
+		$subscription = $this->guard();
+		$sub_id       = $subscription->get_id();
+
+		// Accept one date (`date`) or several (`dates`, comma-separated).
+		$raw = isset( $_POST['dates'] ) ? sanitize_text_field( wp_unslash( $_POST['dates'] ) ) : '';
+		if ( '' === $raw && isset( $_POST['date'] ) ) {
+			$raw = sanitize_text_field( wp_unslash( $_POST['date'] ) );
+		}
+		$to_remove = array();
+		foreach ( array_map( 'trim', explode( ',', $raw ) ) as $d ) {
+			if ( preg_match( '/^\d{4}-\d{2}-\d{2}$/', $d ) ) {
+				$to_remove[] = $d;
+			}
+		}
+		$to_remove = array_values( array_unique( $to_remove ) );
+		if ( empty( $to_remove ) ) {
+			wp_send_json_error( array( 'message' => __( 'Choose at least one date to remove.', 'aaraa-white-label-admin' ) ) );
+		}
+
+		$today = current_time( 'Y-m-d' );
+		$all   = self::read_pause_dates( $sub_id );
+
+		// Keep only dates that are actually scheduled.
+		$to_remove = array_values( array_intersect( $to_remove, $all ) );
+		if ( empty( $to_remove ) ) {
+			wp_send_json_error( array( 'message' => __( 'None of those dates are in the pause list.', 'aaraa-white-label-admin' ) ) );
+		}
+		sort( $to_remove );
+		$removed_label = implode( ', ', $to_remove );
+
+		// Future pause dates that remain after dropping the chosen ones.
+		$remaining = array_values(
+			array_filter(
+				$all,
+				static function ( $d ) use ( $today, $to_remove ) {
+					return $d >= $today && ! in_array( $d, $to_remove, true );
+				}
+			)
+		);
+
+		if ( $remaining ) {
+			// Re-apply with the remaining dates. apply_pause() diffs old-vs-new and
+			// reconciles the removed deliveries (refund / re-create) automatically.
+			$result = self::apply_pause( $subscription, $remaining, 'admin' );
+			if ( is_wp_error( $result ) ) {
+				wp_send_json_error( array( 'message' => $result->get_error_message() ) );
+			}
+			wp_send_json_success(
+				array(
+					'message' => sprintf(
+						/* translators: 1: removed date(s), 2: remaining count */
+						__( 'Removed %1$s. %2$d date(s) still scheduled.', 'aaraa-white-label-admin' ),
+						$removed_label,
+						count( $remaining )
+					),
+					'reload'  => true,
+				)
+			);
+		}
+
+		// No future pause dates left — clear the schedule (keep past dates for
+		// history), reconcile the removed delivery, and resume if still paused.
+		$old_future = array_values(
+			array_filter( $all, static function ( $d ) use ( $today ) {
+				return $d >= $today;
+			} )
+		);
+		$past = array_values(
+			array_filter( $all, static function ( $d ) use ( $today ) {
+				return $d < $today;
+			} )
+		);
+		sort( $past );
+		$past_json = wp_json_encode( $past );
+
+		// Write past-only to BOTH stores (CRUD object + post meta) and clear crons.
+		$subscription->update_meta_data( self::META_PAUSE_DURABLE, $past_json );
+		$subscription->update_meta_data( self::META_PAUSE, wp_json_encode( array() ) );
+		$subscription->delete_meta_data( self::META_RESUME );
+		$subscription->save();
+		update_post_meta( $sub_id, self::META_PAUSE_DURABLE, $past_json );
+		update_post_meta( $sub_id, self::META_PAUSE, wp_json_encode( array() ) );
+		delete_post_meta( $sub_id, self::META_RESUME );
+		wp_clear_scheduled_hook( self::CRON_RESUME, array( $sub_id ) );
+		wp_clear_scheduled_hook( 'wcfmu_begin_pause_subscription', array( $sub_id ) );
+		wp_clear_scheduled_hook( 'wcfmu_auto_resume_subscription', array( $sub_id ) );
+		wp_clear_scheduled_hook( 'wcfmu_sync_pause_subscription', array( $sub_id ) );
+
+		// Reconcile the removed delivery (e.g. create today's renewal if due).
+		if ( class_exists( __NAMESPACE__ . '\\Renewal_Wallet' ) ) {
+			( new Renewal_Wallet() )->reconcile_pause_change( $subscription, $old_future, array() );
+		}
+
+		// If the subscription is currently paused, bring it back to active/on-hold.
+		if ( $subscription->has_status( 'pause' ) ) {
+			self::resume_subscription( $subscription, 'admin' );
+		}
+
+		$subscription->add_order_note(
+			sprintf(
+				/* translators: %s: removed date(s) */
+				__( 'Pause date(s) %s removed via admin — no scheduled pause dates remain.', 'aaraa-white-label-admin' ),
+				$removed_label
+			)
+		);
+
+		wp_send_json_success(
+			array(
+				'message' => sprintf(
+					/* translators: %s: removed date(s) */
+					__( 'Removed %s. No pause dates remain.', 'aaraa-white-label-admin' ),
+					$removed_label
 				),
 				'reload'  => true,
 			)

@@ -17,6 +17,13 @@ class Customers_Admin {
 	const PAGE = 'aaraa-customers';
 
 	/**
+	 * Slot id => label cache for the delivery-schedule column (built once per request).
+	 *
+	 * @var array<int,string>|null
+	 */
+	private $slot_cache = null;
+
+	/**
 	 * Capability required to edit/delete a customer.
 	 *
 	 * shop_manager has manage_woocommerce; administrators have edit_users.
@@ -283,8 +290,18 @@ class Customers_Admin {
 		$pages  = (int) max( 1, ceil( $total / $per_page ) );
 		$paged  = min( max( 1, $paged ), $pages );
 		$offset = ( $paged - 1 ) * $per_page;
-		$rows   = $wpdb->get_results( // phpcs:ignore WordPress.DB
-			$wpdb->prepare( "SELECT * FROM {$table} WHERE user_id = %d ORDER BY id DESC LIMIT %d OFFSET %d", $user_id, $per_page, $offset )
+		// Closing = the wallet balance right AFTER each transaction. Anchored to the
+		// live balance minus every later transaction, so the newest row equals the
+		// current wallet amount and older rows read back correctly.
+		$balance = self::get_wallet_balance( $user_id );
+		$rows    = $wpdb->get_results( // phpcs:ignore WordPress.DB
+			$wpdb->prepare(
+				"SELECT t.*, ( %f - ( SELECT COALESCE( SUM( CASE WHEN t2.transaction_type_1 = 'credit' THEN t2.amount ELSE -t2.amount END ), 0 ) FROM {$table} t2 WHERE t2.user_id = t.user_id AND ( t2.date > t.date OR ( t2.date = t.date AND t2.id > t.id ) ) ) ) AS closing_balance FROM {$table} t WHERE t.user_id = %d ORDER BY t.id DESC LIMIT %d OFFSET %d",
+				$balance,
+				$user_id,
+				$per_page,
+				$offset
+			)
 		);
 		return array( (array) $rows, $total, $pages );
 	}
@@ -808,6 +825,8 @@ class Customers_Admin {
 									<th><?php esc_html_e( 'Status', 'aaraa-white-label-admin' ); ?></th>
 									<th><?php esc_html_e( 'Next payment', 'aaraa-white-label-admin' ); ?></th>
 									<th><?php esc_html_e( 'Pause / Resume', 'aaraa-white-label-admin' ); ?></th>
+									<th><?php esc_html_e( 'Delivery Schedule', 'aaraa-white-label-admin' ); ?></th>
+									<th><?php esc_html_e( 'Delivery person', 'aaraa-white-label-admin' ); ?></th>
 									<th class="aac-num"><?php esc_html_e( 'Total', 'aaraa-white-label-admin' ); ?></th>
 								</tr></thead>
 								<tbody>
@@ -825,6 +844,8 @@ class Customers_Admin {
 										<td><?php echo $this->status_pill( $sub->get_status() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 										<td><?php echo $next ? esc_html( $next ) : '&mdash;'; ?></td>
 										<td><?php echo $this->pause_summary( $sub ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
+										<td><?php echo esc_html( $this->sub_delivery_schedule( $sub ) ); ?></td>
+										<td><?php echo esc_html( $this->sub_delivery_person( $sub ) ); ?></td>
 										<td class="aac-num"><?php echo wp_kses_post( $sub->get_formatted_order_total() ); ?></td>
 									</tr>
 								<?php endforeach; ?>
@@ -914,6 +935,7 @@ class Customers_Admin {
 									<th><?php esc_html_e( 'Created by', 'aaraa-white-label-admin' ); ?></th>
 									<th><?php esc_html_e( 'Type', 'aaraa-white-label-admin' ); ?></th>
 									<th class="aac-num"><?php esc_html_e( 'Amount', 'aaraa-white-label-admin' ); ?></th>
+									<th class="aac-num"><?php esc_html_e( 'Closing', 'aaraa-white-label-admin' ); ?></th>
 								</tr></thead>
 								<tbody>
 								<?php
@@ -931,6 +953,7 @@ class Customers_Admin {
 										<td class="aac-num aac-amt <?php echo $is_credit ? 'is-green' : 'is-red'; ?>">
 											<?php echo esc_html( $is_credit ? '+' : '−' ); ?> <?php echo wp_kses_post( $amount ); ?>
 										</td>
+										<td class="aac-num"><?php echo isset( $row->closing_balance ) ? wp_kses_post( function_exists( 'wc_price' ) ? wc_price( (float) $row->closing_balance ) : esc_html( number_format_i18n( (float) $row->closing_balance, 2 ) ) ) : '&mdash;'; ?></td>
 									</tr>
 								<?php endforeach; ?>
 								</tbody>
@@ -1397,6 +1420,92 @@ class Customers_Admin {
 			return __( 'Subscription', 'aaraa-white-label-admin' );
 		}
 		return __( 'One-time', 'aaraa-white-label-admin' );
+	}
+
+	/**
+	 * Delivery slot + schedule for a subscription, e.g. "Morning (05:00 - 08:00)
+	 * · Custom Day (Tue, Wed)". Returns an em dash when nothing is set.
+	 *
+	 * @param \WC_Subscription $sub Subscription object.
+	 * @return string
+	 */
+	private function sub_delivery_schedule( $sub ) {
+		$parts = array();
+
+		$slot = $this->slot_label( (int) $sub->get_meta( '_aaraa_delivery_slot' ) );
+		if ( '' !== $slot ) {
+			$parts[] = $slot;
+		}
+
+		if ( class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ) {
+			$type = (string) $sub->get_meta( '_wcfm_delivery_schedule' );
+			if ( '' !== $type ) {
+				$types = Subscription_Delivery::schedule_types();
+				$label = isset( $types[ $type ] ) ? $types[ $type ] : $type;
+				if ( 'custom' === $type ) {
+					$days = $sub->get_meta( '_wcfm_delivery_days' );
+					$days = is_array( $days ) ? array_map( 'intval', $days ) : array();
+					if ( $days ) {
+						$names = array();
+						foreach ( Subscription_Delivery::weekdays() as $num => $name ) {
+							if ( in_array( $num, $days, true ) ) {
+								$names[] = $name;
+							}
+						}
+						if ( $names ) {
+							$label .= ' (' . implode( ', ', $names ) . ')';
+						}
+					}
+				}
+				$parts[] = $label;
+			}
+		}
+
+		return $parts ? implode( ' · ', $parts ) : '—';
+	}
+
+	/**
+	 * Assigned delivery person for a subscription — the subscription's own
+	 * assignment, falling back to the customer's profile default.
+	 *
+	 * @param \WC_Subscription $sub Subscription object.
+	 * @return string Display name, or an em dash.
+	 */
+	private function sub_delivery_person( $sub ) {
+		$boy = (int) $sub->get_meta( '_aaraa_delivery_boy' );
+		if ( ! $boy ) {
+			$boy = (int) get_user_meta( (int) $sub->get_user_id(), '_wcfmd_delivery_boy', true );
+		}
+		if ( ! $boy ) {
+			return '—';
+		}
+		$user = get_userdata( $boy );
+		return $user ? $user->display_name : '#' . $boy;
+	}
+
+	/**
+	 * Slot id => "Name (start - end)" label, cached for the request.
+	 *
+	 * @param int $slot_id Slot id.
+	 * @return string Label, or '' when unknown/unset.
+	 */
+	private function slot_label( $slot_id ) {
+		if ( ! $slot_id ) {
+			return '';
+		}
+		if ( null === $this->slot_cache ) {
+			$this->slot_cache = array();
+			if ( class_exists( __NAMESPACE__ . '\\Delivery_Admin' ) ) {
+				foreach ( Delivery_Admin::slots_list() as $s ) {
+					$label = $s->name;
+					if ( ! empty( $s->start_time ) || ! empty( $s->end_time ) ) {
+						$label .= ' (' . $s->start_time . ' - ' . $s->end_time . ')';
+					}
+					$this->slot_cache[ (int) $s->id ] = $label;
+				}
+			}
+		}
+		return isset( $this->slot_cache[ $slot_id ] ) ? $this->slot_cache[ $slot_id ] : '';
 	}
 
 	/**

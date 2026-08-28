@@ -898,7 +898,12 @@ class Wallet_Admin {
 		$paged  = min( $paged, $pages );
 		$offset = ( $paged - 1 ) * $per_page;
 
-		$list_sql = "SELECT t.*, u.display_name, u.user_email FROM {$table} t LEFT JOIN {$wpdb->users} u ON t.user_id = u.ID {$where} ORDER BY {$order_sql} LIMIT %d OFFSET %d";
+		// Closing balance = the user's wallet balance right AFTER this transaction.
+		// Anchored to the current wallet balance (wps_wallet) minus every later
+		// transaction, so the newest row equals the live balance and older rows
+		// read back correctly — independent of the current sort/page.
+		$closing  = "( COALESCE( wm.meta_value + 0, 0 ) - ( SELECT COALESCE( SUM( CASE WHEN t2.transaction_type_1 = 'credit' THEN t2.amount ELSE -t2.amount END ), 0 ) FROM {$table} t2 WHERE t2.user_id = t.user_id AND ( t2.date > t.date OR ( t2.date = t.date AND t2.id > t.id ) ) ) ) AS closing_balance";
+		$list_sql = "SELECT t.*, {$closing}, u.display_name, u.user_email FROM {$table} t LEFT JOIN {$wpdb->users} u ON t.user_id = u.ID LEFT JOIN {$wpdb->usermeta} wm ON wm.user_id = t.user_id AND wm.meta_key = 'wps_wallet' {$where} ORDER BY {$order_sql} LIMIT %d OFFSET %d";
 		$rows     = $wpdb->get_results( $wpdb->prepare( $list_sql, array_merge( $args, array( $per_page, $offset ) ) ) ); // phpcs:ignore WordPress.DB
 
 		$this->render_transaction_search( $search, $per_page, $from, $to );
@@ -1009,7 +1014,11 @@ class Wallet_Admin {
 				Customers_Admin::ensure_wallet_created_by();
 				$table = $this->table();
 				$rows  = $wpdb->get_results( // phpcs:ignore WordPress.DB
-					$wpdb->prepare( "SELECT * FROM {$table} WHERE user_id = %d ORDER BY id DESC LIMIT 200", $user_id )
+					$wpdb->prepare(
+						"SELECT t.*, ( %f - ( SELECT COALESCE( SUM( CASE WHEN t2.transaction_type_1 = 'credit' THEN t2.amount ELSE -t2.amount END ), 0 ) FROM {$table} t2 WHERE t2.user_id = t.user_id AND ( t2.date > t.date OR ( t2.date = t.date AND t2.id > t.id ) ) ) ) AS closing_balance FROM {$table} t WHERE t.user_id = %d ORDER BY t.id DESC LIMIT 200",
+						$balance,
+						$user_id
+					)
 				);
 				$this->render_transaction_table( (array) $rows, false );
 			}
@@ -1040,6 +1049,7 @@ class Wallet_Admin {
 						}
 						$this->sort_th( __( 'Type', 'aaraa-white-label-admin' ), 'type', $sort );
 						$this->sort_th( __( 'Amount', 'aaraa-white-label-admin' ), 'amount', $sort );
+						echo '<th>' . esc_html__( 'Closing', 'aaraa-white-label-admin' ) . '</th>';
 						$this->sort_th( __( 'Details', 'aaraa-white-label-admin' ), 'details', $sort );
 						$this->sort_th( __( 'Note', 'aaraa-white-label-admin' ), 'note', $sort );
 						$this->sort_th( __( 'Created by', 'aaraa-white-label-admin' ), 'created_by', $sort );
@@ -1048,7 +1058,7 @@ class Wallet_Admin {
 				</thead>
 				<tbody>
 					<?php if ( empty( $rows ) ) : ?>
-						<tr><td colspan="<?php echo $with_user ? 8 : 6; ?>"><?php esc_html_e( 'No transactions yet.', 'aaraa-white-label-admin' ); ?></td></tr>
+						<tr><td colspan="<?php echo $with_user ? 9 : 7; ?>"><?php esc_html_e( 'No transactions yet.', 'aaraa-white-label-admin' ); ?></td></tr>
 					<?php else : ?>
 						<?php foreach ( $rows as $row ) : ?>
 							<?php
@@ -1070,6 +1080,7 @@ class Wallet_Admin {
 									</span>
 								</td>
 								<td class="aaraa-wallet__amt"><?php echo wp_kses_post( $this->money( (float) $row->amount ) ); ?></td>
+										<td class="aaraa-wallet__amt"><?php echo isset( $row->closing_balance ) ? wp_kses_post( $this->money( (float) $row->closing_balance ) ) : '&mdash;'; ?></td>
 								<td><?php echo esc_html( $row->transaction_type ); ?></td>
 								<td><?php echo esc_html( $row->note ); ?></td>
 								<td><?php echo esc_html( $this->creator_login( $row ) ); ?></td>
