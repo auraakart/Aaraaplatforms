@@ -64,13 +64,15 @@
 				order_id: $( '#aaraa_delivery_order_id' ).val(),
 				slot: $( '#aaraa_delivery_slot' ).val(),
 				hub: $( '#aaraa_delivery_hub' ).val(),
-				boy: $( '#aaraa_delivery_boy' ).val()
+				boy: $( '#aaraa_delivery_boy' ).val(),
+				delivery_datetime: $( '#aaraa_delivery_datetime' ).val()
 			} ).done( function ( res ) {
 				if ( res && res.success ) {
 					// Reflect exactly what the server stored.
 					$( '#aaraa_delivery_slot' ).val( res.data.slot || '' );
 					$( '#aaraa_delivery_hub' ).val( res.data.hub || '0' );
 					$( '#aaraa_delivery_boy' ).val( res.data.boy || '0' );
+					$( '#aaraa_delivery_datetime' ).val( res.data.delivery_datetime || '' );
 					$msg.addClass( 'ok' ).text( res.data.message );
 				} else {
 					$msg.addClass( 'error' ).text(

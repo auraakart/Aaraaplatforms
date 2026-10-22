@@ -16,13 +16,18 @@
  * Because push targets a device, the mobile app must register each signed-in
  * user's FCM device token with the site. Two REST routes handle that:
  *
- *   POST /wp-json/aaraa/v1/fcm/register    { token, platform }
+ *   POST /wp-json/aaraa/v1/fcm/register    { customer_id, fcm_token, platform }
+ *                                           -> { status, message }
  *   POST /wp-json/aaraa/v1/fcm/unregister  { token }
  *
- * Tokens are stored in the user meta `aaraa_fcm_tokens`. When an order or
- * subscription status changes and that status is enabled, a push (title + body,
- * tokens resolved) is sent to every device the order's customer has registered.
- * Tokens Firebase reports as stale (UNREGISTERED / invalid) are pruned.
+ * Tokens are stored in the user meta `aaraa_fcm_tokens`. One active token per
+ * customer: registering a new one replaces whatever was stored before (a
+ * fresh app install/login is a new device, not an additional one to keep
+ * notifying), and a successful send prunes down to just that token too — so
+ * leftover entries from earlier installs self-heal away instead of being
+ * retried forever. When an order or subscription status changes and that
+ * status is enabled, a push (title + body) is sent once, to that one active
+ * token; if Firebase reports it stale (UNREGISTERED / invalid), it's removed.
  *
  * @package Aaraa\Admin
  */
@@ -60,6 +65,11 @@ class Firebase_Admin {
 		add_action( 'admin_init', array( $this, 'handle_log_clear' ) );
 
 		add_action( 'rest_api_init', array( $this, 'register_routes' ) );
+
+		// Let WooCommerce consumer key/secret (Basic Auth) authenticate the FCM
+		// routes too. WC only applies key auth to /wp-json/wc/ and /wp-json/wc-*
+		// URLs, so without this the app's key gets a 401 on /aaraa/v1/fcm/*.
+		add_filter( 'woocommerce_rest_is_request_to_rest_api', array( $this, 'allow_wc_key_auth' ) );
 
 		add_action( 'woocommerce_order_status_changed', array( $this, 'on_order_status_changed' ), 20, 4 );
 		add_action( 'woocommerce_subscription_status_updated', array( $this, 'on_subscription_status_changed' ), 20, 3 );
@@ -300,14 +310,14 @@ class Firebase_Admin {
 	}
 
 	/**
-	 * Send a push to every device registered to a user, pruning stale tokens.
+	 * Send a push to a user's single active device, pruning it if stale.
 	 *
 	 * @param int    $user_id User id.
 	 * @param string $title   Title.
 	 * @param string $body    Body.
 	 * @param array  $data    Data payload.
 	 * @param array  $context Log context.
-	 * @return bool True if at least one device accepted the push.
+	 * @return bool True if the device accepted the push.
 	 */
 	public static function send_to_user( $user_id, $title, $body, $data = array(), $context = array() ) {
 		$context['user_id'] = $user_id;
@@ -317,40 +327,35 @@ class Firebase_Admin {
 			return false;
 		}
 
-		$tokens = self::get_user_tokens( $user_id );
-		if ( empty( $tokens ) ) {
+		$token = self::get_active_token( $user_id );
+		if ( '' === $token ) {
 			self::log( array_merge( $context, array( 'result' => 'failed', 'response' => 'No registered devices for this customer.', 'title' => $title ) ) );
 			return false;
 		}
 
-		$any_ok = false;
-		$stale  = array();
-		foreach ( $tokens as $token ) {
-			$res = self::send_to_token( $token, $title, $body, $data, $context );
-			self::log(
-				array_merge(
-					$context,
-					array(
-						'title'    => $title,
-						'message'  => $body,
-						'token'    => $token,
-						'result'   => $res['ok'] ? 'sent' : 'failed',
-						'response' => $res['response'],
-					)
+		$res = self::send_to_token( $token, $title, $body, $data, $context );
+		self::log(
+			array_merge(
+				$context,
+				array(
+					'title'    => $title,
+					'message'  => $body,
+					'token'    => $token,
+					'result'   => $res['ok'] ? 'sent' : 'failed',
+					'response' => $res['response'],
 				)
-			);
-			if ( $res['ok'] ) {
-				$any_ok = true;
-			} elseif ( $res['stale'] ) {
-				$stale[] = $token;
-			}
+			)
+		);
+
+		if ( $res['ok'] ) {
+			// Self-heal: drop any other tokens left over from before this one
+			// became active, so only the device that just succeeded remains.
+			self::keep_only_token( $user_id, $token );
+		} elseif ( $res['stale'] ) {
+			self::remove_user_tokens( $user_id, array( $token ) );
 		}
 
-		if ( ! empty( $stale ) ) {
-			self::remove_user_tokens( $user_id, $stale );
-		}
-
-		return $any_ok;
+		return $res['ok'];
 	}
 
 	/* --------------------------------------------------------------------- *
@@ -372,7 +377,11 @@ class Firebase_Admin {
 	}
 
 	/**
-	 * Register (upsert) a device token for a user.
+	 * Register a device token for a user — replaces whatever was stored
+	 * before, so a user only ever has one active token at a time. A fresh
+	 * registration (new install, re-login, token refresh) means that device
+	 * is now the one to notify, not an extra one to notify alongside
+	 * whatever is already there.
 	 *
 	 * @param int    $user_id  User id.
 	 * @param string $token    Device token.
@@ -384,17 +393,60 @@ class Firebase_Admin {
 		if ( ! $user_id || '' === $token ) {
 			return;
 		}
-		$stored = get_user_meta( $user_id, self::USER_TOKENS_META, true );
-		if ( ! is_array( $stored ) ) {
-			$stored = array();
-		}
-		$stored[ $token ] = array(
-			'platform' => sanitize_text_field( $platform ),
-			'updated'  => current_time( 'mysql' ),
-		);
 		// A token belongs to one device/user — drop it from any other user.
 		self::detach_token_from_others( $user_id, $token );
-		update_user_meta( $user_id, self::USER_TOKENS_META, $stored );
+		update_user_meta(
+			$user_id,
+			self::USER_TOKENS_META,
+			array(
+				$token => array(
+					'platform' => sanitize_text_field( $platform ),
+					'updated'  => current_time( 'mysql' ),
+				),
+			)
+		);
+	}
+
+	/**
+	 * The single most-recently-registered token for a user. Self-heals a
+	 * legacy multi-token row (from before tokens were single-active-per-user)
+	 * by always picking the newest one rather than erroring on several.
+	 *
+	 * @param int $user_id User id.
+	 * @return string The token, or '' if none registered.
+	 */
+	public static function get_active_token( $user_id ) {
+		$stored = get_user_meta( $user_id, self::USER_TOKENS_META, true );
+		if ( ! is_array( $stored ) || empty( $stored ) ) {
+			return '';
+		}
+		$active = '';
+		$newest = '';
+		foreach ( $stored as $token => $meta ) {
+			$updated = isset( $meta['updated'] ) ? (string) $meta['updated'] : '';
+			if ( '' === $active || $updated > $newest ) {
+				$active = (string) $token;
+				$newest = $updated;
+			}
+		}
+		return $active;
+	}
+
+	/**
+	 * Drop every stored token for a user except the one given — used after a
+	 * successful send to collapse a legacy multi-token row down to the one
+	 * device that just proved itself reachable.
+	 *
+	 * @param int    $user_id User id.
+	 * @param string $token   Token to keep.
+	 * @return void
+	 */
+	private static function keep_only_token( $user_id, $token ) {
+		$stored = get_user_meta( $user_id, self::USER_TOKENS_META, true );
+		if ( ! is_array( $stored ) || ! isset( $stored[ $token ] ) || 1 === count( $stored ) ) {
+			return;
+		}
+		update_user_meta( $user_id, self::USER_TOKENS_META, array( $token => $stored[ $token ] ) );
 	}
 
 	/**
@@ -471,6 +523,30 @@ class Firebase_Admin {
 	}
 
 	/**
+	 * Treat requests to this plugin's FCM routes as WooCommerce REST requests, so
+	 * WC_REST_Authentication validates the consumer key/secret and sets the
+	 * current user (the key's owner) before rest_permission() runs.
+	 *
+	 * @param bool $is_wc_request Whether WC already considers this a WC API request.
+	 * @return bool
+	 */
+	public function allow_wc_key_auth( $is_wc_request ) {
+		if ( $is_wc_request ) {
+			return $is_wc_request;
+		}
+
+		$needle = self::REST_NS . '/fcm/';
+		$uri    = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+		if ( '' !== $uri && false !== strpos( $uri, trailingslashit( rest_get_url_prefix() ) . $needle ) ) {
+			return true;
+		}
+
+		// Plain-permalink form: ?rest_route=/aaraa/v1/fcm/register.
+		$route = isset( $_GET['rest_route'] ) ? sanitize_text_field( wp_unslash( $_GET['rest_route'] ) ) : ''; // phpcs:ignore WordPress.Security.NonceVerification
+		return '' !== $route && false !== strpos( $route, '/' . $needle );
+	}
+
+	/**
 	 * Only signed-in users may register/unregister their own device.
 	 *
 	 * @return bool
@@ -497,23 +573,47 @@ class Firebase_Admin {
 	/**
 	 * POST /fcm/register — store the caller's device token.
 	 *
+	 * Accepts `fcm_token` (the documented field name) or `token` (back-compat
+	 * alias for any older caller). `customer_id` is accepted per the app's
+	 * contract but only trusted to override the caller's own account when the
+	 * caller can manage_woocommerce — see resolve_user().
+	 *
 	 * @param \WP_REST_Request $request Request.
 	 * @return \WP_REST_Response
 	 */
 	public function rest_register( $request ) {
-		$token = sanitize_text_field( (string) $request->get_param( 'token' ) );
+		$token = sanitize_text_field( (string) $request->get_param( 'fcm_token' ) );
 		if ( '' === $token ) {
-			return new \WP_REST_Response( array( 'success' => false, 'message' => 'token is required' ), 400 );
+			$token = sanitize_text_field( (string) $request->get_param( 'token' ) );
 		}
-		$user_id  = $this->resolve_user( $request );
+		if ( '' === $token ) {
+			return new \WP_REST_Response(
+				array(
+					'status'  => false,
+					'message' => __( 'fcm_token is required.', 'aaraa-white-label-admin' ),
+				),
+				400
+			);
+		}
+
+		$user_id = $this->resolve_user( $request );
+		if ( ! $user_id ) {
+			return new \WP_REST_Response(
+				array(
+					'status'  => false,
+					'message' => __( 'Could not resolve the customer for this token.', 'aaraa-white-label-admin' ),
+				),
+				401
+			);
+		}
+
 		$platform = sanitize_text_field( (string) $request->get_param( 'platform' ) );
 		self::add_user_token( $user_id, $token, $platform );
 
 		return new \WP_REST_Response(
 			array(
-				'success' => true,
-				'user_id' => $user_id,
-				'devices' => count( self::get_user_tokens( $user_id ) ),
+				'status'  => true,
+				'message' => __( 'FCM token registered successfully', 'aaraa-white-label-admin' ),
 			),
 			200
 		);
@@ -907,6 +1007,7 @@ class Firebase_Admin {
 			.aaraa-fcm .aaraa-tpl-table thead th { background: #f6f7f7; }
 			.aaraa-fcm .aaraa-tpl-table td.status-col { white-space: nowrap; font-weight: 600; }
 			.aaraa-fcm .aaraa-tpl-table textarea { width: 100%; }
+			.aaraa-fcm .aaraa-log-table { max-width: none; }
 			.aaraa-fcm .aaraa-tpl-hint { color: #646970; font-size: 11px; }
 			.aaraa-fcm .aaraa-log-toolbar { margin: 8px 0; display: flex; align-items: center; gap: 8px; }
 			.aaraa-fcm .aaraa-log-table td { font-size: 12px; word-break: break-word; }
@@ -979,7 +1080,8 @@ class Firebase_Admin {
 		<p>
 			<?php esc_html_e( 'Register:', 'aaraa-white-label-admin' ); ?>
 			<code class="rest-url">POST <?php echo esc_html( $rest_reg ); ?></code>
-			<?php esc_html_e( 'body:', 'aaraa-white-label-admin' ); ?> <code>{ "token": "&lt;fcm_token&gt;", "platform": "android|ios" }</code>
+			<?php esc_html_e( 'body:', 'aaraa-white-label-admin' ); ?> <code>{ "customer_id": "123", "fcm_token": "&lt;token&gt;", "platform": "android|ios" }</code>
+			<?php esc_html_e( 'response:', 'aaraa-white-label-admin' ); ?> <code>{ "status": true, "message": "FCM token registered successfully" }</code>
 		</p>
 		<p>
 			<?php esc_html_e( 'Unregister:', 'aaraa-white-label-admin' ); ?>

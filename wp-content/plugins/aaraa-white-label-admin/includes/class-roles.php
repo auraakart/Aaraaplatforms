@@ -53,6 +53,13 @@ class Roles {
 	private $report = null;
 
 	/**
+	 * Daily delivery report (by delivery_date meta) controller (menu callback).
+	 *
+	 * @var Delivery_Report_By_Date|null
+	 */
+	private $reportbydate = null;
+
+	/**
 	 * Daily orders report controller (menu callback).
 	 *
 	 * @var Daily_Report|null
@@ -104,6 +111,7 @@ class Roles {
 		$this->wallet    = new Wallet_Admin();
 		$this->delivery  = new Delivery_Admin();
 		$this->report    = new Delivery_Report();
+		$this->reportbydate = new Delivery_Report_By_Date();
 		$this->dailyreport = new Daily_Report();
 		$this->pausereport = new Subscription_Pause_Report();
 		$this->resumereport = new Subscription_Resume_Report();
@@ -483,6 +491,14 @@ class Roles {
 		);
 		add_submenu_page(
 			'aaraa-delivery',
+			__( 'Daily Delivery Report (by Delivery Date)', 'aaraa-white-label-admin' ),
+			__( 'Daily Delivery Report (by Delivery Date)', 'aaraa-white-label-admin' ),
+			'manage_woocommerce',
+			Delivery_Report_By_Date::PAGE,
+			array( $this->reportbydate, 'render_page' )
+		);
+		add_submenu_page(
+			'aaraa-delivery',
 			__( 'Daily Reports', 'aaraa-white-label-admin' ),
 			__( 'Daily Reports', 'aaraa-white-label-admin' ),
 			'manage_woocommerce',
@@ -505,7 +521,6 @@ class Roles {
 			Subscription_Resume_Report::PAGE,
 			array( $this->resumereport, 'render_page' )
 		);
-
 		// Top-level "AaraaDelivery" links to its first real child (Delivery Hubs).
 		remove_submenu_page( 'aaraa-delivery', 'aaraa-delivery' );
 	}
@@ -697,6 +712,7 @@ class Roles {
 		$map[ 'admin.php?page=' . Delivery_Admin::PAGE_BOYS ]  = 'aaraa-delivery';
 		$map[ 'admin.php?page=' . Delivery_Admin::PAGE_SLOTS ] = 'aaraa-delivery';
 		$map[ 'admin.php?page=' . Delivery_Report::PAGE ]      = 'aaraa-delivery';
+		$map[ 'admin.php?page=' . Delivery_Report_By_Date::PAGE ] = 'aaraa-delivery';
 
 		$map[ 'admin.php?page=' . Notifications_Admin::PAGE_SMS ]      = Notifications_Admin::PARENT;
 		$map[ 'admin.php?page=' . Notifications_Admin::PAGE_WHATSAPP ] = Notifications_Admin::PARENT;

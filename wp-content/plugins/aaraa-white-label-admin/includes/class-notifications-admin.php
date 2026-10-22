@@ -656,14 +656,63 @@ class Notifications_Admin {
 	}
 
 	/**
-	 * Recent SMS log rows, newest first. Bounded for callers that scan in PHP
-	 * (e.g. the per-customer timeline); the SMS Log screen uses query_log().
+	 * Recent SMS log rows, newest first. Bounded for callers that scan in PHP;
+	 * the SMS Log screen and the per-customer timeline both use targeted
+	 * queries instead (query_log(), get_log_for_phone_keys()).
 	 *
 	 * @return array<int,array<string,mixed>>
 	 */
 	public static function get_log() {
 		$result = self::query_log( '', '', 1, 2000 );
 		return $result['rows'];
+	}
+
+	/**
+	 * Every log row whose mobile number matches any of the given last-10-digit
+	 * phone keys — a real `WHERE` query against the whole table, not a slice
+	 * of the newest N rows. Used by the per-customer notification timeline,
+	 * which needs a specific customer's complete SMS history regardless of
+	 * how much OTP/other traffic has since pushed it out of a "recent N" view.
+	 *
+	 * @param array<string> $digit_keys Last-10-digit phone keys.
+	 * @return array<int,array<string,mixed>>
+	 */
+	public static function get_log_for_phone_keys( $digit_keys ) {
+		$digit_keys = array_values( array_filter( array_map( 'strval', (array) $digit_keys ) ) );
+		if ( empty( $digit_keys ) ) {
+			return array();
+		}
+
+		self::ensure_log_table();
+		global $wpdb;
+		$table = self::log_table();
+
+		$where = array();
+		$args  = array();
+		foreach ( $digit_keys as $key ) {
+			$where[] = "REPLACE( REPLACE( REPLACE( mobile, '+', '' ), ' ', '' ), '-', '' ) LIKE %s";
+			$args[]  = '%' . $wpdb->esc_like( $key ) . '%';
+		}
+		$where_sql = implode( ' OR ', $where );
+
+		$sql = "SELECT * FROM {$table} WHERE ( {$where_sql} ) ORDER BY id DESC"; // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		$raw = $wpdb->get_results( $wpdb->prepare( $sql, $args ), ARRAY_A ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+
+		$rows = array();
+		foreach ( (array) $raw as $r ) {
+			$rows[] = array(
+				'time'      => $r['sent_at'],
+				'type'      => $r['type'],
+				'ref'       => $r['ref'],
+				'status'    => $r['status'],
+				'mobile'    => $r['mobile'],
+				'message'   => $r['message'],
+				'result'    => $r['result'],
+				'http_code' => $r['http_code'],
+				'response'  => $r['response'],
+			);
+		}
+		return $rows;
 	}
 
 	/**

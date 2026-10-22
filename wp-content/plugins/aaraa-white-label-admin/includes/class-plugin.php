@@ -83,6 +83,7 @@ final class Plugin {
 		$this->modules['dashboard'] = new Dashboard();
 		$this->modules['mbanner']  = new Mobile_Banner();
 		$this->modules['notify']   = new Notifications_Admin();
+		$this->modules['wcfmnotifyfilters'] = new Wcfm_Notification_Filters();
 		$this->modules['whatsapp'] = new WhatsApp_Admin();
 		$this->modules['firebase'] = new Firebase_Admin();
 		$this->modules['roles']    = new Roles();
@@ -90,24 +91,36 @@ final class Plugin {
 		$this->modules['delivery'] = new Delivery_Admin();
 		$this->modules['orderdel'] = new Order_Delivery();
 		$this->modules['ordersubcol'] = new Order_Subscription_Column();
+		$this->modules['orderdateapi'] = new Order_Date_API();
+		$this->modules['futureordersapi'] = new Future_Orders_API();
+		$this->modules['ordersapifields'] = new Orders_API_Fields();
+		$this->modules['myaccountmenu'] = new MyAccount_Menu();
+		$this->modules['subaccttemplate'] = new Subscription_Account_Template();
+		$this->modules['acctorderscols'] = new Account_Orders_Columns();
+		$this->modules['subacctsort'] = new Subscription_Account_Sort();
+		$this->modules['subacctactions'] = new Subscription_Account_Actions();
 		$this->modules['odatefilter'] = new Orders_Date_Filter();
 		$this->modules['exports']  = new Exports();
 		$this->modules['slotsapi'] = new Delivery_Slots_API();
 		$this->modules['subdel']   = new Subscription_Delivery();
 		$this->modules['subwallet'] = new Subscription_Wallet();
 		$this->modules['substart'] = new Subscription_Start_Date();
+		$this->modules['substartsched'] = new Subscription_Start_Schedule();
 		$this->modules['subfront'] = new Subscription_Frontend();
 		$this->modules['schedapi'] = new Delivery_Schedule_API();
+		$this->modules['calendarapi'] = new Delivery_Calendar_API();
 		$this->modules['substatus'] = new Subscription_Status();
 		$this->modules['subadv']   = new Subscription_Advance();
 		$this->modules['subrenew'] = new Subscription_Renewal();
 		$this->modules['renwallet'] = new Renewal_Wallet();
+		$this->modules['rendeliverydate'] = new Renewal_Delivery_Date();
 		$this->modules['rendupguard'] = new Renewal_Duplicate_Guard();
 		$this->modules['renschedguard'] = new Renewal_Schedule_Guard();
 		$this->modules['renpauseguard'] = new Renewal_Pause_Guard();
 		$this->modules['subapi']   = new Subscription_API();
 		$this->modules['custdel']  = new Customer_Delivery();
 		$this->modules['report']   = new Delivery_Report();
+		$this->modules['reportbydate'] = new Delivery_Report_By_Date();
 		$this->modules['dailyreport'] = new Daily_Report();
 		$this->modules['pausereport'] = new Subscription_Pause_Report();
 		$this->modules['resumereport'] = new Subscription_Resume_Report();
@@ -205,6 +218,7 @@ final class Plugin {
 	public static function deactivate() {
 		Admin_URL_Rewriter::remove_server_alias();
 		Delivery_Report::unschedule();
+		Delivery_Report_By_Date::unschedule();
 		flush_rewrite_rules( false );
 	}
 }

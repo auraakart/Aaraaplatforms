@@ -872,7 +872,8 @@ class Customers_Admin {
 									<th><?php esc_html_e( 'Order', 'aaraa-white-label-admin' ); ?></th>
 									<th><?php esc_html_e( 'Product', 'aaraa-white-label-admin' ); ?></th>
 									<th><?php esc_html_e( 'Type', 'aaraa-white-label-admin' ); ?></th>
-									<th><?php esc_html_e( 'Date', 'aaraa-white-label-admin' ); ?></th>
+									<th><?php esc_html_e( 'Order Date', 'aaraa-white-label-admin' ); ?></th>
+									<th><?php esc_html_e( 'Delivery Date', 'aaraa-white-label-admin' ); ?></th>
 									<th><?php esc_html_e( 'Status', 'aaraa-white-label-admin' ); ?></th>
 									<th class="aac-num"><?php esc_html_e( 'Total', 'aaraa-white-label-admin' ); ?></th>
 								</tr></thead>
@@ -889,6 +890,7 @@ class Customers_Admin {
 										<td><?php echo esc_html( $this->items_summary( $order ) ); ?></td>
 										<td><span class="aac-type"><?php echo esc_html( $this->order_type_label( $order ) ); ?></span></td>
 										<td><?php echo $created ? esc_html( wc_format_datetime( $created ) ) : '&mdash;'; ?></td>
+										<td><?php echo esc_html( $this->delivery_date_label( $order ) ); ?></td>
 										<td><?php echo $this->status_pill( $order->get_status() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></td>
 										<td class="aac-num"><?php echo wp_kses_post( $order->get_formatted_order_total() ); ?></td>
 									</tr>
@@ -1237,7 +1239,11 @@ class Customers_Admin {
 			}
 			$keys[ strlen( $digits ) >= 10 ? substr( $digits, -10 ) : $digits ] = true;
 		}
-		return array_keys( $keys );
+		// PHP casts a purely-numeric string used as an array key to an int
+		// (a 10-digit phone number always qualifies), so array_keys() alone
+		// would hand back ints here. Cast back to strings — callers compare
+		// these against substr() results (always strings) with strict ===.
+		return array_map( 'strval', array_keys( $keys ) );
 	}
 
 	/**
@@ -1256,16 +1262,21 @@ class Customers_Admin {
 		$by_user  = ( 'in_app' === $channel );
 		$phones   = array();
 
+		if ( ! $by_user ) {
+			$phones = $this->customer_phone_keys( $id );
+		}
+
 		if ( 'sms' === $channel && class_exists( __NAMESPACE__ . '\\Notifications_Admin' ) ) {
-			$entries = Notifications_Admin::get_log();
+			// A real WHERE-mobile query against the whole log table — not
+			// get_log()'s newest-2000-rows-site-wide snapshot, which could
+			// silently drop this customer's older sends (pause/subscription
+			// notices, etc.) once enough other traffic (OTPs especially)
+			// pushed them out of that window.
+			$entries = $phones ? Notifications_Admin::get_log_for_phone_keys( $phones ) : array();
 		} elseif ( 'whatsapp' === $channel && class_exists( __NAMESPACE__ . '\\WhatsApp_Admin' ) ) {
 			$entries = WhatsApp_Admin::get_log();
 		} elseif ( 'in_app' === $channel && class_exists( __NAMESPACE__ . '\\Firebase_Admin' ) ) {
 			$entries = Firebase_Admin::get_log();
-		}
-
-		if ( ! $by_user ) {
-			$phones = $this->customer_phone_keys( $id );
 		}
 
 		$rows = array();
@@ -1423,6 +1434,30 @@ class Customers_Admin {
 	}
 
 	/**
+	 * The order's `delivery_date` meta (Order_Delivery::META_DELIVERY_DATE),
+	 * formatted for display. Stored as a wall-clock value — date-only
+	 * ("2026-09-24") or a full datetime ("2026-09-24 19:10:00") — parsed
+	 * literally with no timezone conversion, same as the Aaraa Delivery
+	 * panel on the order screen itself. Returns an em dash when unset.
+	 *
+	 * @param \WC_Order $order Order.
+	 * @return string
+	 */
+	private function delivery_date_label( $order ) {
+		$raw = class_exists( __NAMESPACE__ . '\\Order_Delivery' )
+			? (string) $order->get_meta( Order_Delivery::META_DELIVERY_DATE )
+			: '';
+		if ( '' === $raw ) {
+			return '—';
+		}
+		$ts = strtotime( $raw );
+		if ( ! $ts ) {
+			return '—';
+		}
+		return date_i18n( get_option( 'date_format' ), $ts );
+	}
+
+	/**
 	 * Delivery slot + schedule for a subscription, e.g. "Morning (05:00 - 08:00)
 	 * · Custom Day (Tue, Wed)". Returns an em dash when nothing is set.
 	 *
@@ -1554,9 +1589,6 @@ class Customers_Admin {
 			$count = sprintf( _n( '%d day', '%d days', count( $dates ), 'aaraa-white-label-admin' ), count( $dates ) );
 			$list  = esc_html( implode( ', ', array_map( $fmt, $dates ) ) );
 			$parts[] = '<span class="aac-sub-line"><strong>' . esc_html__( 'Paused dates', 'aaraa-white-label-admin' ) . ' (' . esc_html( $count ) . '):</strong> ' . $list . '</span>';
-		}
-		if ( '' !== $resume ) {
-			$parts[] = '<span class="aac-sub-line aac-sub-line--resume"><strong>' . esc_html__( 'Resume on:', 'aaraa-white-label-admin' ) . '</strong> ' . esc_html( $fmt( $resume ) ) . '</span>';
 		}
 		return implode( '<br>', $parts );
 	}
@@ -1776,6 +1808,8 @@ class Customers_Admin {
 						f( 'City', 'city', a.city, 'third' ) +
 						f( 'State', 'state', a.state || 'TN', 'third' ) +
 						f( 'Postcode', 'postcode', a.postcode, 'third' ) +
+						f( 'Latitude', 'latitude', a.latitude, 'third' ) +
+						f( 'Longitude', 'longitude', a.longitude, 'third' ) +
 					'</div>' +
 					'<input type="hidden" class="aaraa-aca-country" value="' + esc( a.country || 'IN' ) + '" />' +
 					'<div class="aaraa-aca-actions">' +
@@ -1804,6 +1838,8 @@ class Customers_Admin {
 					city:          $c.find( '.aaraa-aca-city' ).val(),
 					state:         $c.find( '.aaraa-aca-state' ).val(),
 					postcode:      $c.find( '.aaraa-aca-postcode' ).val(),
+					latitude:      $.trim( $c.find( '.aaraa-aca-latitude' ).val() ),
+					longitude:     $.trim( $c.find( '.aaraa-aca-longitude' ).val() ),
 					country:       $c.find( '.aaraa-aca-country' ).val(),
 					is_primary:    $c.find( '.aaraa-aca-primary' ).is( ':checked' ) ? 1 : 0
 				};
@@ -1895,6 +1931,10 @@ class Customers_Admin {
 					<input type="text" class="aaraa-aca-state" value="<?php echo esc_attr( $addr['state'] ? $addr['state'] : 'TN' ); ?>" /></div>
 				<div class="aaraa-aca-f aaraa-aca-f--third"><label><?php esc_html_e( 'Postcode', 'aaraa-white-label-admin' ); ?></label>
 					<input type="text" class="aaraa-aca-postcode" value="<?php echo esc_attr( $addr['postcode'] ); ?>" /></div>
+				<div class="aaraa-aca-f aaraa-aca-f--third"><label><?php esc_html_e( 'Latitude', 'aaraa-white-label-admin' ); ?></label>
+					<input type="text" class="aaraa-aca-latitude" placeholder="e.g. 13.0843" value="<?php echo esc_attr( $addr['latitude'] ?? '' ); ?>" /></div>
+				<div class="aaraa-aca-f aaraa-aca-f--third"><label><?php esc_html_e( 'Longitude', 'aaraa-white-label-admin' ); ?></label>
+					<input type="text" class="aaraa-aca-longitude" placeholder="e.g. 80.2705" value="<?php echo esc_attr( $addr['longitude'] ?? '' ); ?>" /></div>
 			</div>
 			<input type="hidden" class="aaraa-aca-country" value="<?php echo esc_attr( $addr['country'] ? $addr['country'] : 'IN' ); ?>" />
 			<div class="aaraa-aca-actions">

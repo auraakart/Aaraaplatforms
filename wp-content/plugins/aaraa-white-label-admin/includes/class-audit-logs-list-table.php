@@ -147,11 +147,23 @@ class Audit_Logs_List_Table extends \WP_List_Table {
 
 		if ( '' !== $search ) {
 			global $wpdb;
-			$like = '%' . $wpdb->esc_like( $search ) . '%';
-			// Message text is generated at render time, so search the stored
-			// columns (event id, IP, user, object, event type).
-			$cond = '( alert_id LIKE %s OR client_ip LIKE %s OR username LIKE %s OR object LIKE %s OR event_type LIKE %s )';
-			$args = array( $like, $like, $like, $like, $like );
+			$like  = '%' . $wpdb->esc_like( $search ) . '%';
+			$parts = array( 'alert_id LIKE %s', 'client_ip LIKE %s', 'username LIKE %s', 'object LIKE %s', 'event_type LIKE %s' );
+			$args  = array( $like, $like, $like, $like, $like );
+
+			// The message column doesn't exist as stored text — it's built at
+			// render time (column_message()) by substituting each event's
+			// metadata into a template. So a message-content search instead
+			// matches events that have a metadata value containing the term,
+			// the same subquery WSAL's own list table search uses (see
+			// ListAdminEvents\Views\List_Events::search()).
+			if ( class_exists( '\WSAL\Entities\Metadata_Entity' ) ) {
+				$meta_table = \WSAL\Entities\Metadata_Entity::get_table_name();
+				$parts[]    = "id IN ( SELECT DISTINCT occurrence_id FROM {$meta_table} WHERE value LIKE %s )";
+				$args[]     = $like;
+			}
+
+			$cond = '( ' . implode( ' OR ', $parts ) . ' )';
 		} else {
 			$cond = '%d';
 			$args = array( 1 );

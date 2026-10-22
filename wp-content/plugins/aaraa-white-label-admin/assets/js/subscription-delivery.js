@@ -231,6 +231,18 @@
 			);
 		} );
 
+		// Start date.
+		$( document ).on( 'click', '#aaraa_sub_start_date_save', function () {
+			post(
+				{
+					action: 'aaraa_sub_start_date',
+					start_date: $( '#aaraa_sub_start_date' ).val() || ''
+				},
+				$( this ),
+				$( '#aaraa_sub_start_date_msg' )
+			);
+		} );
+
 		// Next renewal (next payment) date.
 		$( document ).on( 'click', '#aaraa_sub_next_payment_save', function () {
 			post(

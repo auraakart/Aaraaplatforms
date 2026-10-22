@@ -33,8 +33,28 @@ class Subscription_Frontend {
 	 * @return void
 	 */
 	public function init() {
-		add_action( 'woocommerce_subscription_details_after_subscription_table', array( $this, 'render' ), 20 );
+		// The subscription_details table (Status only, once trimmed below) no
+		// longer prints where WooCommerce Subscriptions normally puts it. It's
+		// suppressed there and reprinted after the Subscription totals table
+		// instead, so the page reads: Pause panel, Subscription totals, then
+		// the Status table.
+		add_action( 'woocommerce_subscription_details_table', array( $this, 'suppress_details_table' ), 1 );
+		add_action( 'woocommerce_subscription_details_table', array( $this, 'render' ), 20 );
+		add_action( 'woocommerce_subscription_totals_table', array( $this, 'print_details_table' ), 30 );
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue' ) );
+
+		// Trim the subscription_details table down to Status only. The date
+		// rows (Start date, Last order date, Next payment date, End date,
+		// Trial end date) are dropped via WCS's own filter; Auto renew,
+		// Payment and Actions have no such filter, so they're stripped in
+		// print_details_table().
+		add_filter( 'wcs_subscription_details_table_dates_to_display', '__return_empty_array', 9999 );
+
+		// Trim the subscription products table down to Product + Total: no
+		// Upgrade/Downgrade switch link under the product name, no shipping row.
+		add_action( 'woocommerce_subscription_totals_table', array( $this, 'hide_switch_link' ), 5 );
+		add_action( 'woocommerce_subscription_totals_table', array( $this, 'restore_switch_link' ), 15 );
+		add_filter( 'woocommerce_get_order_item_totals', array( $this, 'hide_shipping_total_row' ), 10, 2 );
 
 		// Logged-in customers only — no nopriv handler on purpose.
 		add_action( 'wp_ajax_aaraa_front_sub_pause', array( $this, 'ajax_pause' ) );
@@ -105,6 +125,29 @@ class Subscription_Frontend {
 	 */
 	private function pause_status_available() {
 		return null !== get_post_status_object( 'wc-pause' );
+	}
+
+	/**
+	 * Whether the Pause panel has anything to show for this subscription —
+	 * shared by render() and the column-wrapper callbacks so both agree on
+	 * when the panel (and therefore the two-column layout) applies.
+	 *
+	 * @param \WC_Subscription $subscription Subscription.
+	 * @return bool
+	 */
+	private function is_pause_eligible( $subscription ) {
+		if ( ! $this->can_manage( $subscription ) ) {
+			return false;
+		}
+		if ( ! $this->pause_status_available() ) {
+			return false;
+		}
+		// Nothing to offer on a finished subscription (unless it is currently paused).
+		$status = $subscription->get_status();
+		if ( 'pause' !== $status && in_array( $status, array( 'cancelled', 'expired', 'pending-cancel', 'switched' ), true ) ) {
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -254,6 +297,129 @@ class Subscription_Frontend {
 	}
 
 	/* --------------------------------------------------------------------- *
+	 * Trim the subscription_details table to Status + Actions only.
+	 * --------------------------------------------------------------------- */
+
+	/**
+	 * Detach WooCommerce Subscriptions' own details-table renderer from its
+	 * usual spot so print_details_table() can print it later instead.
+	 *
+	 * @return void
+	 */
+	public function suppress_details_table() {
+		if ( class_exists( 'WCS_Template_Loader' ) ) {
+			remove_action( 'woocommerce_subscription_details_table', array( 'WCS_Template_Loader', 'get_subscription_details_template' ), 10 );
+		}
+	}
+
+	/**
+	 * Print the subscription_details table (Status only, once trimmed) after
+	 * the Subscription totals table, capturing WCS's own renderer's output so
+	 * the Auto renew, Payment and Actions rows (no filter exists for any of
+	 * them) can be stripped out of the markup before it reaches the page.
+	 *
+	 * @param \WC_Subscription $subscription Subscription (passed by the WCS hook).
+	 * @return void
+	 */
+	public function print_details_table( $subscription ) {
+		if ( ! class_exists( 'WCS_Template_Loader' ) ) {
+			return;
+		}
+		ob_start();
+		\WCS_Template_Loader::get_subscription_details_template( $subscription );
+		$html = ob_get_clean();
+		echo $this->strip_details_rows( (string) $html ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
+	/**
+	 * Remove the Auto renew, Payment and Actions rows from the
+	 * subscription_details table markup, identified by their stable HTML
+	 * markers rather than the (translatable) row label text. What's left is
+	 * Status only.
+	 *
+	 * @param string $html Captured table markup.
+	 * @return string
+	 */
+	private function strip_details_rows( $html ) {
+		if ( '' === trim( $html ) || ! class_exists( '\\DOMDocument' ) ) {
+			return $html;
+		}
+
+		$doc = new \DOMDocument();
+		libxml_use_internal_errors( true );
+		$doc->loadHTML( '<?xml encoding="utf-8" ?><div>' . $html . '</div>' );
+		libxml_clear_errors();
+
+		$xpath = new \DOMXPath( $doc );
+		$rows  = $xpath->query(
+			"//tr[.//*[contains(concat(' ', normalize-space(@class), ' '), ' wcs-auto-renew-toggle ')]"
+			. " or .//*[contains(concat(' ', normalize-space(@class), ' '), ' subscription-payment-method ')]"
+			. " or .//a[contains(concat(' ', normalize-space(@class), ' '), ' woocommerce-button ')]]"
+		);
+
+		foreach ( $rows as $row ) {
+			if ( $row->parentNode ) {
+				$row->parentNode->removeChild( $row );
+			}
+		}
+
+		$wrapper = $doc->getElementsByTagName( 'div' )->item( 0 );
+		if ( ! $wrapper ) {
+			return $html;
+		}
+
+		$out = '';
+		foreach ( $wrapper->childNodes as $child ) {
+			$out .= $doc->saveHTML( $child );
+		}
+		return $out;
+	}
+
+	/* --------------------------------------------------------------------- *
+	 * Trim the subscription products table to Product + Total only.
+	 * --------------------------------------------------------------------- */
+
+	/**
+	 * Detach the switch-link callback for the duration of the subscription
+	 * totals table only, so "Upgrade or Downgrade" doesn't print under the
+	 * product name on the customer's view-subscription page.
+	 *
+	 * @return void
+	 */
+	public function hide_switch_link() {
+		remove_action( 'woocommerce_order_item_meta_end', array( 'WC_Subscriptions_Switcher', 'print_switch_link' ), 10 );
+	}
+
+	/**
+	 * Reattach the switch-link callback once the totals table has rendered,
+	 * so switching still works everywhere else (emails, admin, etc.).
+	 *
+	 * @return void
+	 */
+	public function restore_switch_link() {
+		add_action( 'woocommerce_order_item_meta_end', array( 'WC_Subscriptions_Switcher', 'print_switch_link' ), 10, 3 );
+	}
+
+	/**
+	 * Drop the shipping row from the subscription totals footer on the
+	 * customer's view-subscription page, leaving Subtotal/Total as-is.
+	 *
+	 * @param array             $total_rows Rows keyed by type (see WC_Abstract_Order::get_order_item_totals()).
+	 * @param \WC_Abstract_Order $order      The order/subscription the rows belong to.
+	 * @return array
+	 */
+	public function hide_shipping_total_row( $total_rows, $order ) {
+		if ( ! is_a( $order, 'WC_Subscription' ) ) {
+			return $total_rows;
+		}
+		if ( ! function_exists( 'is_wc_endpoint_url' ) || ! is_wc_endpoint_url( 'view-subscription' ) ) {
+			return $total_rows;
+		}
+		unset( $total_rows['shipping'] );
+		return $total_rows;
+	}
+
+	/* --------------------------------------------------------------------- *
 	 * Render.
 	 * --------------------------------------------------------------------- */
 
@@ -264,10 +430,7 @@ class Subscription_Frontend {
 	 * @return void
 	 */
 	public function render( $subscription ) {
-		if ( ! $this->can_manage( $subscription ) ) {
-			return;
-		}
-		if ( ! $this->pause_status_available() ) {
+		if ( ! $this->is_pause_eligible( $subscription ) ) {
 			return;
 		}
 
@@ -275,11 +438,9 @@ class Subscription_Frontend {
 		$status = $subscription->get_status();
 		$paused = ( 'pause' === $status );
 		$today  = current_time( 'Y-m-d' );
-
-		// Nothing to offer on a finished subscription.
-		if ( ! $paused && in_array( $status, array( 'cancelled', 'expired', 'pending-cancel', 'switched' ), true ) ) {
-			return;
-		}
+		// A pause can only take effect from tomorrow — today's delivery is
+		// already in motion, so the picker's earliest selectable day is +1.
+		$min_pause_date = gmdate( 'Y-m-d', strtotime( $today . ' +1 day' ) );
 
 		$pause_dates = $this->saved_pause_dates( $sub_id );
 		$fmt         = get_option( 'date_format' );
@@ -299,117 +460,133 @@ class Subscription_Frontend {
 		<div class="aaraa-fsub" data-subid="<?php echo esc_attr( $sub_id ); ?>">
 			<h2 class="aaraa-fsub__title"><?php esc_html_e( 'Pause Subscription', 'aaraa-white-label-admin' ); ?></h2>
 
+			<!--
 			<p class="aaraa-fsub__note">
 				<strong><?php esc_html_e( 'Note:', 'aaraa-white-label-admin' ); ?></strong>
 				<?php esc_html_e( 'Changes made after 8:00 PM will take effect from the following delivery cycle. Tomorrow\'s scheduled delivery cannot be paused or resumed and will be attempted as planned.', 'aaraa-white-label-admin' ); ?>
 			</p>
+			-->
 
-			<?php if ( $has_schedule ) : ?>
+			<div class="aaraa-fsub__grid">
 
-				<div class="aaraa-fsub__paused">
-					<strong>
-						<?php
-						echo $paused
-							? esc_html__( 'Your deliveries are paused.', 'aaraa-white-label-admin' )
-							: esc_html__( 'A pause is scheduled.', 'aaraa-white-label-admin' );
-						?>
-					</strong>
+				<div class="aaraa-fsub__col aaraa-fsub__col--calendar">
+					<?php if ( $has_schedule ) : ?>
+						<?php if ( ! empty( $pause_dates ) ) : ?>
+							<div
+								class="aaraa-cal"
+								data-min="<?php echo esc_attr( $today ); ?>"
+								data-today="<?php echo esc_attr( $today ); ?>"
+								data-selected="<?php echo esc_attr( wp_json_encode( array_values( $pause_dates ) ) ); ?>"
+								data-readonly="1"
+							></div>
+						<?php endif; ?>
+					<?php else : ?>
+						<div
+							class="aaraa-cal"
+							id="aaraa_fsub_cal"
+							data-min="<?php echo esc_attr( $min_pause_date ); ?>"
+							data-today="<?php echo esc_attr( $today ); ?>"
+							data-selected="[]"
+							data-readonly="0"
+						></div>
+						<p class="aaraa-fsub__muted"><?php esc_html_e( 'Tap a date to pause it (turns red). Tap it again to remove. Drag across days to select several.', 'aaraa-white-label-admin' ); ?></p>
+						<p class="aaraa-fsub__warn" id="aaraa_fsub_gap" style="display:none;"></p>
+					<?php endif; ?>
 				</div>
 
-				<?php if ( ! empty( $pause_dates ) ) : ?>
-					<div
-						class="aaraa-cal"
-						data-min="<?php echo esc_attr( $today ); ?>"
-						data-today="<?php echo esc_attr( $today ); ?>"
-						data-selected="<?php echo esc_attr( wp_json_encode( array_values( $pause_dates ) ) ); ?>"
-						data-readonly="1"
-					></div>
-				<?php endif; ?>
+				<div class="aaraa-fsub__col aaraa-fsub__col--details">
+					<?php if ( $has_schedule ) : ?>
 
-				<?php if ( ! empty( $blocks ) ) : ?>
-					<table class="aaraa-fsub__facts">
-						<thead>
-							<tr>
-								<th scope="col"><?php esc_html_e( 'Paused dates', 'aaraa-white-label-admin' ); ?></th>
-								<th scope="col"><?php esc_html_e( 'Deliveries resume', 'aaraa-white-label-admin' ); ?></th>
-							</tr>
-						</thead>
-						<tbody>
-							<?php foreach ( $blocks as $block ) : ?>
-								<tr>
-									<td><?php echo esc_html( $this->format_block( $block['start'], $block['end'], $fmt ) ); ?></td>
-									<td><?php echo esc_html( date_i18n( $fmt, strtotime( $block['end'] . ' +1 day' ) ) ); ?></td>
-								</tr>
-							<?php endforeach; ?>
-						</tbody>
-					</table>
-				<?php else : ?>
-					<?php $resume_date = $this->resume_date( $sub_id, $pause_dates ); ?>
-					<table class="aaraa-fsub__facts">
-						<tbody>
-							<tr>
-								<th scope="row"><?php esc_html_e( 'Paused dates', 'aaraa-white-label-admin' ); ?></th>
-								<td><?php esc_html_e( 'Until you resume', 'aaraa-white-label-admin' ); ?></td>
-							</tr>
-							<tr>
-								<th scope="row"><?php esc_html_e( 'Deliveries resume', 'aaraa-white-label-admin' ); ?></th>
-								<td>
-									<?php
-									echo $resume_date
-										? esc_html( date_i18n( $fmt, strtotime( $resume_date ) ) )
-										: esc_html__( 'When you resume below', 'aaraa-white-label-admin' );
-									?>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-				<?php endif; ?>
+						<div class="aaraa-fsub__paused">
+							<strong>
+								<?php
+								echo $paused
+									? esc_html__( 'Your deliveries are paused.', 'aaraa-white-label-admin' )
+									: esc_html__( 'A pause is scheduled.', 'aaraa-white-label-admin' );
+								?>
+							</strong>
+						</div>
 
-				<p>
-					<button type="button" class="button aaraa-fsub__btn aaraa-fsub__btn--resume" id="aaraa_fsub_resume">
-						<?php
-						echo $paused
-							? esc_html__( 'Resume Now', 'aaraa-white-label-admin' )
-							: esc_html__( 'Cancel Scheduled Pause', 'aaraa-white-label-admin' );
-						?>
-					</button>
-					<span class="aaraa-fsub__spinner" aria-hidden="true"></span>
-				</p>
-				<p class="aaraa-fsub__muted">
-					<?php
-					echo $paused
-						? esc_html__( 'Resuming restarts deliveries from the next scheduled day.', 'aaraa-white-label-admin' )
-						: esc_html__( 'Cancelling clears the scheduled pause dates.', 'aaraa-white-label-admin' );
-					?>
-				</p>
+						<?php if ( ! empty( $blocks ) ) : ?>
+							<table class="aaraa-fsub__facts">
+								<thead>
+									<tr>
+										<th scope="col"><?php esc_html_e( 'Paused dates', 'aaraa-white-label-admin' ); ?></th>
+										<th scope="col"><?php esc_html_e( 'Deliveries resume', 'aaraa-white-label-admin' ); ?></th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach ( $blocks as $block ) : ?>
+										<tr>
+											<td><?php echo esc_html( $this->format_block( $block['start'], $block['end'], $fmt ) ); ?></td>
+											<td><?php echo esc_html( date_i18n( $fmt, strtotime( $block['end'] . ' +1 day' ) ) ); ?></td>
+										</tr>
+									<?php endforeach; ?>
+								</tbody>
+							</table>
+						<?php else : ?>
+							<?php $resume_date = $this->resume_date( $sub_id, $pause_dates ); ?>
+							<table class="aaraa-fsub__facts">
+								<tbody>
+									<tr>
+										<th scope="row"><?php esc_html_e( 'Paused dates', 'aaraa-white-label-admin' ); ?></th>
+										<td><?php esc_html_e( 'Until you resume', 'aaraa-white-label-admin' ); ?></td>
+									</tr>
+									<tr>
+										<th scope="row"><?php esc_html_e( 'Deliveries resume', 'aaraa-white-label-admin' ); ?></th>
+										<td>
+											<?php
+											echo $resume_date
+												? esc_html( date_i18n( $fmt, strtotime( $resume_date ) ) )
+												: esc_html__( 'When you resume below', 'aaraa-white-label-admin' );
+											?>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						<?php endif; ?>
 
-			<?php else : ?>
+						<p>
+							<button type="button" class="button aaraa-fsub__btn aaraa-fsub__btn--resume" id="aaraa_fsub_resume">
+								<?php
+								echo $paused
+									? esc_html__( 'Resume Now', 'aaraa-white-label-admin' )
+									: esc_html__( 'Cancel Scheduled Pause', 'aaraa-white-label-admin' );
+								?>
+							</button>
+							<span class="aaraa-fsub__spinner" aria-hidden="true"></span>
+						</p>
+						<p class="aaraa-fsub__muted">
+							<?php
+							echo $paused
+								? esc_html__( 'Resuming restarts deliveries from the next scheduled day.', 'aaraa-white-label-admin' )
+								: esc_html__( 'Cancelling clears the scheduled pause dates.', 'aaraa-white-label-admin' );
+							?>
+						</p>
 
-				<div
-					class="aaraa-cal"
-					id="aaraa_fsub_cal"
-					data-min="<?php echo esc_attr( $today ); ?>"
-					data-today="<?php echo esc_attr( $today ); ?>"
-					data-selected="[]"
-					data-readonly="0"
-				></div>
-				<p class="aaraa-fsub__muted"><?php esc_html_e( 'Tap a date to pause it (turns red). Tap it again to remove. Drag across days to select several.', 'aaraa-white-label-admin' ); ?></p>
-				<p class="aaraa-fsub__warn" id="aaraa_fsub_gap" style="display:none;"></p>
+					<?php else : ?>
 
-				<p>
-					<button type="button" class="button aaraa-fsub__btn aaraa-fsub__btn--pause" id="aaraa_fsub_pause">
-						<?php esc_html_e( 'Pause', 'aaraa-white-label-admin' ); ?>
-					</button>
-					<span class="aaraa-fsub__spinner" aria-hidden="true"></span>
-				</p>
+						<p>
+							<button type="button" class="button aaraa-fsub__btn aaraa-fsub__btn--pause" id="aaraa_fsub_pause">
+								<?php esc_html_e( 'Pause', 'aaraa-white-label-admin' ); ?>
+							</button>
+							<span class="aaraa-fsub__spinner" aria-hidden="true"></span>
+						</p>
 
-			<?php endif; ?>
+					<?php endif; ?>
+				</div>
+
+			</div>
 
 			<p class="aaraa-fsub__msg" id="aaraa_fsub_msg" role="status" aria-live="polite"></p>
 		</div>
 
 		<style>
-			.aaraa-fsub { margin: 24px 0; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; max-width: 460px; }
+			/* Pause Subscription panel: calendar (50%) | details (50%). */
+			.aaraa-fsub__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; align-items: start; }
+			@media (max-width: 782px) { .aaraa-fsub__grid { grid-template-columns: 1fr; } }
+
+			.aaraa-fsub { margin: 24px 0 0; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fff; max-width: 100%; }
 			.aaraa-fsub__title { font-size: 16px; margin: 0 0 10px; }
 			.aaraa-fsub__note { margin: 0 0 16px; padding: 10px 12px; background: #eff6ff; border-left: 3px solid #1e3a8a; border-radius: 6px; color: #334155; font-size: 12.5px; line-height: 1.5; }
 			.aaraa-fsub__note strong { color: #1e3a8a; }

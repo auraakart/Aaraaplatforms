@@ -28,6 +28,25 @@ class Order_Delivery {
 	const META_HUB  = '_aaraa_delivery_hub';
 	const META_BOY  = '_aaraa_delivery_boy';
 
+	/**
+	 * Delivery coordinates — copied from the customer's primary saved address
+	 * (wp_customer_addresses) at order/subscription creation, so the delivery
+	 * app can plot the drop without a separate address lookup.
+	 */
+	const META_LAT = '_aaraa_delivery_lat';
+	const META_LNG = '_aaraa_delivery_lng';
+
+	/**
+	 * Delivery date/time meta — deliberately unprefixed (no leading
+	 * underscore). This is the same `delivery_date` key already sent as
+	 * order meta_data by the ordering app at checkout (visible in the
+	 * order's own Custom Fields box), holding a date or full datetime
+	 * string. Orders_API_Fields exposes this as `delivery_date` on the
+	 * orders REST API, so an edit here is what that field reflects — and,
+	 * going the other way, a value the app already sent shows up here too.
+	 */
+	const META_DELIVERY_DATE = 'delivery_date';
+
 	const NONCE = 'aaraa_order_delivery';
 
 	/**
@@ -51,6 +70,18 @@ class Order_Delivery {
 		// Orders list filters — legacy posts table (edit.php?post_type=shop_order).
 		add_action( 'restrict_manage_posts', array( $this, 'render_filters_legacy' ) );
 		add_filter( 'request', array( $this, 'filter_request_legacy' ) );
+
+		// Orders list "Delivery Date" column — HPOS (admin.php?page=wc-orders).
+		add_filter( 'woocommerce_shop_order_list_table_columns', array( $this, 'add_list_column' ), 20 );
+		add_filter( 'woocommerce_shop_subscription_list_table_columns', array( $this, 'add_list_column' ), 20 );
+		add_action( 'woocommerce_shop_order_list_table_custom_column', array( $this, 'render_list_column' ), 20, 2 );
+		add_action( 'woocommerce_shop_subscription_list_table_custom_column', array( $this, 'render_list_column' ), 20, 2 );
+
+		// Orders list "Delivery Date" column — legacy posts table.
+		add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_list_column' ), 20 );
+		add_filter( 'manage_edit-shop_subscription_columns', array( $this, 'add_list_column' ), 20 );
+		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_list_column_legacy' ), 20, 2 );
+		add_action( 'manage_shop_subscription_posts_custom_column', array( $this, 'render_list_column_legacy' ), 20, 2 );
 
 		// Auto-assign delivery slot/hub/person from the customer profile whenever
 		// an order, subscription or renewal order is created. A field the profile
@@ -155,6 +186,8 @@ class Order_Delivery {
 			}
 		}
 
+		$this->maybe_autofill_delivery_latlng( $order, $customer_id );
+
 		$p_slot = (int) get_user_meta( $customer_id, Customer_Delivery::META_SLOT, true );
 		$p_hub  = (int) get_user_meta( $customer_id, Customer_Delivery::META_HUB, true );
 		$p_boy  = (int) get_user_meta( $customer_id, Customer_Delivery::META_BOY, true );
@@ -197,6 +230,44 @@ class Order_Delivery {
 		}
 	}
 
+	/**
+	 * Copy the customer's primary saved address (wp_customer_addresses,
+	 * is_primary = 1) latitude/longitude onto the order as meta, so the
+	 * delivery app can plot the drop point. Only fills meta the order doesn't
+	 * already carry, and only when the primary address actually has
+	 * coordinates saved — safe to call on every creation hook.
+	 *
+	 * @param \WC_Order $order       Order or subscription.
+	 * @param int       $customer_id Customer user id.
+	 * @return void
+	 */
+	private function maybe_autofill_delivery_latlng( $order, $customer_id ) {
+		if ( $order->get_meta( self::META_LAT ) || $order->get_meta( self::META_LNG ) ) {
+			return; // Already set.
+		}
+
+		global $wpdb;
+		$table = $wpdb->prefix . 'customer_addresses';
+		if ( $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $table ) ) ) !== $table ) {
+			return; // WCFMu's address table isn't installed.
+		}
+
+		$row = $wpdb->get_row(
+			$wpdb->prepare(
+				"SELECT latitude, longitude FROM {$table} WHERE customer_id = %d AND is_primary = 1 LIMIT 1", // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared, WordPress.DB.PreparedSQLPlaceholders.UnfinishedPrepare
+				$customer_id
+			)
+		);
+
+		if ( ! $row || ! is_numeric( $row->latitude ) || ! is_numeric( $row->longitude ) ) {
+			return; // No primary address, or it has no coordinates saved.
+		}
+
+		$order->update_meta_data( self::META_LAT, (string) $row->latitude );
+		$order->update_meta_data( self::META_LNG, (string) $row->longitude );
+		$order->save();
+	}
+
 	/* --------------------------------------------------------------------- *
 	 * Orders list filters.
 	 * --------------------------------------------------------------------- */
@@ -213,10 +284,23 @@ class Order_Delivery {
 		if ( $boy < -1 ) {
 			$boy = 0;
 		}
+		$delivery_from = isset( $_GET['aaraa_delivery_from'] ) ? sanitize_text_field( wp_unslash( $_GET['aaraa_delivery_from'] ) ) : '';
+		$delivery_to   = isset( $_GET['aaraa_delivery_to'] ) ? sanitize_text_field( wp_unslash( $_GET['aaraa_delivery_to'] ) ) : '';
+		if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $delivery_from ) ) {
+			$delivery_from = '';
+		}
+		if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $delivery_to ) ) {
+			$delivery_to = '';
+		}
+		$missing = ( isset( $_GET['aaraa_delivery_missing'] ) && '1' === $_GET['aaraa_delivery_missing'] ) ? 1 : 0;
+
 		return array(
-			'slot' => isset( $_GET['aaraa_slot'] ) ? absint( $_GET['aaraa_slot'] ) : 0,
-			'hub'  => isset( $_GET['aaraa_hub'] ) ? absint( $_GET['aaraa_hub'] ) : 0,
-			'boy'  => $boy,
+			'slot'          => isset( $_GET['aaraa_slot'] ) ? absint( $_GET['aaraa_slot'] ) : 0,
+			'hub'           => isset( $_GET['aaraa_hub'] ) ? absint( $_GET['aaraa_hub'] ) : 0,
+			'boy'           => $boy,
+			'delivery_from' => $delivery_from,
+			'delivery_to'   => $delivery_to,
+			'missing'       => $missing,
 		);
 		// phpcs:enable
 	}
@@ -272,6 +356,18 @@ class Order_Delivery {
 			<?php foreach ( $people as $id => $label ) : ?>
 				<option value="<?php echo esc_attr( $id ); ?>" <?php selected( $cur['boy'], (int) $id ); ?>><?php echo esc_html( $label ); ?></option>
 			<?php endforeach; ?>
+		</select>
+
+		<span class="aaraa-orddel__daterange" style="display:inline-flex;align-items:center;gap:4px;margin-left:6px;">
+			<label for="aaraa_delivery_from"><?php esc_html_e( 'Delivery From', 'aaraa-white-label-admin' ); ?></label>
+			<input type="date" id="aaraa_delivery_from" name="aaraa_delivery_from" value="<?php echo esc_attr( $cur['delivery_from'] ); ?>" />
+			<label for="aaraa_delivery_to"><?php esc_html_e( 'To', 'aaraa-white-label-admin' ); ?></label>
+			<input type="date" id="aaraa_delivery_to" name="aaraa_delivery_to" value="<?php echo esc_attr( $cur['delivery_to'] ); ?>" />
+		</span>
+
+		<select name="aaraa_delivery_missing" id="aaraa_delivery_missing_filter">
+			<option value="0"><?php esc_html_e( 'All orders', 'aaraa-white-label-admin' ); ?></option>
+			<option value="1" <?php selected( $cur['missing'], 1 ); ?>><?php esc_html_e( 'Delivery date not set', 'aaraa-white-label-admin' ); ?></option>
 		</select>
 		<?php
 	}
@@ -337,6 +433,41 @@ class Order_Delivery {
 			);
 		}
 
+		if ( $cur['missing'] ) {
+			// No delivery_date meta row at all, or one saved empty — either way
+			// "not set". Takes priority over (and is mutually exclusive with) the
+			// date-range filter below: a range is meaningless for orders that have
+			// no date to fall inside it.
+			$clauses[] = array(
+				'relation' => 'OR',
+				array(
+					'key'     => self::META_DELIVERY_DATE,
+					'compare' => 'NOT EXISTS',
+				),
+				array(
+					'key'     => self::META_DELIVERY_DATE,
+					'value'   => '',
+					'compare' => '=',
+				),
+			);
+		} elseif ( $cur['delivery_from'] || $cur['delivery_to'] ) {
+			// delivery_date is a wall-clock value stored either date-only
+			// ("2026-09-24") or as a full datetime ("2026-09-24 19:10:00").
+			// A plain "Y-m-d" lower bound still sorts below both shapes on
+			// that same day; the upper bound is padded to 23:59:59 so a
+			// same-day value WITH a time doesn't sort past it. Ordinary
+			// string BETWEEN — no CAST — so it behaves the same under HPOS
+			// and the legacy postmeta table.
+			$clauses[] = array(
+				'key'     => self::META_DELIVERY_DATE,
+				'value'   => array(
+					$cur['delivery_from'] ? $cur['delivery_from'] : '0000-01-01',
+					$cur['delivery_to'] ? ( $cur['delivery_to'] . ' 23:59:59' ) : '9999-12-31 23:59:59',
+				),
+				'compare' => 'BETWEEN',
+			);
+		}
+
 		return $clauses;
 	}
 
@@ -380,6 +511,85 @@ class Order_Delivery {
 		}
 		$vars['meta_query'][] = array_merge( array( 'relation' => 'AND' ), $clauses );
 		return $vars;
+	}
+
+	/* --------------------------------------------------------------------- *
+	 * Orders list "Delivery Date" column.
+	 * --------------------------------------------------------------------- */
+
+	/**
+	 * Insert the Delivery Date column right after the native Date column.
+	 *
+	 * @param array $columns column key => label.
+	 * @return array
+	 */
+	public function add_list_column( $columns ) {
+		$new = array();
+		foreach ( $columns as $key => $label ) {
+			$new[ $key ] = $label;
+			if ( 'order_date' === $key ) {
+				$new['aaraa_delivery_date'] = __( 'Delivery Date', 'aaraa-white-label-admin' );
+			}
+		}
+		if ( ! isset( $new['aaraa_delivery_date'] ) ) {
+			$new['aaraa_delivery_date'] = __( 'Delivery Date', 'aaraa-white-label-admin' );
+		}
+		return $new;
+	}
+
+	/**
+	 * Render the column — HPOS (order object already resolved by core).
+	 *
+	 * @param string    $column Column key.
+	 * @param \WC_Order $order  Order.
+	 * @return void
+	 */
+	public function render_list_column( $column, $order ) {
+		if ( 'aaraa_delivery_date' !== $column ) {
+			return;
+		}
+		echo esc_html( $this->delivery_date_label( $order ) );
+	}
+
+	/**
+	 * Render the column — legacy posts table (only a post id is given).
+	 *
+	 * @param string $column  Column key.
+	 * @param int    $post_id Order/subscription post id.
+	 * @return void
+	 */
+	public function render_list_column_legacy( $column, $post_id ) {
+		if ( 'aaraa_delivery_date' !== $column ) {
+			return;
+		}
+		$order = wc_get_order( $post_id );
+		if ( ! $order ) {
+			return;
+		}
+		echo esc_html( $this->delivery_date_label( $order ) );
+	}
+
+	/**
+	 * Delivery date, date-only (no time), same as the Aaraa Customer 360 Orders
+	 * table. `delivery_date` is a wall-clock value parsed literally, with no
+	 * timezone conversion.
+	 *
+	 * @param \WC_Order $order Order.
+	 * @return string
+	 */
+	private function delivery_date_label( $order ) {
+		if ( ! $order instanceof \WC_Order ) {
+			return '—';
+		}
+		$raw = (string) $order->get_meta( self::META_DELIVERY_DATE );
+		if ( '' === $raw ) {
+			return '—';
+		}
+		$ts = strtotime( $raw );
+		if ( ! $ts ) {
+			return '—';
+		}
+		return date_i18n( get_option( 'date_format' ), $ts );
 	}
 
 	/**
@@ -537,8 +747,17 @@ class Order_Delivery {
 		$cur_hub  = (int) $order->get_meta( self::META_HUB );
 		$cur_boy  = (int) $order->get_meta( self::META_BOY );
 
+		// The stored value may be date-only ("2026-09-24", as the app sends it
+		// at checkout) or a full datetime ("2026-09-24 19:10:00", once edited
+		// here) — parsed without any timezone math, since it's a literal
+		// wall-clock value either way, not a UTC instant.
+		$cur_delivery_datetime = $this->delivery_datetime_field_value( (string) $order->get_meta( self::META_DELIVERY_DATE ) );
+
 		// On subscriptions the slot is managed with the delivery schedule, so the
-		// box hides its own slot dropdown to avoid two identical controls.
+		// box hides its own slot dropdown to avoid two identical controls. A
+		// single delivery date/time is likewise an order-level concept (one
+		// delivery), not a subscription-level one (a recurring schedule), so
+		// it's hidden there too.
 		$is_sub = ( 'shop_subscription' === $order->get_type() );
 
 		// Fall back to whatever the customer is normally assigned to, so a new
@@ -558,6 +777,14 @@ class Order_Delivery {
 		wp_nonce_field( self::NONCE, 'aaraa_delivery_nonce', false );
 		?>
 		<div class="aaraa-orddel">
+			<?php if ( ! $is_sub ) : ?>
+			<p>
+				<label for="aaraa_delivery_datetime"><strong><?php esc_html_e( 'Delivery Date & Time', 'aaraa-white-label-admin' ); ?></strong></label>
+				<input type="datetime-local" id="aaraa_delivery_datetime" name="aaraa_delivery_datetime" style="width:100%" value="<?php echo esc_attr( $cur_delivery_datetime ); ?>" />
+				<span class="description"><?php esc_html_e( 'Leave blank to fall back to the order date/time.', 'aaraa-white-label-admin' ); ?></span>
+			</p>
+			<?php endif; ?>
+
 			<?php if ( $is_sub ) : ?>
 				<?php // Slot is edited with the subscription's delivery schedule; keep the value intact on save. ?>
 				<input type="hidden" id="aaraa_delivery_slot" name="aaraa_delivery_slot" value="<?php echo esc_attr( $cur_slot ); ?>" />
@@ -673,7 +900,41 @@ class Order_Delivery {
 
 		$boy = $this->validate_person( $boy, $hub );
 
-		$this->persist( $order, $slot, $hub, $boy );
+		$datetime = isset( $_POST['aaraa_delivery_datetime'] ) ? sanitize_text_field( wp_unslash( $_POST['aaraa_delivery_datetime'] ) ) : '';
+
+		$this->persist( $order, $slot, $hub, $boy, $this->normalise_delivery_datetime( $datetime ) );
+	}
+
+	/**
+	 * `datetime-local` field value ("Y-m-d\TH:i" or '') for a stored
+	 * `delivery_date` meta value, which may be date-only ("2026-09-24", as
+	 * the app writes it) or a full datetime ("2026-09-24 19:10:00", once
+	 * edited here). Parsed literally — no timezone conversion, since this is
+	 * a wall-clock value, not a UTC instant.
+	 *
+	 * @param string $meta_value Raw stored value.
+	 * @return string
+	 */
+	private function delivery_datetime_field_value( $meta_value ) {
+		if ( preg_match( '/^(\d{4}-\d{2}-\d{2})(?:[ T](\d{2}):(\d{2}))?/', trim( (string) $meta_value ), $m ) ) {
+			return $m[1] . 'T' . ( isset( $m[2] ) ? $m[2] . ':' . $m[3] : '00:00' );
+		}
+		return '';
+	}
+
+	/**
+	 * A `datetime-local` field value ("Y-m-d\TH:i") back into the stored
+	 * `delivery_date` meta shape ("Y-m-d H:i:s"). Anything not in that shape
+	 * (including '') means "not set".
+	 *
+	 * @param string $field_value Raw `datetime-local` field value.
+	 * @return string "Y-m-d H:i:s", or '' to clear.
+	 */
+	private function normalise_delivery_datetime( $field_value ) {
+		if ( preg_match( '/^(\d{4}-\d{2}-\d{2})T(\d{2}):(\d{2})/', (string) $field_value, $m ) ) {
+			return $m[1] . ' ' . $m[2] . ':' . $m[3] . ':00';
+		}
+		return '';
 	}
 
 	/**
@@ -681,32 +942,41 @@ class Order_Delivery {
 	 *
 	 * Shared by the order-form save and the panel's own Save button.
 	 *
-	 * @param \WC_Order $order Order.
-	 * @param int       $slot  Slot id.
-	 * @param int       $hub   Hub id.
-	 * @param int       $boy   Delivery person user id.
+	 * @param \WC_Order $order         Order.
+	 * @param int       $slot          Slot id.
+	 * @param int       $hub           Hub id.
+	 * @param int       $boy           Delivery person user id.
+	 * @param string    $delivery_date Delivery date/time ("Y-m-d H:i:s"), or '' to clear.
 	 * @return void
 	 */
-	private function persist( $order, $slot, $hub, $boy ) {
+	private function persist( $order, $slot, $hub, $boy, $delivery_date = '' ) {
 		$previous_slot = (int) $order->get_meta( self::META_SLOT );
 		$previous_hub  = (int) $order->get_meta( self::META_HUB );
 		$previous_boy  = (int) $order->get_meta( self::META_BOY );
+		$previous_date = (string) $order->get_meta( self::META_DELIVERY_DATE );
 
 		$order->update_meta_data( self::META_SLOT, $slot ? (string) $slot : '' );
 		$order->update_meta_data( self::META_HUB, $hub );
 		$order->update_meta_data( self::META_BOY, $boy );
+		if ( $delivery_date ) {
+			$order->update_meta_data( self::META_DELIVERY_DATE, $delivery_date );
+		} else {
+			$order->delete_meta_data( self::META_DELIVERY_DATE );
+		}
 		$order->save();
 
 		// Leave a visible trail whenever the mapping changes, so it is obvious
 		// from the order screen whether the save actually took effect.
-		if ( $slot !== $previous_slot || $hub !== $previous_hub || $boy !== $previous_boy ) {
+		if ( $slot !== $previous_slot || $hub !== $previous_hub || $boy !== $previous_boy
+			|| $delivery_date !== $previous_date ) {
 			$order->add_order_note(
 				sprintf(
-					/* translators: 1: slot, 2: hub, 3: delivery person */
-					__( 'Aaraa Delivery updated — Slot: %1$s | Hub: %2$s | Person: %3$s', 'aaraa-white-label-admin' ),
+					/* translators: 1: slot, 2: hub, 3: delivery person, 4: delivery date/time */
+					__( 'Aaraa Delivery updated — Slot: %1$s | Hub: %2$s | Person: %3$s | Delivery: %4$s', 'aaraa-white-label-admin' ),
 					$this->slot_name( $slot ),
 					$this->hub_name( $hub ),
-					$boy ? $this->person_name( $boy ) : __( 'none', 'aaraa-white-label-admin' )
+					$boy ? $this->person_name( $boy ) : __( 'none', 'aaraa-white-label-admin' ),
+					$delivery_date ? $delivery_date : __( 'none', 'aaraa-white-label-admin' )
 				)
 			);
 		}
@@ -849,16 +1119,19 @@ class Order_Delivery {
 		$hub  = isset( $_POST['hub'] ) ? absint( $_POST['hub'] ) : 0;
 		$boy  = $this->validate_person( isset( $_POST['boy'] ) ? absint( $_POST['boy'] ) : 0, $hub );
 
-		$sync = $this->persist( $order, $slot, $hub, $boy );
+		$datetime = isset( $_POST['delivery_datetime'] ) ? sanitize_text_field( wp_unslash( $_POST['delivery_datetime'] ) ) : '';
+
+		$sync = $this->persist( $order, $slot, $hub, $boy, $this->normalise_delivery_datetime( $datetime ) );
 
 		// Read back from a fresh copy so the response proves what was stored.
 		$saved = wc_get_order( $order_id );
 		wp_send_json_success(
 			array(
-				'message' => $this->save_message( $sync ),
-				'slot'    => (string) $saved->get_meta( self::META_SLOT ),
-				'hub'     => (string) $saved->get_meta( self::META_HUB ),
-				'boy'     => (string) $saved->get_meta( self::META_BOY ),
+				'message'           => $this->save_message( $sync ),
+				'slot'              => (string) $saved->get_meta( self::META_SLOT ),
+				'hub'               => (string) $saved->get_meta( self::META_HUB ),
+				'boy'               => (string) $saved->get_meta( self::META_BOY ),
+				'delivery_datetime' => $this->delivery_datetime_field_value( (string) $saved->get_meta( self::META_DELIVERY_DATE ) ),
 			)
 		);
 	}

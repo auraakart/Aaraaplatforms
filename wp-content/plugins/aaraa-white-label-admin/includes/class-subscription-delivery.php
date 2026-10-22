@@ -75,11 +75,16 @@ class Subscription_Delivery {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'wp_ajax_aaraa_sub_schedule', array( $this, 'ajax_schedule' ) );
 		add_action( 'wp_ajax_aaraa_sub_next_payment', array( $this, 'ajax_next_payment' ) );
+		add_action( 'wp_ajax_aaraa_sub_start_date', array( $this, 'ajax_start_date' ) );
 		add_action( 'wp_ajax_aaraa_sub_pause', array( $this, 'ajax_pause' ) );
 		add_action( 'wp_ajax_aaraa_sub_remove_pause_date', array( $this, 'ajax_remove_pause_date' ) );
 		add_action( 'wp_ajax_aaraa_sub_resume', array( $this, 'ajax_resume' ) );
 		// One-time heal: copy legacy postmeta-only pause dates into the HPOS store.
 		add_action( 'admin_init', array( __CLASS__, 'heal_pause_meta' ) );
+		// Any Pause -> Active transition, from any source, re-schedules next_payment.
+		// WCS's real status slug for "paused" is 'on-hold', not 'pause', so the
+		// transition hook it actually fires is ..._on-hold_to_active.
+		add_action( 'woocommerce_subscription_status_on-hold_to_active', array( $this, 'on_pause_to_active' ), 20 );
 	}
 
 	/**
@@ -260,6 +265,52 @@ class Subscription_Delivery {
 			6 => __( 'Sat', 'aaraa-white-label-admin' ),
 			0 => __( 'Sun', 'aaraa-white-label-admin' ),
 		);
+	}
+
+	/**
+	 * Human-readable delivery schedule for a subscription — slot + cadence,
+	 * e.g. "Morning (05:00 - 08:00) · Custom Day (Tue, Wed)". Shared by the
+	 * My Account subscriptions table and anywhere else that needs the same
+	 * summary. Public + static, unlike the private per-instance slot_label()
+	 * below, so templates can call it without instantiating the class.
+	 *
+	 * @param \WC_Subscription $sub Subscription object.
+	 * @return string Non-empty; '—' when nothing is set.
+	 */
+	public static function describe_schedule( $sub ) {
+		$parts = array();
+
+		$slot_id = (int) $sub->get_meta( '_aaraa_delivery_slot' );
+		if ( $slot_id && class_exists( '\Aaraa\Admin\Delivery_Slots_API' ) ) {
+			$slot = Delivery_Slots_API::slot_by_id( $slot_id );
+			if ( $slot && ! empty( $slot['label'] ) ) {
+				$parts[] = $slot['label'];
+			}
+		}
+
+		$type = (string) $sub->get_meta( '_wcfm_delivery_schedule' );
+		if ( '' !== $type ) {
+			$types = self::schedule_types();
+			$label = isset( $types[ $type ] ) ? $types[ $type ] : $type;
+			if ( 'custom' === $type ) {
+				$days = $sub->get_meta( '_wcfm_delivery_days' );
+				$days = is_array( $days ) ? array_map( 'intval', $days ) : array();
+				if ( $days ) {
+					$names = array();
+					foreach ( self::weekdays() as $num => $name ) {
+						if ( in_array( $num, $days, true ) ) {
+							$names[] = $name;
+						}
+					}
+					if ( $names ) {
+						$label .= ' (' . implode( ', ', $names ) . ')';
+					}
+				}
+			}
+			$parts[] = $label;
+		}
+
+		return $parts ? implode( ' · ', $parts ) : '—';
 	}
 
 	/**
@@ -447,6 +498,9 @@ class Subscription_Delivery {
 		$status   = $subscription->get_status();
 		$paused   = ( 'pause' === $status );
 		$today    = current_time( 'Y-m-d' );
+		// A pause can only take effect from tomorrow — today's delivery is
+		// already in motion, so the picker's earliest selectable day is +1.
+		$min_pause_date = gmdate( 'Y-m-d', strtotime( $today . ' +1 day' ) );
 		?>
 		<div class="aaraa-subdel" data-subid="<?php echo esc_attr( $sub_id ); ?>">
 
@@ -506,6 +560,26 @@ class Subscription_Delivery {
 				<span class="spinner aaraa-subdel__spinner" style="float:none;margin:0 0 0 6px;"></span>
 			</p>
 			<p class="aaraa-subdel__msg" id="aaraa_sub_schedule_msg" role="status" aria-live="polite"></p>
+
+			<hr />
+
+			<h4 class="aaraa-subdel__head"><?php esc_html_e( 'Start Date', 'aaraa-white-label-admin' ); ?></h4>
+
+			<?php
+			$start_ts    = (int) $subscription->get_time( 'start', 'gmt' );
+			$start_local = $start_ts ? wp_date( 'Y-m-d\TH:i', $start_ts ) : '';
+			?>
+			<p>
+				<input type="datetime-local" id="aaraa_sub_start_date" value="<?php echo esc_attr( $start_local ); ?>" style="width:100%" />
+				<span class="description"><?php esc_html_e( 'When the subscription starts (site time). Use this instead of the Schedule box above — WooCommerce Subscriptions restricts that field to today or earlier.', 'aaraa-white-label-admin' ); ?></span>
+			</p>
+			<p>
+				<button type="button" class="button button-primary" id="aaraa_sub_start_date_save">
+					<?php esc_html_e( 'Update Start Date', 'aaraa-white-label-admin' ); ?>
+				</button>
+				<span class="spinner aaraa-subdel__spinner" style="float:none;margin:0 0 0 6px;"></span>
+			</p>
+			<p class="aaraa-subdel__msg" id="aaraa_sub_start_date_msg" role="status" aria-live="polite"></p>
 
 			<hr />
 
@@ -599,7 +673,7 @@ class Subscription_Delivery {
 				<div
 					class="aaraa-cal"
 					id="aaraa_sub_cal"
-					data-min="<?php echo esc_attr( $today ); ?>"
+					data-min="<?php echo esc_attr( $min_pause_date ); ?>"
 					data-today="<?php echo esc_attr( $today ); ?>"
 					data-selected="<?php echo esc_attr( wp_json_encode( array_values( $pause_dates ) ) ); ?>"
 					data-readonly="0"
@@ -911,9 +985,83 @@ class Subscription_Delivery {
 	}
 
 	/**
-	 * AJAX: set the subscription's next renewal (next payment) date. Available to
-	 * shop owners as well as admins (the shared guard allows edit_shop_orders /
-	 * manage_woocommerce), so shop owners get the same edit ability as admins.
+	 * AJAX: save the subscription's start date directly (server-side only).
+	 *
+	 * WCS's own admin Start Date widget hard-codes a jQuery UI `maxDate` of
+	 * "today" (meta-boxes-subscription.js) and a "must be in the past"
+	 * change-handler on top of that, so it silently clamps any future value
+	 * back to today the moment the page loads — unusable for this store's
+	 * future-dated subscriptions. This field bypasses that widget entirely.
+	 *
+	 * @return void
+	 */
+	public function ajax_start_date() {
+		$subscription = $this->guard();
+
+		if ( in_array( $subscription->get_status(), array( 'cancelled', 'expired', 'switched' ), true ) ) {
+			wp_send_json_error( array( 'message' => __( 'The start date cannot be set on a cancelled, expired or switched subscription.', 'aaraa-white-label-admin' ) ) );
+		}
+
+		// Input is a site-local 'Y-m-dTH:i' (datetime-local) or 'Y-m-d H:i[:s]'.
+		$raw = isset( $_POST['start_date'] ) ? sanitize_text_field( wp_unslash( $_POST['start_date'] ) ) : '';
+		$raw = trim( str_replace( 'T', ' ', $raw ) );
+		if ( '' === $raw || ! preg_match( '/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}(:\d{2})?$/', $raw ) ) {
+			wp_send_json_error( array( 'message' => __( 'Enter a valid date and time.', 'aaraa-white-label-admin' ) ) );
+		}
+		if ( 16 === strlen( $raw ) ) {
+			$raw .= ':00';
+		}
+
+		try {
+			// Convert the site-local input to a UTC MySQL string for WCS.
+			$local    = new \DateTime( $raw, wp_timezone() );
+			$start_ts = $local->getTimestamp();
+			$utc      = $local->setTimezone( new \DateTimeZone( 'UTC' ) )->format( 'Y-m-d H:i:s' );
+
+			// Set start and next_payment together: WCS validates a passed
+			// 'start' against the subscription's EXISTING next_payment too
+			// (update_dates() merges passed + current dates before
+			// checking each is after start), so if the current next_payment
+			// happens to sit before the new start, updating 'start' alone
+			// would throw "next payment date must occur after the start
+			// date." Pairing them in one call sidesteps that entirely.
+			$dates = array( 'start' => $utc );
+			if ( $subscription->can_date_be_updated( 'next_payment' ) ) {
+				$next_ts = $start_ts + 1;
+				if ( gmdate( 'Y-m-d', $next_ts ) !== gmdate( 'Y-m-d', $start_ts ) ) {
+					$next_ts = strtotime( gmdate( 'Y-m-d', $start_ts ) . ' 23:59:59 UTC' );
+				}
+				$dates['next_payment'] = gmdate( 'Y-m-d H:i:s', $next_ts );
+			}
+
+			$subscription->update_dates( $dates, 'gmt' );
+			$subscription->save();
+
+			if ( class_exists( __NAMESPACE__ . '\\Subscription_Start_Schedule' ) ) {
+				Subscription_Start_Schedule::realign_from_start( $subscription );
+			}
+
+			$subscription->add_order_note(
+				sprintf(
+					/* translators: %s: new start date (site time). */
+					__( 'Start date changed to %s (via Aaraa panel).', 'aaraa-white-label-admin' ),
+					$subscription->get_date_to_display( 'start' )
+				)
+			);
+
+			wp_send_json_success(
+				array(
+					'message' => __( 'Start date updated. The parent order and next renewal date have been realigned — reloading…', 'aaraa-white-label-admin' ),
+					'reload'  => true,
+				)
+			);
+		} catch ( \Throwable $e ) {
+			wp_send_json_error( array( 'message' => $e->getMessage() ) );
+		}
+	}
+
+	/**
+	 * AJAX: save the next renewal (next payment) date.
 	 *
 	 * @return void
 	 */
@@ -1468,6 +1616,13 @@ class Subscription_Delivery {
 			$message = __( 'Subscription resumed.', 'aaraa-white-label-admin' );
 		}
 
+		// next_payment is advanced to the next valid schedule day by the
+		// woocommerce_subscription_status_on-hold_to_active hook below, which
+		// fires from update_status()/auto_resume_subscription() regardless of
+		// how this method got the subscription to 'active' — so it also
+		// covers a plain status-dropdown change on the admin edit screen, not
+		// just this Resume button path.
+
 		$via = ( 'customer' === $source )
 			? __( 'by customer', 'aaraa-white-label-admin' )
 			: __( 'via admin', 'aaraa-white-label-admin' );
@@ -1481,6 +1636,65 @@ class Subscription_Delivery {
 		);
 
 		return $message;
+	}
+
+	/**
+	 * Whenever a subscription moves from Pause to Active — whatever the
+	 * route (this class's own Resume button, WCFM Ultimate's own wallet-aware
+	 * auto_resume_subscription(), or a plain status-dropdown change on the
+	 * admin edit screen) — push next_payment forward to the next valid
+	 * schedule day, so a date left over from before the pause never survives
+	 * a reactivation.
+	 *
+	 * @param \WC_Subscription $subscription Subscription, now active.
+	 * @return void
+	 */
+	public function on_pause_to_active( $subscription ) {
+		self::advance_next_payment_to_next_schedule_day( $subscription );
+	}
+
+	/**
+	 * Push a just-reactivated subscription's next_payment forward to the next
+	 * day its delivery schedule (daily / alternate / weekend / custom) actually
+	 * renews on, starting the search from tomorrow — the day just resumed
+	 * (today) is already past the point a delivery could still be arranged for
+	 * it, mirroring the same D+1 rule the Pause calendar and renewal-schedule
+	 * guard already use elsewhere. Also skips any day whose D+1 delivery still
+	 * falls in a remaining future pause block.
+	 *
+	 * @param \WC_Subscription $subscription Subscription, already active.
+	 * @return void
+	 */
+	private static function advance_next_payment_to_next_schedule_day( $subscription ) {
+		if ( ! class_exists( __NAMESPACE__ . '\\Renewal_Schedule_Guard' ) ) {
+			return;
+		}
+
+		$sub_id = $subscription->get_id();
+		$ts     = time();
+		$guard  = 0;
+		$ok     = false;
+
+		do {
+			$ts      += DAY_IN_SECONDS;
+			$day      = wp_date( 'Y-m-d', $ts );                  // candidate renewal (prep) day.
+			$delivery = wp_date( 'Y-m-d', $ts + DAY_IN_SECONDS ); // its delivery day, D+1.
+			++$guard;
+			$is_pause = class_exists( __NAMESPACE__ . '\\Renewal_Pause_Guard' )
+				&& Renewal_Pause_Guard::is_pause_date( $sub_id, $delivery );
+			$ok = Renewal_Schedule_Guard::is_renewal_day( $sub_id, $day, $subscription ) && ! $is_pause;
+		} while ( ! $ok && $guard < 120 );
+
+		if ( ! $ok ) {
+			return; // Couldn't find a valid day within range — leave next_payment as WCFMu set it.
+		}
+
+		try {
+			$subscription->update_dates( array( 'next_payment' => gmdate( 'Y-m-d H:i:s', $ts ) ), 'gmt' );
+			$subscription->save();
+		} catch ( \Exception $e ) {
+			// Non-fatal: the renewal-schedule guard will correct it on the next fire.
+		}
 	}
 
 	/* --------------------------------------------------------------------- *

@@ -94,6 +94,15 @@ class Admin_URL_Rewriter {
 	 * @return bool
 	 */
 	private function alias_active() {
+		// The auth cookie is scoped to ADMIN_COOKIE_PATH (default /wp-admin). Unless
+		// it covers /{slug}/, the browser never sends it there, wp-admin sees a
+		// logged-out user, and every rewritten admin link redirect-loops
+		// (login gateway -> index.php -> login gateway...). Only rewrite links when
+		// the cookie will actually be sent.
+		if ( ! $this->cookie_covers_slug() ) {
+			return false;
+		}
+
 		$cached = get_transient( 'aaraa_alias_active' );
 		if ( false !== $cached ) {
 			return 'yes' === $cached;
@@ -110,6 +119,24 @@ class Admin_URL_Rewriter {
 
 		set_transient( 'aaraa_alias_active', $active, HOUR_IN_SECONDS );
 		return 'yes' === $active;
+	}
+
+	/**
+	 * Whether the admin auth cookie is sent on /{slug}/… requests.
+	 *
+	 * @return bool
+	 */
+	private function cookie_covers_slug() {
+		$path = defined( 'ADMIN_COOKIE_PATH' ) ? (string) ADMIN_COOKIE_PATH : '';
+		if ( '' === $path ) {
+			return false;
+		}
+		$path = untrailingslashit( $path );
+		if ( '' === $path ) {
+			return true; // '/' — sent everywhere.
+		}
+		$slug_path = untrailingslashit( '/' . trim( $this->slug, '/' ) );
+		return 0 === strpos( $slug_path, $path );
 	}
 
 	/**
@@ -233,6 +260,18 @@ class Admin_URL_Rewriter {
 			if ( false !== strpos( $url, $endpoint ) ) {
 				return $url;
 			}
+		}
+
+		/*
+		 * Only emit branded links to someone who is already browsing under the
+		 * branded path. From a normal /wp-admin/ session the links stay on
+		 * /wp-admin/, where the auth cookie is valid — otherwise a link such as
+		 * Customer 360 "View" jumps to /{slug}/, no auth cookie is sent, and
+		 * wp-admin and the login gateway redirect to each other forever.
+		 */
+		$uri_path = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ) : '';
+		if ( 0 !== strpos( $uri_path, '/' . $this->slug . '/' ) ) {
+			return $url;
 		}
 
 		return str_replace( '/wp-admin/', '/' . $this->slug . '/', $url );

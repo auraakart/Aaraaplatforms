@@ -35,6 +35,22 @@ class Renewal_Wallet {
 	const REFUND_META = '_aaraa_pause_refunded';
 
 	/**
+	 * Per-user wallet balance captured just before a `wps_wallet` meta write, so
+	 * the after-hook can tell a credit from a debit.
+	 *
+	 * @var array<int,float>
+	 */
+	private $wallet_old = array();
+
+	/**
+	 * Re-entrancy guard: true while retrying held renewals, so the wallet debit
+	 * settle() performs does not re-trigger the credit watcher.
+	 *
+	 * @var bool
+	 */
+	private static $retrying = false;
+
+	/**
 	 * Hook the renewal handler and disable the theme's duplicates.
 	 *
 	 * @return void
@@ -54,6 +70,24 @@ class Renewal_Wallet {
 		// wcs_renewal_order_created. The DONE_META guard means a renewal already
 		// settled by the filter above is never charged twice.
 		add_action( 'woocommerce_order_status_pending', array( $this, 'settle_pending_renewal' ), 20, 2 );
+
+		// When the wallet is credited, retry any on-hold subscriptions the balance
+		// can now cover. There is no wallet-credit event, so watch the `wps_wallet`
+		// user meta directly (every credit path writes it), capturing the old value
+		// before the write so we can act only on an increase.
+		add_action( 'update_user_meta', array( $this, 'wallet_capture_old' ), 10, 4 );
+		add_action( 'updated_user_meta', array( $this, 'wallet_after_change' ), 10, 4 );
+		add_action( 'added_user_meta', array( $this, 'wallet_after_change' ), 10, 4 );
+
+		// Any active -> pause transition, from ANY trigger (admin status dropdown,
+		// the WCFM frontend "Pause" action, or this plugin's own REST API pause
+		// endpoint) — they all end in the same WC_Subscription::update_status()
+		// call, which fires this WCS status-transition action regardless of the
+		// caller. See on_active_to_pause() for what it does.
+		// NOTE: WCS's real status slug for "paused" is 'on-hold' (there is no
+		// status literally named "pause" — see wcs_get_subscription_statuses()),
+		// so the transition hook it actually fires is ..._active_to_on-hold.
+		add_action( 'woocommerce_subscription_status_active_to_on-hold', array( $this, 'on_active_to_pause' ), 20 );
 	}
 
 	/**
@@ -323,6 +357,98 @@ class Renewal_Wallet {
 	}
 
 	/**
+	 * Scenario C — the subscription's overall status changes active -> pause
+	 * (an indefinite/permanent pause, or a raw status-dropdown change — as
+	 * opposed to Scenario A, which reacts to a specific delivery DATE being
+	 * added to the pause calendar). Refund today's Processing renewal order,
+	 * if any: a renewal created today funds TOMORROW's delivery (the D+1
+	 * rule), and pausing today means that delivery should not go out.
+	 *
+	 * Shares REFUND_META with Scenario A so an order already refunded by one
+	 * path is never re-processed by the other, and reuses record_credit()
+	 * so both write to the same wallet transaction ledger and order/
+	 * subscription notes — this is the "order log" for every refund.
+	 *
+	 * @param \WC_Subscription $subscription Subscription that just paused.
+	 * @return void
+	 */
+	public function on_active_to_pause( $subscription ) {
+		if ( ! $subscription instanceof \WC_Subscription ) {
+			return;
+		}
+
+		$ids = $subscription->get_related_orders( 'ids', 'renewal' );
+		if ( empty( $ids ) ) {
+			return;
+		}
+
+		$today    = wp_date( 'Y-m-d' );
+		$decimals = function_exists( 'wc_get_price_decimals' ) ? wc_get_price_decimals() : 2;
+
+		foreach ( (array) $ids as $oid ) {
+			$order = wc_get_order( (int) $oid );
+			if ( ! $order instanceof \WC_Order ) {
+				continue;
+			}
+			if ( ! $order->has_status( 'processing' ) ) {
+				continue; // Only an order still awaiting fulfilment needs refunding.
+			}
+
+			$created = $order->get_date_created();
+			if ( ! $created || wp_date( 'Y-m-d', $created->getTimestamp() ) !== $today ) {
+				continue; // Not today's renewal.
+			}
+			if ( $order->get_meta( self::REFUND_META ) ) {
+				continue; // Already refunded (by this or the date-pause path).
+			}
+
+			$user_id = $order->get_customer_id();
+			$amount  = round( (float) $order->get_total(), $decimals );
+			if ( ! $user_id || $amount <= 0 ) {
+				continue;
+			}
+
+			$delivery_date = self::funded_delivery_date( $order ); // Tomorrow, per the D+1 rule.
+
+			$balance     = Customers_Admin::get_wallet_balance( $user_id );
+			$new_balance = round( $balance + $amount, $decimals );
+			Customers_Admin::set_wallet_balance( $user_id, $new_balance );
+			$this->record_credit( $user_id, $amount, $order, $subscription, $delivery_date );
+
+			$order->update_meta_data( self::REFUND_META, $delivery_date ? $delivery_date : $today );
+			$order->add_order_note(
+				sprintf(
+					/* translators: 1: delivery date, 2: amount refunded, 3: new wallet balance */
+					__( 'Subscription paused — the %1$s delivery this renewal funds will not go out. %2$s refunded to wallet. Wallet balance now %3$s.', 'aaraa-white-label-admin' ),
+					$delivery_date,
+					$this->money( $amount ),
+					$this->money( $new_balance )
+				)
+			);
+
+			// Suppress WooCommerce's "issue a refund through your payment gateway"
+			// note on the refunded transition — the money went back to the
+			// wallet, not a gateway — then restore the handler for other orders.
+			$restore = remove_action( 'woocommerce_order_status_refunded', 'wc_order_fully_refunded' );
+			$order->update_status( 'refunded', __( 'Subscription paused — amount refunded to wallet.', 'aaraa-white-label-admin' ) );
+			if ( $restore ) {
+				add_action( 'woocommerce_order_status_refunded', 'wc_order_fully_refunded' );
+			}
+			$order->save();
+
+			$subscription->add_order_note(
+				sprintf(
+					/* translators: 1: renewal order number, 2: amount, 3: delivery date */
+					__( 'Renewal #%1$s refunded to wallet (%2$s) — subscription paused before the %3$s delivery.', 'aaraa-white-label-admin' ),
+					$order->get_order_number(),
+					$this->money( $amount ),
+					$delivery_date
+				)
+			);
+		}
+	}
+
+	/**
 	 * Scenario B — a paused delivery date was un-paused, so the renewal the pause
 	 * guard had skipped must now be created and charged. Creates the renewal (the
 	 * wcs_renewal_order_created filter above debits the wallet or holds on short
@@ -541,5 +667,175 @@ class Renewal_Wallet {
 			return wp_strip_all_tags( html_entity_decode( wc_price( $amount ) ) );
 		}
 		return number_format( (float) $amount, 2 );
+	}
+
+	/* --------------------------------------------------------------------- *
+	 * Reactivate on-hold subscriptions when the wallet is topped up.
+	 *
+	 * A renewal short of wallet funds leaves the subscription on-hold and its
+	 * renewal order failed (see hold_for_low_balance()). When the customer's
+	 * wallet is later credited we retry those held renewals: settle() re-reads
+	 * the now-higher balance and, when it covers the amount, debits the wallet,
+	 * marks the renewal paid and lets WooCommerce Subscriptions reactivate the
+	 * subscription. There is no wallet-credit event to hook, so we watch the
+	 * `wps_wallet` user meta and act only on an increase.
+	 * --------------------------------------------------------------------- */
+
+	/**
+	 * Capture a customer's wallet balance just before a `wps_wallet` write, so the
+	 * after-hook can tell a credit from a debit.
+	 *
+	 * @param int    $meta_id    Meta row id (unused).
+	 * @param int    $object_id  User id.
+	 * @param string $meta_key   Meta key.
+	 * @param mixed  $meta_value New value (unused here).
+	 * @return void
+	 */
+	public function wallet_capture_old( $meta_id, $object_id, $meta_key, $meta_value ) {
+		if ( 'wps_wallet' !== $meta_key ) {
+			return;
+		}
+		// The DB still holds the previous value at this point.
+		$this->wallet_old[ (int) $object_id ] = (float) get_user_meta( $object_id, 'wps_wallet', true );
+	}
+
+	/**
+	 * After a `wps_wallet` write, retry the customer's on-hold subscriptions when
+	 * the balance went up (a credit). Handles both update and first-add.
+	 *
+	 * @param int    $meta_id    Meta row id (unused).
+	 * @param int    $object_id  User id.
+	 * @param string $meta_key   Meta key.
+	 * @param mixed  $meta_value New value.
+	 * @return void
+	 */
+	public function wallet_after_change( $meta_id, $object_id, $meta_key, $meta_value ) {
+		if ( 'wps_wallet' !== $meta_key ) {
+			return;
+		}
+		$user_id = (int) $object_id;
+		$old     = isset( $this->wallet_old[ $user_id ] ) ? (float) $this->wallet_old[ $user_id ] : 0.0;
+		unset( $this->wallet_old[ $user_id ] );
+		$new = (float) $meta_value;
+
+		// Only a credit (balance increase) can free an on-hold subscription. A
+		// debit — including the one settle() performs below — is ignored, which,
+		// with the re-entrancy guard, prevents recursion.
+		if ( self::$retrying || $new <= $old + 0.00001 ) {
+			return;
+		}
+
+		$this->retry_on_hold_for_user( $user_id );
+	}
+
+	/**
+	 * Settle the outstanding renewal of each on-hold subscription the customer's
+	 * wallet can now cover, reactivating those subscriptions.
+	 *
+	 * Processes subscriptions oldest-first; settle() re-reads the balance each
+	 * time, so several on-hold subscriptions are funded in turn until the balance
+	 * runs out. A subscription with no outstanding renewal to charge (e.g. a
+	 * manual hold) is left untouched.
+	 *
+	 * @param int $user_id Customer id.
+	 * @return void
+	 */
+	private function retry_on_hold_for_user( $user_id ) {
+		if ( self::$retrying || ! $user_id || ! function_exists( 'wcs_get_subscriptions' ) ) {
+			return;
+		}
+
+		self::$retrying = true;
+		try {
+			$subscriptions = wcs_get_subscriptions(
+				array(
+					'customer_id'            => $user_id,
+					'subscription_status'    => 'on-hold',
+					'subscriptions_per_page' => -1,
+					'orderby'                => 'ID',
+					'order'                  => 'ASC',
+				)
+			);
+
+			foreach ( (array) $subscriptions as $subscription ) {
+				if ( ! is_a( $subscription, 'WC_Subscription' ) || ! $subscription->has_status( 'on-hold' ) ) {
+					continue;
+				}
+
+				$order = $this->outstanding_renewal_order( $subscription );
+				if ( ! $order ) {
+					continue; // Nothing chargeable (e.g. a manual hold) — leave it.
+				}
+
+				// Activation gate: the wallet must be able to cover this renewal
+				// before we reactivate at all. Still short → stay on-hold.
+				$decimals = function_exists( 'wc_get_price_decimals' ) ? wc_get_price_decimals() : 2;
+				$amount   = round( (float) $order->get_total(), $decimals );
+				$balance  = Customers_Admin::get_wallet_balance( $user_id );
+				if ( $amount > 0 && $balance + 0.00001 < $amount ) {
+					continue;
+				}
+
+				// Only charge a renewal that is dated today. An older held renewal
+				// is for a delivery day that has already passed, so it is not
+				// debited — the subscription is simply reactivated and the stale
+				// order left as-is.
+				$created   = $order->get_date_created();
+				$order_day = $created ? wp_date( 'Y-m-d', $created->getTimestamp() ) : '';
+				$today     = wp_date( 'Y-m-d' );
+
+				if ( '' !== $order_day && $order_day === $today ) {
+					// Clear the settlement guard so settle() runs again against the
+					// now-higher balance: debit + payment_complete() (WCS then
+					// reactivates), or re-hold if the balance moved and is short.
+					$order->delete_meta_data( self::DONE_META );
+					$order->save();
+					$this->settle( $order, $subscription );
+				} elseif ( ! $subscription->has_status( 'active' ) ) {
+					// Not today → reactivate without charging the stale renewal.
+					$subscription->update_status(
+						'active',
+						sprintf(
+							/* translators: %s: renewal order number */
+							__( 'Reactivated after wallet top-up; renewal #%s not charged (not dated today).', 'aaraa-white-label-admin' ),
+							$order->get_order_number()
+						)
+					);
+				}
+			}
+		} finally {
+			self::$retrying = false;
+		}
+	}
+
+	/**
+	 * The most recent unpaid renewal order for a subscription, or null.
+	 *
+	 * Looks for a renewal order still awaiting payment (failed / pending / on-hold)
+	 * that has not already been settled from the wallet.
+	 *
+	 * @param \WC_Subscription $subscription Subscription.
+	 * @return \WC_Order|null
+	 */
+	private function outstanding_renewal_order( $subscription ) {
+		$ids = $subscription->get_related_orders( 'ids', 'renewal' );
+		if ( empty( $ids ) ) {
+			return null;
+		}
+		rsort( $ids ); // Newest first.
+
+		foreach ( $ids as $id ) {
+			$order = wc_get_order( $id );
+			if ( ! $order instanceof \WC_Order ) {
+				continue;
+			}
+			if ( 'yes' === $order->get_meta( self::DONE_META ) ) {
+				continue; // Already paid from the wallet.
+			}
+			if ( $order->has_status( array( 'failed', 'pending', 'on-hold' ) ) ) {
+				return $order;
+			}
+		}
+		return null;
 	}
 }

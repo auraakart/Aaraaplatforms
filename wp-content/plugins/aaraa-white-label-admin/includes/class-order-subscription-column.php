@@ -34,6 +34,53 @@ class Order_Subscription_Column {
 		// Legacy CPT orders list table (edit.php?post_type=shop_order).
 		add_filter( 'manage_edit-shop_order_columns', array( $this, 'add_column' ), 20 );
 		add_action( 'manage_shop_order_posts_custom_column', array( $this, 'render_column' ), 10, 2 );
+
+		// Stop the row-selection checkbox from opening the order (see below).
+		add_action( 'admin_footer', array( $this, 'checkbox_no_link_script' ) );
+	}
+
+	/**
+	 * Keep the row-selection checkbox from navigating to the order.
+	 *
+	 * WooCommerce's own wc-orders.js makes the whole order row clickable and only
+	 * skips navigation when the click target matches `a, a *, .no-link, .no-link
+	 * *, button, button *`. A checkbox is an <input>, which isn't excluded, so
+	 * clicking it opened the order instead of selecting the row. Marking the
+	 * check-column cell with WooCommerce's own `.no-link` class makes the checkbox
+	 * (a descendant, so `.no-link *`) an excluded target, so WC skips navigation.
+	 * Core's multi-select — delegated on document.body, which runs earlier in the
+	 * bubble — is untouched. Uses WC's sanctioned opt-out; no core edits.
+	 *
+	 * @return void
+	 */
+	public function checkbox_no_link_script() {
+		$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+		if ( ! $screen ) {
+			return;
+		}
+		$screens = array(
+			'woocommerce_page_wc-orders',
+			'woocommerce_page_wc-orders--shop_subscription',
+			'edit-shop_order',
+			'edit-shop_subscription',
+		);
+		if ( ! in_array( $screen->id, $screens, true ) ) {
+			return;
+		}
+		?>
+		<script id="aaraa-orders-checkbox-nolink">
+		( function () {
+			function mark() {
+				var cells = document.querySelectorAll( '.wp-list-table tbody .check-column' );
+				for ( var i = 0; i < cells.length; i++ ) {
+					cells[ i ].classList.add( 'no-link' );
+				}
+			}
+			if ( 'loading' !== document.readyState ) { mark(); }
+			else { document.addEventListener( 'DOMContentLoaded', mark ); }
+		} )();
+		</script>
+		<?php
 	}
 
 	/**

@@ -769,7 +769,7 @@ class WhatsApp_Admin {
 	 * Build the versioned API base URL, aware of the configured provider.
 	 *
 	 * Meta's Graph API is called directly ({domain}/{version}/…), while
-	 * BChatNow-style proxies expose the same Graph endpoints under /api/meta
+	 * Max BizBoy-style proxies expose the same Graph endpoints under /api/meta
 	 * ({domain}/api/meta/{version}/…). The host decides which shape is used.
 	 *
 	 * @param array<string,mixed> $s Settings.
@@ -2142,7 +2142,7 @@ class WhatsApp_Admin {
 				<tr>
 					<th scope="row"><?php esc_html_e( 'Service Provider', 'aaraa-white-label-admin' ); ?></th>
 					<td>
-						<label><input type="radio" checked disabled /> <?php esc_html_e( 'BChatNow.com', 'aaraa-white-label-admin' ); ?></label>
+						<label><input type="radio" checked disabled /> <?php esc_html_e( 'Max BizBot', 'aaraa-white-label-admin' ); ?></label>
 						<p class="description"><?php esc_html_e( 'More providers will be available in future updates.', 'aaraa-white-label-admin' ); ?></p>
 					</td>
 				</tr>
