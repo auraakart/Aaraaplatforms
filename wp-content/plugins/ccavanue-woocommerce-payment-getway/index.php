@@ -284,23 +284,13 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
                 status_header(409);
                 exit('Payment details do not match the order.');
             }
-            $status = (string) ($payload['order_status'] ?? '');
-            if ($status === 'Success') {
-                if (!$order->is_paid()) {
-                    $bank_ref = sanitize_text_field((string) ($payload['bank_ref_no'] ?? ''));
-                    $order->payment_complete($bank_ref);
-                    $order->add_order_note('CCAvenue callback matched order identifiers and amount.');
-                }
-            } elseif ($status === 'Failure' || $status === 'Aborted') {
-                if (!$order->is_paid()) {
-                    $order->update_status('failed', 'CCAvenue returned a failed or aborted transaction.');
-                }
-            } else {
-                status_header(202);
-                exit('Payment is awaiting verification.');
-            }
-            wp_safe_redirect($this->get_return_url($order));
-            exit;
+            // Fails closed: a decrypted callback alone is not independent evidence
+            // of settlement. A current CCAvenue verification API or certified
+            // WooCommerce gateway must validate payment before completing orders.
+            // No order status transitions are permitted in this legacy endpoint.
+            $order->add_order_note('CCAvenue callback received; provider settlement verification required.');
+            status_header(202);
+            exit('Payment awaiting independent gateway verification.');
         }
 
        /*
