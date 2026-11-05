@@ -44,6 +44,18 @@ jobs:
           do
             php -l "$file"
           done
+      - name: Lint Aaraa custom PHP modules
+        run: |
+          set -euo pipefail
+          find \
+            wp-content/plugins/aaraa-white-label-admin \
+            wp-content/plugins/aaraa-vendor-hub \
+            wp-content/plugins/aaraa-user-export \
+            wp-content/plugins/milk-delivery-schedule \
+            -type f -name '*.php' -print0 |
+            while IFS= read -r -d '' file; do
+              php -l "$file" >/dev/null || exit 1
+            done
       - name: Check source security contracts
         run: |
           php tests/security-contracts.php
