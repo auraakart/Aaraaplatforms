@@ -224,27 +224,16 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
          * Process the payment and return the result
          **/
         function process_payment($order_id){
-            $order = new WC_Order($order_id);
-            if ($order->get_currency() !== 'INR' || $order->is_paid()) {
-                wc_add_notice(__('CCAvenue requires an unpaid INR order.', 'nilesh'), 'error');
-                return array('result' => 'failure');
-            }
-			// Never persist card data or CVV in WooCommerce order metadata.
-            // Direct card entry requires a hosted, PCI-compliant gateway flow.
-            if ( ! empty( $_POST['card_number'] ) || ! empty( $_POST['cvv_number'] ) ) {
-                wc_add_notice( __( 'Direct card entry is unavailable. Please select a hosted payment option.', 'nilesh' ), 'error' );
-                return array( 'result' => 'failure' );
-            }
-            $allowed_payment_fields = array( 'payment_option', 'card_type', 'card_name', 'data_accept', 'issuing_bank' );
-            $safe_payment_data = array();
-            foreach ( $allowed_payment_fields as $field ) {
-                if ( isset( $_POST[ $field ] ) && is_scalar( $_POST[ $field ] ) ) {
-                    $safe_payment_data[ $field ] = sanitize_text_field( wp_unslash( $_POST[ $field ] ) );
-                }
-            }
-            update_post_meta( $order_id, '_post_data', $safe_payment_data );
-			return array('result' => 'success', 'redirect' => $order->get_checkout_payment_url( true ));
+            // Deliberately refuse checkout until a provider-verified integration
+            // replaces the legacy CCAvenue callback. Never accept payment that
+            // cannot be reliably reconciled to a WooCommerce order.
+            wc_add_notice(
+                __('CCAvenue is temporarily unavailable. Please use another payment method.', 'nilesh'),
+                'error'
+            );
+            return array('result' => 'failure');
         }
+
         /**
          * Check for valid CCAvenue server callback
          **/
