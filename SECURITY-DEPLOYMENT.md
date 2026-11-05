@@ -86,7 +86,7 @@ These are **operational tasks, not completed by repository commits**. The reposi
 ## Installed payment gateway hardening in feature branch
 - The installed Paytm WooCommerce plugin's `saveTxnResponse` persistence now uses `$wpdb->insert/update` with sanitized/allowlisted status fields instead of concatenating callback values into SQL. The legacy two-argument call signature is supported.
 - The installed Paytm callback no longer substitutes unverified incoming POST data when the gateway status lookup fails. Its success path checks the provider's order ID, merchant ID and paid amount against the WooCommerce order, and avoids duplicate stock decrements.
-- The installed CCAvenue WooCommerce callback checks the order's gateway, response merchant, currency and amount, and avoids transitioning already-paid orders. Direct card-number/CVV payload fields were removed from its outgoing request arguments; direct card entry remains rejected.
+- The installed CCAvenue WooCommerce callback checks gateway, response merchant, currency and amount, but now **always returns HTTP 202 without changing order payment status**. Decryption and matching fields alone are not authoritative verification. The standalone callback likewise does not finalize orders. This is an intentional fail-closed change that prevents automated CCAvenue settlement until a supported gateway or independently verified provider status flow is installed. Direct card entry remains rejected, with card-number/CVV fields removed from outgoing requests.
 - These changes are code-level safeguards, **not proof of successful or authenticated end-to-end payment**. The legacy CCAvenue encrypted response does not itself prove provider settlement or authenticate against a fresh provider-side order-status API. The CCAvenue plugin must be replaced with a current supported PCI-compliant gateway or independently verified in a controlled provider sandbox before enabling it in production.
 - The installed Paytm plugin may use a legacy status API whose response fields differ from current provider versions; the new fail-closed checks may reject otherwise legitimate payments until the compatibility matrix is validated. Never weaken amount/merchant verification to work around a failed test.
 
@@ -96,3 +96,9 @@ These are **operational tasks, not completed by repository commits**. The reposi
 - `staging` is a separate branch and has not been promoted.
 - `main` must remain unchanged without explicit external user approval.
 - External operations still pending: provider credentials rotation, host environment variable deployment, prior-version secret history handling, live data cleanup, payment gateway sandbox verification, WordPress functional tests, and staging deployment.
+
+## Follow-up verification status
+- Existing Paytm WooCommerce callback now guards already-paid orders against failed/pending status transitions, handles missing provider status safely, and requires a nonempty provider transaction ID before completing a payment.
+- Legacy CCAvenue callback does not currently complete payment or mark failure. **Operations must not enable this gateway for customer checkout until a tested authoritative verification integration is provided.**
+- Test harness checks these fail-closed code conditions and PHP syntax, not real gateway transactions.
+- Required external access to proceed with sandbox and release: isolated WordPress/WooCommerce staging host, nonproduction database, new nonproduction Paytm and CCAvenue credentials, and authorized payment provider verification documentation. Do not place any credentials in GitHub issues, commits, or chats.
