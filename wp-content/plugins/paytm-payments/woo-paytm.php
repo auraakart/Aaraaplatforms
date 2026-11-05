@@ -373,23 +373,59 @@ if (PaytmConstants::SAVE_PAYTM_RESPONSE) {
     /**
      * Save response in db
     */
-    function saveTxnResponse($order_id, $id = false, $data  = array()){
+    function saveTxnResponse($order_id, $id = false, $data = array()) {
         global $wpdb;
-        if(empty($data['STATUS'])) return false;
 
-        $status             = (!empty($data['STATUS']) && $data['STATUS'] =='TXN_SUCCESS') ? 1 : 0;
-        $paytm_order_id     = (!empty($data['ORDERID'])? $data['ORDERID']:'');
-        $transaction_id     = (!empty($data['TXNID'])? $data['TXNID']:'');
-
-        if ($id !== false) {
-            $sql =  "UPDATE `" . $wpdb->prefix . "paytm_order_data` SET `order_id` = '" . $order_id . "', `paytm_order_id` = '" . $paytm_order_id . "', `transaction_id` = '" . $transaction_id . "', `status` = '" . (int)$status . "', `paytm_response` = '" . json_encode($data) . "', `date_modified` = NOW() WHERE `id` = '" . (int)$id . "' AND `paytm_order_id` = '" . $paytm_order_id . "'";
-            $wpdb->query($sql);
-            return $id;
-        } else {
-            $sql =  "INSERT INTO `" . $wpdb->prefix . "paytm_order_data` SET `order_id` = '" . $order_id . "', `paytm_order_id` = '" . $paytm_order_id . "', `transaction_id` = '" . $transaction_id . "', `status` = '" . (int)$status . "', `paytm_response` = '" . json_encode($data) . "', `date_added` = NOW(), `date_modified` = NOW()";
-            $wpdb->query($sql);
-            return $wpdb->insert_id;
+        // The initial callback passes (order_id, response_array); updates use
+        // (order_id, row_id, response_array). Support both without array-to-int casts.
+        if (is_array($id) && empty($data)) {
+            $data = $id;
+            $id = false;
         }
+        if (!is_array($data) || empty($data['STATUS']) || empty($data['ORDERID'])) {
+            return false;
+        }
+
+        $order_id = absint($order_id);
+        $gateway_order_id = sanitize_text_field((string) $data['ORDERID']);
+        if (!$order_id || !$gateway_order_id || PaytmHelper::getOrderId($gateway_order_id) != $order_id) {
+            return false;
+        }
+
+        // Store only operationally necessary fields, never arbitrary callback POST.
+        $safe_response = array();
+        foreach (array('STATUS', 'ORDERID', 'TXNID', 'TXNAMOUNT', 'RESPCODE', 'RESPMSG', 'TXNDATE', 'PAYMENTMODE', 'BANKTXNID') as $key) {
+            if (isset($data[$key]) && is_scalar($data[$key])) {
+                $safe_response[$key] = sanitize_text_field((string) $data[$key]);
+            }
+        }
+        $values = array(
+            'order_id' => $order_id,
+            'paytm_order_id' => $gateway_order_id,
+            'transaction_id' => isset($safe_response['TXNID']) ? $safe_response['TXNID'] : '',
+            'status' => $safe_response['STATUS'] === 'TXN_SUCCESS' ? 1 : 0,
+            'paytm_response' => wp_json_encode($safe_response),
+            'date_modified' => current_time('mysql'),
+        );
+        $table = $wpdb->prefix . 'paytm_order_data';
+        if ($id !== false && absint($id) > 0) {
+            $updated = $wpdb->update(
+                $table,
+                $values,
+                array('id' => absint($id), 'paytm_order_id' => $gateway_order_id),
+                array('%d', '%s', '%s', '%d', '%s', '%s'),
+                array('%d', '%s')
+            );
+            return $updated === false ? false : absint($id);
+        }
+        $values['date_added'] = current_time('mysql');
+        $inserted = $wpdb->insert(
+            $table,
+            $values,
+            array('%d', '%s', '%s', '%d', '%s', '%s', '%s')
+        );
+        return $inserted === false ? false : (int) $wpdb->insert_id;
+
     }
 }
     add_action('plugins_loaded', 'woocommerce_paytm_init', 0);
