@@ -49,7 +49,7 @@ The repository contains two WooCommerce gateways:
 
 The standalone `paytm/*.php` and `ccavenue/*.php` scripts are **not** replacements for these WooCommerce gateway integrations. Confirm which integration the mobile app and storefront actually call, and ensure duplicate payment routes cannot mark the same order paid twice.
 
-**Critical remaining blocker:** the existing CCAvenue WooCommerce plugin stores unsanitized complete checkout `$_POST` in order metadata as `_post_data` (including fields named `card_number` and `cvv_number`). It also populates `card_number` and `cvv_number` in its gateway request arguments and handles a decrypted callback without verifying the response merchant, order amount and currency against the server-side order. Do **not** enable direct card-entry mode or deploy that integration until replaced or remediated and validated by the payment provider's supported integration. Review and securely purge already stored prohibited card verification values in accordance with the provider's PCI guidance; do not dump these values into support logs. Existing stored values require a controlled data-remediation task by the database owner.
+**Critical remaining blocker:** a feature-branch fix now rejects direct card-entry POSTs and restricts `_post_data` persistence to a safe allowlist, but the installed CCAvenue WooCommerce gateway still has a legacy card-entry interface and handles decrypted callbacks without checking response merchant, order amount and currency against the server-side order. Do **not** deploy or re-enable direct card entry until it is replaced or comprehensively remediated and validated with provider support. Historically stored PAN/CVV values may remain in existing database order metadata; review and securely purge prohibited verification data under an approved PCI data-remediation plan. Never dump these values into logs.
 
 **Blocking pre-release requirement:** inspect and audit the installed Paytm WooCommerce gateway independently. Its callback implementation has legacy conditional payment completion logic and response persistence. The custom Paytm standalone callbacks have been hardened but this does not automatically harden the installed gateway.
 
@@ -69,7 +69,7 @@ The standalone `paytm/*.php` and `ccavenue/*.php` scripts are **not** replacemen
 | Pending or unavailable provider status | Leave order unpaid/pending |
 | Delivery calendar unauthenticated or cross-customer | 401/403, no order details |
 | CCAvenue standalone callback | No customer payment data echoed; no false paid status |
-| WooCommerce CCAvenue gateway | Block release until card handling and response validation are addressed |
+| WooCommerce CCAvenue gateway | Direct card entry must be rejected; block release until callback validation and sandbox checks are completed |
 
 ## Credential rotation and history cleanup
 These are **operational tasks, not completed by repository commits**. The repository was public, so treat old credentials as exposed even when deleted from the current branch.
