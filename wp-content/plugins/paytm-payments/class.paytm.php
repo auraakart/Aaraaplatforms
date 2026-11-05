@@ -577,7 +577,8 @@ class WC_Paytm extends WC_Payment_Gateway
                 } else {
                     $through = "callback_".time();
                 }
-                if (!empty($order)) {
+                if (!empty($order) && method_exists($order, 'get_payment_method') &&
+                    $order->get_payment_method() === $this->id) {
 
                     $reqParams = array(
                             "MID"=> $this->getSetting('merchant_id'),
