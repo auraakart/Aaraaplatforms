@@ -595,8 +595,10 @@ class WC_Paytm extends WC_Payment_Gateway
                     } while(!$resParams['STATUS'] && $retry < PaytmConstants::MAX_RETRY_COUNT);
                     /* number of retries untill cURL gets success */
 
-                    if (!isset($resParams['STATUS'])) {
-                        $resParams = $_POST;
+                    // Never accept unverified callback POST data as a substitute for
+                    // a failed gateway status query. The order stays unpaid.
+                    if (!is_array($resParams) || empty($resParams['STATUS'])) {
+                        $resParams = array();
                     }
 
                     /* save paytm response in db */
@@ -609,16 +611,27 @@ class WC_Paytm extends WC_Payment_Gateway
                     if (!isset($resParams['STATUS'])) {
                         $this->fireFailure($order, __(PaytmConstants::ERROR_SERVER_COMMUNICATION));
                     } else {
-                        if ($resParams['STATUS'] == 'TXN_SUCCESS') {
+                        // Check the provider status against the exact WooCommerce order.
+                        // Never settle an order when gateway identifiers or amount disagree.
+                        $expected_mid = (string) $this->getSetting('merchant_id');
+                        $provider_order = (string) ($resParams['ORDERID'] ?? '');
+                        $provider_mid = (string) ($resParams['MID'] ?? '');
+                        $provider_amount = $resParams['TXNAMOUNT'] ?? null;
+                        $same_order = $provider_order !== '' && $provider_order === (string) $reqParams['ORDERID'];
+                        $same_mid = $provider_mid !== '' && hash_equals($expected_mid, $provider_mid);
+                        $same_amount = is_numeric($provider_amount) && abs((float) $provider_amount - (float) $order->get_total()) < 0.001;
+                        if (!$same_order || !$same_mid || !$same_amount || $order->get_currency() !== 'INR') {
+                            $this->setStatusMessage($order, __('Unable to verify payment details.', 'woocommerce'), 'pending');
+                        } else if ($resParams['STATUS'] == 'TXN_SUCCESS') {
 
-                            if ($order->status !=='completed') {
+                            if (!$order->is_paid()) {
 
                                 $this->msg['message']= __(PaytmConstants::SUCCESS_ORDER_MESSAGE);
                                 $this->msg['class']= 'success';
 
-                                if ($order->status !== 'processing') {
+                                if (!$order->is_paid()) {
                                         $order->payment_complete($resParams['TXNID']);
-                                        $order->reduce_order_stock();
+                                        // payment_complete() handles stock reduction in WooCommerce.
 
                                         $message = "<br/>".sprintf(__(PaytmConstants::TRANSACTION_ID), $resParams['TXNID'])."<br/>".sprintf(__(PaytmConstants::PAYTM_ORDER_ID), $resParams['ORDERID']);
                                         $message .= '<br/><span class="msg-by-paytm">By: Paytm '.$through.'</span>';
