@@ -88,4 +88,7 @@ foreach (['wp-config.php', 'wp-config-aaraa.php'] as $name) {
     $assert(str_contains($config, "aaraa_tenant_from_host("), "{$name}: strict tenant routing required");
     $assert(!str_contains($config, "sys_get_temp_dir()"), "{$name}: must not cache DB secrets in temp PHP");
 }
+$assert(str_contains($cc_gateway, 'public function is_available()'), 'CCAvenue must hide unverified gateway');
+$assert(str_contains($cc_gateway, 'return false;'), 'CCAvenue must reject checkout availability');
+$assert(str_contains($paytm_plugin, 'A provider outage is not proof that the payment failed.'), 'Paytm provider outage must not mark an order failed');
 echo "Security source contracts passed.\n";
