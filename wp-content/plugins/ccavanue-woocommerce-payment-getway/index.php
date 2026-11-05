@@ -29,10 +29,6 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 		public $card_type;
 		public $card_name;
 		public $data_accept;
-		public $card_number;
-		public $expiry_month;
-		public $expiry_year;
-		public $cvv_number;
 		public $issuing_bank;
 		/*end of variable*/
 		
@@ -80,10 +76,6 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 			$this -> card_type		= isset($_POST['card_type']) ? sanitize_text_field($_POST['card_type']) : "";
 			$this -> card_name 		= isset($_POST['card_name']) ? sanitize_text_field($_POST['card_name']) : "";
 			$this -> data_accept 	= isset($_POST['data_accept']) ? sanitize_text_field($_POST['data_accept']) : "";
-			$this -> card_number 	= isset($_POST['card_number']) ? sanitize_text_field($_POST['card_number']) : "";
-			$this -> expiry_month 	= isset($_POST['expiry_month']) ? sanitize_text_field($_POST['expiry_month']) : "";
-			$this -> expiry_year 	= isset($_POST['expiry_year']) ? sanitize_text_field($_POST['expiry_year']) : "";
-			$this -> cvv_number 	= isset($_POST['cvv_number']) ? sanitize_text_field($_POST['cvv_number']) : "";
 			$this -> issuing_bank 	= isset($_POST['issuing_bank']) ? sanitize_text_field($_POST['issuing_bank']) : "";
 			
             add_action( 'woocommerce_api_wc_nilesh_ccave', array( $this, 'check_ccavenue_response' ) );
@@ -369,8 +361,6 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 				'card_type'		 	=> ( $post_data['card_type'] ?? '' ),
 				'card_name' 		=> ( $post_data['card_name'] ?? '' ),
 				'data_accept' 		=> ( $post_data['data_accept'] ?? '' ),
-				'expiry_month' 		=> ( $post_data['expiry_month'] ?? '' ),
-				'expiry_year' 		=> ( $post_data['expiry_year'] ?? '' ),
 				'issuing_bank' 		=> ( $post_data['issuing_bank'] ?? '' ),
                 );
 			/*-------------------------------*/
