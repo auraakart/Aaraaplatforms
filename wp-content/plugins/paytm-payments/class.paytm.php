@@ -592,7 +592,7 @@ class WC_Paytm extends WC_Payment_Gateway
 
                         $resParams = PaytmHelper::executecUrl(PaytmHelper::getPaytmURL(PaytmConstants::ORDER_STATUS_URL, $this->getSetting('environment')), $reqParams);
                         $retry++;
-                    } while(!$resParams['STATUS'] && $retry < PaytmConstants::MAX_RETRY_COUNT);
+                    } while((!is_array($resParams) || empty($resParams['STATUS'])) && $retry < PaytmConstants::MAX_RETRY_COUNT);
                     /* number of retries untill cURL gets success */
 
                     // Never accept unverified callback POST data as a substitute for
@@ -630,7 +630,11 @@ class WC_Paytm extends WC_Payment_Gateway
                                 $this->msg['class']= 'success';
 
                                 if (!$order->is_paid()) {
-                                        $order->payment_complete($resParams['TXNID']);
+                                        if (empty($resParams['TXNID'])) {
+                                            $this->setStatusMessage($order, __('Transaction ID missing from provider response.', 'woocommerce'), 'pending');
+                                        } else {
+                                            $order->payment_complete(sanitize_text_field($resParams['TXNID']));
+                                        }
                                         // payment_complete() handles stock reduction in WooCommerce.
 
                                         $message = "<br/>".sprintf(__(PaytmConstants::TRANSACTION_ID), $resParams['TXNID'])."<br/>".sprintf(__(PaytmConstants::PAYTM_ORDER_ID), $resParams['ORDERID']);
@@ -684,7 +688,7 @@ class WC_Paytm extends WC_Payment_Gateway
 
         $this->msg['class'] = 'error';
         $this->msg['message'] = $msg;
-        if (!empty($order)) {
+        if (is_object($order) && method_exists($order, 'is_paid') && !$order->is_paid()) {
             $order->update_status($status);
             $order->add_order_note($this->msg['message']);
         }
