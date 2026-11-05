@@ -1,0 +1,42 @@
+name: Feature security checks
+on:
+  push:
+    branches:
+      - feature-testbyganesh
+  pull_request:
+    branches:
+      - develop
+      - staging
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-security-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          tools: none
+          coverage: none
+      - name: Lint edited PHP files
+        run: |
+          set -euo pipefail
+          for file in \
+            wp-config.php \
+            wp-config-aaraa.php \
+            paytm/initiateTransaction.php \
+            paytm/response.php \
+            ccavenue/Crypto.php \
+            ccavenue/ccavRequestHandler.php \
+            ccavenue/ccavResponseHandler.php \
+            wp-content/plugins/aaraa-white-label-admin/includes/class-delivery-calendar-api.php \
+            tests/security-contracts.php
+          do
+            php -l "$file"
+          done
+      - name: Check source security contracts
+        run: php tests/security-contracts.php
