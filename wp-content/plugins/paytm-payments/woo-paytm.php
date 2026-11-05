@@ -255,8 +255,11 @@ if (PaytmConstants::SAVE_PAYTM_RESPONSE) {
     function getPaytmOrderData($order_id)
     {
         global $wpdb;
-        $sql = "SELECT * FROM `".$wpdb->prefix ."paytm_order_data` WHERE `order_id` = '".$order_id."' ORDER BY `id` DESC LIMIT 1";
-        return $wpdb->get_row($sql, "ARRAY_A");
+        $table_name = $wpdb->prefix . 'paytm_order_data';
+        return $wpdb->get_row(
+            $wpdb->prepare("SELECT * FROM {$table_name} WHERE order_id = %d ORDER BY id DESC LIMIT 1", absint($order_id)),
+            ARRAY_A
+        );
     }
 
     function get_custom_order($order_id) {
@@ -339,35 +342,59 @@ if (PaytmConstants::SAVE_PAYTM_RESPONSE) {
 
     function savetxnstatus()
     {
-
-        if (!wp_verify_nonce($_POST['paytm_woo_nonce'], 'paytm_woo_nonce')) die('You are not authorised!');
-
-        $settings = get_option("woocommerce_paytm_settings");
-        $json = array("success" => false, "response" => '', 'message' => __(PaytmConstants::RESPONSE_ERROR));
-
-        if (!empty($_POST['paytm_order_id']) && PaytmConstants::SAVE_PAYTM_RESPONSE) {
-            $reqParams = array(
-                "MID"        => $settings['merchant_id'],
-                "ORDERID"    => sanitize_text_field($_POST['paytm_order_id'])
+        // This AJAX action belongs to the WooCommerce administrative screen,
+        // not to public customer checkout. A nonce alone is not authorization.
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error(array('message' => 'Access denied.'), 403);
+        }
+        if (!check_ajax_referer('paytm_woo_nonce', 'paytm_woo_nonce', false)) {
+            wp_send_json_error(array('message' => 'Invalid request token.'), 403);
+        }
+        $order_id = isset($_POST['paytm_order_id']) && is_scalar($_POST['paytm_order_id'])
+            ? sanitize_text_field(wp_unslash($_POST['paytm_order_id'])) : '';
+        $record_id = absint($_POST['order_data_id'] ?? 0);
+        $wc_order_id = $order_id !== '' ? absint(PaytmHelper::getOrderId($order_id)) : 0;
+        $order = $wc_order_id ? wc_get_order($wc_order_id) : false;
+        if (!$order || $order->get_payment_method() !== 'paytm' || !$record_id) {
+            wp_send_json_error(array('message' => 'Order not found.'), 404);
+        }
+        $existing = getPaytmOrderData($wc_order_id);
+        if (!$existing || (int) $existing['id'] !== $record_id ||
+            (string) $existing['paytm_order_id'] !== $order_id) {
+            wp_send_json_error(array('message' => 'Transaction does not belong to this order.'), 403);
+        }
+        $settings = get_option('woocommerce_paytm_settings', array());
+        if (!is_array($settings) || empty($settings['merchant_id']) ||
+            empty($settings['merchant_key']) || !PaytmConstants::SAVE_PAYTM_RESPONSE) {
+            wp_send_json_error(array('message' => 'Payment provider unavailable.'), 503);
+        }
+        $params = array('MID' => $settings['merchant_id'], 'ORDERID' => $order_id);
+        $params['CHECKSUMHASH'] = PaytmChecksum::generateSignature($params, $settings['merchant_key']);
+        $response = array();
+        for ($attempt = 0; $attempt < PaytmConstants::MAX_RETRY_COUNT; $attempt++) {
+            $response = PaytmHelper::executecUrl(
+                PaytmHelper::getTransactionStatusURL($settings['environment']),
+                $params
             );
-
-            $reqParams['CHECKSUMHASH'] = PaytmChecksum::generateSignature($reqParams, $settings['merchant_key']);
-
-            $retry = 1;
-            do {
-                $resParams = PaytmHelper::executecUrl(PaytmHelper::getTransactionStatusURL($settings['environment']), $reqParams);
-                $retry++;
-            } while(!$resParams['STATUS'] && $retry < PaytmConstants::MAX_RETRY_COUNT);
-
-            if (!empty($resParams['STATUS'])) {
-                $response = saveTxnResponse(sanitize_text_field($_POST['paytm_order_id']), sanitize_text_field($_POST['order_data_id']), $resParams); 
-                if ($response) {
-                    $message = __(PaytmConstants::RESPONSE_SUCCESS);
-                    $json = array("success" => true, "response" => $resParams, 'message' => $message);
-                }
+            if (is_array($response) && !empty($response['STATUS'])) {
+                break;
             }
         }
-        echo json_encode($json);die;
+        if (!is_array($response) || empty($response['STATUS']) ||
+            (string) ($response['ORDERID'] ?? '') !== $order_id ||
+            !hash_equals((string) $settings['merchant_id'], (string) ($response['MID'] ?? '')) ||
+            !isset($response['TXNAMOUNT']) || !is_numeric($response['TXNAMOUNT']) ||
+            abs((float) $response['TXNAMOUNT'] - (float) $order->get_total()) > 0.001) {
+            wp_send_json_error(array('message' => 'Unable to verify provider transaction.'), 502);
+        }
+        if (!saveTxnResponse($wc_order_id, $record_id, $response)) {
+            wp_send_json_error(array('message' => 'Transaction could not be saved.'), 500);
+        }
+        // Avoid returning the raw provider response to a browser.
+        wp_send_json_success(array(
+            'message' => 'Transaction status refreshed.',
+            'status' => sanitize_text_field((string) $response['STATUS']),
+        ));
     }
 
     /**
