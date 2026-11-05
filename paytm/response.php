@@ -35,7 +35,7 @@ if ( (string) $order_id !== (string) $params['ORDERID'] ) {
     aaraa_paytm_callback_error( 400, 'Invalid order reference.' );
 }
 $order = wc_get_order( $order_id );
-if ( ! $order || $order->get_currency() !== 'INR' ) {
+if ( ! $order || $order->get_payment_method() !== 'paytm' || $order->get_currency() !== 'INR' ) {
     aaraa_paytm_callback_error( 404, 'Order unavailable.' );
 }
 
