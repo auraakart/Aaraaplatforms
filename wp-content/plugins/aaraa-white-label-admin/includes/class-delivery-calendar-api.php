@@ -89,7 +89,7 @@ class Delivery_Calendar_API {
 			array(
 				'methods'             => \WP_REST_Server::READABLE,
 				'callback'            => array( $this, 'get_calendar' ),
-				'permission_callback' => '__return_true',
+				'permission_callback' => array( $this, 'can_read_calendar' ),
 				'args'                => array(
 					'customer_id'     => array( 'required' => true, 'type' => 'integer' ),
 					'start_date'      => array( 'required' => true, 'type' => 'string' ),
@@ -98,6 +98,26 @@ class Delivery_Calendar_API {
 				),
 			)
 		);
+	}
+
+	/**
+	 * Authorize calendar access for the requested customer.
+	 *
+	 * Administrators and customer managers may inspect other customers.
+	 * Normal customers may only retrieve their own calendar.
+	 *
+	 * @param \\WP_REST_Request $request Request being authorized.
+	 * @return bool|\\WP_Error
+	 */
+	public function can_read_calendar( \\WP_REST_Request $request ) {
+		if ( ! is_user_logged_in() ) {
+			return new \\WP_Error( 'rest_not_logged_in', __( 'Authentication required.', 'aaraa-white-label-admin' ), array( 'status' => 401 ) );
+		}
+		$customer_id = absint( $request->get_param( 'customer_id' ) );
+		if ( $customer_id && ( get_current_user_id() === $customer_id || current_user_can( 'list_users' ) ) ) {
+			return true;
+		}
+		return new \\WP_Error( 'rest_forbidden', __( 'You cannot view another customer\'s delivery calendar.', 'aaraa-white-label-admin' ), array( 'status' => 403 ) );
 	}
 
 	/**
