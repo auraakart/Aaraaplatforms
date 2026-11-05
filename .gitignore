@@ -1,0 +1,24 @@
+# Sensitive WordPress configuration and backups
+/wp-config.php
+/wp-config-aaraa.php
+/wp-config-old*.php
+/wp-config-org.php
+/.env
+/.env.*
+!/.env.example
+
+# Runtime diagnostics and generated data
+/phpinfo.php
+*.log
+/wp-content/debug.log
+/wp-content/uploads/
+/wp-content/litespeed/
+/wp-content/webtoffee_export/
+/wp-content/webtoffee_import/
+/wp-content/webtoffee_iew_log/
+/ccavenue/post_log.txt
+
+# Operating system and editor files
+.DS_Store
+.idea/
+.vscode/

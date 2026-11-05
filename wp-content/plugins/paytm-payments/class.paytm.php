@@ -577,7 +577,8 @@ class WC_Paytm extends WC_Payment_Gateway
                 } else {
                     $through = "callback_".time();
                 }
-                if (!empty($order)) {
+                if (!empty($order) && method_exists($order, 'get_payment_method') &&
+                    $order->get_payment_method() === $this->id) {
 
                     $reqParams = array(
                             "MID"=> $this->getSetting('merchant_id'),
@@ -592,11 +593,13 @@ class WC_Paytm extends WC_Payment_Gateway
 
                         $resParams = PaytmHelper::executecUrl(PaytmHelper::getPaytmURL(PaytmConstants::ORDER_STATUS_URL, $this->getSetting('environment')), $reqParams);
                         $retry++;
-                    } while(!$resParams['STATUS'] && $retry < PaytmConstants::MAX_RETRY_COUNT);
+                    } while((!is_array($resParams) || empty($resParams['STATUS'])) && $retry < PaytmConstants::MAX_RETRY_COUNT);
                     /* number of retries untill cURL gets success */
 
-                    if (!isset($resParams['STATUS'])) {
-                        $resParams = $_POST;
+                    // Never accept unverified callback POST data as a substitute for
+                    // a failed gateway status query. The order stays unpaid.
+                    if (!is_array($resParams) || empty($resParams['STATUS'])) {
+                        $resParams = array();
                     }
 
                     /* save paytm response in db */
@@ -607,23 +610,39 @@ class WC_Paytm extends WC_Payment_Gateway
 
                         // if curl failed to fetch response
                     if (!isset($resParams['STATUS'])) {
-                        $this->fireFailure($order, __(PaytmConstants::ERROR_SERVER_COMMUNICATION));
+                        // A provider outage is not proof that the payment failed.
+                        // Keep WooCommerce order state unchanged for reconciliation.
+                        $this->msg['message'] = __(PaytmConstants::ERROR_SERVER_COMMUNICATION);
+                        $this->msg['class'] = 'error';
                     } else {
-                        if ($resParams['STATUS'] == 'TXN_SUCCESS') {
-
-                            if ($order->status !=='completed') {
-
-                                $this->msg['message']= __(PaytmConstants::SUCCESS_ORDER_MESSAGE);
-                                $this->msg['class']= 'success';
-
-                                if ($order->status !== 'processing') {
-                                        $order->payment_complete($resParams['TXNID']);
-                                        $order->reduce_order_stock();
-
-                                        $message = "<br/>".sprintf(__(PaytmConstants::TRANSACTION_ID), $resParams['TXNID'])."<br/>".sprintf(__(PaytmConstants::PAYTM_ORDER_ID), $resParams['ORDERID']);
-                                        $message .= '<br/><span class="msg-by-paytm">By: Paytm '.$through.'</span>';
-                                        $order->add_order_note($this->msg['message'] . $message);
+                        // Check the provider status against the exact WooCommerce order.
+                        // Never settle an order when gateway identifiers or amount disagree.
+                        $expected_mid = (string) $this->getSetting('merchant_id');
+                        $provider_order = (string) ($resParams['ORDERID'] ?? '');
+                        $provider_mid = (string) ($resParams['MID'] ?? '');
+                        $provider_amount = $resParams['TXNAMOUNT'] ?? null;
+                        $same_order = $provider_order !== '' && $provider_order === (string) $reqParams['ORDERID'];
+                        $same_mid = $provider_mid !== '' && hash_equals($expected_mid, $provider_mid);
+                        $same_amount = is_numeric($provider_amount) && abs((float) $provider_amount - (float) $order->get_total()) < 0.001;
+                        if (!$same_order || !$same_mid || !$same_amount || $order->get_currency() !== 'INR') {
+                            $this->setStatusMessage($order, __('Unable to verify payment details.', 'woocommerce'), 'pending');
+                        } else if ($resParams['STATUS'] == 'TXN_SUCCESS') {
+                            if (!$order->is_paid()) {
+                                $txn_id = isset($resParams['TXNID']) && is_scalar($resParams['TXNID'])
+                                    ? sanitize_text_field((string) $resParams['TXNID']) : '';
+                                if ($txn_id === '') {
+                                    $this->setStatusMessage($order, __('Transaction ID missing from provider response.', 'woocommerce'), 'pending');
+                                } else {
+                                    $order->payment_complete($txn_id);
+                                    $this->msg['message'] = __(PaytmConstants::SUCCESS_ORDER_MESSAGE);
+                                    $this->msg['class'] = 'success';
+                                    $message = '<br/>' . sprintf(__(PaytmConstants::TRANSACTION_ID), $txn_id)
+                                        . '<br/>' . sprintf(__(PaytmConstants::PAYTM_ORDER_ID), $resParams['ORDERID']);
+                                    $message .= '<br/><span class="msg-by-paytm">By: Paytm ' . $through . '</span>';
+                                    $order->add_order_note($this->msg['message'] . $message);
+                                    if (isset($woocommerce->cart) && $woocommerce->cart) {
                                         $woocommerce->cart->empty_cart();
+                                    }
                                 }
                             }
                         } else if ($resParams['STATUS'] == 'PENDING') {
@@ -671,7 +690,7 @@ class WC_Paytm extends WC_Payment_Gateway
 
         $this->msg['class'] = 'error';
         $this->msg['message'] = $msg;
-        if (!empty($order)) {
+        if (is_object($order) && method_exists($order, 'is_paid') && !$order->is_paid()) {
             $order->update_status($status);
             $order->add_order_note($this->msg['message']);
         }

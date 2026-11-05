@@ -1,7 +1,7 @@
 <?php
-define("CCA_MERCHANT_ID", "4458325");
-define("CCA_ACCESS_CODE", "AVXK94NG60BP43KXPB");
-define("CCA_WORKING_KEY", "D8D94ADB086B65188825B9CE64F485E5");
+define("CCA_MERCHANT_ID", getenv("CCA_MERCHANT_ID") ?: "");
+define("CCA_ACCESS_CODE", getenv("CCA_ACCESS_CODE") ?: "");
+define("CCA_WORKING_KEY", getenv("CCA_WORKING_KEY") ?: "");
 
 /*
 * @param1 : Plain String

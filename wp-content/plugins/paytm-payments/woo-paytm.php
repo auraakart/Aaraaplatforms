@@ -255,8 +255,11 @@ if (PaytmConstants::SAVE_PAYTM_RESPONSE) {
     function getPaytmOrderData($order_id)
     {
         global $wpdb;
-        $sql = "SELECT * FROM `".$wpdb->prefix ."paytm_order_data` WHERE `order_id` = '".$order_id."' ORDER BY `id` DESC LIMIT 1";
-        return $wpdb->get_row($sql, "ARRAY_A");
+        $table_name = $wpdb->prefix . 'paytm_order_data';
+        return $wpdb->get_row(
+            $wpdb->prepare("SELECT * FROM {$table_name} WHERE order_id = %d ORDER BY id DESC LIMIT 1", absint($order_id)),
+            ARRAY_A
+        );
     }
 
     function get_custom_order($order_id) {
@@ -315,19 +318,27 @@ if (PaytmConstants::SAVE_PAYTM_RESPONSE) {
                     url: "<?php echo esc_url(admin_url("admin-ajax.php"));?>",
                     success: function(data) {
                         $('.paytm-img-loader').hide();
+                        var statusData = data.response || (data.data && data.data.status ? {STATUS: data.data.status} : {});
+                        var userMessage = data.message || (data.data && data.data.message) || 'Unable to refresh transaction.';
                         if (data.success == true) {
                             var html = '';
-                            $.each(data.response, function (index, value) {
+                            $.each(statusData, function (index, value) {
                                 html += "<tr>";
                                 html += "<td>" + index + "</td>";
                                 html += "<td>" + value + "</td>";
                                 html += "</tr>";
                             });
                             jQuery('#paytm_payment_table').html(html);
-                            jQuery('#paytm_payment_area div.message').html('<div class="paytm_response success-box">' + data.message + '</div>');
+                            jQuery('#paytm_payment_area div.message').html('<div class="paytm_response success-box">' + userMessage + '</div>');
                         } else {
-                            jQuery('#paytm_payment_area div.message').html('<div class="paytm_response error-box">' + data.message + '</div>');
+                            jQuery('#paytm_payment_area div.message').html('<div class="paytm_response error-box">' + userMessage + '</div>');
                         }
+                    },
+                    error: function(xhr) {
+                        $('.paytm-img-loader').hide();
+                        var message = xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message
+                            ? xhr.responseJSON.data.message : 'Transaction status could not be refreshed.';
+                        jQuery('#paytm_payment_area div.message').text(message);
                     }
                 });
             });
@@ -339,57 +350,117 @@ if (PaytmConstants::SAVE_PAYTM_RESPONSE) {
 
     function savetxnstatus()
     {
-
-        if (!wp_verify_nonce($_POST['paytm_woo_nonce'], 'paytm_woo_nonce')) die('You are not authorised!');
-
-        $settings = get_option("woocommerce_paytm_settings");
-        $json = array("success" => false, "response" => '', 'message' => __(PaytmConstants::RESPONSE_ERROR));
-
-        if (!empty($_POST['paytm_order_id']) && PaytmConstants::SAVE_PAYTM_RESPONSE) {
-            $reqParams = array(
-                "MID"        => $settings['merchant_id'],
-                "ORDERID"    => sanitize_text_field($_POST['paytm_order_id'])
+        // This AJAX action belongs to the WooCommerce administrative screen,
+        // not to public customer checkout. A nonce alone is not authorization.
+        if (!current_user_can('manage_woocommerce')) {
+            wp_send_json_error(array('message' => 'Access denied.'), 403);
+        }
+        if (!check_ajax_referer('paytm_woo_nonce', 'paytm_woo_nonce', false)) {
+            wp_send_json_error(array('message' => 'Invalid request token.'), 403);
+        }
+        $order_id = isset($_POST['paytm_order_id']) && is_scalar($_POST['paytm_order_id'])
+            ? sanitize_text_field(wp_unslash($_POST['paytm_order_id'])) : '';
+        $record_id = absint($_POST['order_data_id'] ?? 0);
+        $wc_order_id = $order_id !== '' ? absint(PaytmHelper::getOrderId($order_id)) : 0;
+        $order = $wc_order_id ? wc_get_order($wc_order_id) : false;
+        if (!$order || $order->get_payment_method() !== 'paytm' || !$record_id) {
+            wp_send_json_error(array('message' => 'Order not found.'), 404);
+        }
+        $existing = getPaytmOrderData($wc_order_id);
+        if (!$existing || (int) $existing['id'] !== $record_id ||
+            (string) $existing['paytm_order_id'] !== $order_id) {
+            wp_send_json_error(array('message' => 'Transaction does not belong to this order.'), 403);
+        }
+        $settings = get_option('woocommerce_paytm_settings', array());
+        if (!is_array($settings) || empty($settings['merchant_id']) ||
+            empty($settings['merchant_key']) || !PaytmConstants::SAVE_PAYTM_RESPONSE) {
+            wp_send_json_error(array('message' => 'Payment provider unavailable.'), 503);
+        }
+        $params = array('MID' => $settings['merchant_id'], 'ORDERID' => $order_id);
+        $params['CHECKSUMHASH'] = PaytmChecksum::generateSignature($params, $settings['merchant_key']);
+        $response = array();
+        for ($attempt = 0; $attempt < PaytmConstants::MAX_RETRY_COUNT; $attempt++) {
+            $response = PaytmHelper::executecUrl(
+                PaytmHelper::getTransactionStatusURL($settings['environment']),
+                $params
             );
-
-            $reqParams['CHECKSUMHASH'] = PaytmChecksum::generateSignature($reqParams, $settings['merchant_key']);
-
-            $retry = 1;
-            do {
-                $resParams = PaytmHelper::executecUrl(PaytmHelper::getTransactionStatusURL($settings['environment']), $reqParams);
-                $retry++;
-            } while(!$resParams['STATUS'] && $retry < PaytmConstants::MAX_RETRY_COUNT);
-
-            if (!empty($resParams['STATUS'])) {
-                $response = saveTxnResponse(sanitize_text_field($_POST['paytm_order_id']), sanitize_text_field($_POST['order_data_id']), $resParams); 
-                if ($response) {
-                    $message = __(PaytmConstants::RESPONSE_SUCCESS);
-                    $json = array("success" => true, "response" => $resParams, 'message' => $message);
-                }
+            if (is_array($response) && !empty($response['STATUS'])) {
+                break;
             }
         }
-        echo json_encode($json);die;
+        if (!is_array($response) || empty($response['STATUS']) ||
+            (string) ($response['ORDERID'] ?? '') !== $order_id ||
+            !hash_equals((string) $settings['merchant_id'], (string) ($response['MID'] ?? '')) ||
+            !isset($response['TXNAMOUNT']) || !is_numeric($response['TXNAMOUNT']) ||
+            abs((float) $response['TXNAMOUNT'] - (float) $order->get_total()) > 0.001) {
+            wp_send_json_error(array('message' => 'Unable to verify provider transaction.'), 502);
+        }
+        if (!saveTxnResponse($wc_order_id, $record_id, $response)) {
+            wp_send_json_error(array('message' => 'Transaction could not be saved.'), 500);
+        }
+        // Avoid returning the raw provider response to a browser.
+        wp_send_json_success(array(
+            'message' => 'Transaction status refreshed.',
+            'status' => sanitize_text_field((string) $response['STATUS']),
+        ));
     }
 
     /**
      * Save response in db
     */
-    function saveTxnResponse($order_id, $id = false, $data  = array()){
+    function saveTxnResponse($order_id, $id = false, $data = array()) {
         global $wpdb;
-        if(empty($data['STATUS'])) return false;
 
-        $status             = (!empty($data['STATUS']) && $data['STATUS'] =='TXN_SUCCESS') ? 1 : 0;
-        $paytm_order_id     = (!empty($data['ORDERID'])? $data['ORDERID']:'');
-        $transaction_id     = (!empty($data['TXNID'])? $data['TXNID']:'');
-
-        if ($id !== false) {
-            $sql =  "UPDATE `" . $wpdb->prefix . "paytm_order_data` SET `order_id` = '" . $order_id . "', `paytm_order_id` = '" . $paytm_order_id . "', `transaction_id` = '" . $transaction_id . "', `status` = '" . (int)$status . "', `paytm_response` = '" . json_encode($data) . "', `date_modified` = NOW() WHERE `id` = '" . (int)$id . "' AND `paytm_order_id` = '" . $paytm_order_id . "'";
-            $wpdb->query($sql);
-            return $id;
-        } else {
-            $sql =  "INSERT INTO `" . $wpdb->prefix . "paytm_order_data` SET `order_id` = '" . $order_id . "', `paytm_order_id` = '" . $paytm_order_id . "', `transaction_id` = '" . $transaction_id . "', `status` = '" . (int)$status . "', `paytm_response` = '" . json_encode($data) . "', `date_added` = NOW(), `date_modified` = NOW()";
-            $wpdb->query($sql);
-            return $wpdb->insert_id;
+        // The initial callback passes (order_id, response_array); updates use
+        // (order_id, row_id, response_array). Support both without array-to-int casts.
+        if (is_array($id) && empty($data)) {
+            $data = $id;
+            $id = false;
         }
+        if (!is_array($data) || empty($data['STATUS']) || empty($data['ORDERID'])) {
+            return false;
+        }
+
+        $order_id = absint($order_id);
+        $gateway_order_id = sanitize_text_field((string) $data['ORDERID']);
+        if (!$order_id || !$gateway_order_id || PaytmHelper::getOrderId($gateway_order_id) != $order_id) {
+            return false;
+        }
+
+        // Store only operationally necessary fields, never arbitrary callback POST.
+        $safe_response = array();
+        foreach (array('STATUS', 'ORDERID', 'TXNID', 'TXNAMOUNT', 'RESPCODE', 'RESPMSG', 'TXNDATE', 'PAYMENTMODE', 'BANKTXNID') as $key) {
+            if (isset($data[$key]) && is_scalar($data[$key])) {
+                $safe_response[$key] = sanitize_text_field((string) $data[$key]);
+            }
+        }
+        $values = array(
+            'order_id' => $order_id,
+            'paytm_order_id' => $gateway_order_id,
+            'transaction_id' => isset($safe_response['TXNID']) ? $safe_response['TXNID'] : '',
+            'status' => $safe_response['STATUS'] === 'TXN_SUCCESS' ? 1 : 0,
+            'paytm_response' => wp_json_encode($safe_response),
+            'date_modified' => current_time('mysql'),
+        );
+        $table = $wpdb->prefix . 'paytm_order_data';
+        if ($id !== false && absint($id) > 0) {
+            $updated = $wpdb->update(
+                $table,
+                $values,
+                array('id' => absint($id), 'paytm_order_id' => $gateway_order_id),
+                array('%d', '%s', '%s', '%d', '%s', '%s'),
+                array('%d', '%s')
+            );
+            return $updated === false ? false : absint($id);
+        }
+        $values['date_added'] = current_time('mysql');
+        $inserted = $wpdb->insert(
+            $table,
+            $values,
+            array('%d', '%s', '%s', '%d', '%s', '%s', '%s')
+        );
+        return $inserted === false ? false : (int) $wpdb->insert_id;
+
     }
 }
     add_action('plugins_loaded', 'woocommerce_paytm_init', 0);
