@@ -23,11 +23,26 @@ define('WP_MEMORY_LIMIT', '256M');
  */
 
 // ── Main site DB — also holds the vendors routing table ─────────────────
-define( 'MAIN_DB_HOST',     'localhost' );
+define( 'MAIN_DB_HOST', getenv( 'MAIN_DB_HOST' ) ?: '' );
 define( 'MAIN_DB_PORT',     3306 );
-define( 'MAIN_DB_NAME',     'u293817202_akartmaster_db' );
-define( 'MAIN_DB_USER',     'u293817202_akartmrdbadmin' );
-define( 'MAIN_DB_PASSWORD', 'F6g>T45ITJXtryUipEdF' );
+define( 'MAIN_DB_NAME', getenv( 'MAIN_DB_NAME' ) ?: '' );
+define( 'MAIN_DB_USER', getenv( 'MAIN_DB_USER' ) ?: '' );
+define( 'MAIN_DB_PASSWORD', getenv( 'MAIN_DB_PASSWORD' ) ?: '' );
+
+// Fail closed if credentials have not been injected by the deployment environment.
+foreach ( [ 'MAIN_DB_HOST', 'MAIN_DB_NAME', 'MAIN_DB_USER', 'MAIN_DB_PASSWORD' ] as $required_db_constant ) {
+	if ( ! constant( $required_db_constant ) ) {
+		http_response_code( 503 );
+		exit( 'Database configuration unavailable.' );
+	}
+}
+foreach ( [ 'AUTH_KEY', 'SECURE_AUTH_KEY', 'LOGGED_IN_KEY', 'NONCE_KEY', 'AUTH_SALT', 'SECURE_AUTH_SALT', 'LOGGED_IN_SALT', 'NONCE_SALT' ] as $required_wp_secret ) {
+	if ( ! getenv( 'WP_' . $required_wp_secret ) ) {
+		http_response_code( 503 );
+		exit( 'Authentication configuration unavailable.' );
+	}
+}
+unset( $required_db_constant, $required_wp_secret );
 
 // ── Resolve subdomain → vendor database config ───────────────────────────
 // Cache file TTL: 5 minutes. Delete cache file when vendor DB credentials change.
@@ -102,14 +117,14 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'V08^1_]D#Z#e~iGv@pJfIH@c@%C0@M^2M9R.?_u&8*A|r7{l=PI_7tjrTzahKr#g' );
-define( 'SECURE_AUTH_KEY',  '7tc;>k+<;GRRlvS80xqPodTR6Heo`FWtOq)mCaTHR+0P!u;^E0I<IiHFhEJdy3`S' );
-define( 'LOGGED_IN_KEY',    'u;IgU;|qXWI54l@@MF{; P-`9^R`siZa@5$kY(;e4J~XF$TvX2rJUXF#eIk}L y{' );
-define( 'NONCE_KEY',        '5hm9gwi#Ir>F=M2*Bh!oJH*Hlx_YcbS&%4EJtxU3T@^K~*?h5&i B]2n(!2eqzG9' );
-define( 'AUTH_SALT',        'J&JvE$nXP#Jx[%.b=2wGWA0z xG4eRp:msB-~.Q.QmL<7-o_*^&snc}Sf/kL6CpN' );
-define( 'SECURE_AUTH_SALT', '*JXs!^[:/Qo*RC4DR1:{}2~cAD36KlDj;>f2%v.5ftyI@/Iu(@r0HRXfTV5n=r*N' );
-define( 'LOGGED_IN_SALT',   '5bWq`O@z1zok,wS]YX=3_f8mMA5nXWbBzyp.} :$bko!{3e~,}k@fI-e_=w}=_z0' );
-define( 'NONCE_SALT',       '}P4oa:y.yThV*.%d.Ld>~48`.%zUE1Iu8,5WOx7~mnZA~WM{;70(s~2Kt ]l~dbp' );
+define( 'AUTH_KEY', getenv( 'WP_AUTH_KEY' ) ?: '' );
+define( 'SECURE_AUTH_KEY', getenv( 'WP_SECURE_AUTH_KEY' ) ?: '' );>k+<;GRRlvS80xqPodTR6Heo`FWtOq)mCaTHR+0P!u;^E0I<IiHFhEJdy3`S' );
+define( 'LOGGED_IN_KEY', getenv( 'WP_LOGGED_IN_KEY' ) ?: '' );IgU;|qXWI54l@@MF{; P-`9^R`siZa@5$kY(;e4J~XF$TvX2rJUXF#eIk}L y{' );
+define( 'NONCE_KEY', getenv( 'WP_NONCE_KEY' ) ?: '' );
+define( 'AUTH_SALT', getenv( 'WP_AUTH_SALT' ) ?: '' );
+define( 'SECURE_AUTH_SALT', getenv( 'WP_SECURE_AUTH_SALT' ) ?: '' );>f2%v.5ftyI@/Iu(@r0HRXfTV5n=r*N' );
+define( 'LOGGED_IN_SALT', getenv( 'WP_LOGGED_IN_SALT' ) ?: '' );
+define( 'NONCE_SALT', getenv( 'WP_NONCE_SALT' ) ?: '' );70(s~2Kt ]l~dbp' );
 
 /**#@-*/
 
@@ -133,8 +148,8 @@ $table_prefix = 'wp_';
  *
  * @link https://wordpress.org/support/article/debugging-in-wordpress/
  */
-define( 'WP_DEBUG', true );
-define( 'WP_DEBUG_LOG', true );
+define( 'WP_DEBUG', false );
+define( 'WP_DEBUG_LOG', false );
 define( 'WP_DEBUG_DISPLAY', false ); // Keep debug output out of HTML responses
 
 /* Add any custom values between this line and the "stop editing" line. */
