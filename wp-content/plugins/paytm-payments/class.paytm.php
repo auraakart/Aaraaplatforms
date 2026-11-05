@@ -609,7 +609,10 @@ class WC_Paytm extends WC_Payment_Gateway
 
                         // if curl failed to fetch response
                     if (!isset($resParams['STATUS'])) {
-                        $this->fireFailure($order, __(PaytmConstants::ERROR_SERVER_COMMUNICATION));
+                        // A provider outage is not proof that the payment failed.
+                        // Keep WooCommerce order state unchanged for reconciliation.
+                        $this->msg['message'] = __(PaytmConstants::ERROR_SERVER_COMMUNICATION);
+                        $this->msg['class'] = 'error';
                     } else {
                         // Check the provider status against the exact WooCommerce order.
                         // Never settle an order when gateway identifiers or amount disagree.
