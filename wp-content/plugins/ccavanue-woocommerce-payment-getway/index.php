@@ -288,7 +288,6 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
             // of settlement. A current CCAvenue verification API or certified
             // WooCommerce gateway must validate payment before completing orders.
             // No order status transitions are permitted in this legacy endpoint.
-            $order->add_order_note('CCAvenue callback received; provider settlement verification required.');
             status_header(202);
             exit('Payment awaiting independent gateway verification.');
         }
