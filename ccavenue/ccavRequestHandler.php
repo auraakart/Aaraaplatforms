@@ -9,13 +9,11 @@
 <?php 
 
 	//error_reporting(0);
-	
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
+	ini_set('display_errors', '0');
 	
 	$merchant_data='';
 	$working_key= CCA_WORKING_KEY;//Shared by CCAVENUES
+	if ( ! $working_key || ! CCA_ACCESS_CODE ) { http_response_code(503); exit('Payment service not configured.'); }
 	$access_code= CCA_ACCESS_CODE;//Shared by CCAVENUES
 	
 	foreach ($_POST as $key => $value){
@@ -23,17 +21,13 @@ ini_set('display_startup_errors', 1);
 	}
 
 
-echo $merchant_data;
+
 
 
 	$encrypted_data=encrypt($merchant_data,$working_key); // Method for encrypting the data.
-var_dump($encrypted_data);
 
-file_put_contents(
-    'post_log.txt',
-    print_r($_POST, true),
-    FILE_APPEND
-);
+
+
 
 
 ?>
