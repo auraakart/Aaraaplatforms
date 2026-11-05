@@ -26,6 +26,7 @@ jobs:
         run: |
           set -euo pipefail
           for file in \
+            aaraa-tenant-routing.php \
             wp-config.php \
             wp-config-aaraa.php \
             paytm/initiateTransaction.php \
@@ -38,7 +39,8 @@ jobs:
             wp-content/plugins/paytm-payments/woo-paytm.php \
             wp-content/plugins/aaraa-white-label-admin/includes/class-delivery-calendar-api.php \
             tests/security-contracts.php \
-            tests/delivery-calendar-auth.php
+            tests/delivery-calendar-auth.php \
+            tests/tenant-routing.php
           do
             php -l "$file"
           done
@@ -46,3 +48,4 @@ jobs:
         run: |
           php tests/security-contracts.php
           php tests/delivery-calendar-auth.php
+          php tests/tenant-routing.php
