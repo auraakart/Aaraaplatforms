@@ -63,4 +63,15 @@ $assert(!str_contains($paytm_save, '$wpdb->query($sql)'), 'Paytm transaction per
 $assert(str_contains($cc_gateway, 'hash_equals((string) $this->merchant_id, $merchant)'), 'CCAvenue must check merchant');
 $assert(str_contains($cc_gateway, '$order->get_total()'), 'CCAvenue callback must match order total');
 $assert(str_contains($cc_gateway, '$order->get_payment_method()'), 'CCAvenue callback must check order gateway');
+// The legacy CCAvenue endpoint must never finalize a payment from a decrypted callback.
+$cc_callback_start = strpos($cc_gateway, 'function check_ccavenue_response()');
+$cc_callback_end = strpos($cc_gateway, 'function currency_convert(', $cc_callback_start);
+$assert($cc_callback_start !== false && $cc_callback_end !== false, 'CCAvenue callback boundaries missing');
+$cc_callback = substr($cc_gateway, $cc_callback_start, $cc_callback_end - $cc_callback_start);
+$assert(!str_contains($cc_callback, 'payment_complete('), 'Legacy CCAvenue callback must never settle payments');
+$assert(!str_contains($cc_callback, "update_status('failed'"), 'Legacy CCAvenue callback must not mark orders failed without provider verification');
+$assert(str_contains($cc_callback, 'status_header(202)'), 'CCAvenue callback must await independent settlement verification');
+$assert(str_contains($paytm_plugin, "if (!$order->is_paid())"), 'Paytm callback must guard previously paid orders');
+$assert(str_contains($paytm_plugin, "Transaction ID missing from provider response."), 'Paytm success must require transaction reference');
+$assert(str_contains($paytm_plugin, "is_array($resParams)"), 'Paytm status handling must account for API failures');
 echo "Security source contracts passed.\n";
