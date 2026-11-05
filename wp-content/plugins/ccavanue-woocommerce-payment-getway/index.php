@@ -225,6 +225,10 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
          **/
         function process_payment($order_id){
             $order = new WC_Order($order_id);
+            if ($order->get_currency() !== 'INR' || $order->is_paid()) {
+                wc_add_notice(__('CCAvenue requires an unpaid INR order.', 'nilesh'), 'error');
+                return array('result' => 'failure');
+            }
 			// Never persist card data or CVV in WooCommerce order metadata.
             // Direct card entry requires a hosted, PCI-compliant gateway flow.
             if ( ! empty( $_POST['card_number'] ) || ! empty( $_POST['cvv_number'] ) ) {
@@ -244,100 +248,61 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
         /**
          * Check for valid CCAvenue server callback
          **/
-        function check_ccavenue_response(){
-            global $woocommerce;
-
-            $msg['class']   = 'error';
-            $msg['message'] = "Thank you for shopping with us. However, the transaction has been declined.";
-            
-            if(isset($_REQUEST['encResp'])){
-
-                $encResponse = $_REQUEST["encResp"];         
-                $rcvdString  = nilesh_decrypt($encResponse,$this -> working_key);      
-                
-                $decryptValues = array();
-
-                parse_str( $rcvdString, $decryptValues );
-                $order_id_time = $decryptValues['order_id'];
-                $order_id = explode('_', $decryptValues['order_id']);
-                $order_id = (int)$order_id[0];
-
-                if($order_id != ''){
-                    try{
-                        $order = new WC_Order($order_id);
-                        $order_status = $decryptValues['order_status'];
-                        $transauthorised = false;
-                        if($order -> status !=='completed'){
-                            if($order_status=="Success")
-                            {
-                                $transauthorised = true;
-                                $msg['message'] = "Thank you for shopping with us. Your account has been charged and your transaction is successful. We will be shipping your order to you soon.";
-                                $msg['class'] = 'success';
-                                if($order -> status != 'processing'){
-                                    $order -> payment_complete();
-                                    $order -> add_order_note('CCAvenue payment successful<br/>Bank Ref Number: '.$decryptValues['bank_ref_no']);
-                                    $woocommerce -> cart -> empty_cart();
-
-                                }
-
-                            }
-                            else if($order_status==="Aborted")
-                            {
-								$admin_email = get_option('admin_email');
-                                $msg['message'] = 'Oh! Something went wrong. Payment was cancelled. Have any questions? Please email to <a href="mailto:'.$admin_email.'">'.$admin_email.'</a>';
-                                $msg['class'] = 'error';
-
-                            }
-                            else if($order_status==="Failure")
-                            {
-                             $msg['class'] = 'error';
-                             $msg['message'] = "Thank you for shopping with us. However, the transaction has been declined.";
-                         }
-                         else
-                         {
-                           $msg['class'] = 'error';
-                           $msg['message'] = "Thank you for shopping with us. However, the transaction has been declined.";
-						}
-
-                       if($transauthorised==false){
-                        $order -> update_status('failed');
-                        $order -> add_order_note('Failed');
-                        $order -> add_order_note($this->msg['message']);
-                    }
-
-                }
-            }catch(Exception $e){
-
-                $msg['class'] = 'error';
-                $msg['message'] = "Thank you for shopping with us. However, the transaction has been declined.";
-
+        function check_ccavenue_response() {
+            // Match callback fields to the server-owned order before settlement.
+            // The provider's independent status API still needs sandbox validation.
+            if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST' ||
+                empty($_POST['encResp']) || !is_string($_POST['encResp']) ||
+                !ctype_xdigit($_POST['encResp']) || empty($this->working_key)) {
+                status_header(400);
+                exit('Invalid payment response.');
             }
-
+            $plain = nilesh_decrypt(wp_unslash($_POST['encResp']), $this->working_key);
+            if (!is_string($plain) || $plain === '') {
+                status_header(400);
+                exit('Invalid payment response.');
+            }
+            $payload = array();
+            parse_str($plain, $payload);
+            if (!is_array($payload) || empty($payload['order_id'])) {
+                status_header(400);
+                exit('Invalid payment response.');
+            }
+            $parts = explode('_', (string) $payload['order_id'], 2);
+            $order_id = ctype_digit($parts[0]) ? (int) $parts[0] : 0;
+            $order = $order_id ? wc_get_order($order_id) : false;
+            if (!$order || $order->get_payment_method() !== $this->id) {
+                status_header(404);
+                exit('Payment order unavailable.');
+            }
+            $merchant = (string) ($payload['merchant_id'] ?? '');
+            $currency = (string) ($payload['currency'] ?? '');
+            $amount = $payload['amount'] ?? null;
+            if ($merchant === '' || !hash_equals((string) $this->merchant_id, $merchant) ||
+                $currency !== $order->get_currency() ||
+                !is_numeric($amount) || abs((float) $amount - (float) $order->get_total()) >= 0.001) {
+                status_header(409);
+                exit('Payment details do not match the order.');
+            }
+            $status = (string) ($payload['order_status'] ?? '');
+            if ($status === 'Success') {
+                if (!$order->is_paid()) {
+                    $bank_ref = sanitize_text_field((string) ($payload['bank_ref_no'] ?? ''));
+                    $order->payment_complete($bank_ref);
+                    $order->add_order_note('CCAvenue callback matched order identifiers and amount.');
+                }
+            } elseif ($status === 'Failure' || $status === 'Aborted') {
+                if (!$order->is_paid()) {
+                    $order->update_status('failed', 'CCAvenue returned a failed or aborted transaction.');
+                }
+            } else {
+                status_header(202);
+                exit('Payment is awaiting verification.');
+            }
+            wp_safe_redirect($this->get_return_url($order));
+            exit;
         }
 
-    }
-
-    if ( function_exists( 'wc_add_notice' ) )
-    {
-        wc_add_notice( $msg['message'], $msg['class'] );
-
-    }
-    else 
-    {
-        if($msg['class']=='success'){
-            $woocommerce->add_message( $msg['message']);
-        }else{
-            $woocommerce->add_error( $msg['message'] );
-
-        }
-        $woocommerce->set_messages();
-    }
-	//$redirect_url = get_permalink(woocommerce_get_page_id('myaccount'));
-	$redirect_url = $this->get_return_url( $order );
-    wp_redirect( $redirect_url );
-    exit;
-
-}
        /*
         //Removed For WooCommerce 2.0
        function showMessage($content){
@@ -426,10 +391,8 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 				'card_type'		 	=> ( $post_data['card_type'] ?? '' ),
 				'card_name' 		=> ( $post_data['card_name'] ?? '' ),
 				'data_accept' 		=> ( $post_data['data_accept'] ?? '' ),
-				'card_number' 		=> ( $post_data['card_number'] ?? '' ),
 				'expiry_month' 		=> ( $post_data['expiry_month'] ?? '' ),
 				'expiry_year' 		=> ( $post_data['expiry_year'] ?? '' ),
-				'cvv_number' 		=> ( $post_data['cvv_number'] ?? '' ),
 				'issuing_bank' 		=> ( $post_data['issuing_bank'] ?? '' ),
                 );
 			/*-------------------------------*/
