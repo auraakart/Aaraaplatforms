@@ -82,7 +82,7 @@ $paytm_ajax = substr($paytm_store, $paytm_ajax_start, $paytm_ajax_end - $paytm_a
 $assert(str_contains($paytm_ajax, "current_user_can('manage_woocommerce')"), 'Paytm AJAX must verify manager privilege');
 $assert(str_contains($paytm_ajax, "get_payment_method()"), 'Paytm AJAX must verify gateway ownership');
 $assert(str_contains($paytm_ajax, "check_ajax_referer"), 'Paytm AJAX must verify nonce');
-$assert(!str_contains($paytm_ajax, 'response' + String.fromCharCode(39) + ' => $resParams'), 'Paytm AJAX must not return raw gateway data');
+$assert(!str_contains($paytm_ajax, "response' => " . '$resParams'), 'Paytm AJAX must not return raw gateway data');
 foreach (['wp-config.php', 'wp-config-aaraa.php'] as $name) {
     $config = $read($name);
     $assert(str_contains($config, "aaraa_tenant_from_host("), "{$name}: strict tenant routing required");
