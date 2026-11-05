@@ -225,7 +225,20 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
          **/
         function process_payment($order_id){
             $order = new WC_Order($order_id);
-			update_post_meta($order_id,'_post_data',$_POST);
+			// Never persist card data or CVV in WooCommerce order metadata.
+            // Direct card entry requires a hosted, PCI-compliant gateway flow.
+            if ( ! empty( $_POST['card_number'] ) || ! empty( $_POST['cvv_number'] ) ) {
+                wc_add_notice( __( 'Direct card entry is unavailable. Please select a hosted payment option.', 'nilesh' ), 'error' );
+                return array( 'result' => 'failure' );
+            }
+            $allowed_payment_fields = array( 'payment_option', 'card_type', 'card_name', 'data_accept', 'issuing_bank' );
+            $safe_payment_data = array();
+            foreach ( $allowed_payment_fields as $field ) {
+                if ( isset( $_POST[ $field ] ) && is_scalar( $_POST[ $field ] ) ) {
+                    $safe_payment_data[ $field ] = sanitize_text_field( wp_unslash( $_POST[ $field ] ) );
+                }
+            }
+            update_post_meta( $order_id, '_post_data', $safe_payment_data );
 			return array('result' => 'success', 'redirect' => $order->get_checkout_payment_url( true ));
         }
         /**
@@ -409,15 +422,15 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
                 'language'         => 'EN',
                 'currency'         => $the_currency,
 				
-				'payment_option'	=> $post_data['payment_option'],
-				'card_type'		 	=> $post_data['card_type'],
-				'card_name' 		=> $post_data['card_name'],
-				'data_accept' 		=> $post_data['data_accept'],
-				'card_number' 		=> $post_data['card_number'],
-				'expiry_month' 		=> $post_data['expiry_month'],
-				'expiry_year' 		=> $post_data['expiry_year'],
-				'cvv_number' 		=> $post_data['cvv_number'],
-				'issuing_bank' 		=> $post_data['issuing_bank'],
+				'payment_option'	=> ( $post_data['payment_option'] ?? '' ),
+				'card_type'		 	=> ( $post_data['card_type'] ?? '' ),
+				'card_name' 		=> ( $post_data['card_name'] ?? '' ),
+				'data_accept' 		=> ( $post_data['data_accept'] ?? '' ),
+				'card_number' 		=> ( $post_data['card_number'] ?? '' ),
+				'expiry_month' 		=> ( $post_data['expiry_month'] ?? '' ),
+				'expiry_year' 		=> ( $post_data['expiry_year'] ?? '' ),
+				'cvv_number' 		=> ( $post_data['cvv_number'] ?? '' ),
+				'issuing_bank' 		=> ( $post_data['issuing_bank'] ?? '' ),
                 );
 			/*-------------------------------*/
 			if($this -> iframemode=='yes') //Iframe mode
