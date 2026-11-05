@@ -116,3 +116,17 @@ These are **operational tasks, not completed by repository commits**. The reposi
 - Run deployment-specific end-to-end tests for product purchase, wallet debit, subscription renewal, delivery scheduling, refunds, and duplicate payment callbacks. These cannot be fully simulated by the current source-only CI.
 - Assess plugin `-old` files against active plugin registration before deletion. Avoid deleting active or externally referenced code without verification.
 - Review compatibility with WooCommerce HPOS and vendor-specific database configurations.
+
+## Feature branch security engineering completion review
+Current code-only hardening includes:
+1. Strict tenant host validation and no executable caching of tenant DB credentials.
+2. Administrative Paytm transaction refresh authorization, nonce verification, exact stored transaction matching and provider status checks.
+3. Installed/standalone Paytm callback enforcement that the WooCommerce order is assigned to Paytm.
+4. No automatic order failure when Paytm's provider-status endpoint is unavailable.
+5. CCAvenue legacy checkout unavailable to customers pending a provider-verified integration; direct card and CVV field capture removed.
+6. Automatic PHP syntax checks across custom Aaraa plugins and isolated tenant-routing tests.
+
+**Important limitations:** This is a narrowly scoped security remediation, not a blanket assertion that all 47 plugins, merchant credentials, vendor data isolation, wallet accounting, subscriptions, or theme customizations are defect-free. Full functional and security completion requires a running test installation, provider-approved callback verification, and operational changes listed above. No legacy backup PHP files were deleted merely based on their names: dynamic references or deployment scripts may still depend on them.
+
+## Recommended operational configuration
+Set `AARAA_BASE_DOMAIN` to the exact platform base hostname, without a scheme, trailing slash or wildcard. For instance, `aaraakart.com`. The platform apex, `www` and `api` prefixes route to the main database; a single label (for example, `milk.aaraakart.com`) routes to its active vendor record. Other hostnames reject before WordPress bootstraps. Set on every PHP runtime, including CLI tasks that load `wp-config.php`. No hostname defaults are embedded in source.
