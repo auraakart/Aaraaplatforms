@@ -47,8 +47,8 @@ foreach (['wp-config-old-1.php', 'wp-config-org.php', 'phpinfo.php', 'wp-content
 }
 $cc_gateway = $read('wp-content/plugins/ccavanue-woocommerce-payment-getway/index.php');
 $assert(!str_contains($cc_gateway, "update_post_meta(\$order_id,'_post_data',\$_POST)"), 'CCAvenue must not persist raw checkout requests');
-$assert(!str_contains($cc_gateway, "public $card_number;"), 'CCAvenue must not collect card numbers');
-$assert(!str_contains($cc_gateway, "public $cvv_number;"), 'CCAvenue must not collect verification values');
+$assert(!str_contains($cc_gateway, 'public $card_number;'), 'CCAvenue must not collect card numbers');
+$assert(!str_contains($cc_gateway, 'public $cvv_number;'), 'CCAvenue must not collect verification values');
 $assert(str_contains($cc_gateway, "CCAvenue is temporarily unavailable."), 'CCAvenue checkout must be disabled until verified');
 $paytm_plugin = $read('wp-content/plugins/paytm-payments/class.paytm.php');
 $assert(!str_contains($paytm_plugin, '$resParams = $_POST;'), 'Paytm plugin must never trust a callback after provider verification fails');
@@ -82,7 +82,7 @@ $paytm_ajax = substr($paytm_store, $paytm_ajax_start, $paytm_ajax_end - $paytm_a
 $assert(str_contains($paytm_ajax, "current_user_can('manage_woocommerce')"), 'Paytm AJAX must verify manager privilege');
 $assert(str_contains($paytm_ajax, "get_payment_method()"), 'Paytm AJAX must verify gateway ownership');
 $assert(str_contains($paytm_ajax, "check_ajax_referer"), 'Paytm AJAX must verify nonce');
-$assert(!str_contains($paytm_ajax, "response' => $resParams"), 'Paytm AJAX must not return raw gateway data');
+$assert(!str_contains($paytm_ajax, 'response' + String.fromCharCode(39) + ' => $resParams'), 'Paytm AJAX must not return raw gateway data');
 foreach (['wp-config.php', 'wp-config-aaraa.php'] as $name) {
     $config = $read($name);
     $assert(str_contains($config, "aaraa_tenant_from_host("), "{$name}: strict tenant routing required");
