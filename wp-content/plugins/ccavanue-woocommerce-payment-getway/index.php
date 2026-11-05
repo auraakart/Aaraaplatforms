@@ -215,6 +215,14 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
         /**
          * Process the payment and return the result
          **/
+        /**
+         * Hide the unsafe legacy gateway from checkout until an independently
+         * verified provider integration is installed and enabled.
+         */
+        public function is_available() {
+            return false;
+        }
+
         function process_payment($order_id){
             // Deliberately refuse checkout until a provider-verified integration
             // replaces the legacy CCAvenue callback. Never accept payment that
