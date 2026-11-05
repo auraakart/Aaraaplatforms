@@ -118,13 +118,13 @@ define( 'DB_COLLATE', '' );
  * @since 2.6.0
  */
 define( 'AUTH_KEY', getenv( 'WP_AUTH_KEY' ) ?: '' );
-define( 'SECURE_AUTH_KEY', getenv( 'WP_SECURE_AUTH_KEY' ) ?: '' );>k+<;GRRlvS80xqPodTR6Heo`FWtOq)mCaTHR+0P!u;^E0I<IiHFhEJdy3`S' );
-define( 'LOGGED_IN_KEY', getenv( 'WP_LOGGED_IN_KEY' ) ?: '' );IgU;|qXWI54l@@MF{; P-`9^R`siZa@5$kY(;e4J~XF$TvX2rJUXF#eIk}L y{' );
+define( 'SECURE_AUTH_KEY', getenv( 'WP_SECURE_AUTH_KEY' ) ?: '' );
+define( 'LOGGED_IN_KEY', getenv( 'WP_LOGGED_IN_KEY' ) ?: '' );
 define( 'NONCE_KEY', getenv( 'WP_NONCE_KEY' ) ?: '' );
 define( 'AUTH_SALT', getenv( 'WP_AUTH_SALT' ) ?: '' );
-define( 'SECURE_AUTH_SALT', getenv( 'WP_SECURE_AUTH_SALT' ) ?: '' );>f2%v.5ftyI@/Iu(@r0HRXfTV5n=r*N' );
+define( 'SECURE_AUTH_SALT', getenv( 'WP_SECURE_AUTH_SALT' ) ?: '' );
 define( 'LOGGED_IN_SALT', getenv( 'WP_LOGGED_IN_SALT' ) ?: '' );
-define( 'NONCE_SALT', getenv( 'WP_NONCE_SALT' ) ?: '' );70(s~2Kt ]l~dbp' );
+define( 'NONCE_SALT', getenv( 'WP_NONCE_SALT' ) ?: '' );
 
 /**#@-*/
 
