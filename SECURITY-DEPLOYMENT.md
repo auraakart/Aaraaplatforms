@@ -40,3 +40,45 @@ Generate **new**, unique WordPress salts and rotate all database/payment credent
 - Delivery calendar API requires authentication and customer ownership or list_users capability. Confirm the mobile app supplies the correct credentials.
 - Run success, failure, pending, duplicate callback, amount mismatch, signature mismatch, guest checkout, and cross-customer access tests.
 - Never merge to main without explicit external user approval.
+
+
+## Checkout and gateway blockers discovered during follow-up
+The repository contains two WooCommerce gateways:
+- `wp-content/plugins/paytm-payments/` is an existing Paytm gateway with its own callback/order-completion flow.
+- `wp-content/plugins/ccavanue-woocommerce-payment-getway/` is an existing CCAvenue gateway with its own checkout and callback flow.
+
+The standalone `paytm/*.php` and `ccavenue/*.php` scripts are **not** replacements for these WooCommerce gateway integrations. Confirm which integration the mobile app and storefront actually call, and ensure duplicate payment routes cannot mark the same order paid twice.
+
+**Critical remaining blocker:** the existing CCAvenue WooCommerce plugin stores unsanitized complete checkout `$_POST` in order metadata as `_post_data` (including fields named `card_number` and `cvv_number`). It also populates `card_number` and `cvv_number` in its gateway request arguments and handles a decrypted callback without verifying the response merchant, order amount and currency against the server-side order. Do **not** enable direct card-entry mode or deploy that integration until replaced or remediated and validated by the payment provider's supported integration. Review and securely purge already stored prohibited card verification values in accordance with the provider's PCI guidance; do not dump these values into support logs. Existing stored values require a controlled data-remediation task by the database owner.
+
+**Blocking pre-release requirement:** inspect and audit the installed Paytm WooCommerce gateway independently. Its callback implementation has legacy conditional payment completion logic and response persistence. The custom Paytm standalone callbacks have been hardened but this does not automatically harden the installed gateway.
+
+## Sandbox payment test matrix (run before deployment)
+| Scenario | Expected result |
+| --- | --- |
+| Guest or unauthenticated direct Paytm initiation | Rejected, no transaction |
+| Invalid or missing WordPress nonce | Rejected |
+| Customer requests another customer's order | Rejected |
+| Browser-supplied altered amount | Ignored; WooCommerce order total used |
+| Missing merchant environment variables | Clear service-unavailable response, no charge |
+| Provider returns invalid signature | Never mark order paid |
+| Provider returns wrong MID/order/amount | Never mark order paid |
+| Verified success response | Mark WooCommerce order paid once, save transaction ID |
+| Callback repeated | No duplicate order completion |
+| Verified failure | Mark failed only if order was not previously paid |
+| Pending or unavailable provider status | Leave order unpaid/pending |
+| Delivery calendar unauthenticated or cross-customer | 401/403, no order details |
+| CCAvenue standalone callback | No customer payment data echoed; no false paid status |
+| WooCommerce CCAvenue gateway | Block release until card handling and response validation are addressed |
+
+## Credential rotation and history cleanup
+These are **operational tasks, not completed by repository commits**. The repository was public, so treat old credentials as exposed even when deleted from the current branch.
+1. Generate and securely store replacement main/vendor database credentials, WordPress salts, Paytm MID/key and CCAvenue merchant/access/working keys; rotate with each payment provider and hosting operator.
+2. Test updated application credentials in a nonproduction environment before production cutover.
+3. Revoke exposed old credentials and monitor payment/database access logs for abnormal usage.
+4. Coordinate history cleanup with all repository contributors, forks, CI owners and backup administrators. Git history rewrite requires a separate explicit approval, force-push plan, and user coordination. Never rewrite `main` without external approval.
+5. Recheck exposed artifacts in pull requests, GitHub Actions logs, releases and forks after history cleanup.
+6. Store only example secret **names**, not secret values, in the repository.
+
+## CI scope
+`.github/workflows/feature-security-checks.yml` runs syntax lint for touched PHP and a basic static security contract test. This does not exercise live WordPress/WooCommerce databases, webhook signatures end-to-end, gateway sandbox payments, or website functionality. Do not promote until a staging instance passes the full test matrix.
