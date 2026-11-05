@@ -91,7 +91,7 @@ foreach (['wp-config.php', 'wp-config-aaraa.php'] as $name) {
 $assert(str_contains($cc_gateway, 'public function is_available()'), 'CCAvenue must hide unverified gateway');
 $assert(str_contains($cc_gateway, 'return false;'), 'CCAvenue must reject checkout availability');
 $assert(str_contains($paytm_plugin, 'A provider outage is not proof that the payment failed.'), 'Paytm provider outage must not mark an order failed');
-$assert(str_contains($paytm_plugin, "$order->get_payment_method() === $this->id"), 'Installed Paytm callback must verify order gateway');
-$assert(str_contains($init, "$order->get_payment_method() !== 'paytm'"), 'Standalone Paytm initiation must verify order gateway');
-$assert(str_contains($callback, "$order->get_payment_method() !== 'paytm'"), 'Standalone Paytm callback must verify order gateway');
+$assert(str_contains($paytm_plugin, '$order->get_payment_method() === $this->id'), 'Installed Paytm callback must verify order gateway');
+$assert(str_contains($init, "$" . "order->get_payment_method() !== 'paytm'"), 'Standalone Paytm initiation must verify order gateway');
+$assert(str_contains($callback, "$" . "order->get_payment_method() !== 'paytm'"), 'Standalone Paytm callback must verify order gateway');
 echo "Security source contracts passed.\n";
