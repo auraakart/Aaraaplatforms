@@ -102,3 +102,17 @@ These are **operational tasks, not completed by repository commits**. The reposi
 - Legacy CCAvenue callback does not currently complete payment or mark failure. **Operations must not enable this gateway for customer checkout until a tested authoritative verification integration is provided.**
 - Test harness checks these fail-closed code conditions and PHP syntax, not real gateway transactions.
 - Required external access to proceed with sandbox and release: isolated WordPress/WooCommerce staging host, nonproduction database, new nonproduction Paytm and CCAvenue credentials, and authorized payment provider verification documentation. Do not place any credentials in GitHub issues, commits, or chats.
+
+## Code-only security remediation completed in follow-up
+- Tenant routing now requires `AARAA_BASE_DOMAIN` (for example `aaraakart.com`) and rejects unexpected Host values or additional subdomain levels. The helper is separately tested with spoofed and malformed hostnames. **Configure this environment variable before deploying**, or all requests are rejected.
+- Vendor database credentials are no longer serialized into executable PHP temporary cache files. The master routing database is queried per request, which may affect latency until a properly isolated secret-safe cache is introduced.
+- Paytm transaction-status AJAX is restricted to users with `manage_woocommerce`, an administrator nonce, matching WooCommerce Paytm order and stored transaction record, and verified provider identifiers. No raw status response is sent to the browser.
+- A provider outage no longer marks an unpaid Paytm order failed.
+- The old non-settling CCAvenue WooCommerce gateway now returns unavailable at checkout and refuses payment initiation. It must remain disabled until replaced with a verified provider integration.
+- The legacy CCAvenue class no longer captures card numbers, expiration fields or CVV into properties. Existing stored card data is a separate operations problem.
+- The source-security workflow includes `tests/tenant-routing.php` in addition to PHP lint and the existing authorization tests.
+
+## Engineering follow-up after security gate
+- Run deployment-specific end-to-end tests for product purchase, wallet debit, subscription renewal, delivery scheduling, refunds, and duplicate payment callbacks. These cannot be fully simulated by the current source-only CI.
+- Assess plugin `-old` files against active plugin registration before deletion. Avoid deleting active or externally referenced code without verification.
+- Review compatibility with WooCommerce HPOS and vendor-specific database configurations.
