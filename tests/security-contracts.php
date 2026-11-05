@@ -71,7 +71,7 @@ $cc_callback = substr($cc_gateway, $cc_callback_start, $cc_callback_end - $cc_ca
 $assert(!str_contains($cc_callback, 'payment_complete('), 'Legacy CCAvenue callback must never settle payments');
 $assert(!str_contains($cc_callback, "update_status('failed'"), 'Legacy CCAvenue callback must not mark orders failed without provider verification');
 $assert(str_contains($cc_callback, 'status_header(202)'), 'CCAvenue callback must await independent settlement verification');
-$assert(str_contains($paytm_plugin, "if (!$order->is_paid())"), 'Paytm callback must guard previously paid orders');
+$assert(str_contains($paytm_plugin, 'if (!$order->is_paid())'), 'Paytm callback must guard previously paid orders');
 $assert(str_contains($paytm_plugin, "Transaction ID missing from provider response."), 'Paytm success must require transaction reference');
-$assert(str_contains($paytm_plugin, "is_array($resParams)"), 'Paytm status handling must account for API failures');
+$assert(str_contains($paytm_plugin, 'is_array($resParams)'), 'Paytm status handling must account for API failures');
 echo "Security source contracts passed.\n";
