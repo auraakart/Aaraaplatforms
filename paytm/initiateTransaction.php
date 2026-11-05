@@ -36,7 +36,7 @@ $order = $order_id ? wc_get_order( $order_id ) : false;
 if ( ! $order || ( (int) $order->get_customer_id() !== get_current_user_id() && ! current_user_can( 'manage_woocommerce' ) ) ) {
     aaraa_paytm_init_error( 403, 'Order unavailable.' );
 }
-if ( $order->is_paid() || ! $order->needs_payment() || $order->get_currency() !== 'INR' ) {
+if ( $order->get_payment_method() !== 'paytm' || $order->is_paid() || ! $order->needs_payment() || $order->get_currency() !== 'INR' ) {
     aaraa_paytm_init_error( 409, 'Order cannot be paid using this method.' );
 }
 $mid = getenv( 'PAYTM_MID' );
