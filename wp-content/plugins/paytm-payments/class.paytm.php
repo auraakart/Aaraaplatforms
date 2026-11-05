@@ -623,24 +623,22 @@ class WC_Paytm extends WC_Payment_Gateway
                         if (!$same_order || !$same_mid || !$same_amount || $order->get_currency() !== 'INR') {
                             $this->setStatusMessage($order, __('Unable to verify payment details.', 'woocommerce'), 'pending');
                         } else if ($resParams['STATUS'] == 'TXN_SUCCESS') {
-
                             if (!$order->is_paid()) {
-
-                                $this->msg['message']= __(PaytmConstants::SUCCESS_ORDER_MESSAGE);
-                                $this->msg['class']= 'success';
-
-                                if (!$order->is_paid()) {
-                                        if (empty($resParams['TXNID'])) {
-                                            $this->setStatusMessage($order, __('Transaction ID missing from provider response.', 'woocommerce'), 'pending');
-                                        } else {
-                                            $order->payment_complete(sanitize_text_field($resParams['TXNID']));
-                                        }
-                                        // payment_complete() handles stock reduction in WooCommerce.
-
-                                        $message = "<br/>".sprintf(__(PaytmConstants::TRANSACTION_ID), $resParams['TXNID'])."<br/>".sprintf(__(PaytmConstants::PAYTM_ORDER_ID), $resParams['ORDERID']);
-                                        $message .= '<br/><span class="msg-by-paytm">By: Paytm '.$through.'</span>';
-                                        $order->add_order_note($this->msg['message'] . $message);
+                                $txn_id = isset($resParams['TXNID']) && is_scalar($resParams['TXNID'])
+                                    ? sanitize_text_field((string) $resParams['TXNID']) : '';
+                                if ($txn_id === '') {
+                                    $this->setStatusMessage($order, __('Transaction ID missing from provider response.', 'woocommerce'), 'pending');
+                                } else {
+                                    $order->payment_complete($txn_id);
+                                    $this->msg['message'] = __(PaytmConstants::SUCCESS_ORDER_MESSAGE);
+                                    $this->msg['class'] = 'success';
+                                    $message = '<br/>' . sprintf(__(PaytmConstants::TRANSACTION_ID), $txn_id)
+                                        . '<br/>' . sprintf(__(PaytmConstants::PAYTM_ORDER_ID), $resParams['ORDERID']);
+                                    $message .= '<br/><span class="msg-by-paytm">By: Paytm ' . $through . '</span>';
+                                    $order->add_order_note($this->msg['message'] . $message);
+                                    if (isset($woocommerce->cart) && $woocommerce->cart) {
                                         $woocommerce->cart->empty_cart();
+                                    }
                                 }
                             }
                         } else if ($resParams['STATUS'] == 'PENDING') {
