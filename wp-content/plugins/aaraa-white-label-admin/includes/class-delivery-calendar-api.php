@@ -14,19 +14,30 @@
  *
  * For every day in range, and for each of the customer's subscriptions
  * (optionally narrowed to one via subscription_id), reports:
- *   - is_delivery_day : whether the day matches the subscription's delivery
- *                        schedule (Every Day / Alternate / Weekend / Custom),
- *                        computed the same way {@see Subscription_Delivery}
- *                        and {@see Renewal_Schedule_Guard} do.
+ *   - is_delivery_day : whether the day is a delivery day. Today and every
+ *                        past day go by the order list alone — an order
+ *                        present (even an early/manual one the calculated
+ *                        pattern wouldn't itself predict) means yes, no order
+ *                        means no; the schedule calculation is not consulted
+ *                        for those days, since by then any real delivery
+ *                        already has its order. Only days still ahead of
+ *                        today, with no order yet to go by, fall back to
+ *                        projecting the subscription's delivery schedule
+ *                        (Every Day / Alternate / Weekend / Custom), computed
+ *                        the same way {@see Subscription_Delivery} and
+ *                        {@see Renewal_Schedule_Guard} do.
  *   - is_paused        : whether the day is one of the subscription's pause
  *                        dates — past dates are history, future dates are
  *                        scheduled; both come from the same durable list,
  *                        {@see Subscription_Delivery::read_pause_dates()}.
  *   - order            : the parent/renewal/resubscribe/switch order (if any)
  *                        whose `delivery_date` meta falls on that day.
- *   - status           : delivered | processing | paused | upcoming | missed
+ *   - status           : delivered | processing | paused | upcoming
  *                        | not_scheduled | <raw WC status for a
- *                        cancelled/refunded/failed order>.
+ *                        cancelled/refunded/failed order>. ("missed" cannot
+ *                        occur for a past day anymore, since a past day with
+ *                        no order is now reported not_scheduled rather than
+ *                        an unmet expectation.)
  *
  * The response also carries a top-level `one_time_orders` list: any of the
  * customer's orders with a `delivery_date` in range that are NOT tied to a
@@ -222,9 +233,26 @@ class Delivery_Calendar_API {
 
 		$out_days = array();
 		foreach ( $days as $day ) {
-			$is_paused       = isset( $pause_dates[ $day ] );
-			$is_delivery_day = $this->is_delivery_day( $sub_id, $day, $sub );
-			$order           = isset( $orders_by_day[ $day ] ) ? $orders_by_day[ $day ] : null;
+			$is_paused = isset( $pause_dates[ $day ] );
+			$order     = isset( $orders_by_day[ $day ] ) ? $orders_by_day[ $day ] : null;
+
+			// Today and every past day are settled history: by now any real
+			// delivery already has its order, so the order list is ground
+			// truth and decides is_delivery_day on its own — an order present
+			// means yes (even on a day the schedule wouldn't itself predict,
+			// e.g. an early/manual renewal), no order means no, full stop
+			// (the schedule calculation is not consulted, so a day the
+			// pattern "expected" but that never actually got an order is not
+			// reported as a delivery day). Only days still ahead of today,
+			// which have no order yet to go by, fall back to projecting the
+			// schedule.
+			if ( $order ) {
+				$is_delivery_day = true;
+			} elseif ( $day <= $today ) {
+				$is_delivery_day = false;
+			} else {
+				$is_delivery_day = $this->is_delivery_day( $sub_id, $day, $sub );
+			}
 
 			$out_days[] = array(
 				'date'            => $day,

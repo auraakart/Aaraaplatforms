@@ -1,25 +1,37 @@
 <?php
 /**
- * AaraaNotifications: WhatsApp channel (WhatsApp Business / Meta Cloud API).
+ * AaraaNotifications: WhatsApp channel. Supports two service providers,
+ * chosen on the General tab:
+ *
+ *   - Max BizBot  — the Meta Graph Cloud API, direct or through a Max
+ *                   BizBot-style proxy: POST {domain}/{version}/{phone_number_id}/messages
+ *                   with a Bearer access token.
+ *   - Interakt    — https://app.interakt.ai: POST
+ *                   https://api.interakt.ai/v1/public/message/ with a Basic
+ *                   Authorization header carrying the account's API key.
  *
  * A self-contained module that adds a tabbed WhatsApp settings screen under the
  * AaraaNotifications sidebar section:
  *
- *   - General         — Cloud API credentials (Domain, API Version, WABA ID,
- *                       Access Token, Phone Number ID, Admin WhatsApp Number)
- *                       and a global Enable toggle.
- *   - Template Manager — fetches the approved message templates from your WABA
- *                       so you know the exact names / languages to map.
+ *   - General         — Service Provider choice, that provider's own
+ *                       credentials (Meta: Domain, API Version, WABA ID,
+ *                       Access Token, Phone Number ID — Interakt: API Key),
+ *                       Admin WhatsApp Number, and a global Enable toggle.
+ *   - Template Manager — fetches the approved message templates from the
+ *                       configured provider (Meta's message_templates
+ *                       endpoint, or Interakt's organization/templates
+ *                       endpoint) so you know the exact names / languages
+ *                       to map.
  *   - Status Config   — maps each Order / Subscription status to an approved
  *                       template (name + language + ordered body parameters),
  *                       each with its own Enable toggle.
- *   - Logs            — every WhatsApp send attempt with the Graph API response.
+ *   - Logs            — every WhatsApp send attempt with the provider's response.
  *
  * WhatsApp business-initiated messages must use an approved template, so the
  * per-status config stores a template name + language + a comma list of body
- * parameters (tokens, resolved in order). Delivery is through the Meta Graph
- * Cloud API: POST {domain}/{version}/{phone_number_id}/messages with a Bearer
- * access token.
+ * parameters (tokens, resolved in order), the same for both providers — only
+ * {@see WhatsApp_Admin::send_template()}'s delivery (send_via_meta() /
+ * send_via_interakt()) differs per provider.
  *
  * @package Aaraa\Admin
  */
@@ -107,13 +119,15 @@ class WhatsApp_Admin {
 	public static function settings() {
 		$row      = array( 'enabled' => 0, 'template' => '', 'language' => 'en', 'params' => '', 'buttons' => '' );
 		$defaults = array(
-			'enabled'         => 0,
-			'domain'          => 'https://graph.facebook.com',
-			'api_version'     => 'v18.0',
-			'waba_id'         => '',
-			'access_token'    => '',
-			'phone_number_id' => '',
-			'admin_numbers'   => '',
+			'enabled'          => 0,
+			'provider'         => 'meta',
+			'domain'           => 'https://graph.facebook.com',
+			'api_version'      => 'v18.0',
+			'waba_id'          => '',
+			'access_token'     => '',
+			'phone_number_id'  => '',
+			'interakt_api_key' => '',
+			'admin_numbers'    => '',
 			'order'           => array(),
 			'subscription'    => array(),
 			'otp'             => $row,
@@ -131,6 +145,7 @@ class WhatsApp_Admin {
 		}
 
 		$s                 = array_merge( $defaults, $saved );
+		$s['provider']     = in_array( $s['provider'], array( 'meta', 'interakt' ), true ) ? $s['provider'] : 'meta';
 		$s['order']        = ( isset( $saved['order'] ) && is_array( $saved['order'] ) ) ? $saved['order'] : array();
 		$s['subscription'] = ( isset( $saved['subscription'] ) && is_array( $saved['subscription'] ) ) ? $saved['subscription'] : array();
 		$s['otp']          = array_merge( $defaults['otp'], ( isset( $saved['otp'] ) && is_array( $saved['otp'] ) ) ? $saved['otp'] : array() );
@@ -184,7 +199,8 @@ class WhatsApp_Admin {
 	}
 
 	/**
-	 * Send an approved WhatsApp template message via the Meta Cloud API.
+	 * Send an approved WhatsApp template message, via whichever provider is
+	 * configured (Meta Cloud API direct/proxy, or Interakt).
 	 *
 	 * @param string        $to       Recipient number.
 	 * @param string        $template Approved template name.
@@ -192,7 +208,7 @@ class WhatsApp_Admin {
 	 * @param array<string> $params   Ordered body parameter values.
 	 * @param array         $context  Log context: type, ref, status.
 	 * @param array         $buttons  Resolved dynamic button params: [ { index, sub_type, param } ].
-	 * @return bool True when the Graph API accepted the message.
+	 * @return bool True when the provider accepted the message.
 	 */
 	public static function send_template( $to, $template, $language, $params = array(), $context = array(), $buttons = array() ) {
 		$s  = self::settings();
@@ -210,9 +226,35 @@ class WhatsApp_Admin {
 			'body'     => self::rendered_body( $template, $language, $params ),
 		);
 
-		if ( empty( $s['access_token'] ) || empty( $s['phone_number_id'] ) || '' === $to || '' === (string) $template ) {
+		if ( '' === $to || '' === (string) $template ) {
 			$base['result']   = 'failed';
-			$base['response'] = '' === $to ? 'No recipient number' : ( '' === (string) $template ? 'No template name' : 'WhatsApp API not configured (access token / phone number id)' );
+			$base['response'] = '' === $to ? 'No recipient number' : 'No template name';
+			self::log( $base );
+			return false;
+		}
+
+		if ( 'interakt' === $s['provider'] ) {
+			return self::send_via_interakt( $s, $to, $template, $language, $params, $buttons, $base );
+		}
+		return self::send_via_meta( $s, $to, $template, $language, $params, $buttons, $base );
+	}
+
+	/**
+	 * Send via the Meta Cloud API (direct, or a Max BizBot-style proxy of it).
+	 *
+	 * @param array<string,mixed> $s        Settings.
+	 * @param string               $to       Normalised recipient number.
+	 * @param string               $template Template name.
+	 * @param string               $language Language code.
+	 * @param array<string>        $params   Ordered body parameter values.
+	 * @param array                $buttons  Resolved dynamic button params.
+	 * @param array<string,mixed>  $base     Log entry built so far.
+	 * @return bool
+	 */
+	private static function send_via_meta( $s, $to, $template, $language, $params, $buttons, $base ) {
+		if ( empty( $s['access_token'] ) || empty( $s['phone_number_id'] ) ) {
+			$base['result']   = 'failed';
+			$base['response'] = 'WhatsApp API not configured (access token / phone number id)';
 			self::log( $base );
 			return false;
 		}
@@ -291,6 +333,121 @@ class WhatsApp_Admin {
 	}
 
 	/**
+	 * Send via Interakt (https://app.interakt.ai) — POST
+	 * https://api.interakt.ai/v1/public/message/ with the account's API key.
+	 * Unlike the Meta Cloud API, Interakt takes the recipient as a split
+	 * countryCode + phoneNumber pair, and only exposes `buttonValues` for
+	 * dynamic-URL buttons (sub_type 'url') — other button sub-types are not
+	 * sent, same as this plugin's Meta path only ever builds 'url' buttons.
+	 *
+	 * @param array<string,mixed> $s        Settings.
+	 * @param string               $to       Normalised recipient number.
+	 * @param string               $template Template name.
+	 * @param string               $language Language code.
+	 * @param array<string>        $params   Ordered body parameter values.
+	 * @param array                $buttons  Resolved dynamic button params.
+	 * @param array<string,mixed>  $base     Log entry built so far.
+	 * @return bool
+	 */
+	private static function send_via_interakt( $s, $to, $template, $language, $params, $buttons, $base ) {
+		if ( empty( $s['interakt_api_key'] ) ) {
+			$base['result']   = 'failed';
+			$base['response'] = 'Interakt API Key is not configured';
+			self::log( $base );
+			return false;
+		}
+
+		list( $country_code, $phone_number ) = self::split_country_number( $to );
+		if ( '' === $phone_number ) {
+			$base['result']   = 'failed';
+			$base['response'] = 'Could not split the recipient number into a country code + local number';
+			self::log( $base );
+			return false;
+		}
+
+		$body_values = array_values( array_filter( array_map( 'strval', $params ), static function ( $v ) { return '' !== $v; } ) );
+
+		$template_payload = array(
+			'name'         => $template,
+			'languageCode' => $language ? $language : 'en',
+		);
+		if ( ! empty( $body_values ) ) {
+			$template_payload['bodyValues'] = $body_values;
+		}
+
+		if ( ! empty( $buttons ) && is_array( $buttons ) ) {
+			$button_values = array();
+			foreach ( $buttons as $b ) {
+				$param = isset( $b['param'] ) ? (string) $b['param'] : '';
+				if ( '' === $param || 'url' !== ( isset( $b['sub_type'] ) ? (string) $b['sub_type'] : 'url' ) ) {
+					continue;
+				}
+				$index                   = (string) (int) ( isset( $b['index'] ) ? $b['index'] : 0 );
+				$button_values[ $index ] = array( $param );
+			}
+			if ( ! empty( $button_values ) ) {
+				$template_payload['buttonValues'] = $button_values;
+			}
+		}
+
+		$payload = array(
+			'countryCode' => $country_code,
+			'phoneNumber' => $phone_number,
+			'type'        => 'Template',
+			'template'    => $template_payload,
+		);
+
+		$response = wp_remote_post(
+			'https://api.interakt.ai/v1/public/message/',
+			array(
+				'timeout' => 20,
+				'headers' => array(
+					// Interakt's docs show the raw API key directly after "Basic "
+					// (no base64 step) — see https://interakt.shop/resource-center/how-to-send-whatsapp-templates-using-apis-webhooks
+					'Authorization' => 'Basic ' . trim( $s['interakt_api_key'] ),
+					'Content-Type'  => 'application/json',
+				),
+				'body'    => wp_json_encode( $payload ),
+			)
+		);
+
+		if ( is_wp_error( $response ) ) {
+			$base['result']   = 'failed';
+			$base['response'] = $response->get_error_message();
+			self::log( $base );
+			return false;
+		}
+
+		$code = (int) wp_remote_retrieve_response_code( $response );
+		$body = trim( (string) wp_remote_retrieve_body( $response ) );
+		$ok   = $code >= 200 && $code < 300;
+
+		$base['result']    = $ok ? 'sent' : 'failed';
+		$base['http_code'] = $code;
+		$base['response']  = $ok ? self::summarise_interakt_ok( $body ) : self::summarise_interakt_error( $body );
+		self::log( $base );
+
+		return $ok;
+	}
+
+	/**
+	 * Split a normalised (country-code-prefixed, digits-only) number into the
+	 * countryCode / phoneNumber pair Interakt's API expects. Mirrors
+	 * normalise_number()'s own assumption of a 10-digit local number, which is
+	 * the only shape this plugin ever produces.
+	 *
+	 * @param string $normalised Digits-only number, country code + 10 digits.
+	 * @return array{0:string,1:string} [countryCode (with +), phoneNumber].
+	 */
+	private static function split_country_number( $normalised ) {
+		$digits = preg_replace( '/\D+/', '', (string) $normalised );
+		if ( strlen( $digits ) <= 10 ) {
+			return array( '+91', $digits ); // No country code present — assume India, as normalise_number() does.
+		}
+		return array( '+' . substr( $digits, 0, -10 ), substr( $digits, -10 ) );
+	}
+
+	/**
 	 * Pull the message id out of a successful Graph API response.
 	 *
 	 * @param string $body Raw JSON body.
@@ -318,6 +475,41 @@ class WhatsApp_Admin {
 				$msg .= ' — ' . $data['error']['error_data']['details'];
 			}
 			return $msg;
+		}
+		return $body;
+	}
+
+	/**
+	 * Pull the message id out of a successful Interakt response, e.g.
+	 * {"result":true,"message":"Message created successfully","id":"…"}.
+	 *
+	 * @param string $body Raw JSON body.
+	 * @return string
+	 */
+	private static function summarise_interakt_ok( $body ) {
+		$data = json_decode( $body, true );
+		if ( is_array( $data ) && ! empty( $data['id'] ) ) {
+			return 'id: ' . $data['id'];
+		}
+		return $body;
+	}
+
+	/**
+	 * Pull a human-readable error out of an Interakt error response. Interakt's
+	 * docs only formally document the 429 rate-limit case, so this falls back
+	 * to whatever message-shaped field is present, then the raw body.
+	 *
+	 * @param string $body Raw JSON body.
+	 * @return string
+	 */
+	private static function summarise_interakt_error( $body ) {
+		$data = json_decode( $body, true );
+		if ( is_array( $data ) ) {
+			foreach ( array( 'message', 'error', 'detail' ) as $key ) {
+				if ( ! empty( $data[ $key ] ) && is_string( $data[ $key ] ) ) {
+					return $data[ $key ];
+				}
+			}
 		}
 		return $body;
 	}
@@ -783,12 +975,19 @@ class WhatsApp_Admin {
 	}
 
 	/**
-	 * Fetch the approved message templates for the configured WABA.
+	 * Fetch the approved message templates for the configured provider.
+	 * Unchanged for Meta; Interakt is handled entirely by
+	 * {@see fetch_templates_interakt()} and never reaches the Meta call below.
 	 *
 	 * @return array{ok:bool,items:array,error:string}
 	 */
 	public static function fetch_templates() {
 		$s = self::settings();
+
+		if ( 'interakt' === $s['provider'] ) {
+			return self::fetch_templates_interakt( $s );
+		}
+
 		if ( empty( $s['access_token'] ) || empty( $s['waba_id'] ) ) {
 			return array( 'ok' => false, 'items' => array(), 'error' => 'Enter the WABA ID and Access Token on the General tab first.' );
 		}
@@ -819,6 +1018,114 @@ class WhatsApp_Admin {
 		}
 		$items = ( is_array( $body ) && ! empty( $body['data'] ) ) ? $body['data'] : array();
 		return array( 'ok' => true, 'items' => $items, 'error' => '', 'hint' => '' );
+	}
+
+	/**
+	 * Fetch Interakt's own template list — GET
+	 * https://api.interakt.ai/v1/public/track/organization/templates — and
+	 * normalise each row into the same shape the Meta Graph API returns
+	 * ({name, language, category, status, components: [{type:'BODY',text},
+	 * {type:'BUTTONS',buttons}]}), so {@see template_defs()} and
+	 * {@see templates_table_html()} — both written for the Meta shape —
+	 * work unchanged for Interakt too.
+	 *
+	 * @param array<string,mixed> $s Settings.
+	 * @return array{ok:bool,items:array,error:string,hint:string}
+	 */
+	private static function fetch_templates_interakt( $s ) {
+		if ( empty( $s['interakt_api_key'] ) ) {
+			return array( 'ok' => false, 'items' => array(), 'error' => __( 'Enter the Interakt API Key on the General tab first.', 'aaraa-white-label-admin' ), 'hint' => '' );
+		}
+
+		$timeout = (int) apply_filters( 'aaraa_whatsapp_api_timeout', 25 );
+		$items   = array();
+		$offset  = 0;
+		$guard   = 0; // Hard cap on pages, so a misbehaving has_next can never loop forever.
+
+		do {
+			$url = add_query_arg(
+				array(
+					'offset'            => $offset,
+					'autosubmitted_for' => 'all',
+					'language'          => 'all',
+				),
+				'https://api.interakt.ai/v1/public/track/organization/templates'
+			);
+
+			$response = wp_remote_get(
+				$url,
+				array(
+					'timeout' => $timeout,
+					'headers' => array(
+						'Authorization' => 'Basic ' . trim( $s['interakt_api_key'] ),
+						'Content-Type'  => 'application/json',
+					),
+				)
+			);
+			if ( is_wp_error( $response ) ) {
+				return array( 'ok' => false, 'items' => array(), 'error' => $response->get_error_message(), 'hint' => self::connectivity_hint_interakt( $response->get_error_message() ) );
+			}
+
+			$body = json_decode( (string) wp_remote_retrieve_body( $response ), true );
+			if ( ! is_array( $body ) || empty( $body['results']['templates'] ) ) {
+				break;
+			}
+
+			foreach ( $body['results']['templates'] as $tpl ) {
+				$items[] = self::normalise_interakt_template( $tpl );
+			}
+
+			$has_next = ! empty( $body['has_next'] );
+			$offset  += count( $body['results']['templates'] );
+			++$guard;
+		} while ( $has_next && $guard < 20 );
+
+		return array( 'ok' => true, 'items' => $items, 'error' => '', 'hint' => '' );
+	}
+
+	/**
+	 * Reshape one Interakt template row into the Meta Graph API's own shape.
+	 *
+	 * @param array<string,mixed> $tpl One row from Interakt's templates list.
+	 * @return array<string,mixed>
+	 */
+	private static function normalise_interakt_template( $tpl ) {
+		$components = array();
+
+		if ( ! empty( $tpl['body'] ) ) {
+			$components[] = array( 'type' => 'BODY', 'text' => (string) $tpl['body'] );
+		}
+
+		$buttons = isset( $tpl['buttons'] ) ? $tpl['buttons'] : null;
+		if ( is_string( $buttons ) ) {
+			$buttons = json_decode( $buttons, true );
+		}
+		if ( is_array( $buttons ) && ! empty( $buttons ) && array_keys( $buttons ) === range( 0, count( $buttons ) - 1 ) ) {
+			$components[] = array( 'type' => 'BUTTONS', 'buttons' => $buttons );
+		}
+
+		return array(
+			'name'       => isset( $tpl['name'] ) ? (string) $tpl['name'] : '',
+			'language'   => isset( $tpl['language'] ) ? (string) $tpl['language'] : 'en',
+			'category'   => isset( $tpl['category'] ) ? (string) $tpl['category'] : '',
+			'status'     => isset( $tpl['approval_status'] ) ? (string) $tpl['approval_status'] : '',
+			'components' => $components,
+		);
+	}
+
+	/**
+	 * A human-readable hint for common connectivity failures on the Interakt
+	 * call, mirroring {@see connectivity_hint()} for the Meta path.
+	 *
+	 * @param string $error The WP_Error message.
+	 * @return string
+	 */
+	private static function connectivity_hint_interakt( $error ) {
+		$error = (string) $error;
+		if ( false !== stripos( $error, 'timed out' ) || false !== stripos( $error, 'timeout' ) || false !== stripos( $error, 'error 28' ) || false !== stripos( $error, 'could not resolve' ) || false !== stripos( $error, 'failed to connect' ) ) {
+			return __( 'The server could not reach api.interakt.ai in time. This is almost always the web host blocking outbound HTTPS — ask your host to allow outbound connections to api.interakt.ai. You do not need this fetch to send messages — you can type the template name and language directly on the Status Config tab.', 'aaraa-white-label-admin' );
+		}
+		return '';
 	}
 
 	/**
@@ -936,19 +1243,26 @@ class WhatsApp_Admin {
 			);
 			$settings            = $cur;
 		} else {
-			// General tab — keep the existing per-status / OTP / wallet config.
+			// General tab — keep the existing per-status / OTP / pause / wallet config.
+			$provider = sanitize_key( $in['provider'] ?? 'meta' );
+			if ( ! in_array( $provider, array( 'meta', 'interakt' ), true ) ) {
+				$provider = 'meta';
+			}
 			$settings = array(
-				'enabled'         => empty( $in['enabled'] ) ? 0 : 1,
-				'domain'          => untrailingslashit( esc_url_raw( $in['domain'] ?? '' ) ),
-				'api_version'     => sanitize_text_field( $in['api_version'] ?? 'v18.0' ),
-				'waba_id'         => sanitize_text_field( $in['waba_id'] ?? '' ),
-				'access_token'    => trim( sanitize_textarea_field( $in['access_token'] ?? '' ) ),
-				'phone_number_id' => sanitize_text_field( $in['phone_number_id'] ?? '' ),
-				'admin_numbers'   => sanitize_text_field( $in['admin_numbers'] ?? '' ),
-				'order'           => $cur['order'],
-				'subscription'    => $cur['subscription'],
-				'otp'             => $cur['otp'],
-				'wallet'          => $cur['wallet'],
+				'enabled'          => empty( $in['enabled'] ) ? 0 : 1,
+				'provider'         => $provider,
+				'domain'           => untrailingslashit( esc_url_raw( $in['domain'] ?? '' ) ),
+				'api_version'      => sanitize_text_field( $in['api_version'] ?? 'v18.0' ),
+				'waba_id'          => sanitize_text_field( $in['waba_id'] ?? '' ),
+				'access_token'     => trim( sanitize_textarea_field( $in['access_token'] ?? '' ) ),
+				'phone_number_id'  => sanitize_text_field( $in['phone_number_id'] ?? '' ),
+				'interakt_api_key' => trim( sanitize_text_field( $in['interakt_api_key'] ?? '' ) ),
+				'admin_numbers'    => sanitize_text_field( $in['admin_numbers'] ?? '' ),
+				'order'            => $cur['order'],
+				'subscription'     => $cur['subscription'],
+				'otp'              => $cur['otp'],
+				'pause'            => $cur['pause'],
+				'wallet'           => $cur['wallet'],
 			);
 		}
 
@@ -2142,10 +2456,13 @@ class WhatsApp_Admin {
 				<tr>
 					<th scope="row"><?php esc_html_e( 'Service Provider', 'aaraa-white-label-admin' ); ?></th>
 					<td>
-						<label><input type="radio" checked disabled /> <?php esc_html_e( 'Max BizBot', 'aaraa-white-label-admin' ); ?></label>
-						<p class="description"><?php esc_html_e( 'More providers will be available in future updates.', 'aaraa-white-label-admin' ); ?></p>
+						<label><input type="radio" name="provider" class="wa-provider-radio" value="meta" <?php checked( 'meta', $s['provider'] ); ?> /> <?php esc_html_e( 'Max BizBot', 'aaraa-white-label-admin' ); ?></label><br />
+						<label><input type="radio" name="provider" class="wa-provider-radio" value="interakt" <?php checked( 'interakt', $s['provider'] ); ?> /> <?php esc_html_e( 'Interakt', 'aaraa-white-label-admin' ); ?></label>
 					</td>
 				</tr>
+			</table>
+
+			<table class="form-table wa-provider-fields wa-provider-fields--meta" role="presentation">
 				<tr style="display:none;" >
 					<th scope="row"><label for="wa-domain"><?php esc_html_e( 'Domain', 'aaraa-white-label-admin' ); ?></label></th>
 					<td><input name="domain" id="wa-domain" type="text" class="regular-text code" value="<?php echo esc_attr( $s['domain'] ); ?>" placeholder="https://graph.facebook.com" /></td>
@@ -2166,6 +2483,19 @@ class WhatsApp_Admin {
 					<th scope="row"><label for="wa-phone-id"><?php esc_html_e( 'Phone Number ID', 'aaraa-white-label-admin' ); ?></label></th>
 					<td><input name="phone_number_id" id="wa-phone-id" type="text" class="regular-text" value="<?php echo esc_attr( $s['phone_number_id'] ); ?>" /></td>
 				</tr>
+			</table>
+
+			<table class="form-table wa-provider-fields wa-provider-fields--interakt" role="presentation">
+				<tr>
+					<th scope="row"><label for="wa-interakt-key"><?php esc_html_e( 'Interakt API Key', 'aaraa-white-label-admin' ); ?></label></th>
+					<td>
+						<textarea name="interakt_api_key" id="wa-interakt-key" rows="2" class="large-text code" autocomplete="off"><?php echo esc_textarea( $s['interakt_api_key'] ); ?></textarea>
+						<p class="description"><?php esc_html_e( 'From your Interakt dashboard: Settings → Developer Settings → API Key.', 'aaraa-white-label-admin' ); ?></p>
+					</td>
+				</tr>
+			</table>
+
+			<table class="form-table" role="presentation">
 				<tr>
 					<th scope="row"><label for="wa-admin"><?php esc_html_e( 'Admin WhatsApp Number', 'aaraa-white-label-admin' ); ?></label></th>
 					<td>
@@ -2177,6 +2507,17 @@ class WhatsApp_Admin {
 
 			<?php submit_button( __( 'Save WhatsApp Settings', 'aaraa-white-label-admin' ) ); ?>
 		</form>
+		<script>
+		jQuery( function ( $ ) {
+			function syncProviderFields() {
+				var provider = $( '.wa-provider-radio:checked' ).val();
+				$( '.wa-provider-fields' ).hide();
+				$( '.wa-provider-fields--' + provider ).show();
+			}
+			$( '.wa-provider-radio' ).on( 'change', syncProviderFields );
+			syncProviderFields();
+		} );
+		</script>
 		<?php
 	}
 
@@ -2186,13 +2527,26 @@ class WhatsApp_Admin {
 	 * @return void
 	 */
 	private function render_templates_tab() {
-		$s          = self::settings();
-		$configured = ! empty( $s['access_token'] ) && ! empty( $s['waba_id'] );
+		$s = self::settings();
+
+		$configured = ( 'interakt' === $s['provider'] )
+			? ! empty( $s['interakt_api_key'] )
+			: ( ! empty( $s['access_token'] ) && ! empty( $s['waba_id'] ) );
 		?>
 		<p class="description"><?php esc_html_e( 'Approved message templates on your WhatsApp Business Account. Use these exact names and languages on the Template Config tab.', 'aaraa-white-label-admin' ); ?></p>
 
 		<?php if ( ! $configured ) : ?>
-			<div class="notice notice-warning inline"><p><?php esc_html_e( 'Enter the WABA ID and Access Token on the General tab first.', 'aaraa-white-label-admin' ); ?></p></div>
+			<div class="notice notice-warning inline">
+				<p>
+					<?php
+					echo esc_html(
+						( 'interakt' === $s['provider'] )
+							? __( 'Enter the Interakt API Key on the General tab first.', 'aaraa-white-label-admin' )
+							: __( 'Enter the WABA ID and Access Token on the General tab first.', 'aaraa-white-label-admin' )
+					);
+					?>
+				</p>
+			</div>
 			<?php return; ?>
 		<?php endif; ?>
 
@@ -2427,7 +2781,7 @@ class WhatsApp_Admin {
 			</thead>
 			<tbody>
 			<?php if ( empty( $items ) ) : ?>
-				<tr><td colspan="5"><?php esc_html_e( 'No templates found on this WABA.', 'aaraa-white-label-admin' ); ?></td></tr>
+				<tr><td colspan="5"><?php esc_html_e( 'No templates found on this account.', 'aaraa-white-label-admin' ); ?></td></tr>
 			<?php else : ?>
 				<?php foreach ( $items as $tpl ) : ?>
 					<?php
@@ -2648,7 +3002,7 @@ class WhatsApp_Admin {
 		$pages     = max( 1, (int) ceil( $total / self::LOG_PER_PAGE ) );
 		$page_rows = array_slice( $initial, 0, self::LOG_PER_PAGE );
 		?>
-		<p class="description"><?php esc_html_e( 'Every WhatsApp send attempt with the Graph API response.', 'aaraa-white-label-admin' ); ?></p>
+		<p class="description"><?php esc_html_e( 'Every WhatsApp send attempt with the provider response.', 'aaraa-white-label-admin' ); ?></p>
 
 		<div class="aaraa-log-toolbar" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:8px;">
 			<select id="wa-log-type">

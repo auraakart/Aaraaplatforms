@@ -220,6 +220,92 @@ class Customers_List_Table extends \WP_List_Table {
 	}
 
 	/**
+	 * Customer ids that have at least one subscription (any status) whose
+	 * delivery schedule type matches $type. A blank/missing schedule meta
+	 * defaults to "Every Day" the same way {@see Subscription_Delivery}
+	 * itself treats it, so the 'daily' bucket also catches subscriptions
+	 * that have never had the meta explicitly set.
+	 *
+	 * @param string $type One of Subscription_Delivery::schedule_types()'s keys.
+	 * @return int[]
+	 */
+	public static function schedule_customer_ids( $type ) {
+		global $wpdb;
+
+		if ( '' === $type ) {
+			return array();
+		}
+
+		$meta_key = class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ? Subscription_Delivery::META_SCHEDULE : '_wcfm_delivery_schedule';
+		$is_daily = ( 'daily' === $type );
+
+		$orders_table = $wpdb->prefix . 'wc_orders';
+		$has_hpos     = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $wpdb->esc_like( $orders_table ) ) ) === $orders_table; // phpcs:ignore WordPress.DB
+		$hpos_in_use  = false;
+
+		if ( $has_hpos ) {
+			$hpos_in_use = (int) $wpdb->get_var( // phpcs:ignore WordPress.DB
+				$wpdb->prepare( "SELECT COUNT(*) FROM {$orders_table} WHERE type = %s", 'shop_subscription' )
+			) > 0;
+		}
+
+		if ( $hpos_in_use ) {
+			$meta_table = $wpdb->prefix . 'wc_orders_meta';
+			if ( $is_daily ) {
+				$ids = $wpdb->get_col( // phpcs:ignore WordPress.DB
+					$wpdb->prepare(
+						"SELECT DISTINCT o.customer_id FROM {$orders_table} o
+						WHERE o.type = %s AND o.customer_id > 0
+						AND ( o.id NOT IN ( SELECT order_id FROM {$meta_table} WHERE meta_key = %s )
+							  OR o.id IN ( SELECT order_id FROM {$meta_table} WHERE meta_key = %s AND meta_value = '' ) )",
+						'shop_subscription',
+						$meta_key,
+						$meta_key
+					)
+				);
+			} else {
+				$ids = $wpdb->get_col( // phpcs:ignore WordPress.DB
+					$wpdb->prepare(
+						"SELECT DISTINCT o.customer_id FROM {$orders_table} o
+						INNER JOIN {$meta_table} m ON m.order_id = o.id AND m.meta_key = %s AND m.meta_value = %s
+						WHERE o.type = %s AND o.customer_id > 0",
+						$meta_key,
+						$type,
+						'shop_subscription'
+					)
+				);
+			}
+		} else {
+			if ( $is_daily ) {
+				$ids = $wpdb->get_col( // phpcs:ignore WordPress.DB
+					$wpdb->prepare(
+						"SELECT DISTINCT pm2.meta_value FROM {$wpdb->posts} p
+						INNER JOIN {$wpdb->postmeta} pm2 ON pm2.post_id = p.ID AND pm2.meta_key = '_customer_user'
+						WHERE p.post_type = 'shop_subscription'
+						AND ( p.ID NOT IN ( SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s )
+							  OR p.ID IN ( SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s AND meta_value = '' ) )",
+						$meta_key,
+						$meta_key
+					)
+				);
+			} else {
+				$ids = $wpdb->get_col( // phpcs:ignore WordPress.DB
+					$wpdb->prepare(
+						"SELECT DISTINCT pm2.meta_value FROM {$wpdb->posts} p
+						INNER JOIN {$wpdb->postmeta} pm ON pm.post_id = p.ID AND pm.meta_key = %s AND pm.meta_value = %s
+						INNER JOIN {$wpdb->postmeta} pm2 ON pm2.post_id = p.ID AND pm2.meta_key = '_customer_user'
+						WHERE p.post_type = 'shop_subscription'",
+						$meta_key,
+						$type
+					)
+				);
+			}
+		}
+
+		return array_values( array_unique( array_filter( array_map( 'intval', (array) $ids ) ) ) );
+	}
+
+	/**
 	 * Query customers with pagination, search, filters and ordering.
 	 *
 	 * @return void
@@ -301,6 +387,7 @@ class Customers_List_Table extends \WP_List_Table {
 			? (float) wp_unslash( $_REQUEST['aaraa_wallet_max'] )
 			: null;
 		$sub_status = isset( $_REQUEST['aaraa_sub_status'] ) ? sanitize_key( wp_unslash( $_REQUEST['aaraa_sub_status'] ) ) : '';
+		$schedule   = isset( $_REQUEST['aaraa_schedule'] ) ? sanitize_key( wp_unslash( $_REQUEST['aaraa_schedule'] ) ) : '';
 		$search     = isset( $_REQUEST['s'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['s'] ) ) : '';
 		// phpcs:enable
 
@@ -337,8 +424,9 @@ class Customers_List_Table extends \WP_List_Table {
 		}
 
 		/*
-		 * Search and subscription-status both constrain to a set of user ids.
-		 * Resolve each to ids, then intersect so all active filters apply together.
+		 * Search, subscription-status and schedule type all constrain to a set
+		 * of user ids. Resolve each to ids, then intersect so all active
+		 * filters apply together.
 		 */
 		$include = null;
 		if ( '' !== $search ) {
@@ -348,6 +436,10 @@ class Customers_List_Table extends \WP_List_Table {
 			$sub_ids = self::subscription_customer_ids( $sub_status );
 			$include = ( null === $include ) ? $sub_ids : array_values( array_intersect( $include, $sub_ids ) );
 		}
+		if ( '' !== $schedule ) {
+			$sched_ids = self::schedule_customer_ids( $schedule );
+			$include   = ( null === $include ) ? $sched_ids : array_values( array_intersect( $include, $sched_ids ) );
+		}
 
 		if ( null !== $include ) {
 			if ( empty( $include ) ) {
@@ -355,7 +447,7 @@ class Customers_List_Table extends \WP_List_Table {
 			}
 			$args['include'] = $include;
 			// Subscription holders may lack the exact role; query the ids directly.
-			if ( '' !== $sub_status ) {
+			if ( '' !== $sub_status || '' !== $schedule ) {
 				unset( $args['role__in'] );
 			}
 		}
@@ -459,13 +551,15 @@ class Customers_List_Table extends \WP_List_Table {
 		$boy        = $this->filter_int( 'aaraa_boy' );
 		$wallet_max = isset( $_REQUEST['aaraa_wallet_max'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['aaraa_wallet_max'] ) ) : '';
 		$sub_status = isset( $_REQUEST['aaraa_sub_status'] ) ? sanitize_key( wp_unslash( $_REQUEST['aaraa_sub_status'] ) ) : '';
+		$schedule   = isset( $_REQUEST['aaraa_schedule'] ) ? sanitize_key( wp_unslash( $_REQUEST['aaraa_schedule'] ) ) : '';
 		// phpcs:enable
 
-		$slots    = Delivery_Admin::slots_list();
-		$hubs     = Delivery_Admin::hubs_list();
-		$people   = Delivery_Admin::all_delivery_people( 0 );
-		$symbol   = function_exists( 'get_woocommerce_currency_symbol' ) ? html_entity_decode( get_woocommerce_currency_symbol() ) : '';
-		$statuses = function_exists( 'wcs_get_subscription_statuses' ) ? wcs_get_subscription_statuses() : array();
+		$slots          = Delivery_Admin::slots_list();
+		$hubs           = Delivery_Admin::hubs_list();
+		$people         = Delivery_Admin::all_delivery_people( 0 );
+		$symbol         = function_exists( 'get_woocommerce_currency_symbol' ) ? html_entity_decode( get_woocommerce_currency_symbol() ) : '';
+		$statuses       = function_exists( 'wcs_get_subscription_statuses' ) ? wcs_get_subscription_statuses() : array();
+		$schedule_types = class_exists( __NAMESPACE__ . '\\Subscription_Delivery' ) ? Subscription_Delivery::schedule_types() : array();
 		?>
 		<div class="alignleft actions">
 			<label class="screen-reader-text" for="aaraa_slot"><?php esc_html_e( 'Filter by delivery slot', 'aaraa-white-label-admin' ); ?></label>
@@ -525,6 +619,16 @@ class Customers_List_Table extends \WP_List_Table {
 				</select>
 			<?php endif; ?>
 
+			<?php if ( $schedule_types ) : ?>
+				<label class="screen-reader-text" for="aaraa_schedule"><?php esc_html_e( 'Filter by delivery schedule type', 'aaraa-white-label-admin' ); ?></label>
+				<select name="aaraa_schedule" id="aaraa_schedule">
+					<option value=""><?php esc_html_e( 'Any schedule type', 'aaraa-white-label-admin' ); ?></option>
+					<?php foreach ( $schedule_types as $key => $label ) : ?>
+						<option value="<?php echo esc_attr( $key ); ?>" <?php selected( $schedule, $key ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			<?php endif; ?>
+
 			<label class="screen-reader-text" for="aaraa_per_page"><?php esc_html_e( 'Rows per page', 'aaraa-white-label-admin' ); ?></label>
 			<select name="aaraa_per_page" id="aaraa_per_page" onchange="this.form.submit()">
 				<?php foreach ( $this->per_page_choices() as $n ) : ?>
@@ -536,7 +640,7 @@ class Customers_List_Table extends \WP_List_Table {
 
 			<?php submit_button( __( 'Filter', 'aaraa-white-label-admin' ), '', 'aaraa_filter', false ); ?>
 
-			<?php if ( $slot || $hub || $boy || '' !== $wallet_max || '' !== $sub_status ) : ?>
+			<?php if ( $slot || $hub || $boy || '' !== $wallet_max || '' !== $sub_status || '' !== $schedule ) : ?>
 				<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=' . Customers_Admin::PAGE ) ); ?>"><?php esc_html_e( 'Clear', 'aaraa-white-label-admin' ); ?></a>
 			<?php endif; ?>
 

@@ -120,39 +120,42 @@ class Subscription_API {
 	/**
 	 * Pause cutoff check.
 	 *
-	 * A date can be paused only while its renewal has not yet been generated. The
-	 * renewal for date D fires at the subscription's next-payment time on D, so
-	 * the cutoff for D = D at the time-of-day of `next_payment` (site/IST). Once
-	 * that moment has passed, pausing D is refused ("contact support").
+	 * A pause date is a DELIVERY date, and delivery runs one day after its
+	 * renewal (the D+1 rule — see Renewal_Wallet): the renewal that funds
+	 * delivery date D is created on D-1, at the subscription's next-payment
+	 * time. By the time D itself arrives, that renewal has certainly already
+	 * been generated (and most likely already paid from the wallet), so a
+	 * pause request can only ever change a still-future delivery — the cutoff
+	 * is simply the end of the day before the delivery date, in site time
+	 * (IST). Example: delivery 2026-10-30 can be paused up to and including
+	 * 2026-10-29 23:59:59; from 2026-10-30 00:00:00 onward it's refused
+	 * ("contact support").
 	 *
-	 * Future dates always pass (their cutoff is still ahead); only today's date
-	 * can be past cutoff.
+	 * A delivery date already in the past is left alone here (silently
+	 * discarded elsewhere by the pause engine) rather than erroring, to match
+	 * the previous behaviour for stray past dates a client might send.
 	 *
-	 * @param \WC_Subscription|null $subscription Subscription.
-	 * @param string[]              $dates        Requested pause dates (Y-m-d).
+	 * @param \WC_Subscription|null $subscription Unused — kept for call-site compatibility.
+	 * @param string[]              $dates        Requested pause dates (Y-m-d, delivery dates).
 	 * @return \WP_Error|null WP_Error when a date is past its cutoff, else null.
 	 */
 	public static function pause_cutoff_error( $subscription, array $dates ) {
-		if ( ! $subscription || empty( $dates ) ) {
+		if ( empty( $dates ) ) {
 			return null;
 		}
 
-		$np_ts   = (int) $subscription->get_time( 'next_payment', 'gmt' );
-		$np_time = $np_ts ? wp_date( 'H:i:s', $np_ts ) : '23:59:59'; // renewal time-of-day (IST)
-		$today   = wp_date( 'Y-m-d' ); // site/IST today
-		$now     = time();
+		$today = wp_date( 'Y-m-d' ); // site/IST today
 
 		foreach ( $dates as $d ) {
 			if ( ! preg_match( '/^\d{4}-\d{2}-\d{2}$/', $d ) || $d < $today ) {
-				continue; // past dates are discarded by the pause engine anyway
+				continue; // already-past dates are discarded by the pause engine anyway
 			}
-			$cutoff = strtotime( $d . ' ' . $np_time . ' +0530' ); // IST → epoch
-			if ( $cutoff && $now >= $cutoff ) {
+			if ( $d <= $today ) {
 				return new \WP_Error(
 					'pause_cutoff_passed',
 					sprintf(
 						/* translators: %s: the pause date (Y-m-d). */
-						__( "You can't pause for %s — the cutoff time has passed. Please contact the support team.", 'aaraa-white-label-admin' ),
+						__( "You can't pause for %s — the cutoff (11:59 PM the day before) has passed. Please contact the support team.", 'aaraa-white-label-admin' ),
 						$d
 					),
 					array( 'status' => 409 )

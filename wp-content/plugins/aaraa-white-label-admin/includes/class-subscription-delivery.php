@@ -85,6 +85,65 @@ class Subscription_Delivery {
 		// WCS's real status slug for "paused" is 'on-hold', not 'pause', so the
 		// transition hook it actually fires is ..._on-hold_to_active.
 		add_action( 'woocommerce_subscription_status_on-hold_to_active', array( $this, 'on_pause_to_active' ), 20 );
+		// WebToffee subscription CSV import stores `meta:` columns as plain strings.
+		add_action( 'wt_woocommerce_subscription_import_inserted_subscription_object', array( __CLASS__, 'normalize_imported_schedule' ), 10, 1 );
+	}
+
+	/**
+	 * Fix up the delivery schedule meta written by the WebToffee subscription
+	 * importer. Its `meta:_wcfm_delivery_days` column arrives as a string such as
+	 * "1,3,5", but everything that reads it expects an int[] of weekday indices,
+	 * so a custom schedule would otherwise renew every day. Both stores are
+	 * written, the same as the checkout path in milk-delivery-schedule.
+	 *
+	 * @param \WC_Subscription $subscription Imported subscription.
+	 * @return void
+	 */
+	public static function normalize_imported_schedule( $subscription ) {
+		if ( ! is_object( $subscription ) || ! is_callable( array( $subscription, 'get_id' ) ) ) {
+			return;
+		}
+		$sub_id = (int) $subscription->get_id();
+		if ( ! $sub_id ) {
+			return;
+		}
+
+		$schedule = (string) $subscription->get_meta( self::META_SCHEDULE );
+		if ( '' === $schedule ) {
+			$schedule = (string) get_post_meta( $sub_id, self::META_SCHEDULE, true );
+		}
+		$raw_days = $subscription->get_meta( self::META_DAYS );
+		if ( '' === $raw_days || null === $raw_days ) {
+			$raw_days = get_post_meta( $sub_id, self::META_DAYS, true );
+		}
+		if ( '' === $schedule && ( '' === $raw_days || is_array( $raw_days ) ) ) {
+			return;
+		}
+
+		$days = is_array( $raw_days ) ? $raw_days : preg_split( '/[\s,|]+/', (string) $raw_days, -1, PREG_SPLIT_NO_EMPTY );
+		$days = function_exists( 'mds_normalize_days' ) ? mds_normalize_days( $days ) : array_values( array_unique( array_map( 'intval', $days ) ) );
+		if ( 'weekend' === $schedule ) {
+			$days = array( 0, 6 );
+		}
+
+		if ( '' !== $schedule ) {
+			$subscription->update_meta_data( self::META_SCHEDULE, $schedule );
+			update_post_meta( $sub_id, self::META_SCHEDULE, $schedule );
+		}
+		if ( ! empty( $days ) && in_array( $schedule, array( 'custom', 'weekend' ), true ) ) {
+			$subscription->update_meta_data( self::META_DAYS, $days );
+			update_post_meta( $sub_id, self::META_DAYS, $days );
+		} else {
+			$subscription->delete_meta_data( self::META_DAYS );
+			delete_post_meta( $sub_id, self::META_DAYS );
+		}
+
+		$slot = absint( $subscription->get_meta( self::META_SLOT ) );
+		if ( $slot ) {
+			update_post_meta( $sub_id, self::META_SLOT, $slot );
+		}
+
+		$subscription->save();
 	}
 
 	/**
