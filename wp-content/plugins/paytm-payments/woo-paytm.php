@@ -318,19 +318,27 @@ if (PaytmConstants::SAVE_PAYTM_RESPONSE) {
                     url: "<?php echo esc_url(admin_url("admin-ajax.php"));?>",
                     success: function(data) {
                         $('.paytm-img-loader').hide();
+                        var statusData = data.response || (data.data && data.data.status ? {STATUS: data.data.status} : {});
+                        var userMessage = data.message || (data.data && data.data.message) || 'Unable to refresh transaction.';
                         if (data.success == true) {
                             var html = '';
-                            $.each(data.response, function (index, value) {
+                            $.each(statusData, function (index, value) {
                                 html += "<tr>";
                                 html += "<td>" + index + "</td>";
                                 html += "<td>" + value + "</td>";
                                 html += "</tr>";
                             });
                             jQuery('#paytm_payment_table').html(html);
-                            jQuery('#paytm_payment_area div.message').html('<div class="paytm_response success-box">' + data.message + '</div>');
+                            jQuery('#paytm_payment_area div.message').html('<div class="paytm_response success-box">' + userMessage + '</div>');
                         } else {
-                            jQuery('#paytm_payment_area div.message').html('<div class="paytm_response error-box">' + data.message + '</div>');
+                            jQuery('#paytm_payment_area div.message').html('<div class="paytm_response error-box">' + userMessage + '</div>');
                         }
+                    },
+                    error: function(xhr) {
+                        $('.paytm-img-loader').hide();
+                        var message = xhr.responseJSON && xhr.responseJSON.data && xhr.responseJSON.data.message
+                            ? xhr.responseJSON.data.message : 'Transaction status could not be refreshed.';
+                        jQuery('#paytm_payment_area div.message').text(message);
                     }
                 });
             });
