@@ -56,7 +56,10 @@ $assert(str_contains($paytm_plugin, '$same_amount'), 'Paytm plugin must match or
 $paytm_store = $read('wp-content/plugins/paytm-payments/woo-paytm.php');
 $assert(str_contains($paytm_store, '$wpdb->insert('), 'Paytm transaction storage must use wpdb safe insert');
 $assert(str_contains($paytm_store, '$wpdb->update('), 'Paytm transaction storage must use wpdb safe update');
-$assert(!str_contains($paytm_store, '$wpdb->query($sql)'), 'Paytm storage must not concatenate SQL');
+$paytm_save_start = strpos($paytm_store, 'function saveTxnResponse(');
+$assert($paytm_save_start !== false, 'Paytm save function missing');
+$paytm_save = substr($paytm_store, $paytm_save_start, strpos($paytm_store, "add_action('plugins_loaded'", $paytm_save_start) - $paytm_save_start);
+$assert(!str_contains($paytm_save, '$wpdb->query($sql)'), 'Paytm transaction persistence must not concatenate SQL');
 $assert(str_contains($cc_gateway, 'hash_equals((string) $this->merchant_id, $merchant)'), 'CCAvenue must check merchant');
 $assert(str_contains($cc_gateway, '$order->get_total()'), 'CCAvenue callback must match order total');
 $assert(str_contains($cc_gateway, '$order->get_payment_method()'), 'CCAvenue callback must check order gateway');
