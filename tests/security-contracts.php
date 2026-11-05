@@ -45,4 +45,8 @@ $assert(str_contains($crypto, 'getenv("CCA_WORKING_KEY")'), 'CCAvenue secrets mu
 foreach (['wp-config-old-1.php', 'wp-config-org.php', 'phpinfo.php', 'wp-content/debug.log'] as $removed) {
     $assert(!file_exists($root . '/' . $removed), "{$removed} must not be tracked in the branch");
 }
+$cc_gateway = $read('wp-content/plugins/ccavanue-woocommerce-payment-getway/index.php');
+$assert(!str_contains($cc_gateway, "update_post_meta(\$order_id,'_post_data',\$_POST)"), 'CCAvenue must not persist raw checkout requests');
+$assert(str_contains($cc_gateway, "'card_number'"), 'CCAvenue must explicitly screen card entry');
+$assert(str_contains($cc_gateway, "'cvv_number'"), 'CCAvenue must explicitly screen CVV entry');
 echo "Security source contracts passed.\n";
