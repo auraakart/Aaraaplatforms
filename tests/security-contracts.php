@@ -49,4 +49,15 @@ $cc_gateway = $read('wp-content/plugins/ccavanue-woocommerce-payment-getway/inde
 $assert(!str_contains($cc_gateway, "update_post_meta(\$order_id,'_post_data',\$_POST)"), 'CCAvenue must not persist raw checkout requests');
 $assert(str_contains($cc_gateway, "'card_number'"), 'CCAvenue must explicitly screen card entry');
 $assert(str_contains($cc_gateway, "'cvv_number'"), 'CCAvenue must explicitly screen CVV entry');
+$paytm_plugin = $read('wp-content/plugins/paytm-payments/class.paytm.php');
+$assert(!str_contains($paytm_plugin, '$resParams = $_POST;'), 'Paytm plugin must never trust a callback after provider verification fails');
+$assert(str_contains($paytm_plugin, 'hash_equals($expected_mid, $provider_mid)'), 'Paytm plugin must validate merchant');
+$assert(str_contains($paytm_plugin, '$same_amount'), 'Paytm plugin must match order amount');
+$paytm_store = $read('wp-content/plugins/paytm-payments/woo-paytm.php');
+$assert(str_contains($paytm_store, '$wpdb->insert('), 'Paytm transaction storage must use wpdb safe insert');
+$assert(str_contains($paytm_store, '$wpdb->update('), 'Paytm transaction storage must use wpdb safe update');
+$assert(!str_contains($paytm_store, '$wpdb->query($sql)'), 'Paytm storage must not concatenate SQL');
+$assert(str_contains($cc_gateway, 'hash_equals((string) $this->merchant_id, $merchant)'), 'CCAvenue must check merchant');
+$assert(str_contains($cc_gateway, '$order->get_total()'), 'CCAvenue callback must match order total');
+$assert(str_contains($cc_gateway, '$order->get_payment_method()'), 'CCAvenue callback must check order gateway');
 echo "Security source contracts passed.\n";
