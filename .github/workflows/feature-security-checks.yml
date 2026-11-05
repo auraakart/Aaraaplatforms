@@ -35,9 +35,12 @@ jobs:
             ccavenue/ccavResponseHandler.php \
             wp-content/plugins/ccavanue-woocommerce-payment-getway/index.php \
             wp-content/plugins/aaraa-white-label-admin/includes/class-delivery-calendar-api.php \
-            tests/security-contracts.php
+            tests/security-contracts.php \
+            tests/delivery-calendar-auth.php
           do
             php -l "$file"
           done
       - name: Check source security contracts
-        run: php tests/security-contracts.php
+        run: |
+          php tests/security-contracts.php
+          php tests/delivery-calendar-auth.php
