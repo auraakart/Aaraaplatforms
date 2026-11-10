@@ -386,7 +386,8 @@ class WhatsApp_Admin {
 				$button_values[ $index ] = array( $param );
 			}
 			if ( ! empty( $button_values ) ) {
-				$template_payload['buttonValues'] = $button_values;
+				// basheer - fix whatsapp-otp-fix - 7-11-26
+				$template_payload['buttonValues'] = (object) $button_values;
 			}
 		}
 
@@ -742,6 +743,15 @@ class WhatsApp_Admin {
 		$tokens  = array( '{otp}' => (string) $otp );
 		$params  = self::resolve_params( isset( $cfg['params'] ) ? $cfg['params'] : '', $tokens );
 		$buttons = self::resolve_buttons( isset( $cfg['buttons'] ) ? $cfg['buttons'] : '', $tokens );
+
+		if ( empty( $buttons ) ) {
+			// OTP ("Copy Code") templates always carry one dynamic button whose
+			// value is the code itself. Interakt rejects the send outright
+			// ("'buttonValues' is a required JSON field") if that value is
+			// missing, so fall back to it here rather than depending on the
+			// Copy Code button also being mapped on the Template Config tab.
+			$buttons = array( array( 'index' => 0, 'sub_type' => 'url', 'param' => (string) $otp ) );
+		}
 
 		return self::send_template(
 			$mobile,
